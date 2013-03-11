@@ -57,6 +57,27 @@ class ToolboxMetaTags extends ToolboxTool
     }
 
     /**
+     * Guess base page title
+     *
+     * @param string page The page name; default is <code>null</code> for the current page.
+     * @return string A reasonable page title.
+     */
+    public function getBaseTitle($page=null)
+    {
+        $title = null == $page ? $this->getRequest()->getRequestId() : $page;
+        // special case for static pages
+        $title = 'static' != $title ? $title : $this->getRequest()->query->get('cat');
+
+        // format
+        $title = str_replace('_', ' ', $title);
+        // capitalise words
+        $title = ucwords($title);
+        $title = _zm($title);
+
+        return $title;
+    }
+
+    /**
      * Returns/echo'es the page title.
      *
      * @return string The page title.
@@ -66,7 +87,7 @@ class ToolboxMetaTags extends ToolboxTool
         $this->initMetaTags();
 
         // default to page name
-        $title = $this->getToolbox()->utils->getTitle();
+        $title = $this->getBaseTitle();
         $html = $this->getToolbox()->html;
         // remove popup prefix
         $title = str_replace('Popup ', '', $title);

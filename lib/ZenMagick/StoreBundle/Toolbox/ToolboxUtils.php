@@ -20,7 +20,6 @@
 namespace ZenMagick\StoreBundle\Toolbox;
 
 use ZenMagick\Http\Toolbox\ToolboxTool;
-use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 
 /**
  * Generic utilities.
@@ -29,26 +28,6 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  */
 class ToolboxUtils extends ToolboxTool
 {
-    /**
-     * Simple title generator based on the page name.
-     *
-     * @param string page The page name; default is <code>null</code> for the current page.
-     * @return string A reasonable page title.
-     */
-    public function getTitle($page=null)
-    {
-        $title = null == $page ? $this->getRequest()->getRequestId() : $page;
-        // special case for static pages
-        $title = 'static' != $title ? $title : $this->getRequest()->query->get('cat');
-
-        // format
-        $title = str_replace('_', ' ', $title);
-        // capitalise words
-        $title = ucwords($title);
-        $title = _zm($title);
-
-        return $title;
-    }
 
     /**
      * Format the given amount according to the current currency.
