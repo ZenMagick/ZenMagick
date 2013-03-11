@@ -298,24 +298,6 @@ class ToolboxNet extends ToolboxTool
     }
 
     /**
-     * Get the top level domain from a given url.
-     *
-     * @param string url The url
-     * @return string The top level domain.
-     * @see http://stackoverflow.com/questions/399250/going-where-php-parse-url-doesnt-parsing-only-the-domain
-     */
-    public function getDomain($url)
-    {
-        $pieces = parse_url($url);
-        $domain = isset($pieces['host']) ? $pieces['host'] : '';
-        if (preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)) {
-            return $regs['domain'];
-        }
-
-        return $domain;
-    }
-
-    /**
      * Convert a given relative URL into an absolute one.
      *
      * @param string url The (relative) URL to convert.
