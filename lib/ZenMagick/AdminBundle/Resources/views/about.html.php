@@ -27,7 +27,14 @@
       <p><span class="label"><?php _vzm('Author:') ?></span> Martin Rademacher</p>
   </div>
   <div class="about">
-    <?php echo $macro->phpinfo(1); ?>
+  <?php
+        ob_start();
+        phpinfo(1);
+        $info = ob_get_clean();
+        $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
+        $info = str_replace('width="600"', '', $info);
+   ?>
+    <?php echo $info; ?>
     <p><?php _vzm('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
   </div>
 </div>

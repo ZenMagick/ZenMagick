@@ -31,23 +31,6 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
 class ToolboxMacro extends ToolboxTool
 {
     /**
-     * <code>phpinfo</code> wrapper.
-     *
-     * @param what What to display (see phpinfo manual for more); default is <code>1</code>.
-     * @return string The <code>phpinfo</code> output minus a few formatting things that break validation.
-     */
-    public function phpinfo($what=1)
-    {
-        ob_start();
-        phpinfo($what);
-        $info = ob_get_clean();
-        $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
-        $info = str_replace('width="600"', '', $info);
-
-        return $info;
-    }
-
-    /**
      * Format an address according to the countries address format.
      *
      * <p>The following values are available for display:</p>
