@@ -24,12 +24,12 @@
 
 <div>
   <?php echo $utils->staticPageContent('popup_cvv_visa_master') ?>
-  <img src="<?php echo $this->asUrl("images/icons/cvv2visa.gif") ?>" alt="<?php _vzm("cvv sample 1") ?>" />
+  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/icons/cvv2visa.gif') ?>" alt="<?php _vzm("cvv sample 1") ?>" />
 </div>
 
 <div>
   <?php echo $utils->staticPageContent('popup_cvv_amex') ?>
-  <img src="<?php echo $this->asUrl("images/icons/cvv2amex.gif") ?>" alt="<?php _vzm("cvv sample 2") ?>" />
+  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/icons/cvv2amex.gif') ?>" alt="<?php _vzm("cvv sample 2") ?>" />
 </div>
 
 <div id="close"><a href="#" onclick="javascript:window.close()"><?php _vzm("Close Window [x]") ?></a></div>

@@ -20,7 +20,7 @@
 ?>
 <div id="header">
   <div id="logo">
-    <a href="<?php echo $view['router']->generate('admin_index') ?>"><img src="<?php echo $this->asUrl('resource:images/logo-small.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
+    <a href="<?php echo $view['router']->generate('admin_index') ?>"><img src="<?php echo $view['assets']->getUrl('bundles/admin/images/logo-small.png') ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
   <?php if ($app->getUser()) { ?>
     <div id="header-box">

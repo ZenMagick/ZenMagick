@@ -39,7 +39,7 @@
         }
         // total
         $('#sb_cart').append('<hr/>')
-          .append('<p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" />' + cart.total + '</p>');
+          .append('<p><img id="cart_progress" src="<?php echo $view['assets']->getUrl('bundles/storefront/images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" />' + cart.total + '</p>');
 
         return msg;
     };
@@ -55,6 +55,6 @@
             <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $view->escape($item->getProduct()->getName()); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($view->container->get('shoppingCart')->getTotal()) ?></p>
+        <p><img id="cart_progress" src="<?php echo $view['assets']->getUrl('bundles/storefront/images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($view->container->get('shoppingCart')->getTotal()) ?></p>
     </div>
 <?php } ?>

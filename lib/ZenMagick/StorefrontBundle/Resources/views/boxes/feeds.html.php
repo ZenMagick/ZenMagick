@@ -22,7 +22,7 @@
 
 <h3><?php _vzm("RSS Feeds") ?></h3>
 <div id="sb_feeds" class="box">
-    <a href="<?php echo $net->rssFeed('reviews') ?>"><img src="<?php echo $this->asUrl('resource:images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Product Reviews") ?></a>
-    <a href="<?php echo $net->rssFeed('products', 'new') ?>"><img src="<?php echo $this->asUrl('resource:images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("New Products") ?></a>
-    <a href="<?php echo $net->rssFeed('chapter', '10') ?>"><img src="<?php echo $this->asUrl('resource:images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Chapter 10") ?></a>
+    <a href="<?php echo $net->rssFeed('reviews') ?>"><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Product Reviews") ?></a>
+    <a href="<?php echo $net->rssFeed('products', 'new') ?>"><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("New Products") ?></a>
+    <a href="<?php echo $net->rssFeed('chapter', '10') ?>"><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Chapter 10") ?></a>
 </div>

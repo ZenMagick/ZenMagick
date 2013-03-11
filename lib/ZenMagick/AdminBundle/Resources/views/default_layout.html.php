@@ -24,7 +24,7 @@
   <head>
     <meta charset="<?php echo $view->getCharset() ?>" />
     <title><?php $view['slots']->output('title', _zm('ZenMagick Admin')) ?></title>
-    <link rel="shortcut icon" href="<?php echo $this->asUrl('resource:favicon.ico') ?>">
+    <link rel="shortcut icon" href="<?php echo $view['assets']->getUrl('favicon.ico') ?>">
         <?php
         // @todo move to asset groups to a configuration file
         foreach ($view['assetic']->stylesheets(

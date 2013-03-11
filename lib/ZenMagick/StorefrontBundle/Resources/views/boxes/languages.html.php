@@ -23,7 +23,9 @@
 <h3><?php _vzm("Languages") ?></h3>
 <div id="sb_languages" class="box">
     <?php $ii = 0; foreach ($view->container->get('languageService')->getLanguages() as $lang) { ?>
-        <a href="<?php echo $view['router']->generate('set_language', array('language' => $lang->getCode())) ?>"><img src="<?php echo $this->asUrl("images/lang/" . $lang->getDirectory() . "/" . $lang->getImage()) ?>" alt="<?php echo $view->escape($lang->getName()) ?>" title="<?php echo $view->escape($lang->getName()) ?>" /></a>
+        <a href="<?php echo $view['router']->generate('set_language', array('language' => $lang->getCode())) ?>">
+            <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/lang/' . $lang->getDirectory() . "/" . $lang->getImage()) ?>" alt="<?php echo $view->escape($lang->getName()) ?>" title="<?php echo $view->escape($lang->getName()) ?>" />
+        </a>
         <?php if (0 == $ii%5 && 0 < $ii) { ?><br /><?php } ?>
     <?php ++$ii; } ?>
 </div>

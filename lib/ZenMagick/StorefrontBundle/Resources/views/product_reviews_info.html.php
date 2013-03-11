@@ -35,7 +35,7 @@
       <?php _vzm("Review by: %s", $currentReview->getAuthor()) ?>
       <?php $rtext = sprintf(_zm("%s of 5 stars!"), $currentReview->getRating()) ?>
       <span id="stars">
-        <img src="<?php echo $this->asUrl('images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
+        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
         <?php $rtext ?>
       </span>
     </p>

@@ -31,7 +31,7 @@
     $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
     $href = $view['router']->generate('product_reviews_info', $params);
     $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
-    $rimg = '<img src="'.$this->asUrl('images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
+    $rimg = '<img src="'.$view['assets']->getUrl('bundles/storefront/images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
     <h3><a href="<?php echo $view['router']->generate('reviews') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Reviews") ?></h3>
     <div id="sb_reviews" class="box">

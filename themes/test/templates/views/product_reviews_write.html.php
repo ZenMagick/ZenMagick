@@ -40,7 +40,9 @@
         <div id="stars">
             <?php for ($ii=1; $ii<6; ++$ii) { $checked = ($newReview->getRating() == $ii ? ' checked="checked"' : ''); ?>
               <input type="radio" id="rating-<?php echo $ii ?>" name="rating" value="<?php echo $ii ?>"<?php echo $checked ?> />
-              <label for="rating-<?php echo $ii ?>"><img src="<?php echo $this->asUrl("resource:images/stars_".$ii."_small.gif") ?>" alt="<?php _vzm("%s Star", $ii) ?>" title=" <?php _vzm("%s Star", $ii) ?> " /></label>
+              <label for="rating-<?php echo $ii ?>">
+                  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$ii.'_small.gif') ?>" alt="<?php _vzm("%s Star", $ii) ?>" title=" <?php _vzm("%s Star", $ii) ?> " />
+              </label>
             <?php } ?>
         </div>
 

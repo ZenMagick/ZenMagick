@@ -26,7 +26,7 @@ function updateState() {
     var zoneId = $('#zoneId');
     var state = $('#state');
     var sz = ((0 < zoneId.size()) ? zoneId : state);
-    sz.after('<span id="state_timer"><img src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php _vzm("Loading...") ?></span>');
+    sz.after('<span id="state_timer"><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/circle-ball-dark-antialiased.gif') ?>"> <?php _vzm("Loading...") ?></span>');
 
     var countryId = $('#countryId').val();
     $.ajax({

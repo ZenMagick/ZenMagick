@@ -29,7 +29,11 @@ if ($shoppingCart->isEmpty()) { ?>
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-                <td class="remove"><a href="<?php echo $view['router']->generate('cart.remove', array('productId' => $item->getId())) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                    <td class="remove">
+                        <a href="<?php echo $view['router']->generate('cart.remove', array('productId' => $item->getId())) ?>">
+                            <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/small_delete.gif') ?>" alt="remove" />
+                        </a>
+                    </td>
                     <td class="img">
                         <?php echo $html->productImageLink($item->getProduct()) ?>
                         <?php echo $form->hiddenCartFields($item) ?>
