@@ -73,17 +73,6 @@ class ToolboxUtils extends ToolboxTool
     }
 
     /**
-     * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
-     *
-     * @param ShoppingCart shoppingCart The cart to examine.
-     * @return boolean <code>true</code> if this cart qualifies for free shipping.
-     */
-    public function isFreeShipping(ShoppingCart $shoppingCart)
-    {
-        return $shoppingCart->getCheckoutHelper()->isFreeShipping();
-    }
-
-    /**
      * Get the content of a static (define) page.
      *
      * @param string pageName The page name.

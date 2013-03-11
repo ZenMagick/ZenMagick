@@ -63,7 +63,7 @@
           <div class="btn"><input type="submit" value="<?php _vzm("Calculate") ?>" /></div>
         </form>
     <?php } ?>
-    <?php if ($utils->isFreeShipping($shoppingCart)) { ?>
+    <?php if ($shoppingCart->getCheckoutHelper()->isFreeShipping()) { ?>
         <p class="inst"><?php _vzm("Shipping is free!") ?></p>
     <?php } else {?>
         <table border="1" cellpadding="2" cellspacing ="2" id="smethods">

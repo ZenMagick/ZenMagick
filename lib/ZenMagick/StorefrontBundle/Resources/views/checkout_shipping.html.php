@@ -46,7 +46,7 @@
                 <?php $providers = $shoppingCart->getShippingProviders(); ?>
                 <?php foreach ($providers as $provider) { ?>
                   <?php $methods = $shoppingCart->getMethodsForProvider($provider); ?>
-                  <?php if ($utils->isFreeShipping($shoppingCart)) { $id = 'free_free'; ?>
+                  <?php if ($shoppingCart->getCheckoutHelper()->isFreeShipping()) { $id = 'free_free'; ?>
                       <?php $selected = (0 == count($providers) && 0 == count($methods)); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td><?php _vzm('Free Shipping') ?></td>
