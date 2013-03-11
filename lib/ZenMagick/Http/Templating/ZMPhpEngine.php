@@ -100,21 +100,6 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     }
 
     /**
-     * Resolve the given (relative) resource filename into a url.
-     *
-     * @param string file The file, relative to the resource path.
-     * @return string A url or empty string.
-     */
-    public function asUrl($file)
-    {
-        if (null != ($path = $this->view->getResourceResolver()->findResource($file, View::RESOURCE))) {
-            return $this->view->getResourceManager()->file2uri($path);
-        }
-
-        return null;
-    }
-
-    /**
      * Fetch/generate the contents for a given block group id.
      *
      * @param string group The group id.
