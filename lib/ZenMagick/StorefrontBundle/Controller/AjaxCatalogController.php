@@ -64,8 +64,7 @@ class AjaxCatalogController extends AjaxController
         $productId = $request->get('productId');
         $languageId = $request->getParameter('languageId', $request->getSession()->getLanguageId());
 
-        $utilsTool = $this->container->get('utilsTool');
-        $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductForId($productId, $languageId), $this->get('ajaxProductMap'));
+        $flatObj = $this->flattenObject($this->container->get('productService')->getProductForId($productId, $languageId), $this->get('ajaxProductMap'));
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
@@ -92,10 +91,9 @@ class AjaxCatalogController extends AjaxController
             $activeOnly = $request->getParameter('active', true);
         }
 
-        $utilsTool = $this->container->get('utilsTool');
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductsForCategoryId($categoryId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
+            $flatObj = $this->flattenObject($this->container->get('productService')->getProductsForCategoryId($categoryId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
@@ -106,7 +104,7 @@ class AjaxCatalogController extends AjaxController
             if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
+            $flatObj = $this->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
         $json = json_encode($flatObj);
@@ -135,10 +133,9 @@ class AjaxCatalogController extends AjaxController
             $activeOnly = $request->getParameter('active', true);
         }
 
-        $utilsTool = $this->container->get('utilsTool');
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = $utilsTool->flattenObject($this->container->get('productService')->getProductsForManufacturerId($manufacturerId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
+            $flatObj = $this->flattenObject($this->container->get('productService')->getProductsForManufacturerId($manufacturerId, $activeOnly, $languageId), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
@@ -149,7 +146,7 @@ class AjaxCatalogController extends AjaxController
             if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = $utilsTool->flattenObject($resultList, $this->get('ajaxResultListMap'));
+            $flatObj = $this->flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
         $json = json_encode($flatObj);

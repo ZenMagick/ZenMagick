@@ -57,7 +57,7 @@ class AjaxShoppingCartController extends AjaxController
             $address = $shoppingCart->getShippingAddress();
         }
         if (null != $address) {
-            $response['address'] = $utilsTool->flattenObject($address, $this->get('ajaxAddressMap'));
+            $response['address'] = $this->flattenObject($address, $this->get('ajaxAddressMap'));
         }
 
         $methods = array();
@@ -75,7 +75,7 @@ class AjaxShoppingCartController extends AjaxController
         }
         $response['methods'] = $methods;
 
-        $flatObj = $utilsTool->flattenObject($response);
+        $flatObj = $this->flattenObject($response);
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
@@ -93,12 +93,12 @@ class AjaxShoppingCartController extends AjaxController
         $utilsTool = $this->container->get('utilsTool');
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? $utilsTool->formatMoney($value) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
-            array_push($items, $utilsTool->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
+            array_push($items, $this->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }
         $cartDetails ['items'] = $items;
         $cartDetails ['total'] = $utilsTool->formatMoney($shoppingCart->getTotal());
 
-        $flatObj = $utilsTool->flattenObject($cartDetails );
+        $flatObj = $this->flattenObject($cartDetails );
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }

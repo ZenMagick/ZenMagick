@@ -85,7 +85,7 @@ class AjaxCheckoutController extends AjaxController
             }
         }
 
-        $flatObj = $this->container->get('utilsTool')->flattenObject($shippingMethods, $this->get('ajaxShippingMethodMap'));
+        $flatObj = $this->flattenObject($shippingMethods, $this->get('ajaxShippingMethodMap'));
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }

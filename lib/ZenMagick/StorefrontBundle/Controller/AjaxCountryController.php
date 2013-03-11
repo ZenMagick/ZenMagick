@@ -44,8 +44,7 @@ class AjaxCountryController extends AjaxController
      */
     public function getCountryListJSON($request)
     {
-        $utilsTool = $this->container->get('utilsTool');
-        $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
+        $flatObj = $this->flattenObject($this->container->get('countryService')->getCountries(), $this->get('ajaxCountryMap'));
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
@@ -63,8 +62,7 @@ class AjaxCountryController extends AjaxController
     public function getZonesForCountryIdJSON($request)
     {
         $countryId = $request->getParameter('countryId', null);
-        $utilsTool = $this->container->get('utilsTool');
-        $flatObj = $utilsTool->flattenObject($this->container->get('countryService')->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));
+        $flatObj = $this->flattenObject($this->container->get('countryService')->getZonesForCountryId($countryId), $this->get('ajaxZoneMap'));
         $json = json_encode($flatObj);
         $this->setJSONHeader($json);
     }
