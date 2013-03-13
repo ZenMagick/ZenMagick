@@ -31,26 +31,26 @@ use ZenMagick\Base\Toolbox;
                 <?php
                 if ($manufacturer->hasImage()) {
                     $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
-                    $target = '';
+                    $class = '';
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $html->hrefTarget();
+                        $class = ' class="new-win" ';
                     }
-                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
+                    ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
                 } else {
                     $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
-                    $target = '';
+                    $class = '';
                     $text = _zm("Other Products");
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $html->hrefTarget();
+                        $class = ' class="new-win" ';
                         $text = _zm("Manufacturer Homepage");
                     }
-                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
+                    ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $text ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php

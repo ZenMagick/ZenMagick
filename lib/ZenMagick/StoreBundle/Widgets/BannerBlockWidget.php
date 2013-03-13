@@ -146,7 +146,12 @@ class BannerBlockWidget extends Widget
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
-                    $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
+                    $class = '';
+                    if ($banner->isNewWin()) {
+                        $class = ' class="new-win" ';
+                    }
+
+                    $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$class.'>'.$img.'</a>';
                 }
             }
 

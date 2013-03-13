@@ -203,7 +203,14 @@ class ToolboxHtml extends ToolboxTool
     {
         $toolbox = $this->getToolbox();
         $page = $this->container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
-        $link = '<a href="' . $toolbox->net->ezPage($page) . '"' . $this->hrefTarget($page->isNewWin());
+        if($page->isNewWin()) {
+            if (isset($attr['class'])) {
+                $attr['class'] .= ' new-win ';
+            } else {
+                $attr['class'] = 'new-win';
+            }
+        }
+        $link = '<a href="' . $toolbox->net->ezPage($page) . '"';
         foreach ($attr as $name => $value) {
             if (null !== $value) {
                 $link .= ' '.$name.'="'.$value.'"';
@@ -247,19 +254,6 @@ class ToolboxHtml extends ToolboxTool
         $html .= '</a>';
 
         return $html;
-    }
-
-    /**
-     * Create an <code>onclick</code> attribute for an HTML &lt;a&gt; tag.
-     *
-     * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
-     * @return string A preformatted attribute in the form ' name="value"'
-     */
-    public function hrefTarget($newWin=true)
-    {
-        $text = $newWin ? ' onclick="newWin(this); return false;"' : '';
-
-        return $text;
     }
 
     /**

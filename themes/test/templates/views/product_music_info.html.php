@@ -58,7 +58,7 @@ use ZenMagick\StoreBundle\Services\Products;
         <?php if ($artist->hasUrl()) { ?>
             <p>
                 <?php _vzm("Homepage:") ?>
-                <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>"<?php $html->hrefTarget() ?>><?php echo $artist->getName() ?></a>
+                <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>" class="new-win"><?php echo $artist->getName() ?></a>
             </p>
         <?php } ?>
     </fieldset>

@@ -27,7 +27,7 @@
         <dl>
             <?php foreach ($rssFeed->getItems() as $item) { ?>
                 <dt><?php echo $view['date']->short($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php echo $view->escape($item->getTitle()); ?></a></dd>
+                <dd><a href="<?php echo $item->getLink() ?>" class="new-win"><?php echo $view->escape($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>
     </div>
