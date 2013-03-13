@@ -27,14 +27,11 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        // @todo we can autodetect!
-        $zcRoot = realpath(dirname(dirname(dirname(dirname(dirname(__DIR__))))));
-
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('zencart');
         $rootNode
             ->children()
-                ->scalarNode('root_dir')->defaultValue($zcRoot)->end()
+                ->scalarNode('root_dir')->defaultNull()->end()
                 ->scalarNode('admin_dir')->defaultNull()->end()
                 ->arrayNode('admin')
                     ->children()

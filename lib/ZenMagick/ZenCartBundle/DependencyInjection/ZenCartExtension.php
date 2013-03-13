@@ -38,11 +38,17 @@ class ZenCartExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        if (null === $config['root_dir']) {
+            $rootDir = $container->getParameter('kernel.root_dir');
+            $config['root_dir'] = dirname($rootDir).'/web';
+        }
+
         $container->setParameter('zencart.root_dir', $config['root_dir']);
 
         if (null === $config['admin_dir']) {
             $config['admin_dir'] = $this->guessZcAdminDir($config['root_dir']);
         }
+
         $container->setParameter('zencart.admin_dir', $config['admin_dir']);
 
         $admin = $config['admin'];
