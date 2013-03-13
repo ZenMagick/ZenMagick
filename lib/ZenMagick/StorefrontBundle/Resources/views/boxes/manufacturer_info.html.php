@@ -34,7 +34,7 @@ use ZenMagick\Base\Toolbox;
                     $target = '';
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
+                        $target = $html->hrefTarget();
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
@@ -47,7 +47,7 @@ use ZenMagick\Base\Toolbox;
                     $text = _zm("Other Products");
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
+                        $target = $html->hrefTarget();
                         $text = _zm("Manufacturer Homepage");
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php

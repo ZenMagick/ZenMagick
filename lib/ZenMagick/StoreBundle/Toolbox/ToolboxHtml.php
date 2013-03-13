@@ -264,16 +264,14 @@ class ToolboxHtml extends ToolboxTool
     }
 
     /**
-     * Create a HTML <code>target</code> or <code>onclick</code> attribute for a HTML &lt;a&gt; tag.
-     *
-     * <p>Behaviour is controlled with the <em>ZenMagick</em> setting <code>isJSTarget</code>.</p>
+     * Create an <code>onclick</code> attribute for an HTML &lt;a&gt; tag.
      *
      * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
      * @return string A preformatted attribute in the form ' name="value"'
      */
     public function hrefTarget($newWin=true)
     {
-        $text = $newWin ? (Runtime::getSettings()->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
+        $text = $newWin ? ' onclick="newWin(this); return false;"' : '';
 
         return $text;
     }

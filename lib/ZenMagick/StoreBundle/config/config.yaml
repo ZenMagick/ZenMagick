@@ -31,7 +31,6 @@ storeDefaultLanguageId: 1
 calculationDecimals: 4
 
 # HTML generation / validation
-isJSTarget: true
 isAutoJSValidation: true
 
 
