@@ -92,10 +92,6 @@ div.mcol {background-color:#f2f2f3;}
 /* popup stuff */
 span.example {background-color:#e0e0e0;color:#549DC7;}
 
-/* bookmarks */
-#sb_bookmarks img {vertical-align:middle;margin-right:3px;}
-#sb_bookmarks a {display:block;margin-bottom:4px;}
-
 /* view source */
 #footer #sview {margin:4px;}
 #footer #sview a {padding:2px;background:white;color:#b83c26;border:1px dotted black;}
