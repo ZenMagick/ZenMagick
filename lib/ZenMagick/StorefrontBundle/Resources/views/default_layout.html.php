@@ -34,7 +34,12 @@
     }
     // @todo move some bits to footer
     foreach ($view['assetic']->javascripts(
-        array('@StorefrontBundle/Resources/public/js/*'),
+        array(
+            '@StorefrontBundle/Resources/public/js/jquery.js',
+            '@StorefrontBundle/Resources/public/js/jquery.form.js',
+            '@StorefrontBundle/Resources/public/js/common.js',
+            '@StorefrontBundle/Resources/public/js/validation.js',
+        ),
         array()) as $url) {
             echo '<script src="'.$view->escape($url).'"></script>';
     }
