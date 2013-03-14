@@ -143,7 +143,7 @@ class ToolboxNet extends ToolboxTool
     public function image($src)
     {
         // TODO: where are images coming from in the future??
-        $href = $this->getRequest()->getBaseUrl().'/images/'.$src;
+        $href = $this->getRequest()->getBasePath().'/images/'.$src;
 
         return $href;
     }
