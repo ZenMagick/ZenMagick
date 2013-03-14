@@ -72,7 +72,7 @@ use ZenMagick\StoreBundle\Services\Products;
                   <h4><?php echo $collection->getName() ?></h4>
                   <ul>
                       <?php foreach ($collection->getItems() as $mediaItem) { ?>
-                      <li><a href="<?php echo $net->absoluteUrl($musicProductInfo->mediaUrl($mediaItem->getFilename())) ?>"><?php echo $mediaItem->getFilename() ?></a>
+                      <li><a href="<?php echo $view['assets']->getUrl($musicProductInfo->mediaUrl($mediaItem->getFilename())) ?>"><?php echo $mediaItem->getFilename() ?></a>
                           (<?php echo $mediaItem->getType()->getName() ?>)</li>
                       <?php } ?>
                   </ul>
