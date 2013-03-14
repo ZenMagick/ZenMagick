@@ -171,7 +171,8 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         foreach ($products as $product) {
             $item = new RssItem();
             $item->setTitle($product->getName());
-            $item->setLink($toolbox->net->absoluteUrl($toolbox->net->product($product->getId(), null, false), true));
+            $url = $router->generate('product_info', array('productId' => $productId), true);
+            $item->setLink($url);
             $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
             $item->setPubDate($product->getDateAdded());
             $items[] = $item;

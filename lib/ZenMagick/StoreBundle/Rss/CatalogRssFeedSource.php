@@ -143,7 +143,8 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $productService->setCache(null);
         $productInfo = array();
         foreach ($productService->getAllProductIds(true, $languageId) as $productId) {
-            $productInfo[] = array('id' => $productId, 'url' => $net->absoluteUrl($net->product($productId, null, false), true));
+            $url = $router->generate('product_info', array('productId' => $productId), true);
+            $productInfo[] = array('id' => $productId, 'url' => $url);
         }
         $itemIterator = new CatalogProductRssItemIterator($productInfo, $languageId, $this->fullFeed, $this->multiCurrency);
         $itemIterator->setContainer($this->container);
