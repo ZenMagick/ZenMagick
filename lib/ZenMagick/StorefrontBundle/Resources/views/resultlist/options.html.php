@@ -21,7 +21,7 @@
 ?>
 
 <?php if ($resultList->hasFilters() || $resultList->hasSorters()) { $hasOptions = false; ?>
-    <?php echo $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
+    <?php echo $form->open($view['request']->getRouteId(), null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
         <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach ($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) { continue; } $hasOptions = true; ?>
