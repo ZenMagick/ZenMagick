@@ -119,11 +119,10 @@ class WordpressRequestHandler extends DefaultController
     {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
-            $netTool = Runtime::getContainer()->get('netTool');
             // make sure we stay on the same server
-            $selfUrlToken = parse_url($netTool->absoluteUrl('', true));
-            if ($urlToken['host'] != $selfUrlToken['host']) {
-                $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
+            $host = $this->request_->getHost();
+            if ($urlToken['host'] != $host) {
+                $arg =  str_replace($urlToken['host'], $host, $arg);
             }
 
             // fix path

@@ -35,7 +35,7 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php echo $view->escape($currentProduct->getName()) ?>"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a>
+          <a href="<?php echo $imageInfo->getLargeImage() ?>" rel="lightbox" title="<?php echo $view->escape($currentProduct->getName()) ?>"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
           <?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -70,9 +70,9 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
           <legend><?php _vzm("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php echo $net->absoluteUrl($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $net->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php echo $addImg->getLargeImage() ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $addImg->getDefaultImage() ?>" alt="" title="" /></a>
               <?php } else { ?>
-                  <img src="<?php echo $net->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php echo $addImg->getDefaultImage() ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>
