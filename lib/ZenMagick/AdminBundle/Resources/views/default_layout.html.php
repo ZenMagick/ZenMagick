@@ -29,7 +29,7 @@
         // @todo move to asset groups to a configuration file
         foreach ($view['assetic']->stylesheets(
                 array('bundles/admin/style/*',
-                      'bundles/admin/style/jquery-ui/jquery-ui-1.8.15.custom.css',
+                      'bundles/admin/jquery-ui/jquery-ui-1.8.15.custom.css',
                    'bundles/admin/style/views/*'
                 ),
                 array('cssrewrite')) as $url) {
