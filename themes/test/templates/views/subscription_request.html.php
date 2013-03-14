@@ -21,7 +21,7 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <h3><?php _vzm("Subscription Enqiries") ?></h3>
 
-<?php echo $form->open('', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
+<?php echo $form->open('subscription_request', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
     <fieldset>
         <legend><?php _vzm("Subscription Enquiries") ?></legend>
         <label for="type"><?php _vzm("Request Type") ?><span>*</span></label>
