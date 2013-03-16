@@ -183,7 +183,8 @@ class ToolboxCrumbtrail extends ToolboxTool
         }
         $product = $this->container->get('productService')->getProductForId($productId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $product) {
-            $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null));
+            $url = $this->container->get('router')->generate('product_info', array('productId' => $productId));
+            $this->addCrumb($product->getName(), $url);
         }
 
         return $this;
