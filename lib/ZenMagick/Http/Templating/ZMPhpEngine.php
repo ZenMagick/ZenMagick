@@ -22,7 +22,6 @@ namespace ZenMagick\Http\Templating;
 use Symfony\Component\Templating\EngineInterface;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\View;
 use ZenMagick\Http\Widgets\Widget;
@@ -52,51 +51,10 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
         $this->properties = array();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function render($template, array $parameters=array())
-    {
-        // required bits
-        $this->request = $parameters['request'];
-        $this->view = $parameters['view'];
-        // base properties
-        $this->properties = array_merge($this->properties, $parameters);
 
-        return $this->fetch($template, $parameters);
-    }
 
-    /**
-     * Fetch/evaluate the given template.
-     *
-     * <p>Alias for render().</p>
-     *
-     * @param string template The template.
-     * @param array variables Optional additional template variables; default is an empty array.
-     * @return string The template output.
-     */
-    public function fetch($template, array $variables=array())
-    {
-        // more precise would be an instance stack, i suppose
-        $__fetchVars = array('template' => $template, 'variables' => $variables);
-
-        // drop all from local scope
-        unset($template);
-        unset($variables);
-
-        // prepare env
-        extract($this->properties, EXTR_REFS | EXTR_SKIP);
-        extract($__fetchVars['variables'], EXTR_REFS | EXTR_SKIP);
-        $__fetchVars['path'] = $this->view->getResourceResolver()->findResource($__fetchVars['template'], View::TEMPLATE);
-
-        if (empty($__fetchVars['path'])) {
-            throw new ZMException('empty template filename');
         }
-        ob_start();
-        require $__fetchVars['path'];
-        $result = ob_get_clean();
 
-        return $result;
     }
 
     /**
