@@ -113,7 +113,6 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function addCrumb($name, $url = null)
     {
-        return $this;
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
