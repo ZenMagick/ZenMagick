@@ -1,5 +1,6 @@
 parameters:
     session.flashbag.class: "ZenMagick\Http\Session\FlashBag"
+    templating.engine.php.class: "ZenMagick\Http\Templating\ZMPhpEngine"
     templating.helper.request.class: "ZenMagick\ZenMagickBundle\Templating\Helper\RequestHelper"
     templating.helper.session.class: "ZenMagick\ZenMagickBundle\Templating\Helper\SessionHelper"
 
