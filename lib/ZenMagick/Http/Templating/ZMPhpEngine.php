@@ -36,19 +36,12 @@ use ZenMagick\Http\Widgets\Widget;
  */
 class ZMPhpEngine extends ZMObject implements EngineInterface
 {
-    protected $view;
-    protected $request;
-    protected $properties;
-
     /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->request = null;
-        $this->view = null;
-        $this->properties = array();
     }
 
 
@@ -67,9 +60,10 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
     public function fetchBlockGroup($groupId, $args=array())
     {
         $contents = '';
-        foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
+        $request = $this->container->get('request');
+        foreach ($this->container->get('blockManager')->getBlocksForId($request, $groupId, $args) as $block) {
 //            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
-            $contents .= $block->render($this->request, $this->view);
+            $contents .= $block->render($request, $this->container->get('defaultView'));
         }
 
         return $contents;
@@ -109,7 +103,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface
             Beans::setAll($wObj, $args);
         }
 
-        return $wObj->render($this->request, $this->view);
+        return $wObj->render($this->container->get('request'), $this->container->get('defaultView'));
     }
 
 }
