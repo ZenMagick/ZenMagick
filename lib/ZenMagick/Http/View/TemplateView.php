@@ -238,56 +238,6 @@ class TemplateView extends ZMObject implements View
      */
     protected function initVariables($request)
     {
-        if (array_key_exists('templateView', $this->variables)) {
-            return;
-        }
-
-        $settingsService = $this->container->get('settingsService');
-
-        // set some standard things
-        $this->setVariable('container', $this->container);
-        $this->setVariable('resources', $this->getResourceManager());
-        $this->setVariable('resourceManager', $this->getResourceManager());
-        $this->setVariable('resourceResolver', $this->getResourceResolver());
-        $this->setVariable('templateView', $this);
-        if (null == $request) {
-            $request = $this->container->get('request');
-        }
-        $this->setVariable('request', $request);
-        $this->setVariable('session', $request->getSession());
-        $this->setVariable('messageService', $request->getSession()->getFlashBag());
-        $this->setVariable('settingsService', $settingsService);
-        $this->setVariable('locale', $this->container->get('localeService'));
-
-        // find services tagged as view variables
-        foreach ($this->container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
-            $key = null;
-            foreach ($args as $elem) {
-                foreach ($elem as $key => $value) {
-                    if ('key' == $key && $value) {
-                        $key = $value;
-                        break;
-                    }
-                }
-            }
-            $obj = $this->container->get($id);
-            if ($obj instanceof Toolbox) {
-                foreach ($obj->getTools() as $name => $tool) {
-                    if ($tool instanceof ToolboxTool) {
-                        $tool->setView($this);
-                    }
-                    $this->setVariable($name, $tool);
-                }
-            }
-            $this->setVariable($key, $obj);
-        }
-
-        // set all plugins
-        if ($this->container->has('pluginService')) { // @todo inject this instead
-            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
-                $this->setVariable($plugin->getId(), $plugin);
-            }
-        }
 
     }
 

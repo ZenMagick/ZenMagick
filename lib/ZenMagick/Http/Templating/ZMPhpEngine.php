@@ -19,33 +19,69 @@
  */
 namespace ZenMagick\Http\Templating;
 
-use Symfony\Component\Templating\EngineInterface;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\View;
 use ZenMagick\Http\Widgets\Widget;
+use ZenMagick\Http\Toolbox\Toolbox;
+use ZenMagick\Http\Toolbox\ToolboxTool;
+
+use Symfony\Component\Templating\Loader\LoaderInterface;
+use Symfony\Component\Templating\TemplateNameParserInterface;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+
 
 /**
  * The ZenMagick PHP template engine.
  *
- * <p><code>render()</code> is the starting point of all template rendering. Parameters passed into <code>render()</code> will
- * be available to all templates called within the render call.</p>
- * <p>Parameters passes into <code>fetch()</code>, in turn, are only visible within the specific template fetched.</p>
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMPhpEngine extends ZMObject implements EngineInterface
+class ZMPhpEngine extends PhpEngine
 {
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(TemplateNameParserInterface $parser, ContainerInterface $container, LoaderInterface $loader, GlobalVariables $globals = null)
     {
-        parent::__construct();
-    }
+        parent::__construct($parser, $container, $loader, $globals);
 
+        /**
+         *  @todo move most of these to template helpers/existing globals
+         */
+        $this->addGlobal('templateView', $this->container->get('templateView'));
 
+       // find services tagged as view variables
+        foreach ($container->get('containerTagService')->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
+            $key = null;
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('key' == $key && $value) {
+                        $key = $value;
+                        break;
+                    }
+                }
+            }
+            $obj = $this->container->get($id);
+            if ($obj instanceof Toolbox) {
+                foreach ($obj->getTools() as $name => $tool) {
+                    if ($tool instanceof ToolboxTool) {
+                        $tool->setView($this->container->get('defaultView'));
+                    }
+                    $this->addGlobal($name, $tool);
+                }
+            }
+            $this->addGlobal($key, $obj);
+        }
 
+        // set all plugins
+        if ($this->container->has('pluginService')) { // @todo inject this instead
+            foreach ($this->container->get('pluginService')->getPluginsForContext() as $plugin) {
+                $this->addGlobal($plugin->getId(), $plugin);
+            }
         }
 
     }
