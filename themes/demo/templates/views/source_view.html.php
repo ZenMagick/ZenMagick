@@ -21,22 +21,12 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php
-  $layout_name = $view['request']->getParameter("layout_name");
-  $view_name = $view['request']->getParameter("view_name");
+  $view_name = $view['request']->getParameter('view_name');
+  $template = 'StorefrontBundle::'.$view_name;
 
-  $source = null;
-  if (null != $layout_name) {
-      $source = $layout_name;
-  } elseif (null != $view_name) {
-      $source = $view_name.'.html.php';
-  }
-
-  // resolve
-  $sourceFile = $resourceResolver->findResource($source, $templateView::TEMPLATE);
-
-  if (null != $sourceFile && is_file($sourceFile)) {
-      ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php
-      echo htmlentities($view->escape(file_get_contents($sourceFile)));
+  if ($view->exists($template)) {
+      ?><h2>Source for <?php echo $view->load($template) ?></h2><pre id="source"><?php
+      echo htmlentities($view->escape($view->load($template)->getContent());
       ?></pre><?php
       return;
   }
