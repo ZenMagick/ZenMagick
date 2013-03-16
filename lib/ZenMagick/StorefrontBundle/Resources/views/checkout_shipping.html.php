@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping'))); ?>
 <fieldset>
     <legend><?php _vzm("Shipping Address") ?></legend>
     <div class="btn">

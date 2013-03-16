@@ -23,7 +23,7 @@ use ZenMagick\Base\Toolbox;
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout'))->addCrumb(_zm('Summary')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout'))->addCrumb(_zm('Summary'))); ?>
 <fieldset>
     <legend><?php _vzm("Shopping Cart Contents") ?></legend>
     <table cellpadding="0" cellspacing="0" id="cart">

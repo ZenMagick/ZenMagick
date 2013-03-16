@@ -73,7 +73,8 @@
       </div>
 
       <div id="content">
-        <div id="crumbtrail"><?php echo $this->fragment('crumbtrail') ?></div>
+        <?php //@todo refactor buildCrumbtrail so we can pass the arguments to it. ?>
+        <div id="crumbtrail"><?php echo $macro->buildCrumbtrail(null, ' &gt; ') ?></div>
         <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
         <?php if ($view['session']->hasMessages()) { ?>
@@ -85,7 +86,6 @@
         <?php } ?>
 
         <?php $view['slots']->output('_content'); ?>
-        <?php $this->fragment('crumbtrail', $macro->buildCrumbtrail($crumbtrail, " &gt; ")) ?>
 
         <div id="bannerFour"><?php echo $this->fetchBlockGroup('banners.footer1') ?></div>
       </div>

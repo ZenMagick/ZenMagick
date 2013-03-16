@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Payment Method')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Payment Method'))); ?>
 <fieldset>
     <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">

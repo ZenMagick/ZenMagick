@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Guest Order Status')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Guest Order Status'))); ?>
 <?php echo $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
   <fieldset>
     <legend><?php _vzm("Find Guest Order") ?></legend>

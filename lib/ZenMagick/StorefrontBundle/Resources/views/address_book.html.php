@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'))); ?>
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
         <legend><?php echo $view->escape($address->getFirstName() . ' ' . $address->getLastName()) ?>

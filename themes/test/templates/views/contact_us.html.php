@@ -19,7 +19,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Contact Us')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Contact Us'))); ?>
 
 <h3><?php _vzm("Store Contact Details") ?></h3>
 <p><address><?php echo nl2br($view['settings']->get('storeNameAddress')); ?></address></p>

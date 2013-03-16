@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php
-$crumbtrail->addCategoryPath()->addManufacturer()->addProduct();
+$view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct());;
 
 if ($resultList->hasResults()) { ?>
     <div class="rnblk">

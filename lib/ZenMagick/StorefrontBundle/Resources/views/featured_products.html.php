@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCategoryPath()->addManufacturer()->addCrumb(_zm('Featured')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addCrumb(_zm('Featured'))); ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>

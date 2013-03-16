@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->clear() ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
 <?php echo $utils->staticPageContent("main_page") ?>
 <?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
 <h3><?php _vzm('Featured Products') ?></h3>

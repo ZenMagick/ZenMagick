@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Discount Coupon')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Discount Coupon'))); ?>
 <?php echo $utils->staticPageContent("discount_coupon") ?>
 
 <?php echo $form->open('discount_coupon', '', false, array('method' => 'get')) ?>

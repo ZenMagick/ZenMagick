@@ -22,7 +22,7 @@
 use ZenMagick\Base\Toolbox;
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $view['request']->getParameter('order_id'))) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $view['request']->getParameter('order_id')))); ?>
 <h3><?php _vzm("Item Details") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>

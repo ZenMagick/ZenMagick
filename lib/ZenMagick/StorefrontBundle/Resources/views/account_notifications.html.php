@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
 <p><?php _vzm("The product notification list allows you to stay up to date on products you find of interest.") ?></p>
 <p><?php _vzm("To be up to date on all product changes, select <strong>Global Product Notifications</strong>.") ?></p>
 <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>

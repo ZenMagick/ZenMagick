@@ -23,7 +23,7 @@
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->render('StorefrontBundle::dynamicState.js.php') ?></script>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Create Account')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Create Account'))); ?>
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
     <?php if ($view['settings']->get('isPrivacyMessage')) { ?>
         <fieldset>

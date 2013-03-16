@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Advanced Search')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Advanced Search'))); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
     <fieldset id="term">
         <legend><?php _vzm("Search For..."); ?></legend>

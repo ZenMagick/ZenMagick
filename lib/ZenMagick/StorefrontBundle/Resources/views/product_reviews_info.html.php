@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())->addCrumb(_zm('Review')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())->addCrumb(_zm('Review'))); ?>
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>
     <div id="pinfo">

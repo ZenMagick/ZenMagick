@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete'))); ?>
 <p><?php _vzm("Are you sure you would like to delete the selected address from your address book?") ?></p>
 <?php echo $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
     <fieldset>

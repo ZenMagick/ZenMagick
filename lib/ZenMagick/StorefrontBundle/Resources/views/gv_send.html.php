@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
 <p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($app->getUser()->getVoucherBalance())) ?></p>
 <?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>
     <fieldset>

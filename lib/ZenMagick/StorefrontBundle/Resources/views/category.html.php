@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct() ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()); ?>
 
 <h2><?php echo $view->escape($currentCategory->getName()) ?></h2>
 

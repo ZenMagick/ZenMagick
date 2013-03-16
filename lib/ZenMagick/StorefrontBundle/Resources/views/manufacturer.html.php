@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addManufacturer()->addProduct() ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addManufacturer()->addProduct()); ?>
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>

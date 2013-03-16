@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Gift Certificate FAQ')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Gift Certificate FAQ'))); ?>
 <h2><?php _vzm("Gift Certificate FAQ") ?></h2>
 
 <?php /* the available FAQ entries */

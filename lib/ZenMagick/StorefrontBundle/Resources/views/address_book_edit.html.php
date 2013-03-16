@@ -21,7 +21,7 @@
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
-<?php $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Edit')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Edit'))); ?>
 <?php echo $form->open('address_book_edit', '', true) ?>
     <?php echo $this->render('StorefrontBundle::address.html.php'); ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>

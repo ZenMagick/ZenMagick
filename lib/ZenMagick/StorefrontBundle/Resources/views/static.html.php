@@ -24,7 +24,7 @@
 $sub = $view['request']->getParameter('cat');
 $sub = str_replace('_', ' ', $sub);
 $sub = ucwords($sub);
-$crumbtrail->addCrumb($sub);
+$view['slots']->set('crumbtrail', $crumbtrail->addCrumb($sub));;
 ?>
 
 <?php echo $utils->staticPageContent($sub) ?>

@@ -23,7 +23,7 @@
 use ZenMagick\StoreBundle\Services\Products;
 ?>
 
-<?php $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId()) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())); ?>
 <?php echo get_class($view->container->get('productService')) ?>
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $view->escape(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $view->escape($currentProduct->getName()) ?></h2>

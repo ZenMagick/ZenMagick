@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Order Confirmation')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Order Confirmation'))); ?>
 <?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php _vzm("Thanks for shopping with us") ?></h2>
     <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>

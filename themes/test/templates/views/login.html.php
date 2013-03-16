@@ -19,7 +19,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb(_zm('Login')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
 <?php echo $form->open('login', '', true, array('id'=>'login')) ?>
   <fieldset>
     <legend><?php _vzm("Login") ?></legend>

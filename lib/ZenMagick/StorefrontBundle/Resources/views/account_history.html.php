@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History')) ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History'))); ?>
 
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
