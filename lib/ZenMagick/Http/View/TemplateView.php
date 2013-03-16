@@ -310,10 +310,6 @@ class TemplateView extends ZMObject implements View
             $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
             $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $output, 1);
         }
-        // and resources
-        foreach ($this->resourceManager->getFragments() as $key => $value) {
-            $output = str_replace($key, $value, $output);
-        }
 
         return $output;
     }
