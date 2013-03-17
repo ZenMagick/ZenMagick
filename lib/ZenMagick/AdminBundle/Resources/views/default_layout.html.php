@@ -32,7 +32,7 @@
                       'bundles/admin/jquery-ui/jquery-ui-1.8.15.custom.css',
                    'bundles/admin/style/views/*'
                 ),
-                array('cssrewrite')) as $url) {
+                array('?cssmin', 'cssrewrite')) as $url) {
                 echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
         }
         // @todo move some bits to footer
@@ -45,7 +45,7 @@
                   '@AdminBundle/Resources/public/js/dashboard.js',
                   '@AdminBundle/Resources/public/js/zenmagick.js',
             ),
-            array()) as $url) {
+            array('?jsminplus')) as $url) {
                 echo '<script src="'.$view->escape($url).'"></script>';
         }
         ?>

@@ -29,7 +29,7 @@
     foreach ($view['assetic']->stylesheets(
             array('bundles/storefront/css/site.css',
             ),
-            array('cssrewrite')) as $url) {
+            array('cssrewrite', '?cssmin')) as $url) {
             echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
     }
     // @todo move some bits to footer
@@ -40,7 +40,7 @@
             '@StorefrontBundle/Resources/public/js/common.js',
             '@StorefrontBundle/Resources/public/js/validation.js',
         ),
-        array()) as $url) {
+        array('?jsminplus')) as $url) {
             echo '<script src="'.$view->escape($url).'"></script>';
     }
     ?>
