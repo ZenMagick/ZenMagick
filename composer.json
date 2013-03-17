@@ -53,7 +53,8 @@
         "friendsofsymfony/rest-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*",
         "zenmagick/zencart": "dev-master",
-        "jmikola/insecure-routes-bundle": "3.0.*"
+        "jmikola/insecure-routes-bundle": "3.0.*",
+        "nitra/php-min": "0.0.5"
     },
     "scripts": {
         "post-install-cmd": [

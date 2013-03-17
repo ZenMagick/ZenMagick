@@ -1,5 +1,5 @@
 {
-    "hash": "04baacb233bfef0326087c144c6caa48",
+    "hash": "b624ce90f6a3898d8c1f65e3f38c5291",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2002,6 +2002,55 @@
                 "test"
             ],
             "time": "2013-01-22 10:49:48"
+        },
+        {
+            "name": "nitra/php-min",
+            "version": "0.0.5",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/nitra/PhpMin.git",
+                "reference": "0.0.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nitra/PhpMin/zipball/0.0.5",
+                "reference": "0.0.5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CssMin": "CssMin/",
+                    "JSMinPlus": "JSMinPlus/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Scylla",
+                    "email": "joe.scylla@gmail.com",
+                    "homepage": "https://profiles.google.com/joe.scylla"
+                },
+                {
+                    "name": "Tino Zijdel",
+                    "email": "crisp@tweakers.net",
+                    "homepage": "https://raw.github.com/mrclay/minify/master/min/lib/JSMinPlus.php"
+                }
+            ],
+            "description": "Minifying CSS, JS",
+            "homepage": "http://code.google.com/p/cssmin/",
+            "keywords": [
+                "cssmin",
+                "jsminplus",
+                "minify"
+            ],
+            "time": "2013-02-03 08:13:07"
         },
         {
             "name": "phpcollection/phpcollection",
