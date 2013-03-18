@@ -20,7 +20,7 @@
  */
 ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php >$view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Shopping Cart')));;
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Shopping Cart')));
 if ($shoppingCart->isEmpty()) { ?>
     <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
 <?php } else { ?>
