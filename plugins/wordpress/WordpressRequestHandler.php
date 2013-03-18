@@ -35,7 +35,6 @@ class WordpressRequestHandler extends DefaultController
     private $plugin_;
     private $request_;
     private $viewName_;
-    private $resourceResolver;
 
     /**
      * Create new instance.
@@ -50,7 +49,6 @@ class WordpressRequestHandler extends DefaultController
         $this->plugin_ = $plugin;
         $this->request_ = $request;
         $this->viewName_ = null;
-        $this->resourceResolver = null;
     }
 
     /**
@@ -101,7 +99,6 @@ class WordpressRequestHandler extends DefaultController
      */
     public function registerFilter($view)
     {
-        $this->resourceResolver = $view->getResourceResolver();
         add_filter('tag_link', array($this, 'link_filter'));
         add_filter('post_link', array($this, 'link_filter'));
         add_filter('page_link', array($this, 'link_filter'));
@@ -146,7 +143,8 @@ class WordpressRequestHandler extends DefaultController
      */
     public function comments_template_filter($arg)
     {
-        return $this->resourceResolver->findResource('template:wp/comments.php');
+        $locator = Runtime::getContainer()->get('templating.locator');
+        return $locator->locate('wp/comments.html.php')
     }
 
 }
