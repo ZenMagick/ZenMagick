@@ -144,7 +144,7 @@ class WordpressRequestHandler extends DefaultController
     public function comments_template_filter($arg)
     {
         $locator = Runtime::getContainer()->get('templating.locator');
-        return $locator->locate('wp/comments.html.php')
+        return $locator->locate('wp/comments.html.php');
     }
 
 }
