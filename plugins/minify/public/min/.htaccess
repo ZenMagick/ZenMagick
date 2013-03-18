@@ -1,5 +1,0 @@
-<IfModule mod_rewrite.c>
-Options +FollowSymLinks -MultiViews -Indexes
-RewriteEngine on
-RewriteRule ^([a-z]=.*)  index.php?$1  [L,NE]
-</IfModule>
