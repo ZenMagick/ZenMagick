@@ -27,6 +27,7 @@ use ZenMagick\Http\View\TemplateView;
  * ZenMagick routing API.
  *
  * @author DerManoMann <mano@zenmagick.org>
+ * @todo refactor completely
  */
 class RouteResolver extends ZMObject
 {
@@ -50,7 +51,20 @@ class RouteResolver extends ZMObject
         $routeIds[] = $request->attributes->get('_route');
         $routeIds[] = self::GLOBAL_ROUTING_KEY;
 
+        $controller = $request->attributes->get('_controller');
+
+        $base = '::';
+        $pieces = explode('\\', $controller);
+        if ('ZenMagick' == $pieces[0]) {
+            $context = $pieces[1];
+            if ('ZenMagickBundle' == $context) {
+                $base = ucfirst(\ZenMagick\Base\Runtime::getContext()).'Bundle::';
+            } else {
+                $base = $context .'::';
+            }
+        }
         // check until match or we run out of routeIds
+        //$base = '';
         $settingsService = $this->container->get('settingsService');
         $layoutName = $settingsService->get('zenmagick.http.view.defaultLayout', null);
         foreach ($routeIds as $routeId) {
@@ -59,10 +73,13 @@ class RouteResolver extends ZMObject
                 $options = $route->getOptions();
                 if (array_key_exists($viewKey, $options)) {
                     $viewDefinition = null;
-                    $token = parse_url(str_replace('%routeId%', $request->getRequestId(), $options[$viewKey]));
+                    $bundle = (string)strtok($options[$viewKey], '::');
+
+                    $token = parse_url(str_replace('%routeId%', $request->getRequestId(), str_replace($bundle.'::', '', $options[$viewKey])));
                     if (!array_key_exists('query', $token)) {
                         $token['query'] = '';
                     }
+
                     // merge in layout if set
                     if (null != $layoutName) {
                         parse_str($token['query'], $query);
@@ -82,6 +99,9 @@ class RouteResolver extends ZMObject
                         }
                         $viewDefinition = sprintf('%s#requestId=%s&%s', $token['scheme'], $token['host'], $token['query']);
                     } else {
+                        if ($bundle) {
+                            $token['path'] = $bundle.'::'.$token['path'];
+                        }
                         $viewDefinition = sprintf('%s#template=%s&%s', 'defaultView', $token['path'], $token['query']);
                     }
                     $view = Beans::getBean($viewDefinition);
@@ -89,12 +109,11 @@ class RouteResolver extends ZMObject
                 }
             }
         }
-
         if (!$view) { // use conventions and defaults
-            $templateName = sprintf('%s%s', $request->getRequestId(), '.html.php');
+            $templateName = sprintf('%s%s%s', $base, $request->getRequestId(), '.html.php');
             $view = Beans::getBean('defaultView');
             $view->setTemplate($templateName);
-            $view->setLayout($layoutName);
+            //$view->setLayout($layoutName);
         }
 
          if ($view instanceof TemplateView && $data) {
