@@ -1,14 +1,3 @@
-<Limit GET POST PUT DELETE>
-   order allow,deny
-   allow from all
-</Limit>
-
-# allow all files
-<Files *>
-  order deny,allow
-  allow from all
-</Files>
-
 <IfModule mod_rewrite.c>
     Options +FollowSymLinks -MultiViews -Indexes
     RewriteEngine On
