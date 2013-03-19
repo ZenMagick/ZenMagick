@@ -7,6 +7,12 @@ use ZenMagick\Http\Request;
 
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
+
+/*
+$loader = new \Symfony\Component\ClassLoader\ApcClassLoader('zm', $loader);
+$loader->register(true);
+*/
+
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
@@ -15,9 +21,11 @@ $context = 'storefront';
 if (0 === strpos($_SERVER['REQUEST_URI'], '/admin')) {
     $context = 'admin';
 }
-$application = new AppKernel('prod', false, $context);
-$application->loadClassCache();
+$kernel = new AppKernel('prod', false, $context);
+$kernel->loadClassCache();
+//$kernel = new AppCache($kernel);
+Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
-$response = $application->handle($request);
+$response = $kernel->handle($request);
 $response->send();
-$application->terminate($request, $response);
+$kernel->terminate($request, $response);

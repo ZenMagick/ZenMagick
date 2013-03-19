@@ -10,6 +10,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
     || !in_array(@$_SERVER['REMOTE_ADDR'], array(
         '127.0.0.1',
+        'fe80::1',
         '::1',
     ))
 ) {
@@ -26,9 +27,10 @@ $context = 'storefront';
 if (0 === strpos($_SERVER['REQUEST_URI'], '/admin') || 0 === strpos($_SERVER['REQUEST_URI'], '/app_dev.php/admin')) {
     $context = 'admin';
 }
-$application = new AppKernel('dev', true, $context);
-//$application->loadClassCache();
+$kernel = new AppKernel('dev', true, $context);
+//kernel->loadClassCache();
+Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
-$response = $application->handle($request);
+$response = $kernel->handle($request);
 $response->send();
-$application->terminate($request, $response);
+$kernel->terminate($request, $response);
