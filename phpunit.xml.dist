@@ -21,7 +21,7 @@
 
     <testsuites>
         <testsuite name="StoreBundle Test Suite">
-	    <directory suffix="Test.php">./lib/ZenMagick/StoreBundle/Tests/</directory>
+	    <directory suffix="Test.php">./src/ZenMagick/StoreBundle/Tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

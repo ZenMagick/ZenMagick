@@ -177,8 +177,6 @@
             <fileset dir="${build.dir}" includes="**/.svn*" />
             <fileset dir="${build.dir}" includes="**/.git*" />
             <!-- generated files, phpdoc and local files -->
-            <fileset dir="${build.dir}" includes="zenmagick/lib/*.html" />
-            <fileset dir="${build.dir}" includes="zenmagick/lib/**/*.html" />
             <!-- editor / tmp files -->
             <fileset dir="${build.dir}" includes="**/*~" />
             <fileset dir="${build.dir}" includes="**/*swp" />

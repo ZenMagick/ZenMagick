@@ -25,8 +25,8 @@
         <antcall target="apply-full-release-patches" />
 
         <!-- move ZenMagick SQL to the right place -->
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
-        <copy file="${zenmagick.src.dir}/lib/ZenMagick/AdminBundle/installation/etc/static_pages_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_static_pages_install.sql" />
+        <copy file="${zenmagick.src.dir}/src/ZenMagick/AdminBundle/installation/etc/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
+        <copy file="${zenmagick.src.dir}/src/ZenMagick/AdminBundle/installation/etc/static_pages_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_static_pages_install.sql" />
 
         <!-- copy docs -->
         <copy tofile="${release.full.dir}/Readme.txt" file="etc/build/docs/Readme.txt" />
@@ -181,7 +181,7 @@
         <mkdir dir="${build.dir}/dummies"/>
         <foreach target="create-sidebox-dummy" param="filename">
             <path>
-                <fileset dir="${zenmagick.src.dir}/lib/ZenMagick/StorefrontBundle/Resources/views/boxes" includes="*.php" />
+                <fileset dir="${zenmagick.src.dir}/src/ZenMagick/StorefrontBundle/Resources/views/boxes" includes="*.php" />
               <fileset dir="${zenmagick.src.dir}/themes/demo/templates/boxes" includes="*.php" />
             </path>
         </foreach>

@@ -25,9 +25,9 @@
     },
     "autoload": {
         "psr-0": {
-            "": "lib/"
+            "": "src/"
         },
-        "classmap": ["lib/shared"]
+        "classmap": ["src/shared"]
     },
     "minimum-stability": "dev",
     "require": {
