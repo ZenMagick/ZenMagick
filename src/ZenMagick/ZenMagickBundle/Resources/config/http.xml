@@ -141,14 +141,6 @@
 
         <service id="blockWidget" class="ZenMagick\Http\Blocks\Widgets\BlockWidget" scope="prototype" />
 
-        <service id="zmPhpEngine" class="ZenMagick\Http\Templating\ZMPhpEngine" scope="prototype">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
-        <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
-
         <service id="defaultController" class="ZenMagick\ZenMagickBundle\Controller\DefaultController" scope="prototype">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
