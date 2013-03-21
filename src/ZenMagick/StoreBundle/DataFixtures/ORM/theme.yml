@@ -3,7 +3,7 @@ ZenMagick\StoreBundle\Entity\Templating\TemplateSelect:
         themeId: "base"
         languageId: 0
 
-ZenMagick\StoreBundle\Entity\Templating\LayoutBox:
+ZenMagick\StoreBundle\Entity\LayoutBox:
     -
         themeId: "default_template_settings"
         name: "banner_box_all.php"
