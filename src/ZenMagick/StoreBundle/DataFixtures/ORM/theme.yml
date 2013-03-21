@@ -1,4 +1,4 @@
-ZenMagick\StoreBundle\Entity\Templating\TemplateSelect:
+ZenMagick\StoreBundle\Entity\TemplateSelect:
     -
         themeId: "base"
         languageId: 0
