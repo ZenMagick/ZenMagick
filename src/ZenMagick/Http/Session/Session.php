@@ -217,22 +217,6 @@ class Session extends BaseSession implements ContainerAwareInterface
     }
 
     /**
-     * @see set()
-     */
-    public function setValue($name, $value=null)
-    {
-        $this->set($name, $value);
-    }
-
-    /**
-     * @see get()
-     */
-    public function getValue($name, $default=null)
-    {
-        return $this->get($name, $default);
-    }
-
-    /**
      * Get the session token.
      *
      * <p>A new token will be created if none exists.</p>
