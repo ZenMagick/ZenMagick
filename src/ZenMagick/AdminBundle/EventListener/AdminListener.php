@@ -37,7 +37,8 @@ class AdminListener extends ZMObject
     public function onInsufficientCredentials($event)
     {
         $request = $event->getArgument('request');
-        if (null != $request->getAccount()) {
+
+        if (!is_object($this->container->get('security.context')->getToken()->getUser())) {
             // only if we still have a valid session
             $request->getSession()->getFlashBag()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
         }
@@ -66,8 +67,9 @@ class AdminListener extends ZMObject
      */
     protected function getCurrentEditor($request)
     {
-        $user = $request->getAccount();
-        if (null == $user || null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user)) return;
+        if (null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
             $editorId = self::DEFAULT_EDITOR_SERVICE_ID;
         }
 
@@ -90,8 +92,10 @@ class AdminListener extends ZMObject
         if ($request->query->has('languageId')) {
             $session->set('languages_id', $request->query->get('languageId'));
         }
-        $user = $request->getAccount();
-        if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user)) return;
+        if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
             $request->setLocale($uiLocale);
         }
 

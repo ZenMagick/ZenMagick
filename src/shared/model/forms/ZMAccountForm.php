@@ -45,7 +45,7 @@ class ZMAccountForm extends FormData
     private function loadAccount()
     {
         // prepopulate with current account
-        $account = $this->container->get('request')->getAccount();
+        $account = $this->container->get('security.context')->getToken()->getUser();
         // move into Beans to wrap unsets of propertynames, attachedM, etc.
         $map = Beans::obj2map($account);
         // TODO: all this should be in a base class (but not ZMModel) - perhaps FormData in rp?
