@@ -322,15 +322,6 @@ class Session extends BaseSession implements ContainerAwareInterface
     }
 
     /**
-     * Returns <code>true</code> if the user is a guest user.
-     *
-     * <p>This status level is in the middle between <em>registered</em> and <em>anonymous</em>.</p>
-     *
-     * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
-     */
-    public function isGuest() { return $this->getType() == Account::GUEST; }
-
-    /**
      * Returns <code>true</code> if the user is a registered user.
      *
      * <p>This is the highest status level.</p>
