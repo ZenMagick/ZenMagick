@@ -48,7 +48,7 @@ class RedirectView extends ZMObject implements View
         parent::__construct();
         $this->secure = false;
         $this->url = null;
-        $this->parameter = '';
+        $this->parameter = array();
         $this->status = 302;
         $this->requestId = null;
     }
