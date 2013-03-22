@@ -33,10 +33,10 @@ use Symfony\Component\Filesystem\Filesystem;
 class FileCache extends ZMObject implements Cache
 {
     const SYSTEM_KEY = "zenmagick.base.cache.file";
-    private $group_;
-    private $available_;
-    private $cache_;
-    private $metaCache_;
+    private $group;
+    private $available;
+    private $cache;
+    private $metaCache;
 
     /**
      * Create new instance.
@@ -44,7 +44,7 @@ class FileCache extends ZMObject implements Cache
     public function __construct()
     {
         parent::__construct();
-        $this->available_ = true;
+        $this->available = true;
     }
 
     /**
@@ -64,32 +64,32 @@ class FileCache extends ZMObject implements Cache
             unset($config['cacheTTL']);
         }
         $this->ensureCacheDir($config['cacheDir']);
-        $this->metaCache_ = new CacheLite($config);
-        $this->group_ = $group;
-        $this->available_ = $this->ensureCacheDir($config['cacheDir']);
-        $this->cache_ = new CacheLite($config);
+        $this->metaCache = new CacheLite($config);
+        $this->group = $group;
+        $this->available = $this->ensureCacheDir($config['cacheDir']);
+        $this->cache = new CacheLite($config);
 
         // update system stats
-        $system = $this->metaCache_->get(self::SYSTEM_KEY);
+        $system = $this->metaCache->get(self::SYSTEM_KEY);
         if (!$system) {
             $system = array();
             $system['groups'] = array();
         }
         $system['groups'][$group] = $config;
-        $this->metaCache_->save($system, self::SYSTEM_KEY);
+        $this->metaCache->save($system, self::SYSTEM_KEY);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { return $this->available_; }
+    public function isAvailable() { return $this->available; }
 
     /**
      * {@inheritDoc}
      */
     public function clear()
     {
-        return $this->cache_->clean($this->group_);
+        return $this->cache->clean($this->group);
     }
 
     /**
@@ -97,9 +97,9 @@ class FileCache extends ZMObject implements Cache
      */
     public function lookup($id)
     {
-        $this->cache_->clean($this->group_, 'old');
+        $this->cache->clean($this->group, 'old');
 
-        return $this->cache_->get($id, $this->group_);
+        return $this->cache->get($id, $this->group);
     }
 
     /**
@@ -107,7 +107,7 @@ class FileCache extends ZMObject implements Cache
      */
     public function remove($id)
     {
-        return $this->cache_->remove($id, $this->group_);
+        return $this->cache->remove($id, $this->group);
     }
 
     /**
@@ -115,7 +115,7 @@ class FileCache extends ZMObject implements Cache
      */
     public function save($data, $id)
     {
-        return $this->cache_->save($data, $id, $this->group_);
+        return $this->cache->save($data, $id, $this->group);
     }
 
     /**
@@ -123,7 +123,7 @@ class FileCache extends ZMObject implements Cache
      */
     public function lastModified()
     {
-        return $this->cache_->lastModified();
+        return $this->cache->lastModified();
     }
 
     /**
@@ -145,7 +145,7 @@ class FileCache extends ZMObject implements Cache
      */
     public function getStats()
     {
-        return array('lastModified' => $this->metaCache_->lastModified(), 'system' => $this->metaCache_->get(self::SYSTEM_KEY));
+        return array('lastModified' => $this->metaCache->lastModified(), 'system' => $this->metaCache->get(self::SYSTEM_KEY));
     }
 
     /**
@@ -157,7 +157,7 @@ class FileCache extends ZMObject implements Cache
         if (isset($map[$key])) {
             $key = $map[$key];
         }
-        $this->cache_->setOption($key, $value);
+        $this->cache->setOption($key, $value);
     }
 
 }

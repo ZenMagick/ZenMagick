@@ -36,8 +36,8 @@ use ZenMagick\Base\Toolbox;
  */
 class GoogleAnalyticsPlugin extends Plugin
 {
-    private $eol_ = "\n";
-    private $order_ = null;
+    private $eol = "\n";
+    private $order = null;
 
     /**
      * Event handler.
@@ -48,7 +48,7 @@ class GoogleAnalyticsPlugin extends Plugin
         if ('checkout_success' == $request->getRequestId()) {
             $view = $event->getArgument('view');
             $vars = $view->getVariables();
-            $this->order_ = $vars['currentOrder'];
+            $this->order = $vars['currentOrder'];
         }
     }
 
@@ -190,7 +190,7 @@ EOT;
         if ('checkout_success' != $request->getRequestId()) {
             return '';
         }
-        if (null == $this->order_) {
+        if (null == $this->order) {
             $this->container->get('logger')->warn('no order to process');
 
             return;
@@ -207,17 +207,17 @@ EOT;
         }
 
         // order
-        $address = $this->getAddress($this->order_);
+        $address = $this->getAddress($this->order);
         $city = $address->getCity();
         $state = $address->getState();
         $country = $address->getCountry();
         $countryCode = $address->getCountry()->getIsoCode3();
 
         // totals
-        $orderId = $this->order_->getId();
-        $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
-        $taxValue = number_format($this->order_->getOrderTotalLineAmountForType('tax'), 2, '.', '');
-        $shippingValue = number_format($this->order_->getOrderTotalLineAmountForType('shipping'), 2, '.', '');
+        $orderId = $this->order->getId();
+        $totalValue = number_format($this->order->getOrderTotalLineAmountForType('total'), 2, '.', '');
+        $taxValue = number_format($this->order->getOrderTotalLineAmountForType('tax'), 2, '.', '');
+        $shippingValue = number_format($this->order->getOrderTotalLineAmountForType('shipping'), 2, '.', '');
 
         // order code
         $code = <<<EOT
@@ -244,7 +244,7 @@ pageTracker._addTrans(
 );
 EOT;
         // items
-        foreach ($this->order_->getOrderItems() as $orderItem) {
+        foreach ($this->order->getOrderItems() as $orderItem) {
             $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $name = $orderItem->getName();
             $categoryName = $this->container->get('categoryService')->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId())->getName();
@@ -280,7 +280,7 @@ EOT;
     {
         $code = '';
         if ('checkout_success' == $request->getRequestId()) {
-            if (null == $this->order_) {
+            if (null == $this->order) {
                 $this->container->get('logger')->warn('no order to process');
 
                 return;
@@ -293,7 +293,7 @@ EOT;
                 } else {
                     $baseUrl = "http://www.googleadservices.com/pagead";
                 }
-                $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
+                $totalValue = number_format($this->order->getOrderTotalLineAmountForType('total'), 2, '.', '');
                 $conversionLang = $this->get('conversionLang');
                 $code = <<<EOT
 <script type="text/javascript">

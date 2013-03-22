@@ -40,10 +40,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMOrderTotalLineDetails extends ZMObject
 {
-    private $title_;
-    private $amount_;
-    private $value_;
-    private $taxClassId_;
+    private $title;
+    private $amount;
+    private $value;
+    private $taxClassId;
 
     /**
      * Create new instance.
@@ -51,10 +51,10 @@ class ZMOrderTotalLineDetails extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->title_ = '';
-        $this->amount_ = 0;
-        $this->value_ = 0;
-        $this->taxClassId_ = 0;
+        $this->title = '';
+        $this->amount = 0;
+        $this->value = 0;
+        $this->taxClassId = 0;
     }
 
     /**
@@ -62,7 +62,7 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return string The title.
      */
-    public function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title; }
 
     /**
      * Set the title.
@@ -71,7 +71,7 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @param string title The title.
      */
-    public function setTitle($title) { $this->title_ = $title; }
+    public function setTitle($title) { $this->title = $title; }
 
     /**
      * Get the amount.
@@ -80,14 +80,14 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return float The amount.
      */
-    public function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount; }
 
     /**
      * Set the amount.
      *
      * @param float amount The amount.
      */
-    public function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount = $amount; }
 
     /**
      * Get the display value.
@@ -98,27 +98,27 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return float The value.
      */
-    public function getDisplayValue() { return $this->value_; }
+    public function getDisplayValue() { return $this->value; }
 
     /**
      * Set the display value.
      *
      * @param float value The value.
      */
-    public function setDisplayValue($value) { $this->value_ = $value; }
+    public function setDisplayValue($value) { $this->value = $value; }
 
     /**
      * Get the tax class id.
      *
      * @return int The tax class id.
      */
-    public function getTaxClassId() { return $this->taxClassId_; }
+    public function getTaxClassId() { return $this->taxClassId; }
 
     /**
      * Set the tax class id.
      *
      * @param int taxClassId The tax class id.
      */
-    public function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
+    public function setTaxClassId($taxClassId) { $this->taxClassId = $taxClassId; }
 
 }

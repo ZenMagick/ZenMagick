@@ -41,8 +41,8 @@ class Products extends ZMObject implements SqlAware
     const IMAGE_MEDIUM = 'medium';
     const IMAGE_LARGE = 'large';
 
-    private $cache_;
-    private $categoryProductMap_;
+    private $cache;
+    private $categoryProductMap;
 
     /**
      * Create new instance.
@@ -50,7 +50,7 @@ class Products extends ZMObject implements SqlAware
     public function __construct()
     {
         parent::__construct();
-        $this->categoryProductMap_ = null;
+        $this->categoryProductMap = null;
     }
 
     /**
@@ -60,7 +60,7 @@ class Products extends ZMObject implements SqlAware
      */
     public function setCache($cache)
     {
-        $this->cache_ = $cache;
+        $this->cache = $cache;
     }
 
     /**
@@ -70,7 +70,7 @@ class Products extends ZMObject implements SqlAware
      */
     public function getCache()
     {
-        return $this->cache_;
+        return $this->cache;
     }
 
     /**
@@ -182,12 +182,12 @@ class Products extends ZMObject implements SqlAware
         $mainKey = $active ? 'active' : 'all';
         $mainKey .= ':'.$languageId;
 
-        if (null === $this->categoryProductMap_ || !isset($this->categoryProductMap_[$mainKey])) {
-            if (null === $this->categoryProductMap_) {
-                $this->categoryProductMap_ = array();
+        if (null === $this->categoryProductMap || !isset($this->categoryProductMap[$mainKey])) {
+            if (null === $this->categoryProductMap) {
+                $this->categoryProductMap = array();
             }
-            if (!isset($this->categoryProductMap_[$mainKey])) {
-                $this->categoryProductMap_[$mainKey] = array();
+            if (!isset($this->categoryProductMap[$mainKey])) {
+                $this->categoryProductMap[$mainKey] = array();
             }
 
             $sql = "SELECT p.products_id, p2c.categories_id
@@ -203,14 +203,14 @@ class Products extends ZMObject implements SqlAware
             $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'products_to_categories'));
             foreach ($results as $result) {
                 $cId = $result['categoryId'];
-                if (!isset($this->categoryProductMap_[$mainKey][$cId])) {
-                    $this->categoryProductMap_[$mainKey][$cId] = array();
+                if (!isset($this->categoryProductMap[$mainKey][$cId])) {
+                    $this->categoryProductMap[$mainKey][$cId] = array();
                 }
-                $this->categoryProductMap_[$mainKey][$cId][] = $result['productId'];
+                $this->categoryProductMap[$mainKey][$cId][] = $result['productId'];
             }
         }
 
-        $ids = isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
+        $ids = isset($this->categoryProductMap[$mainKey][$categoryId]) ? $this->categoryProductMap[$mainKey][$categoryId] : array();
         if ($includeChildren) {
             $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
             foreach ($category->getChildren() as $child) {
@@ -519,8 +519,8 @@ class Products extends ZMObject implements SqlAware
         $args = array('model' => $model, 'languageId' => $languageId);
 
         $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
-        if (null != $product && null != $this->cache_) {
-            $this->cache_->save($product, Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
+        if (null != $product && null != $this->cache) {
+            $this->cache->save($product, Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
 
         return $product;
@@ -540,7 +540,7 @@ class Products extends ZMObject implements SqlAware
             $languageId = $session->getLanguageId();
         }
 
-        if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(Toolbox::hash('product', $productId, $languageId)))) {
+        if (null != $this->cache && false !== ($product = $this->cache->lookup(Toolbox::hash('product', $productId, $languageId)))) {
             return $product;
         }
 
@@ -554,8 +554,8 @@ class Products extends ZMObject implements SqlAware
         $args = array('productId' => $productId, 'languageId' => $languageId);
         $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
 
-        if (null != $this->cache_ && null != $product) {
-            $this->cache_->save($product, Toolbox::hash('product', $productId, $languageId));
+        if (null != $this->cache && null != $product) {
+            $this->cache->save($product, Toolbox::hash('product', $productId, $languageId));
         }
 
         return $product;
@@ -585,7 +585,7 @@ class Products extends ZMObject implements SqlAware
         // check cache first
         $needLoadIds = array();
         foreach ($productIds as $id) {
-            if (null != $this->cache_ && false !== ($product = $this->cache_->lookup(Toolbox::hash('product', $id, $languageId)))) {
+            if (null != $this->cache && false !== ($product = $this->cache->lookup(Toolbox::hash('product', $id, $languageId)))) {
                 $products[] = $product;
             } else {
                 $needLoadIds[$id] = $id;
@@ -608,8 +608,8 @@ class Products extends ZMObject implements SqlAware
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
-                if (null != $this->cache_) {
-                    $this->cache_->save($product, Toolbox::hash('product', $product->getId(), $languageId));
+                if (null != $this->cache) {
+                    $this->cache->save($product, Toolbox::hash('product', $product->getId(), $languageId));
                 }
             }
         }
@@ -641,8 +641,8 @@ class Products extends ZMObject implements SqlAware
         ZMRuntime::getDatabase()->updateModel('meta_tags_products_description', $product->getMetaTagDetails());
 
         // update cache
-        if (null != $this->cache_) {
-            $this->cache_->remove(Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
+        if (null != $this->cache) {
+            $this->cache->remove(Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
 
         return $product;

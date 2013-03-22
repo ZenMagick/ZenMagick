@@ -51,7 +51,7 @@ class Connection extends DbalConnection
     /** NULL datetime. */
     const NULL_DATETIME = '0001-01-01 00:00:00';
 
-    protected $mapper_;
+    protected $mapper;
 
    /**
      * Gets the table prefix used by this connection.
@@ -88,13 +88,13 @@ class Connection extends DbalConnection
      */
     public function getMapper()
     {
-        if (null == $this->mapper_) {
-            $this->mapper_ = new TableMapper();
-            $this->mapper_->setTablePrefix($this->getPrefix());
+        if (null == $this->mapper) {
+            $this->mapper = new TableMapper();
+            $this->mapper->setTablePrefix($this->getPrefix());
             $this->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
         }
 
-        return $this->mapper_;
+        return $this->mapper;
     }
 
     /**

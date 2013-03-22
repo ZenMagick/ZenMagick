@@ -32,11 +32,11 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMImageInfo extends ZMObject
 {
-    protected $imageDefault_;
-    protected $imageMedium_;
-    protected $imageLarge_;
-    protected $altText_;
-    protected $parameter_;
+    protected $imageDefault;
+    protected $imageMedium;
+    protected $imageLarge;
+    protected $altText;
+    protected $parameter;
 
     /**
      * Create new image info.
@@ -47,8 +47,8 @@ class ZMImageInfo extends ZMObject
     public function __construct($image=null, $alt='')
     {
         parent::__construct();
-        $this->altText_ = $alt;
-        $this->parameter_ = array();
+        $this->altText = $alt;
+        $this->parameter = array();
         $this->setDefaultImage($image);
     }
 
@@ -71,27 +71,27 @@ class ZMImageInfo extends ZMObject
             $zcPath = $this->container->getParameter('zencart.root_dir');
             // set default image
             if (empty($image) || !file_exists($zcPath.'/images/'.$image) || !is_file($zcPath.'/images/'.$image)) {
-                $this->imageDefault_ = $netTool->image($settingsService->get('imgNotFound'));
+                $this->imageDefault = $netTool->image($settingsService->get('imgNotFound'));
             } else {
-                $this->imageDefault_ = $netTool->image($image);
+                $this->imageDefault = $netTool->image($image);
             }
 
             // evaluate optional medium image
             $medium = $imageBase.$settingsService->get('imgSuffixMedium').$ext;
             if (!file_exists($zcPath.'/images/'.'medium/'.$medium)) {
                 // default to next smaller version
-                $this->imageMedium_ = $this->imageDefault_;
+                $this->imageMedium = $this->imageDefault;
             } else {
-                $this->imageMedium_ = $netTool->image('medium/'.$medium);
+                $this->imageMedium = $netTool->image('medium/'.$medium);
             }
 
             // evaluate optional large image
             $large = $imageBase.$settingsService->get('imgSuffixLarge').$ext;
             if (!file_exists($zcPath.'/images/'.'large/'.$large)) {
                 // default to next smaller version
-                $this->imageLarge_ = $this->imageMedium_;
+                $this->imageLarge = $this->imageMedium;
             } else {
-                $this->imageLarge_ = $netTool->image('large/'.$large);
+                $this->imageLarge = $netTool->image('large/'.$large);
             }
         }
     }
@@ -101,56 +101,56 @@ class ZMImageInfo extends ZMObject
      *
      * @return boolean <code>true</code> if there is an image, <code>false</code> if not.
      */
-    public function hasImage() { return '' != $this->imageDefault_; }
+    public function hasImage() { return '' != $this->imageDefault; }
 
     /**
      * Get the default image.
      *
      * @return string The default image.
      */
-    public function getDefaultImage() { return $this->imageDefault_; }
+    public function getDefaultImage() { return $this->imageDefault; }
 
     /**
      * Check if there is a medium image.
      *
      * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
-    public function hasMediumImage() { return $this->imageMedium_ != $this->imageDefault_; }
+    public function hasMediumImage() { return $this->imageMedium != $this->imageDefault; }
 
     /**
      * Get the medium image.
      *
      * @return string The medium image.
      */
-    public function getMediumImage() { return $this->imageMedium_; }
+    public function getMediumImage() { return $this->imageMedium; }
 
     /**
      * Get the large image.
      *
      * @return string The large image.
      */
-    public function getLargeImage() { return $this->imageLarge_; }
+    public function getLargeImage() { return $this->imageLarge; }
 
     /**
      * Check if there is a large image.
      *
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
-    public function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
+    public function hasLargeImage() { return $this->imageLarge != $this->imageMedium; }
 
     /**
      * Set the alt text.
      *
      * @param string text The alt text.
      */
-    public function setAltText($text) { $this->altText_ = $text; }
+    public function setAltText($text) { $this->altText = $text; }
 
     /**
      * Get the alt text.
      *
      * @return string The alt text.
      */
-    public function getAltText() { return $this->altText_; }
+    public function getAltText() { return $this->altText; }
 
     /**
      * Set the parameter.
@@ -161,9 +161,9 @@ class ZMImageInfo extends ZMObject
     public function setParameter($parameter)
     {
         if (is_array($parameter)) {
-            $this->parameter_ = $parameter;
+            $this->parameter = $parameter;
         } elseif (!empty($parameter)) {
-            parse_str($parameter, $this->parameter_);
+            parse_str($parameter, $this->parameter);
         }
     }
 
@@ -172,7 +172,7 @@ class ZMImageInfo extends ZMObject
      *
      * @return array Map of key/value pairs.
      */
-    public function getParameter() { return $this->parameter_; }
+    public function getParameter() { return $this->parameter; }
 
     /**
      * Get the parameter formatted as <code>key="value" </code>.
@@ -182,7 +182,7 @@ class ZMImageInfo extends ZMObject
     public function getFormattedParameter()
     {
         $html = '';
-        foreach ($this->parameter_ as $attr => $value) {
+        foreach ($this->parameter as $attr => $value) {
             $html .= ' '.$attr.'="'.$value.'"';
         }
 

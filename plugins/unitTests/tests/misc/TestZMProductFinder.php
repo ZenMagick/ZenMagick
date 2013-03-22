@@ -45,11 +45,11 @@ class TestZMProductFinder extends TestCase
 
         // should there be a criteria method to set the currency?
         global $currencies;
-        $currencyRate_ = $currencies->get_value($_SESSION['currency']);
-        if ($currencyRate_) {
+        $currencyRate = $currencies->get_value($_SESSION['currency']);
+        if ($currencyRate) {
             // adjust currency
-            $criteria->setPriceFrom($criteria->getPriceFrom() / $currencyRate_);
-            $criteria->setPriceTo($criteria->getPriceTo() / $currencyRate_);
+            $criteria->setPriceFrom($criteria->getPriceFrom() / $currencyRate);
+            $criteria->setPriceTo($criteria->getPriceTo() / $currencyRate);
         }
         /*
          */

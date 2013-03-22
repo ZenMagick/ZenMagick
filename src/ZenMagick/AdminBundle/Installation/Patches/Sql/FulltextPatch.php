@@ -28,10 +28,10 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  */
 class FulltextPatch extends SQLPatch
 {
-    public $sqlFiles_ = array(
+    public $sqlFiles = array(
         "fulltext_install.sql"
     );
-    public $sqlUndoFiles_ = array(
+    public $sqlUndoFiles = array(
         "fulltext_uninstall.sql"
     );
 
@@ -41,7 +41,7 @@ class FulltextPatch extends SQLPatch
     public function __construct()
     {
         parent::__construct('sqlFulltext');
-        $this->label_ = 'Create indices for fulltext product search';
+        $this->label = 'Create indices for fulltext product search';
     }
 
     /**

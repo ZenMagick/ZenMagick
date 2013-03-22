@@ -30,8 +30,8 @@ use ZenMagick\Base\ZMObject;
  */
 class CouponRestrictions extends ZMObject
 {
-    private $categories_;
-    private $products_;
+    private $categories;
+    private $products;
 
     /**
      * Create new instance.
@@ -39,8 +39,8 @@ class CouponRestrictions extends ZMObject
     public function __construct($categories=array(), $products=array())
     {
         parent::__construct();
-        $this->categories_ = $categories;
-        $this->products_ = $products;
+        $this->categories = $categories;
+        $this->products = $products;
     }
 
     /**
@@ -50,7 +50,7 @@ class CouponRestrictions extends ZMObject
      */
     public function hasRestrictions()
     {
-        return 0 != count($this->categories_) || 0 < count($this->products_);
+        return 0 != count($this->categories) || 0 < count($this->products);
     }
 
     /**
@@ -60,7 +60,7 @@ class CouponRestrictions extends ZMObject
      */
     public function hasCategories()
     {
-        return 0 != count($this->categories_);
+        return 0 != count($this->categories);
     }
 
     /**
@@ -70,7 +70,7 @@ class CouponRestrictions extends ZMObject
      */
     public function hasProducts()
     {
-        return 0 < count($this->products_);
+        return 0 < count($this->products);
     }
 
     /**
@@ -80,7 +80,7 @@ class CouponRestrictions extends ZMObject
      */
     public function getCategories()
     {
-        return $this->categories_;
+        return $this->categories;
     }
 
     /**
@@ -90,7 +90,7 @@ class CouponRestrictions extends ZMObject
      */
     public function getProducts()
     {
-        return $this->products_;
+        return $this->products;
     }
 
 }

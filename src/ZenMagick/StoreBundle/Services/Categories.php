@@ -41,10 +41,10 @@ class Categories extends ZMObject
      * <p>This gets loaded on demand, so subclasses have to ensure this is populated before
      * using it.</p>
      */
-    private $cache_;
-    private $categories_;
-    private $rootCategories_;
-    private $productTypeIdMap_;
+    private $cache;
+    private $categories;
+    private $rootCategories;
+    private $productTypeIdMap;
 
     /**
      * Create new instance.
@@ -52,9 +52,9 @@ class Categories extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->categories_ = array();
-        $this->rootCategories_ = array();
-        $this->productTypeIdMap_ = null;
+        $this->categories = array();
+        $this->rootCategories = array();
+        $this->productTypeIdMap = null;
     }
 
     /**
@@ -64,7 +64,7 @@ class Categories extends ZMObject
      */
     public function setCache($cache)
     {
-        $this->cache_ = $cache;
+        $this->cache = $cache;
     }
 
     /**
@@ -74,7 +74,7 @@ class Categories extends ZMObject
      */
     public function getCache()
     {
-        return $this->cache_;
+        return $this->cache;
     }
 
     /**
@@ -113,13 +113,13 @@ class Categories extends ZMObject
     public function getRootCategories($languageId, $includeChildren=false)
     {
         $rootCategoriesKey = $languageId.'-'.($includeChildren ? 'true' : 'false');
-        if (array_key_exists($rootCategoriesKey, $this->rootCategories_)) {
-            return $this->rootCategories_[$rootCategoriesKey];
+        if (array_key_exists($rootCategoriesKey, $this->rootCategories)) {
+            return $this->rootCategories[$rootCategoriesKey];
         }
 
         // first check cache
-        if (false !== ($rootCategories = $this->cache_->lookup(Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey)))) {
-            $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
+        if (false !== ($rootCategories = $this->cache->lookup(Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey)))) {
+            $this->rootCategories[$rootCategoriesKey] = $rootCategories;
 
             return $rootCategories;
         }
@@ -150,8 +150,8 @@ class Categories extends ZMObject
         }
 
         // save for later
-        $this->cache_->save($rootCategories, Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey));
-        $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
+        $this->cache->save($rootCategories, Toolbox::hash('categories', 'rootCategories', $rootCategoriesKey));
+        $this->rootCategories[$rootCategoriesKey] = $rootCategories;
 
         return $rootCategories;
     }
@@ -176,14 +176,14 @@ class Categories extends ZMObject
      */
     public function getCategories($languageId, $ids=null)
     {
-        if (array_key_exists($languageId, $this->categories_)) {
-            $categories = $this->categories_[$languageId];
-        } elseif (false === ($categories = $this->cache_->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
+        if (array_key_exists($languageId, $this->categories)) {
+            $categories = $this->categories[$languageId];
+        } elseif (false === ($categories = $this->cache->lookup(Toolbox::hash('categories', 'categories', $languageId)))) {
             $categories = $this->loadAndInitTree($languageId);
             // save for later
-            $this->cache_->save($categories, Toolbox::hash('categories', 'categories', $languageId));
+            $this->cache->save($categories, Toolbox::hash('categories', 'categories', $languageId));
         }
-        $this->categories_[$languageId] = $categories;
+        $this->categories[$languageId] = $categories;
 
         if (null === $ids) {
             return $categories;
@@ -243,12 +243,12 @@ class Categories extends ZMObject
      */
     protected function invalidateCache($languageId, $category=null)
     {
-        $this->cache_->remove(Toolbox::hash('categories', 'categories', $languageId));
-        $this->cache_->remove(Toolbox::hash('categories', 'rootCategories', $languageId));
-        $this->cache_->remove(Toolbox::hash('categories', 'productTypeIdMap'));
+        $this->cache->remove(Toolbox::hash('categories', 'categories', $languageId));
+        $this->cache->remove(Toolbox::hash('categories', 'rootCategories', $languageId));
+        $this->cache->remove(Toolbox::hash('categories', 'productTypeIdMap'));
 
-        if (null != $category && array_key_exists($languageId, $this->categories_)) {
-            $this->categories_[$languageId][$category->getId()] = $category;
+        if (null != $category && array_key_exists($languageId, $this->categories)) {
+            $this->categories[$languageId][$category->getId()] = $category;
         }
     }
 
@@ -286,8 +286,8 @@ class Categories extends ZMObject
         } else {
             // update internal root categories cache
             $rootCategoriesKey = $languageId.'-true';
-            if (array_key_exists($rootCategoriesKey, $this->rootCategories_)) {
-                $this->rootCategories_[$rootCategoriesKey][$category->getId()] = $category;
+            if (array_key_exists($rootCategoriesKey, $this->rootCategories)) {
+                $this->rootCategories[$rootCategoriesKey][$category->getId()] = $category;
             }
         }
 
@@ -343,8 +343,8 @@ class Categories extends ZMObject
         ZMRuntime::getDatabase()->removeModel('categories_description', $category);
         $this->invalidateCache($category->getLanguageId());
 
-        if (array_key_exists($languageId, $this->categories_) && array_key_exists($category->getId(), $this->categories_[$languageId])) {
-            unset($this->categories_[$languageId][$category->getId()]);
+        if (array_key_exists($languageId, $this->categories) && array_key_exists($category->getId(), $this->categories[$languageId])) {
+            unset($this->categories[$languageId][$category->getId()]);
         }
 
         // check for dangling child categories
@@ -371,15 +371,15 @@ class Categories extends ZMObject
      */
     public function getProductTypeIds($categoryId)
     {
-        if (null !== $this->productTypeIdMap_) {
-            return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
+        if (null !== $this->productTypeIdMap) {
+            return array_key_exists($categoryId, $this->productTypeIdMap) ? $this->productTypeIdMap[$categoryId] : array();
         }
 
         // first check cache
-        if (false !== ($productTypeIdMap = $this->cache_->lookup(Toolbox::hash('categories', 'productTypeIdMap')))) {
-            $this->productTypeIdMap_ = $productTypeIdMap;
+        if (false !== ($productTypeIdMap = $this->cache->lookup(Toolbox::hash('categories', 'productTypeIdMap')))) {
+            $this->productTypeIdMap = $productTypeIdMap;
 
-            return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
+            return array_key_exists($categoryId, $this->productTypeIdMap) ? $this->productTypeIdMap[$categoryId] : array();
         }
 
         $productTypeIdMap = array();
@@ -393,8 +393,8 @@ class Categories extends ZMObject
         }
 
         // save for later
-        $this->cache_->save($productTypeIdMap, Toolbox::hash('categories', 'productTypeIdMap'));
-        $this->productTypeIdMap_ = $productTypeIdMap;
+        $this->cache->save($productTypeIdMap, Toolbox::hash('categories', 'productTypeIdMap'));
+        $this->productTypeIdMap = $productTypeIdMap;
 
         return array_key_exists($categoryId, $productTypeIdMap) ? $productTypeIdMap[$categoryId] : array();
     }

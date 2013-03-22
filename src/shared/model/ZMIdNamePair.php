@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMIdNamePair extends ZMObject
 {
-    public $id_;
-    public $name_;
+    public $id;
+    public $name;
 
     /**
      * Create new id - name pair.
@@ -40,8 +40,8 @@ class ZMIdNamePair extends ZMObject
     public function __construct($id, $name)
     {
         parent::__construct();
-        $this->id_ = $id;
-        $this->name_ = $name;
+        $this->id = $id;
+        $this->name = $name;
     }
 
     /**
@@ -49,13 +49,13 @@ class ZMIdNamePair extends ZMObject
      *
      * @return string The id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
 }

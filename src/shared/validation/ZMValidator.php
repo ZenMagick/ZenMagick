@@ -37,9 +37,9 @@ use Symfony\Component\Yaml\Yaml;
  */
 class ZMValidator extends ZMObject
 {
-    private $sets_;
-    private $alias_;
-    private $messages_;
+    private $sets;
+    private $alias;
+    private $messages;
 
     /**
      * Create new instance.
@@ -48,9 +48,9 @@ class ZMValidator extends ZMObject
     {
         $this->container = $container;
         parent::__construct();
-        $this->sets_ = array();
-        $this->alias_ = array();
-        $this->messages_ = array();
+        $this->sets = array();
+        $this->alias = array();
+        $this->messages = array();
 
         if (Runtime::isContextMatch('storefront')) { // yucky, but easier now than later
             $rootDir = $container->getParameter('zenmagick.root_dir');
@@ -68,7 +68,7 @@ class ZMValidator extends ZMObject
      */
     public function addAlias($id, $alias)
     {
-        $this->alias_[$alias] = $id;
+        $this->alias[$alias] = $id;
     }
 
     /**
@@ -79,8 +79,8 @@ class ZMValidator extends ZMObject
      */
     protected function resolveAlias($id)
     {
-        if (array_key_exists($id, $this->alias_)) {
-            return $this->alias_[$id];
+        if (array_key_exists($id, $this->alias)) {
+            return $this->alias[$id];
         }
 
         return $id;
@@ -95,10 +95,10 @@ class ZMValidator extends ZMObject
      */
     public function addRule($id, $rule, $override=false)
     {
-        if (array_key_exists($id, $this->sets_) && !$override) {
-            $this->sets_[$id][] = $rule;
+        if (array_key_exists($id, $this->sets) && !$override) {
+            $this->sets[$id][] = $rule;
         } else {
-            $this->sets_[$id] = array($rule);
+            $this->sets[$id] = array($rule);
         }
     }
 
@@ -111,10 +111,10 @@ class ZMValidator extends ZMObject
      */
     public function addRules($id, $rules, $override=false)
     {
-        if (array_key_exists($id, $this->sets_) && !$override) {
-            $this->sets_[$id] = array_merge($this->sets_[$id], $rules);
+        if (array_key_exists($id, $this->sets) && !$override) {
+            $this->sets[$id] = array_merge($this->sets[$id], $rules);
         } else {
-            $this->sets_[$id] = $rules;
+            $this->sets[$id] = $rules;
         }
     }
 
@@ -183,11 +183,11 @@ class ZMValidator extends ZMObject
     {
         $baseId = $this->resolveAlias($id);
         $ruleSet = null;
-        if (array_key_exists($baseId, $this->sets_)) {
-            $ruleSet = $this->sets_[$baseId];
+        if (array_key_exists($baseId, $this->sets)) {
+            $ruleSet = $this->sets[$baseId];
         }
-        if ($id != $baseId && array_key_exists($id, $this->sets_)) {
-            $ruleSet = array_merge($ruleSet, $this->sets_[$id]);
+        if ($id != $baseId && array_key_exists($id, $this->sets)) {
+            $ruleSet = array_merge($ruleSet, $this->sets[$id]);
         }
 
         if ($compile) {
@@ -214,7 +214,7 @@ class ZMValidator extends ZMObject
     {
         $baseId = $this->resolveAlias($id);
 
-        return array_key_exists($id, $this->sets_) || array_key_exists($baseId, $this->sets_);
+        return array_key_exists($id, $this->sets) || array_key_exists($baseId, $this->sets);
     }
 
     /**
@@ -225,7 +225,7 @@ class ZMValidator extends ZMObject
      */
     public function getMessages()
     {
-        return $this->messages_;
+        return $this->messages;
     }
 
     /**
@@ -269,7 +269,7 @@ class ZMValidator extends ZMObject
      */
     public function validate($request, $data, $id)
     {
-        $this->messages_ = array();
+        $this->messages = array();
 
         $set = $this->getRuleSet($id, true);
         if (null == $set) {
@@ -291,13 +291,13 @@ class ZMValidator extends ZMObject
             if (!$rule->validate($request, $map)) {
                 $status = false;
                 $msgList = array();
-                if (array_key_exists($rule->getName(), $this->messages_)) {
-                    $msgList = $this->messages_[$rule->getName()];
+                if (array_key_exists($rule->getName(), $this->messages)) {
+                    $msgList = $this->messages[$rule->getName()];
                 }
                 if (null != $rule->getErrorMsg()) {
                     array_push($msgList, $rule->getErrorMsg());
                 }
-                $this->messages_[$rule->getName()] = $msgList;
+                $this->messages[$rule->getName()] = $msgList;
             }
         }
 

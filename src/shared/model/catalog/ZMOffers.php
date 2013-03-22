@@ -44,13 +44,13 @@ class ZMOffers extends ZMObject
     const DISCOUNT_FROM_BASE_PRICE = 0;
     const DISCOUNT_FROM_SPECIAL_PRICE = 1;
 
-    protected $product_;
-    private $basePrice_;
-    private $specialPrice_;
-    private $salePrice_;
-    private $taxRate_;
-    private $discountPercent_;
-    private $discounts_;
+    protected $product;
+    private $basePrice;
+    private $specialPrice;
+    private $salePrice;
+    private $taxRate;
+    private $discountPercent;
+    private $discounts;
 
     /**
      * Create new instance.
@@ -60,12 +60,12 @@ class ZMOffers extends ZMObject
     public function __construct($product=null)
     {
         parent::__construct();
-        $this->basePrice_ = null;
-        $this->specialPrice_ = null;
-        $this->salePrice_ = null;
-        $this->taxRate_ = null;
-        $this->discountPercent_ = 0;
-        $this->discounts_ = array(true => null, false => null);
+        $this->basePrice = null;
+        $this->specialPrice = null;
+        $this->salePrice = null;
+        $this->taxRate = null;
+        $this->discountPercent = 0;
+        $this->discounts = array(true => null, false => null);
         $this->setProduct($product);
     }
 
@@ -76,7 +76,7 @@ class ZMOffers extends ZMObject
      */
     public function isAttributePrice()
     {
-        foreach ($this->product_->getAttributes() as $attribute) {
+        foreach ($this->product->getAttributes() as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 if (0 < $value->getPrice()) {
                     return true;
@@ -94,7 +94,7 @@ class ZMOffers extends ZMObject
      */
     public function setProduct($product)
     {
-        $this->product_ = $product;
+        $this->product = $product;
         $this->calculatePrice();
     }
 
@@ -108,7 +108,7 @@ class ZMOffers extends ZMObject
      */
     public function getProductPrice($tax=true)
     {
-        return $tax ? $this->getTaxRate()->addTax($this->product_->getProductPrice()) : $this->product_->getProductPrice();
+        return $tax ? $this->getTaxRate()->addTax($this->product->getProductPrice()) : $this->product->getProductPrice();
     }
 
     /**
@@ -121,11 +121,11 @@ class ZMOffers extends ZMObject
      */
     public function getBasePrice($tax=true)
     {
-        if (null === $this->basePrice_) {
-            $this->basePrice_ = $this->doGetBasePrice();
+        if (null === $this->basePrice) {
+            $this->basePrice = $this->doGetBasePrice();
         }
 
-        return $tax ? $this->getTaxRate()->addTax($this->basePrice_) : $this->basePrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->basePrice) : $this->basePrice;
     }
 
     /**
@@ -135,8 +135,8 @@ class ZMOffers extends ZMObject
     {
         $basePrice = 0;
 
-        $attributes = $this->product_->getAttributes();
-        if ($this->product_->isPricedByAttributes() && 0 < count($attributes)) {
+        $attributes = $this->product->getAttributes();
+        if ($this->product->isPricedByAttributes() && 0 < count($attributes)) {
             // add minimum attributes price to price
             foreach ($attributes as $attribute) {
                 $lowest = null;
@@ -169,11 +169,11 @@ class ZMOffers extends ZMObject
      */
     public function getSpecialPrice($tax=true)
     {
-        if (null === $this->specialPrice_) {
-            $this->specialPrice_ = $this->product_->getSpecialPrice();
+        if (null === $this->specialPrice) {
+            $this->specialPrice = $this->product->getSpecialPrice();
         }
 
-        return $tax ? $this->getTaxRate()->addTax($this->specialPrice_) : $this->specialPrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->specialPrice) : $this->specialPrice;
     }
 
     /**
@@ -186,11 +186,11 @@ class ZMOffers extends ZMObject
      */
     public function getSalePrice($tax=true)
     {
-        if (null === $this->salePrice_) {
-            $this->salePrice_ = $this->doGetSalePrice();
+        if (null === $this->salePrice) {
+            $this->salePrice = $this->doGetSalePrice();
         }
 
-        return $tax ? $this->getTaxRate()->addTax($this->salePrice_) : $this->salePrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->salePrice) : $this->salePrice;
     }
 
     /**
@@ -204,12 +204,12 @@ class ZMOffers extends ZMObject
         // get available sales
         $sql = "SELECT sale_specials_condition, sale_deduction_value, sale_deduction_type
                 FROM %table.salemaker_sales%
-                WHERE sale_categories_all LIKE '%," . $this->product_->getMasterCategoryId() . ",%' AND sale_status = '1'
+                WHERE sale_categories_all LIKE '%," . $this->product->getMasterCategoryId() . ",%' AND sale_status = '1'
                 AND (sale_date_start <= now() OR sale_date_start = '0001-01-01')
                 AND (sale_date_end >= now() OR sale_date_end = '0001-01-01')
                 AND (sale_pricerange_from <= :priceFrom  OR sale_pricerange_from = '0')
                 AND (sale_pricerange_to >= :priceFrom OR sale_pricerange_to = '0')";
-        $args = array('priceFrom' => $basePrice, 'categoriesAll' => '%,'.$this->product_->getMasterCategoryId().',%');
+        $args = array('priceFrom' => $basePrice, 'categoriesAll' => '%,'.$this->product->getMasterCategoryId().',%');
         $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'salemaker_sales');
 
         if (0 == count($results)) {
@@ -277,18 +277,18 @@ class ZMOffers extends ZMObject
      */
     protected function calculatePrice()
     {
-        if (null != $this->product_) {
+        if (null != $this->product) {
             $basePrice = $this->getBasePrice(false);
             $specialPrice = $this->getSpecialPrice(false);
             $salePrice = $this->getSalePrice(false);
 
             // calculate discount
-            $this->discountPercent_ = 0;
+            $this->discountPercent = 0;
             if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
                 if (0 != $salePrice) {
-                    $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
+                    $this->discountPercent = number_format(100 - (($salePrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
                 } else {
-                    $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
+                    $this->discountPercent = number_format(100 - (($specialPrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
                 }
             }
         }
@@ -299,7 +299,7 @@ class ZMOffers extends ZMObject
      *
      * @return float The discount in percent.
      */
-    public function getDiscountPercent() { return $this->discountPercent_; }
+    public function getDiscountPercent() { return $this->discountPercent; }
 
     /**
      * Get the discount amount.
@@ -309,7 +309,7 @@ class ZMOffers extends ZMObject
     public function getDiscountAmount()
     {
         $save = 0;
-        if (!$this->product_->isFree() && ($this->isSpecial() || $this->isSale())) {
+        if (!$this->product->isFree() && ($this->isSpecial() || $this->isSale())) {
           if ($this->isSpecial()) {
               $save = $this->getBasePrice() - $this->getSpecialPrice();
           } elseif ($this->isSale()) {
@@ -327,11 +327,11 @@ class ZMOffers extends ZMObject
      */
     public function getTaxRate()
     {
-        if (null == $this->taxRate_) {
-            $this->taxRate_ = $this->product_->getTaxRate();
+        if (null == $this->taxRate) {
+            $this->taxRate = $this->product->getTaxRate();
         }
 
-        return $this->taxRate_;
+        return $this->taxRate;
     }
 
     /**
@@ -339,14 +339,14 @@ class ZMOffers extends ZMObject
      *
      * @return boolean <code>true</code> if a special price is available.
      */
-    public function isSpecial() { return 0 != $this->specialPrice_ && $this->specialPrice_ != $this->basePrice_ && !$this->isSale(); }
+    public function isSpecial() { return 0 != $this->specialPrice && $this->specialPrice != $this->basePrice && !$this->isSale(); }
 
     /**
      * Checks if a sale price is available.
      *
      * @return boolean <code>true</code> if a sale price is available.
      */
-    public function isSale() { return 0 != $this->salePrice_; }
+    public function isSale() { return 0 != $this->salePrice; }
 
     /**
      * Get the calculated price.
@@ -358,7 +358,7 @@ class ZMOffers extends ZMObject
      */
     public function getCalculatedPrice($tax=true)
     {
-        if ($this->product_->isFree()) {
+        if ($this->product->isFree()) {
             return 0;
         } elseif (0 != ($salePrice = $this->getSalePrice($tax))) {
             return $salePrice;
@@ -408,8 +408,8 @@ class ZMOffers extends ZMObject
      */
     public function getQuantityDiscounts($tax=true)
     {
-        if (null !== $this->discounts_[$tax]) {
-            return $this->discounts_[$tax];
+        if (null !== $this->discounts[$tax]) {
+            return $this->discounts[$tax];
         }
 
         $sql = "SELECT * FROM %table.products_discount_quantity%
@@ -417,11 +417,11 @@ class ZMOffers extends ZMObject
                   AND discount_qty != 0
                 ORDER BY discount_qty";
 
-        $args = array('productId' => $this->product_->getId());
+        $args = array('productId' => $this->product->getId());
         $discounts = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'products_discount_quantity', 'ZMQuantityDiscount');
 
         if (0 < count($discounts)) {
-            $product = $this->product_;
+            $product = $this->product;
             $basePrice = $this->getBasePrice(false);
             if (self::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice(false))) {
                 $basePrice = $specialPrice;
@@ -451,9 +451,9 @@ class ZMOffers extends ZMObject
             }
         }
 
-        $this->discounts_[$tax] = $discounts;
+        $this->discounts[$tax] = $discounts;
 
-        return $this->discounts_[$tax];
+        return $this->discounts[$tax];
     }
 
     /**
@@ -496,7 +496,7 @@ class ZMOffers extends ZMObject
         2*100 + 2*10 = New Price apply to Special = 220 or 2209
         ====================*/
 
-        $typeInfo = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($this->product_->getId());
+        $typeInfo = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($this->product->getId());
         $discountTypeId = $typeInfo['type'];
 
         if (0 != $basePrice) {

@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMArrayResultSource extends ZMObject implements ZMResultSource
 {
-    private $list_;
-    private $resultClass_;
+    private $list;
+    private $resultClass;
 
     /**
      * Create a new instance.
@@ -40,8 +40,8 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource
     public function __construct($resultClass, $list)
     {
         parent::__construct();
-        $this->resultClass_ = $resultClass;
-        $this->list_ = $list;
+        $this->resultClass = $resultClass;
+        $this->list = $list;
     }
 
     /**
@@ -54,7 +54,7 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource
      */
     public function getResults($reload=false)
     {
-        return $this->list_;
+        return $this->list;
     }
 
     /**
@@ -62,7 +62,7 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource
      */
     public function getResultClass()
     {
-        return $this->resultClass_;
+        return $this->resultClass;
     }
 
     /**
@@ -70,7 +70,7 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource
      */
     public function getTotalNumberOfResults()
     {
-        return count($this->list_);
+        return count($this->list);
     }
 
     /**

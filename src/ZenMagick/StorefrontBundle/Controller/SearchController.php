@@ -34,7 +34,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class SearchController extends DefaultController
 {
-    private $autoSearch_;
+    private $autoSearch;
 
     /**
      * Create new instance.
@@ -42,7 +42,7 @@ class SearchController extends DefaultController
     public function __construct()
     {
         parent::__construct();
-        $this->autoSearch_ = true;
+        $this->autoSearch = true;
     }
 
     /**
@@ -55,7 +55,7 @@ class SearchController extends DefaultController
      */
     public function setAutoSearch($autoSearch)
     {
-        $this->autoSearch_ = Toolbox::asBoolean($autoSearch);
+        $this->autoSearch = Toolbox::asBoolean($autoSearch);
     }
 
     /**
@@ -65,7 +65,7 @@ class SearchController extends DefaultController
      */
     public function isAutoSearch()
     {
-        return $this->autoSearch_;
+        return $this->autoSearch;
     }
 
     /**

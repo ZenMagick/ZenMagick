@@ -32,9 +32,9 @@ use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 class WordpressRequestHandler extends DefaultController
 {
     public $wp_filter_id;
-    private $plugin_;
-    private $request_;
-    private $viewName_;
+    private $plugin;
+    private $request;
+    private $viewName;
 
     /**
      * Create new instance.
@@ -46,9 +46,9 @@ class WordpressRequestHandler extends DefaultController
     {
         parent::__construct();
         $this->wp_filter_id = get_class($this);
-        $this->plugin_ = $plugin;
-        $this->request_ = $request;
-        $this->viewName_ = null;
+        $this->plugin = $plugin;
+        $this->request = $request;
+        $this->viewName = null;
     }
 
     /**
@@ -59,37 +59,37 @@ class WordpressRequestHandler extends DefaultController
      */
     public function preProcess($request)
     {
-        if (null !== $this->viewName_) {
-            return $this->viewName_;
+        if (null !== $this->viewName) {
+            return $this->viewName;
         }
 
-        $this->viewName_ = 'wp_index';
+        $this->viewName = 'wp_index';
 
         if (null != ($p = $request->query->get('p'))) {
-            $this->viewName_ = 'wp_single';
-            $this->plugin_->query_posts('p='.$p);
+            $this->viewName = 'wp_single';
+            $this->plugin->query_posts('p='.$p);
         } elseif (null != ($pageId = $request->query->get('page_id'))) {
-            $this->viewName_ = 'wp_page';
-            $this->plugin_->query_posts('page_id='.$pageId);
+            $this->viewName = 'wp_page';
+            $this->plugin->query_posts('page_id='.$pageId);
         } elseif (null != ($cat = $request->query->get('cat'))) {
-            $this->viewName_ = 'wp_archive';
-            $this->plugin_->query_posts('cat='.$cat);
+            $this->viewName = 'wp_archive';
+            $this->plugin->query_posts('cat='.$cat);
         } elseif (null != ($m = $request->query->get('m'))) {
-            $this->viewName_ = 'wp_archive';
-            $this->plugin_->query_posts('m='.$m);
+            $this->viewName = 'wp_archive';
+            $this->plugin->query_posts('m='.$m);
         } elseif (null != ($s = $request->query->get('s'))) {
-            $this->viewName_ = 'wp_search';
-            $this->plugin_->query_posts('s='.$s);
+            $this->viewName = 'wp_search';
+            $this->plugin->query_posts('s='.$s);
         } elseif (null != ($tag = $request->query->get('tag'))) {
-            $this->viewName_ = 'wp_archive';
-            $this->plugin_->query_posts('tag='.$tag);
+            $this->viewName = 'wp_archive';
+            $this->plugin->query_posts('tag='.$tag);
         }
 
-        if ('wp_index' == $this->viewName_) {
-            $this->plugin_->query_posts();
+        if ('wp_index' == $this->viewName) {
+            $this->plugin->query_posts();
         }
 
-        return $this->viewName_;
+        return $this->viewName;
     }
 
     /**
@@ -115,22 +115,22 @@ class WordpressRequestHandler extends DefaultController
     public function link_filter($arg)
     {
         $urlToken = parse_url($arg);
-        if ($this->plugin_->isPermalinksEnabled()) {
+        if ($this->plugin->isPermalinksEnabled()) {
             // make sure we stay on the same server
-            $host = $this->request_->getHost();
+            $host = $this->request->getHost();
             if ($urlToken['host'] != $host) {
                 $arg =  str_replace($urlToken['host'], $host, $arg);
             }
 
             // fix path
-            $path = $this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/';
+            $path = $this->request->getBaseUrl().$this->plugin->get('permaPrefix').'/';
             // does url path start with WP installation folder?
-            $wpDir = basename($this->plugin_->get('wordpressDir'));
+            $wpDir = basename($this->plugin->get('wordpressDir'));
             if (!Toolbox::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:
-                //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getBaseUrl().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
+                //$_SERVER['REQUEST_URI'] = str_replace($this->request->getBaseUrl().$this->plugin->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
             $router = Runtime::getContainer()->get('router');

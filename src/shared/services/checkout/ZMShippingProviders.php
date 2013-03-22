@@ -32,7 +32,7 @@ use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
  */
 class ZMShippingProviders extends ZMObject
 {
-    private $providers_;
+    private $providers;
 
     /**
      * Create new instance.
@@ -40,7 +40,7 @@ class ZMShippingProviders extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->providers_ = array();
+        $this->providers = array();
     }
 
     /**
@@ -55,11 +55,11 @@ class ZMShippingProviders extends ZMObject
         if (null == $shippingProviderId) {
             return null;
         }
-        if (!isset($this->providers_[$configured])) {
+        if (!isset($this->providers[$configured])) {
             // load
             $providers = $this->getShippingProviders($configured);
         } else {
-            $providers = $this->providers_[$configured];
+            $providers = $this->providers[$configured];
         }
         foreach ($providers as $provider) {
             if ($provider->getId() == $shippingProviderId) {
@@ -78,12 +78,12 @@ class ZMShippingProviders extends ZMObject
      */
     public function getShippingProviders($configured=true)
     {
-        if (isset($this->providers_[$configured])) {
-            return $this->providers_[$configured];
+        if (isset($this->providers[$configured])) {
+            return $this->providers[$configured];
         }
         $settingsService = $this->container->get('settingsService');
         $zcPath = $this->container->getParameter('zencart.root_dir');
-        $this->providers_[$configured] = array();
+        $this->providers[$configured] = array();
 
         $moduleInfos = array();
         if ($configured) {
@@ -140,7 +140,7 @@ class ZMShippingProviders extends ZMObject
                 if (!$configured || (0 < $module->check() && $module->enabled)) {
                     $wrapper = Beans::getBean('ZenMagick\ZenCartBundle\Wrapper\ShippingProviderWrapper');
                     $wrapper->setModule($module);
-                    $this->providers_[$configured][] = $wrapper;
+                    $this->providers[$configured][] = $wrapper;
                 }
             }
         }
@@ -148,7 +148,7 @@ class ZMShippingProviders extends ZMObject
         //TODO:(2): revert
         $PHP_SELF = $phpSelf;
 
-        return $this->providers_[$configured];
+        return $this->providers[$configured];
     }
 
     /**

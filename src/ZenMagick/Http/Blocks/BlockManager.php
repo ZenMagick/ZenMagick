@@ -30,7 +30,7 @@ use ZenMagick\Http\Blocks\Widgets\BlockWidget;
  */
 class BlockManager extends ZMObject
 {
-    private $mappings_;
+    private $mappings;
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class BlockManager extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->mappings_ = array();
+        $this->mappings = array();
     }
 
     /**
@@ -66,11 +66,11 @@ class BlockManager extends ZMObject
      */
     public function getBlocksForId($request, $groupId, $args)
     {
-        if (array_key_exists($groupId, $this->mappings_)) {
+        if (array_key_exists($groupId, $this->mappings)) {
             // ensure bean definitions are resolved first...
             $group = array();
 
-            foreach ($this->mappings_[$groupId] as $block) {
+            foreach ($this->mappings[$groupId] as $block) {
                 $widget = null;
                 if (is_string($block)) {
                     $widget = Beans::getBean($block, $this->container);
@@ -82,9 +82,9 @@ class BlockManager extends ZMObject
                     $group[] = $widget;
                 }
             }
-            $this->mappings_[$groupId] = $group;
+            $this->mappings[$groupId] = $group;
 
-            return $this->mappings_[$groupId];
+            return $this->mappings[$groupId];
         }
 
         return array();
@@ -97,7 +97,7 @@ class BlockManager extends ZMObject
      */
     public function setMappings($mappings)
     {
-        $this->mappings_ = $mappings;
+        $this->mappings = $mappings;
     }
 
 }

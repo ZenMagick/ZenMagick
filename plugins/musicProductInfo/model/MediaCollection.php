@@ -28,9 +28,9 @@ use ZenMagick\Base\ZMObject;
  */
 class MediaCollection extends ZMObject
 {
-    private $collectionId_;
-    private $name_;
-    private $items_;
+    private $collectionId;
+    private $name;
+    private $items;
 
     /**
      * Create new instance.
@@ -38,9 +38,9 @@ class MediaCollection extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->collectionId_ = 0;
-        $this->name_ = '';
-        $this->items_ = array();
+        $this->collectionId = 0;
+        $this->name = '';
+        $this->items = array();
     }
 
     /**
@@ -48,48 +48,48 @@ class MediaCollection extends ZMObject
      *
      * @return int The collection id.
      */
-    public function getCollectionId() { return $this->collectionId_; }
+    public function getCollectionId() { return $this->collectionId; }
 
     /**
      * Get the collection name.
      *
      * @return string The collection name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the media items.
      *
      * @return array A list of <code>Media</code> objects.
      */
-    public function getItems() { return $this->items_; }
+    public function getItems() { return $this->items; }
 
     /**
      * Set the collection id.
      *
      * @param int collectionId The collection id.
      */
-    public function setCollectionId($collectionId) { $this->collectionId_ = $collectionId; }
+    public function setCollectionId($collectionId) { $this->collectionId = $collectionId; }
 
     /**
      * Set the collection name.
      *
      * @param string name The collection name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the media items.
      *
      * @param array items A list of <code>Media</code> objects.
      */
-    public function setItems($items) { $this->items_ = $items; }
+    public function setItems($items) { $this->items = $items; }
 
     /**
      * Add a single media items.
      *
      * @param Media item A single <code>Media</code> object.
      */
-    public function addItem($item) { $this->items_[] = $item; }
+    public function addItem($item) { $this->items[] = $item; }
 
 }

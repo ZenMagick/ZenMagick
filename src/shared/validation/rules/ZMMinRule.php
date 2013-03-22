@@ -26,7 +26,7 @@
  */
 class ZMMinRule extends ZMRule
 {
-    private $min_;
+    private $min;
 
     /**
      * Create new min length rule.
@@ -38,7 +38,7 @@ class ZMMinRule extends ZMRule
     public function __construct($name, $min, $msg=null)
     {
         parent::__construct($name, "%s must be at least %s characters long.", $msg);
-        $this->min_ = $min;
+        $this->min = $min;
     }
 
     /**
@@ -50,7 +50,7 @@ class ZMMinRule extends ZMRule
      */
     public function validate($request, $data)
     {
-        return empty($data[$this->getName()]) || (!array_key_exists($this->getName(), $data) || $this->min_ <= strlen(trim($data[$this->getName()])));
+        return empty($data[$this->getName()]) || (!array_key_exists($this->getName(), $data) || $this->min <= strlen(trim($data[$this->getName()])));
     }
 
     /**
@@ -60,7 +60,7 @@ class ZMMinRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min_);
+        return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min);
     }
 
     /**
@@ -73,7 +73,7 @@ class ZMMinRule extends ZMRule
         $js = "    new Array('min'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".$this->min_;
+        $js .= ",".$this->min;
         $js .= ")";
 
         return $js;

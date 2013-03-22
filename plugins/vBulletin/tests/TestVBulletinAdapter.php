@@ -29,7 +29,7 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  */
 class TestVBulletinAdapter extends TestCase
 {
-    private $adapter_ = null;
+    private $adapter = null;
 
     /**
      * {@inheritDoc}
@@ -54,11 +54,11 @@ class TestVBulletinAdapter extends TestCase
      */
     protected function getAdapter()
     {
-        if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
+        if (null == $this->adapter) {
+            $this->adapter = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
         }
 
-        return $this->adapter_;
+        return $this->adapter;
     }
 
     /**

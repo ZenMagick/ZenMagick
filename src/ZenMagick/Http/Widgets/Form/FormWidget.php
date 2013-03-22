@@ -33,11 +33,11 @@ use ZenMagick\Http\Widgets\Widget;
 abstract class FormWidget extends Widget
 {
     protected static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
-    protected $classes_;
-    protected $name_;
-    protected $value_;
-    protected $attributeNames_;
-    protected $encode_;
+    protected $classes;
+    protected $name;
+    protected $value;
+    protected $attributeNames;
+    protected $encode;
 
     /**
      * Create new instance.
@@ -45,11 +45,11 @@ abstract class FormWidget extends Widget
     public function __construct()
     {
         parent::__construct();
-        $this->name_ = '';
-        $this->classes_ = array();
-        $this->value_ = null;
+        $this->name = '';
+        $this->classes = array();
+        $this->value = null;
         $this->setAttributeNames(array('id'));
-        $this->encode_ = true;
+        $this->encode = true;
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class FormWidget extends Widget
      */
     public function setClasses($classes)
     {
-        $this->classes_ = $classes;
+        $this->classes = $classes;
     }
 
     /**
@@ -69,7 +69,7 @@ abstract class FormWidget extends Widget
      */
     public function addClasses($classes)
     {
-        $this->classes_ = array_unique(array_merge($this->classes_, (array) $classes));
+        $this->classes = array_unique(array_merge($this->classes, (array) $classes));
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class FormWidget extends Widget
      */
     public function getClasses()
     {
-        return $this->classes_;
+        return $this->classes;
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class FormWidget extends Widget
      */
     public function getClass()
     {
-        return implode(' ', $this->classes_);
+        return implode(' ', $this->classes);
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class FormWidget extends Widget
      */
     public function setName($name)
     {
-        $this->name_ = $name;
+        $this->name = $name;
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class FormWidget extends Widget
      */
     public function getName()
     {
-        return $this->name_;
+        return $this->name;
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class FormWidget extends Widget
      */
     public function setValue($value)
     {
-        $this->value_ = $value;
+        $this->value = $value;
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class FormWidget extends Widget
      */
     public function getValue()
     {
-        return $this->value_;
+        return $this->value;
     }
 
     /**
@@ -139,7 +139,7 @@ abstract class FormWidget extends Widget
      */
     public function setEncode($value)
     {
-        $this->encode_ = Toolbox::asBoolean($value);
+        $this->encode = Toolbox::asBoolean($value);
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class FormWidget extends Widget
      */
     public function isEncode()
     {
-        return $this->encode_;
+        return $this->encode;
     }
 
     /**
@@ -169,7 +169,7 @@ abstract class FormWidget extends Widget
      */
     public function setAttributeNames($names)
     {
-        $this->attributeNames_ = $names;
+        $this->attributeNames = $names;
     }
 
     /**
@@ -179,7 +179,7 @@ abstract class FormWidget extends Widget
      */
     public function addAttributeNames($names)
     {
-        $this->attributeNames_ = array_unique(array_merge($this->attributeNames_, (array) $names));
+        $this->attributeNames = array_unique(array_merge($this->attributeNames, (array) $names));
     }
 
     /**
@@ -189,7 +189,7 @@ abstract class FormWidget extends Widget
      */
     public function getAttributeNames()
     {
-        return $this->attributeNames_;
+        return $this->attributeNames;
     }
 
     /**
@@ -224,7 +224,7 @@ abstract class FormWidget extends Widget
             $attr .= ' class="'.$class.'"';
         }
         foreach ($this->getProperties() as $name => $value) {
-            if (in_array($name, $this->attributeNames_)) {
+            if (in_array($name, $this->attributeNames)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
                     if (Toolbox::asBoolean($this->get($name))) {
                         // only add if true
@@ -235,14 +235,14 @@ abstract class FormWidget extends Widget
                         }
                     }
                 } else {
-                    $value = $this->encode_ ? $html->encode($value) : $value;
+                    $value = $this->encode ? $html->encode($value) : $value;
                     $attr .= ' '.$name.'="'.$value.'"';
                 }
             }
         }
 
         if ($addValue) {
-            $value = $this->encode_ ? $html->encode($this->getValue()) : $this->getValue();
+            $value = $this->encode ? $html->encode($this->getValue()) : $this->getValue();
             $attr .= ' value="'.$value.'"';
         }
 

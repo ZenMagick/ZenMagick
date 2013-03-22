@@ -30,16 +30,16 @@ use PEAR\Cache\CacheLite;
  */
 class MemoryCache implements Cache
 {
-    private $groups_;
-    private $group_;
-    private $cache_;
+    private $groups;
+    private $group;
+    private $cache;
 
     /**
      * Create new instance.
      */
     public function __construct()
     {
-        $groups_ = array();
+        $groups = array();
     }
 
     /**
@@ -50,9 +50,9 @@ class MemoryCache implements Cache
         // set these, all others are passed through 'as is'
         $config['memoryCaching'] = true;
         $config['onlyMemoryCaching'] = true;
-        $this->group_ = $group;
-        $this->cache_ = new CacheLite($config);
-        $this->groups_[$group] = $config;
+        $this->group = $group;
+        $this->cache = new CacheLite($config);
+        $this->groups[$group] = $config;
     }
 
     /**
@@ -65,7 +65,7 @@ class MemoryCache implements Cache
      */
     public function clear()
     {
-        return $this->cache_->clean($this->group_);
+        return $this->cache->clean($this->group);
     }
 
     /**
@@ -73,7 +73,7 @@ class MemoryCache implements Cache
      */
     public function lookup($id)
     {
-        return $this->cache_->get($id, $this->group_);
+        return $this->cache->get($id, $this->group);
     }
 
     /**
@@ -81,7 +81,7 @@ class MemoryCache implements Cache
      */
     public function remove($id)
     {
-        return $this->cache_->remove($id, $this->group_);
+        return $this->cache->remove($id, $this->group);
     }
 
     /**
@@ -89,7 +89,7 @@ class MemoryCache implements Cache
      */
     public function save($data, $id)
     {
-        return $this->cache_->save($data, $id, $this->group_);
+        return $this->cache->save($data, $id, $this->group);
     }
 
     /**
@@ -97,7 +97,7 @@ class MemoryCache implements Cache
      */
     public function lastModified()
     {
-        return $this->cache_->lastModified();
+        return $this->cache->lastModified();
     }
 
     /**
@@ -105,7 +105,7 @@ class MemoryCache implements Cache
      */
     public function getStats()
     {
-        return array('lastModified' => time(), 'system' => $this->groups_);
+        return array('lastModified' => time(), 'system' => $this->groups);
     }
 
     /**

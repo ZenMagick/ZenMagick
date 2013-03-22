@@ -28,7 +28,7 @@
  */
 class ZMListRule extends ZMRule
 {
-    private $values_;
+    private $values;
 
     /**
      * Create new list rule.
@@ -50,7 +50,7 @@ class ZMListRule extends ZMRule
      */
     public function setValues($values)
     {
-        $this->values_ = $values;
+        $this->values = $values;
     }
 
     /**
@@ -60,7 +60,7 @@ class ZMListRule extends ZMRule
      */
     public function getValues()
     {
-        return $this->values_;
+        return $this->values;
     }
 
     /**
@@ -72,7 +72,7 @@ class ZMListRule extends ZMRule
      */
     public function validate($request, $data)
     {
-        $values = is_array($this->values_) ? $this->values_ : explode(',', $this->values_);
+        $values = is_array($this->values) ? $this->values : explode(',', $this->values);
 
         return empty($data[$this->getName()]) || in_array($data[$this->getName()], $values);
     }
@@ -85,7 +85,7 @@ class ZMListRule extends ZMRule
     public function toJSString()
     {
         $quoted = array();
-        foreach ($this->values_ as $value) {
+        foreach ($this->values as $value) {
             $quoted[] = "'".addslashes($value)."'";
         }
         $js = "    new Array('list'";

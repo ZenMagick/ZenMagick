@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMRuleSet extends ZMObject
 {
-    private $id_;
-    private $rules_;
+    private $id;
+    private $rules;
 
     /**
      * Create new rule set.
@@ -40,8 +40,8 @@ class ZMRuleSet extends ZMObject
     public function __construct($id, $rules=null)
     {
         parent::__construct();
-        $this->id_ = $id;
-        $this->rules_ = null != $rules ? $rules : array();
+        $this->id = $id;
+        $this->rules = null != $rules ? $rules : array();
     }
 
     /**
@@ -49,7 +49,7 @@ class ZMRuleSet extends ZMObject
      *
      * @return int The rule set id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Add a new <code>ZMRule</code>.
@@ -58,7 +58,7 @@ class ZMRuleSet extends ZMObject
      */
     public function addRule($rule)
     {
-        $this->rules_[] = $rule;
+        $this->rules[] = $rule;
     }
 
     /**
@@ -68,7 +68,7 @@ class ZMRuleSet extends ZMObject
      */
     public function addRules($rules)
     {
-        $this->rules_ = array_merge($this->rules_, $rules);
+        $this->rules = array_merge($this->rules, $rules);
     }
 
     /**
@@ -80,13 +80,13 @@ class ZMRuleSet extends ZMObject
     public function removeRule($type, $name)
     {
         $tmp = array();
-        foreach ($this->rules_ as $rule) {
+        foreach ($this->rules as $rule) {
             if (get_class($rule) == $type && $rule->getName() == $name) {
                 continue;
             }
             $tmp[] = $rule;
         }
-        $this->rules_ = $tmp;
+        $this->rules = $tmp;
     }
 
     /**
@@ -96,7 +96,7 @@ class ZMRuleSet extends ZMObject
      */
     public function getRules()
     {
-        return $this->rules_;
+        return $this->rules;
     }
 
 }

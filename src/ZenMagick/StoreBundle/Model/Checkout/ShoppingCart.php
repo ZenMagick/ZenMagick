@@ -36,10 +36,10 @@ use ZenMagick\StoreBundle\Entity\TaxRate;
 class ShoppingCart extends ZMObject
 {
     public $session;
-    private $zenTotals_;
-    private $items_;
+    private $zenTotals;
+    private $items;
     private $checkoutHelper;
-    private $selectedPaymentType_;
+    private $selectedPaymentType;
     private $accountId;
     private $contents;
     private $comments;
@@ -52,8 +52,8 @@ class ShoppingCart extends ZMObject
         parent::__construct();
         $this->setContents(null);
         $this->accountId = 0;
-        $this->zenTotals_ = null;
-        $this->selectedPaymentType_ = null;
+        $this->zenTotals = null;
+        $this->selectedPaymentType = null;
     }
 
     /**
@@ -104,7 +104,7 @@ class ShoppingCart extends ZMObject
     public function clear()
     {
         $this->contents = null;
-        $this->items_ = null;
+        $this->items = null;
         $this->comments = null;
         $this->container->get('shoppingCartService')->clearCart($this);
     }
@@ -220,7 +220,7 @@ class ShoppingCart extends ZMObject
         // default to null if contents is empty
         $contents = is_array($contents) && $contents ? $contents : null;
         $this->contents = $contents;
-        $this->items_ = null;
+        $this->items = null;
     }
 
     /**
@@ -230,8 +230,8 @@ class ShoppingCart extends ZMObject
      */
     public function getItems()
     {
-        if (null === $this->items_) {
-            $this->items_ = array();
+        if (null === $this->items) {
+            $this->items = array();
             if (null === $this->contents) {
                 $this->contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->accountId);
             }
@@ -243,11 +243,11 @@ class ShoppingCart extends ZMObject
                 $item->setId($id);
                 $item->populateAttributes($itemData);
                 $item->setQuantity($this->adjustQty($itemData['qty']));
-                $this->items_[$item->getId()] = $item;
+                $this->items[$item->getId()] = $item;
             }
 
             // 2) iterate again - now we can calculate quantities and prices properly...
-            foreach ($this->items_ as $id => $item) {
+            foreach ($this->items as $id => $item) {
                 $product = $item->getProduct();
                 $offers = $product->getOffers();
 
@@ -271,7 +271,7 @@ class ShoppingCart extends ZMObject
                 // todo: cleanup item methods a bit to make more sense for this
                 $item->setOneTimeCharge($product->getOneTimeCharge() + $item->getAttributesOneTimePrice(false));
 
-                $this->items_[$item->getId()] = $item;
+                $this->items[$item->getId()] = $item;
             }
 
             if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
@@ -280,7 +280,7 @@ class ShoppingCart extends ZMObject
             }
         }
 
-        return $this->items_;
+        return $this->items;
     }
 
     /**
@@ -432,7 +432,7 @@ class ShoppingCart extends ZMObject
     public function setSelectedShippingMethod($method)
     {
         // invalidate totals
-        $this->zenTotals_ = null;
+        $this->zenTotals = null;
 
         $this->session->set('shipping', array(
             'id' => $method->getShippingId(),
@@ -468,14 +468,14 @@ class ShoppingCart extends ZMObject
      */
     public function getSelectedPaymentType()
     {
-        if (null == $this->selectedPaymentType_) {
-            $this->selectedPaymentType_ = $this->container->get('paymentTypeService')->getPaymentTypeForId($this->getSelectedPaymentTypeId());
-            if (null != $this->selectedPaymentType_) {
-                $this->selectedPaymentType_->prepare();
+        if (null == $this->selectedPaymentType) {
+            $this->selectedPaymentType = $this->container->get('paymentTypeService')->getPaymentTypeForId($this->getSelectedPaymentTypeId());
+            if (null != $this->selectedPaymentType) {
+                $this->selectedPaymentType->prepare();
             }
         }
 
-        return $this->selectedPaymentType_;
+        return $this->selectedPaymentType;
     }
 
     /**
@@ -486,10 +486,10 @@ class ShoppingCart extends ZMObject
     public function setSelectedPaymentType($paymentType)
     {
         // invalidate totals
-        $this->zenTotals_ = null;
+        $this->zenTotals = null;
 
-        $this->selectedPaymentType_ = $paymentType;
-        $this->selectedPaymentType_->prepare();
+        $this->selectedPaymentType = $paymentType;
+        $this->selectedPaymentType->prepare();
         $this->session->set('payment', $paymentType->getId());
     }
 
@@ -555,7 +555,7 @@ class ShoppingCart extends ZMObject
     public function setShippingAddressId($addressId)
     {
         // invalidate totals
-        $this->zenTotals_ = null;
+        $this->zenTotals = null;
 
         $this->session->set('sendto', $addressId);
         $this->session->set('shipping', '');
@@ -592,22 +592,22 @@ class ShoppingCart extends ZMObject
     {
     global $order, $order_total_modules, $shipping_modules;
 
-        if (null === $this->zenTotals_) {
+        if (null === $this->zenTotals) {
             $order = new \order();
 
             if (!isset($shipping_modules)) {
                 $shipping_modules = new \shipping($_SESSION['shipping']);
             }
-            $this->zenTotals_ = $order_total_modules;
+            $this->zenTotals = $order_total_modules;
             if (!isset($order_total_modules)) {
-                $this->zenTotals_ = new \order_total();
-                $this->zenTotals_->collect_posts();
-                $this->zenTotals_->pre_confirmation_check();
+                $this->zenTotals = new \order_total();
+                $this->zenTotals->collect_posts();
+                $this->zenTotals->pre_confirmation_check();
             }
-            $this->zenTotals_->process();
+            $this->zenTotals->process();
         }
 
-        return $this->zenTotals_;
+        return $this->zenTotals;
     }
 
 
@@ -840,7 +840,7 @@ class ShoppingCart extends ZMObject
 
         list($attributes, $attributesValues) = $this->splitAttributes($attributes, $product);
         $this->contents[$sku] = array('qty' => $adjustedQty, 'attributes' => $attributes, 'attributes_values' => $attributesValues);
-        $this->items_ = null;
+        $this->items = null;
         $this->container->get('shoppingCartService')->updateCart($this);
 
         return true;
@@ -856,7 +856,7 @@ class ShoppingCart extends ZMObject
     {
         if (null !== $productId) {
             unset($this->contents[$productId]);
-            $this->items_ = null;
+            $this->items = null;
             $this->container->get('shoppingCartService')->updateCart($this);
 
             return true;
@@ -897,7 +897,7 @@ class ShoppingCart extends ZMObject
             }
 
             $this->contents[$sku]['qty'] = $adjustedQty;
-            $this->items_ = null;
+            $this->items = null;
             $this->container->get('shoppingCartService')->updateCart($this);
 
             return true;

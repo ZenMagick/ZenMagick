@@ -31,7 +31,7 @@ use ZenMagick\plugins\unitTests\simpletest\TestCase;
  */
 class TestPhpBB3Adapter extends TestCase
 {
-    private $adapter_ = null;
+    private $adapter = null;
 
     /**
      * {@inheritDoc}
@@ -67,11 +67,11 @@ class TestPhpBB3Adapter extends TestCase
      */
     protected function getAdapter()
     {
-        if (null == $this->adapter_) {
-            $this->adapter_ = new PhpBB3Adapter();
+        if (null == $this->adapter) {
+            $this->adapter = new PhpBB3Adapter();
         }
 
-        return $this->adapter_;
+        return $this->adapter;
     }
 
     /**

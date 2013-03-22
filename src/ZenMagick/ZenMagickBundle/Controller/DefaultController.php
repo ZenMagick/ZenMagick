@@ -37,9 +37,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class DefaultController extends Controller
 {
-    private $requestId_;
-    private $view_;
-    private $formData_;
+    private $requestId;
+    private $view;
+    private $formData;
 
     /**
      * Create new instance.
@@ -48,9 +48,9 @@ class DefaultController extends Controller
      */
     public function __construct($requestId=null)
     {
-        $this->requestId_ = $requestId;
-        $this->view_ = null;
-        $this->formData_ = null;
+        $this->requestId = $requestId;
+        $this->view = null;
+        $this->formData = null;
     }
 
     /**
@@ -93,7 +93,7 @@ class DefaultController extends Controller
     public function processAction(Request $request)
     {
         // ensure a usable id is set
-        $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
+        $this->requestId = null != $this->requestId ? $this->requestId : $request->getRequestId();
 
         $settingsService = $this->container->get('settingsService');
 
@@ -140,7 +140,7 @@ class DefaultController extends Controller
                 $view = $this->findView($settingsService->get('zenmagick.mvc.request.missingPage'));
                 $this->initViewVars($view, $request, $formData);
             }
-            $this->view_ = $view;
+            $this->view = $view;
         }
 
         if ($request->isXmlHttpRequest()) {
@@ -219,7 +219,7 @@ class DefaultController extends Controller
         Beans::setAll($view, (array) $parameter);
 
         $view->setVariables($data);
-        $this->view_ = $view;
+        $this->view = $view;
 
         return $view;
     }
@@ -238,16 +238,16 @@ class DefaultController extends Controller
         if (null != ($routeData = $router->match($request->getPathInfo()))) {
             $route = $router->getRouteCollection()->get($routeData['_route']);
             if (null != ($options = $route->getOptions()) && array_key_exists('form', $options)) {
-                $this->formData_ = Beans::getBean($options['form']);
-                if ($this->formData_ instanceof Form) {
-                    $this->formData_->populate($request);
+                $this->formData = Beans::getBean($options['form']);
+                if ($this->formData instanceof Form) {
+                    $this->formData->populate($request);
                 } else {
-                    $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
+                    $this->formData = Beans::setAll($this->formData, $request->getParameterMap());
                 }
             }
         }
 
-        return $this->formData_;
+        return $this->formData;
     }
 
     /**
@@ -311,7 +311,7 @@ class DefaultController extends Controller
      */
     public function getView()
     {
-        return $this->view_;
+        return $this->view;
     }
 
     /**
@@ -322,6 +322,6 @@ class DefaultController extends Controller
      */
     public function setView($view)
     {
-        $this->view_ = $view;
+        $this->view = $view;
     }
 }

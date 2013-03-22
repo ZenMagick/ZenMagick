@@ -33,7 +33,7 @@ use ZenMagick\Base\ZMObject;
  */
 class PhpBB3Adapter extends ZMObject
 {
-    private $database_;
+    private $database;
 
     /**
      * Create new instance.
@@ -53,7 +53,7 @@ class PhpBB3Adapter extends ZMObject
      */
     protected function getDatabase()
     {
-        if (null == $this->database_) {
+        if (null == $this->database) {
             // load phpBB3 config
             require ZM_PHPBB3_ROOT . 'config.php';
 
@@ -69,10 +69,10 @@ class PhpBB3Adapter extends ZMObject
                 $dbconf['port'] = $dbport;
             }
             ZMRuntime::setDatabase('phpbb', $dbconf);
-            $this->database_ = ZMRuntime::getDatabase('phpbb');
+            $this->database = ZMRuntime::getDatabase('phpbb');
         }
 
-        return $this->database_;
+        return $this->database;
     }
 
     /**

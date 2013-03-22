@@ -29,17 +29,17 @@ namespace ZenMagick\Base\Cache;
 class XCache implements Cache
 {
     const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.xcache";
-    private $group_;
-    private $lifetime_;
-    private $lastModified_;
+    private $group;
+    private $lifetime;
+    private $lastModified;
 
     /**
      * Create new instance.
      */
     public function __construct()
     {
-        $this->lifetime_ = 0;
-        $this->lastModified_ = time();
+        $this->lifetime = 0;
+        $this->lastModified = time();
     }
 
     /**
@@ -47,8 +47,8 @@ class XCache implements Cache
      */
     public function init($group, $config)
     {
-        $this->group_ = $group;
-        $this->lifetime_ = $config['cacheTTL'];
+        $this->group = $group;
+        $this->lifetime = $config['cacheTTL'];
 
         // update system stats
         if (!xcache_isset(self::SYSTEM_KEY)) {
@@ -74,10 +74,10 @@ class XCache implements Cache
      */
     public function clear()
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
         // iterate over all entries and match the group prefix
-        $groupPrefix = $this->group_.'/';
+        $groupPrefix = $this->group.'/';
         for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; ++$ii) {
             $block = xcache_list(XC_TYPE_VAR, $ii);
             foreach ($block as $entries) {
@@ -97,11 +97,11 @@ class XCache implements Cache
      */
     public function lookup($id)
     {
-        if (!xcache_isset($this->group_.'/'.$id)) {
+        if (!xcache_isset($this->group.'/'.$id)) {
             return false;
         }
 
-        return xcache_get($this->group_.'/'.$id);
+        return xcache_get($this->group.'/'.$id);
     }
 
     /**
@@ -109,9 +109,9 @@ class XCache implements Cache
      */
     public function remove($id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return xcache_unset($this->group_.'/'.$id);
+        return xcache_unset($this->group.'/'.$id);
     }
 
     /**
@@ -119,9 +119,9 @@ class XCache implements Cache
      */
     public function save($data, $id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
+        return xcache_set($this->group.'/'.$id, $data, $this->lifetime);
     }
 
     /**
@@ -129,7 +129,7 @@ class XCache implements Cache
      */
     public function lastModified()
     {
-        return $this->lastModified_;
+        return $this->lastModified;
     }
 
     /**

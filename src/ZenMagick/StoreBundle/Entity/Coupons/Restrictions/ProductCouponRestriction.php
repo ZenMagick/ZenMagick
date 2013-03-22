@@ -30,8 +30,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ProductCouponRestriction extends ZMObject
 {
-    private $allowed_;
-    private $productId_;
+    private $allowed;
+    private $productId;
 
     /**
      * Create new coupon restriction.
@@ -42,8 +42,8 @@ class ProductCouponRestriction extends ZMObject
     public function __construct($allowed, $productId)
     {
         parent::__construct();
-        $this->allowed_ = $allowed;
-        $this->productId_ = $productId;
+        $this->allowed = $allowed;
+        $this->productId = $productId;
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductCouponRestriction extends ZMObject
      */
     public function isAllowed()
     {
-        return $this->allowed_;
+        return $this->allowed;
     }
 
     /**
@@ -62,6 +62,6 @@ class ProductCouponRestriction extends ZMObject
      * @param int languageId Language id.
      * @return ZenMagick\StoreBundle\Entity\Catalog\Product A <code>Product</code> instance.
      */
-    public function getProduct($languageId) { return $this->container->get('productService')->getProductForId($this->productId_, $languageId); }
+    public function getProduct($languageId) { return $this->container->get('productService')->getProductForId($this->productId, $languageId); }
 
 }

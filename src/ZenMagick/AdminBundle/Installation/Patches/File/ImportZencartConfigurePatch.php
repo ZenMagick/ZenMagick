@@ -38,7 +38,7 @@ class ImportZencartConfigurePatch extends FilePatch
     public function __construct()
     {
         parent::__construct('importZencartConfigure');
-        $this->label_ = 'Create or update ZenMagick store-config.yaml from configure.php';
+        $this->label = 'Create or update ZenMagick store-config.yaml from configure.php';
         $this->configurePhpFile = $this->container->getParameter('zencart.root_dir').'/includes/configure.php';
         $this->configFile = $this->container->getParameter('zenmagick.root_dir').'/config/parameters.yml';
     }

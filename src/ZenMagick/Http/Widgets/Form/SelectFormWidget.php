@@ -32,7 +32,7 @@ use ZenMagick\Http\View\TemplateView;
  */
 class SelectFormWidget extends FormWidget
 {
-    private $options_;
+    private $options;
 
     /**
      * Create new instance.
@@ -41,7 +41,7 @@ class SelectFormWidget extends FormWidget
     {
         parent::__construct();
         $this->addAttributeNames(array('size', 'multiple', 'title'));
-        $this->options_ = array();
+        $this->options = array();
         // defaults
         $this->set('style', 'select');
     }
@@ -86,7 +86,7 @@ class SelectFormWidget extends FormWidget
      */
     public function getOptions($request)
     {
-        return $this->options_;
+        return $this->options;
     }
 
     /**
@@ -98,7 +98,7 @@ class SelectFormWidget extends FormWidget
     public function addOption($name, $value=null)
     {
         $value = null === $value ? $name : $value;
-        $this->options_[$value] = $name;
+        $this->options[$value] = $name;
     }
 
     /**
@@ -108,7 +108,7 @@ class SelectFormWidget extends FormWidget
      */
     public function setOptions($options)
     {
-        $this->options_ = Toolbox::toArray($options);
+        $this->options = Toolbox::toArray($options);
     }
 
     /**

@@ -26,7 +26,7 @@
  */
 class ZMRegexpRule extends ZMRule
 {
-    private $regexp_;
+    private $regexp;
 
     /**
      * Create new regexp rule.
@@ -48,7 +48,7 @@ class ZMRegexpRule extends ZMRule
      */
     public function setRegexp($regexp)
     {
-        $this->regexp_ = $regexp;
+        $this->regexp = $regexp;
     }
 
     /**
@@ -58,7 +58,7 @@ class ZMRegexpRule extends ZMRule
      */
     public function getRegexp()
     {
-        return $this->regexp_;
+        return $this->regexp;
     }
 
     /**
@@ -70,7 +70,7 @@ class ZMRegexpRule extends ZMRule
      */
     public function validate($request, $data)
     {
-        return empty($data[$this->getName()]) || preg_match($this->regexp_, $data[$this->getName()]);
+        return empty($data[$this->getName()]) || preg_match($this->regexp, $data[$this->getName()]);
     }
 
     /**
@@ -83,7 +83,7 @@ class ZMRegexpRule extends ZMRule
         $js = "    new Array('regexp'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".'"'.$this->regexp_.'"';
+        $js .= ",".'"'.$this->regexp.'"';
         $js .= ")";
 
         return $js;

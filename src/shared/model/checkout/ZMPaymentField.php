@@ -29,8 +29,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMPaymentField extends ZMObject
 {
-    private $label_;
-    private $html_;
+    private $label;
+    private $html;
 
     /**
      * Create new payment (input) field.
@@ -41,8 +41,8 @@ class ZMPaymentField extends ZMObject
     public function __construct($label, $html)
     {
         parent::__construct();
-        $this->label_ = $label;
-        $this->html_ = $html;
+        $this->label = $label;
+        $this->html = $html;
     }
 
     /**
@@ -52,13 +52,13 @@ class ZMPaymentField extends ZMObject
      *
      * @return string The field name/label.
      */
-    public function getLabel() { return $this->label_; }
+    public function getLabel() { return $this->label; }
 
     /**
      * Get the field HTML.
      *
      * @return string The field HTML.
      */
-    public function getHTML() { return $this->html_; }
+    public function getHTML() { return $this->html; }
 
 }

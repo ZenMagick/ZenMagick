@@ -30,8 +30,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class CheckoutAddressController extends DefaultController
 {
-    private $modeSettings_ = array();
-    private $viewData_ = array();
+    private $modeSettings = array();
+    private $viewData = array();
 
     /**
      * {@inheritDoc}
@@ -41,15 +41,15 @@ class CheckoutAddressController extends DefaultController
         $request = $this->getRequest();
         $routeId = $request->attributes->get('_route');
         if (0 === strpos($routeId, 'checkout_shipping')) {
-            $this->modeSettings_ = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => 'shipping');
+            $this->modeSettings = array('method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => 'shipping');
         } else {
-            $this->modeSettings_ = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => 'billing');
+            $this->modeSettings = array('method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => 'billing');
         }
         $shoppingCart = $this->get('shoppingCart');
-        $this->viewData_['shoppingCart'] = $shoppingCart;
+        $this->viewData['shoppingCart'] = $shoppingCart;
 
         $addressList = $this->container->get('addressService')->getAddressesForAccountId($this->getUser()->getId());
-        $this->viewData_['addressList'] = $addressList;
+        $this->viewData['addressList'] = $addressList;
         if (null != ($address = $this->getFormData($request))) {
             $address->setPrimary(0 == count($addressList));
         }
@@ -69,7 +69,7 @@ class CheckoutAddressController extends DefaultController
 
         if (null != ($view = parent::validateFormData($request, $formBean))) {
             // validation failed, so let's add our required view data
-            $view->setVariables($this->viewData_);
+            $view->setVariables($this->viewData);
         }
 
         return $view;
@@ -81,8 +81,8 @@ class CheckoutAddressController extends DefaultController
     protected function checkCart($request)
     {
         $checkoutHelper = $this->get('shoppingCart')->getCheckoutHelper();
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->modeSettings_['ignoreCheckId'] != $viewId) {
-            return $this->findView($viewId, $this->viewData_);
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->modeSettings['ignoreCheckId'] != $viewId) {
+            return $this->findView($viewId, $this->viewData);
         }
 
         return null;
@@ -98,7 +98,7 @@ class CheckoutAddressController extends DefaultController
             return $result;
         }
 
-        return $this->findView(null, $this->viewData_);
+        return $this->findView(null, $this->viewData);
     }
 
     /**
@@ -113,7 +113,7 @@ class CheckoutAddressController extends DefaultController
         $shoppingCart = $this->get('shoppingCart');
         $addressService = $this->container->get('addressService');
         // which addres do we update?
-        $method = $this->modeSettings_['method'];
+        $method = $this->modeSettings['method'];
 
 
         // if address field in request, it's a select; otherwise a new address
@@ -126,7 +126,7 @@ class CheckoutAddressController extends DefaultController
             $address->setAccountId($account->getId());
             $address = $addressService->createAddress($address);
 
-            $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
+            $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings['mode']);
             $this->container->get('event_dispatcher')->dispatch('create_address', new GenericEvent($this, $args));
 
             // process primary setting
@@ -142,7 +142,7 @@ class CheckoutAddressController extends DefaultController
             $shoppingCart->$method($address->getId());
         }
 
-        return $this->findView('success', $this->viewData_);
+        return $this->findView('success', $this->viewData);
     }
 
 }

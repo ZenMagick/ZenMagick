@@ -28,10 +28,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMContactInfo extends ZMObject
 {
-    private $name_;
-    private $email_;
-    private $recipient_;
-    private $message_;
+    private $name;
+    private $email;
+    private $recipient;
+    private $message;
 
     /**
      * Create new instance.
@@ -43,10 +43,10 @@ class ZMContactInfo extends ZMObject
     public function __construct($name=null, $email=null, $message=null)
     {
         parent::__construct();
-        $this->name_ = $name;
-        $this->email_ = $email;
-        $this->recipient_ = null;
-        $this->message_ = $message;
+        $this->name = $name;
+        $this->email = $email;
+        $this->recipient = null;
+        $this->message = $message;
     }
 
     /**
@@ -54,55 +54,55 @@ class ZMContactInfo extends ZMObject
      *
      * @return string The contact name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Set the contact name.
      *
      * @param string name The contact name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Get the contact email address.
      *
      * @return string The contact email address.
      */
-    public function getEmail() { return $this->email_; }
+    public function getEmail() { return $this->email; }
 
     /**
      * Set the contact email address.
      *
      * @param string email The contact email address.
      */
-    public function setEmail($email) { $this->email_ = $email; }
+    public function setEmail($email) { $this->email = $email; }
 
     /**
      * Get the recipient.
      *
      * @return string The recipient.
      */
-    public function getRecipient() { return $this->recipient_; }
+    public function getRecipient() { return $this->recipient; }
 
     /**
      * Set the recipient.
      *
      * @param string recipient The recipient.
      */
-    public function setRecipient($recipient) { $this->recipient_ = $recipient; }
+    public function setRecipient($recipient) { $this->recipient = $recipient; }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    public function getMessage() { return $this->message_; }
+    public function getMessage() { return $this->message; }
 
     /**
      * Set the message.
      *
      * @param string message The message.
      */
-    public function setMessage($message) { $this->message_ = $message; }
+    public function setMessage($message) { $this->message = $message; }
 
 }

@@ -29,20 +29,20 @@ use ZenMagick\Base\Toolbox;
  */
 class PhpBB3Plugin extends Plugin
 {
-    private $page_ = '';
-    private $prePostAccount_ = null;
-    private $adapter_ = null;
+    private $page = '';
+    private $prePostAccount = null;
+    private $adapter = null;
 
     /**
      * Get the phpBB3 adapter.
      */
     protected function getAdapter()
     {
-        if (null == $this->adapter_) {
-            $this->adapter_ = new PhpBB3Adapter();
+        if (null == $this->adapter) {
+            $this->adapter = new PhpBB3Adapter();
         }
 
-        return $this->adapter_;
+        return $this->adapter;
     }
 
     /**
@@ -54,8 +54,8 @@ class PhpBB3Plugin extends Plugin
     public function onContainerReady($event)
     {
         $request = $event->getArgument('request');
-        $this->page_ = $request->getRequestId();
-        $this->prePostAccount_ = $request->getAccount();
+        $this->page = $request->getRequestId();
+        $this->prePostAccount = $request->getAccount();
 
         $settingsService = $this->container->get('settingsService');
 
@@ -69,7 +69,7 @@ class PhpBB3Plugin extends Plugin
         // enable nick name field
         $settingsService->set('isAccountNickname', true);
 
-        if ('create_account' == $this->page_) {
+        if ('create_account' == $this->page) {
             $phpBB = $this->getAdapter();
             // add custom validation rules
             $rules = array(
@@ -81,9 +81,9 @@ class PhpBB3Plugin extends Plugin
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             $this->container->get('zmvalidator')->addRules('registration', $rules);
-        } elseif ('account_password' == $this->page_) {
+        } elseif ('account_password' == $this->page) {
             // ??
-        } elseif ('account_edit' == $this->page_) {
+        } elseif ('account_edit' == $this->page) {
             $phpBB = $this->getAdapter();
             $rules = array(
                 array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),

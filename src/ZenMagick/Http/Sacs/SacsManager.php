@@ -48,9 +48,9 @@ class SacsManager extends ZMObject
 {
     protected $container;
 
-    private $mappings_;
-    private $handlers_;
-    private $permissionProviders_;
+    private $mappings;
+    private $handlers;
+    private $permissionProviders;
 
     /**
      * Create new instance.
@@ -76,9 +76,9 @@ class SacsManager extends ZMObject
      */
     public function reset()
     {
-        $this->mappings_ = array('default' => array(), 'mappings' => array());
-        $this->handlers_ = array();
-        $this->permissionProviders_ = array();
+        $this->mappings = array('default' => array(), 'mappings' => array());
+        $this->handlers = array();
+        $this->permissionProviders = array();
         $context = Runtime::getContext();
         if ('storefront' == $context) {
             $def = 'ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler';
@@ -90,7 +90,7 @@ class SacsManager extends ZMObject
         if (empty($def) || !class_exists($def)) return;
         if (null != ($handler = new $def)) {
             $handler->setContainer($this->container);
-            $this->handlers_[$handler->getName()] = $handler;
+            $this->handlers[$handler->getName()] = $handler;
         }
     }
 
@@ -105,13 +105,13 @@ class SacsManager extends ZMObject
     {
         $mappings = Yaml::parse($filename);
         if ($override) {
-            $this->mappings_ = $mappings;
+            $this->mappings = $mappings;
         } else {
-            $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
+            $this->mappings = Toolbox::arrayMergeRecursive($this->mappings, $mappings);
         }
         foreach (array('default', 'mappings') as $key) {
-            if (!array_key_exists($key, $this->mappings_)) {
-                $this->mappings_[$key] = array();
+            if (!array_key_exists($key, $this->mappings)) {
+                $this->mappings[$key] = array();
             }
         }
     }
@@ -125,14 +125,14 @@ class SacsManager extends ZMObject
     {
         foreach ($providers as $def) {
             if (null != ($provider = Beans::getBean($def)) && $provider instanceof SacsPermissionProvider) {
-                $this->permissionProviders_[] = $provider;
+                $this->permissionProviders[] = $provider;
                 foreach ($provider->getMappings() as $providerMapping) {
                     $requestId = $providerMapping['rid'];
                     $type = $providerMapping['type'];
                     $name = $providerMapping['name'];
                     // morph into something we can use
-                    if (!array_key_exists($requestId, $this->mappings_['mappings'])) {
-                        $this->mappings_['mappings'][$requestId] = array();
+                    if (!array_key_exists($requestId, $this->mappings['mappings'])) {
+                        $this->mappings['mappings'][$requestId] = array();
                     }
                     $typeKey = null;
                     switch ($type) {
@@ -144,7 +144,7 @@ class SacsManager extends ZMObject
                         break;
                     }
                     if (null != $typeKey) {
-                        $this->mappings_['mappings'][$requestId] = Toolbox::arrayMergeRecursive($this->mappings_['mappings'][$requestId], array($typeKey => array($name)));
+                        $this->mappings['mappings'][$requestId] = Toolbox::arrayMergeRecursive($this->mappings['mappings'][$requestId], array($typeKey => array($name)));
                     }
                 }
             }
@@ -158,7 +158,7 @@ class SacsManager extends ZMObject
      */
     public function addHandler($handler)
     {
-        $this->hander_[] = $handler;
+        $this->hander[] = $handler;
     }
 
     /**
@@ -174,7 +174,7 @@ class SacsManager extends ZMObject
         if (null == $requestId) {
             throw new RuntimeException("invalid sacs mapping (requestId missing)");
         }
-        $this->mappings_['mappings'][$requestId] = $mapping;
+        $this->mappings['mappings'][$requestId] = $mapping;
     }
 
     /**
@@ -193,7 +193,7 @@ class SacsManager extends ZMObject
         $this->container->get('logger')->info('authorizing requestId: '.$requestId);
         // no responsible handler means fail
         $result = null;
-        foreach ($this->handlers_ as $handler) {
+        foreach ($this->handlers as $handler) {
             if (null !== ($result = $handler->evaluate($requestId, $credentials, $this))) {
                 break;
             }
@@ -246,20 +246,20 @@ class SacsManager extends ZMObject
 
         // init with the given default value
         $value = $default;
-        if (array_key_exists($requestId, $this->mappings_['mappings']) && is_array($this->mappings_['mappings'][$requestId])) {
+        if (array_key_exists($requestId, $this->mappings['mappings']) && is_array($this->mappings['mappings'][$requestId])) {
             // have a mapping for this requestId
-            if (array_key_exists($key, $this->mappings_['mappings'][$requestId])) {
-                $value = $this->mappings_['mappings'][$requestId][$key];
+            if (array_key_exists($key, $this->mappings['mappings'][$requestId])) {
+                $value = $this->mappings['mappings'][$requestId][$key];
             } else {
                 // do we have a default mapping?
-                if (array_key_exists($key, $this->mappings_['default'])) {
-                    $value = $this->mappings_['default'][$key];
+                if (array_key_exists($key, $this->mappings['default'])) {
+                    $value = $this->mappings['default'][$key];
                 }
             }
         } else {
             // do we have a default mapping?
-            if (array_key_exists($key, $this->mappings_['default'])) {
-                $value = $this->mappings_['default'][$key];
+            if (array_key_exists($key, $this->mappings['default'])) {
+                $value = $this->mappings['default'][$key];
             }
         }
 
@@ -274,7 +274,7 @@ class SacsManager extends ZMObject
      */
     public function hasMappingForRequestId($requestId)
     {
-        return array_key_exists($requestId, $this->mappings_['mappings']);
+        return array_key_exists($requestId, $this->mappings['mappings']);
     }
 
     /**
@@ -284,7 +284,7 @@ class SacsManager extends ZMObject
      */
     public function getMappings()
     {
-        return $this->mappings_['mappings'];
+        return $this->mappings['mappings'];
     }
 
     /**
@@ -294,7 +294,7 @@ class SacsManager extends ZMObject
      */
     public function getDefaultMapping()
     {
-        return $this->mappings_['default'];
+        return $this->mappings['default'];
     }
 
 }

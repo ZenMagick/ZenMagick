@@ -31,8 +31,8 @@ use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
  */
 class CouponServiceTest extends ZenMagickTestCase
 {
-    private $createdCouponIds_;
-    private $testCouponId_;
+    private $createdCouponIds;
+    private $testCouponId;
 
     /**
      * {@inheritDoc}
@@ -42,14 +42,14 @@ class CouponServiceTest extends ZenMagickTestCase
         parent::setUp();
 
         $couponService = $this->get('couponService');
-        $this->createdCouponIds_ = array();
-        $this->accountIds_ = array($this->getAccountId());
+        $this->createdCouponIds = array();
+        $this->accountIds = array($this->getAccountId());
         // create one basic test coupon
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
-        $this->testCouponId_ = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
+        $this->testCouponId = $coupon->getId();
     }
 
     /**
@@ -64,7 +64,7 @@ class CouponServiceTest extends ZenMagickTestCase
             $idName = 'coupons' == $table ? 'id' : 'couponId';
             $sql = "DELETE FROM %table.". $table."%
                     WHERE coupon_id = :".$idName;
-            foreach ($this->createdCouponIds_ as $couponId) {
+            foreach ($this->createdCouponIds as $couponId) {
                 ZMRuntime::getDatabase()->updateObj($sql, array($idName => $couponId), $table);
             }
         }
@@ -72,7 +72,7 @@ class CouponServiceTest extends ZenMagickTestCase
         foreach ($accountTables as $table) {
             $sql = "DELETE FROM %table.".$table."%
                     WHERE customer_id = :accountId";
-            foreach ($this->accountIds_ as $accountId) {
+            foreach ($this->accountIds as $accountId) {
                 ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId), $table);
             }
         }
@@ -110,7 +110,7 @@ class CouponServiceTest extends ZenMagickTestCase
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
         $this->assertNotNull($coupon);
         $this->assertEquals($couponCode, $coupon->getCode());
         $this->assertEquals(5, $coupon->getAmount());
@@ -126,7 +126,7 @@ class CouponServiceTest extends ZenMagickTestCase
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
         $loaded = $couponService->getCouponForCode($couponCode, 1);
         $this->assertEquals($coupon->getId(), $loaded->getId());
         $this->assertEquals($coupon->getCode(), $loaded->getCode());
@@ -143,7 +143,7 @@ class CouponServiceTest extends ZenMagickTestCase
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
         $loaded = $couponService->getCouponForId($coupon->getId(), 1);
         $this->assertEquals($coupon->getId(), $loaded->getId());
         $this->assertEquals($coupon->getCode(), $loaded->getCode());
@@ -181,7 +181,7 @@ class CouponServiceTest extends ZenMagickTestCase
     {
         $couponService = $this->get('couponService');
 
-        $coupon = $couponService->getCouponForId($this->testCouponId_, 1);
+        $coupon = $couponService->getCouponForId($this->testCouponId, 1);
         if (null != $coupon) {
             $restrictions = $coupon->getRestrictions();
             $this->assertNotNull($restrictions);
@@ -199,7 +199,7 @@ class CouponServiceTest extends ZenMagickTestCase
     {
         $couponService = $this->get('couponService');
 
-        $this->assertTrue($couponService->isCouponRedeemable($this->testCouponId_));
+        $this->assertTrue($couponService->isCouponRedeemable($this->testCouponId));
         $this->assertTrue($couponService->isCouponRedeemable(99999));
     }
 
@@ -212,7 +212,7 @@ class CouponServiceTest extends ZenMagickTestCase
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
         $account = $this->get('accountService')->getAccountForId($this->getAccountId());
         $gvReceiver = Beans::getBean('ZMGVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
@@ -240,7 +240,7 @@ class CouponServiceTest extends ZenMagickTestCase
 
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
         $couponService->finaliseCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
 
         // manually check database
@@ -266,7 +266,7 @@ class CouponServiceTest extends ZenMagickTestCase
         // new coupon worth $5
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
 
         $couponService->creditCoupon($coupon->getId(), $this->getAccountId());
         $this->assertEquals(5, $couponService->getVoucherBalanceForAccountId(1));
@@ -279,7 +279,7 @@ class CouponServiceTest extends ZenMagickTestCase
         // new coupon worth $5
         $couponCode = $couponService->createCouponCode('foo@bar.com');
         $coupon = $couponService->createCoupon($couponCode, 5, Coupon::TYPPE_GV);
-        $this->createdCouponIds_[] = $coupon->getId();
+        $this->createdCouponIds[] = $coupon->getId();
 
         $couponService->creditCoupon($coupon->getId(), 1);
         $this->assertEquals(5, $couponService->getVoucherBalanceForAccountId($this->getAccountId()));

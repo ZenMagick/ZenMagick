@@ -36,13 +36,13 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMResultList extends ZMObject
 {
-    protected $resultSource_;
-    protected $filters_;
-    protected $sorters_;
-    protected $page_;
-    protected $pagination_;
-    protected $allResults_;
-    protected $results_;
+    protected $resultSource;
+    protected $filters;
+    protected $sorters;
+    protected $page;
+    protected $pagination;
+    protected $allResults;
+    protected $results;
 
     /**
      * Create new result list.
@@ -50,13 +50,13 @@ class ZMResultList extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->resultSource_ = null;
-        $this->filters_ = array();
-        $this->sorters_ = array();
-        $this->page_ = 1;
-        $this->pagination_ = Runtime::getSettings()->get('zenmagick.mvc.resultlist.defaultPagination');
-        $this->allResults_ = null;
-        $this->results_ = null;
+        $this->resultSource = null;
+        $this->filters = array();
+        $this->sorters = array();
+        $this->page = 1;
+        $this->pagination = Runtime::getSettings()->get('zenmagick.mvc.resultlist.defaultPagination');
+        $this->allResults = null;
+        $this->results = null;
     }
 
     /**
@@ -70,9 +70,9 @@ class ZMResultList extends ZMObject
      */
     public function setResultSource($resultSource)
     {
-        $this->resultSource_ = $resultSource;
-        $this->resultSource_->setResultList($this);
-        $this->results_ = null;
+        $this->resultSource = $resultSource;
+        $this->resultSource->setResultList($this);
+        $this->results = null;
     }
 
     /**
@@ -84,8 +84,8 @@ class ZMResultList extends ZMObject
     {
         if ($filter instanceof ZMResultListFilter) {
             $filter->setResultList($this);
-            $this->filters_[] = $filter;
-            $this->results_ = null;
+            $this->filters[] = $filter;
+            $this->results = null;
         }
     }
 
@@ -97,8 +97,8 @@ class ZMResultList extends ZMObject
     public function addSorter($sorter)
     {
         if ($sorter instanceof ZMResultListSorter) {
-            $this->sorters_[] = $sorter;
-            $this->results_ = null;
+            $this->sorters[] = $sorter;
+            $this->results = null;
         }
     }
 
@@ -109,7 +109,7 @@ class ZMResultList extends ZMObject
      */
     public function hasSorters()
     {
-        return 0 < count($this->sorters_);
+        return 0 < count($this->sorters);
     }
 
     /**
@@ -121,11 +121,11 @@ class ZMResultList extends ZMObject
     public function getSorters($active=false)
     {
         if (!$active) {
-            return $this->sorters_;
+            return $this->sorters;
         }
 
         $list = array();
-        foreach ($this->sorters_ as $sorter) {
+        foreach ($this->sorters as $sorter) {
             if ($sorter->isActive()) {
                 $list[] = $sorter;
             }
@@ -141,7 +141,7 @@ class ZMResultList extends ZMObject
      */
     public function hasFilters()
     {
-        return 0 < count($this->filters_);
+        return 0 < count($this->filters);
     }
 
     /**
@@ -153,11 +153,11 @@ class ZMResultList extends ZMObject
     public function getFilters($active=false)
     {
         if (!$active) {
-            return $this->filters_;
+            return $this->filters;
         }
 
         $list = array();
-        foreach ($this->filters_ as $filter) {
+        foreach ($this->filters as $filter) {
             if ($filter->isActive()) {
                 $list[] = $filter;
             }
@@ -183,7 +183,7 @@ class ZMResultList extends ZMObject
      */
     public function getNumberOfResults()
     {
-        return $this->resultSource_->getTotalNumberOfResults();
+        return $this->resultSource->getTotalNumberOfResults();
     }
 
     /**
@@ -193,7 +193,7 @@ class ZMResultList extends ZMObject
      */
     public function getPageNumber()
     {
-        return $this->page_;
+        return $this->page;
     }
 
     /**
@@ -203,8 +203,8 @@ class ZMResultList extends ZMObject
      */
     public function setPageNumber($page)
     {
-        $this->page_ = (0 < $page ? $page : 1);
-        $this->results_ = null;
+        $this->page = (0 < $page ? $page : 1);
+        $this->results = null;
     }
 
     /**
@@ -214,7 +214,7 @@ class ZMResultList extends ZMObject
      */
     public function getPagination()
     {
-        return $this->pagination_;
+        return $this->pagination;
     }
 
     /**
@@ -224,9 +224,9 @@ class ZMResultList extends ZMObject
      */
     public function setPagination($pagination)
     {
-        $this->pagination_ = $pagination;
-        $this->results_ = null;
-        $this->allResults_ = null;
+        $this->pagination = $pagination;
+        $this->results = null;
+        $this->allResults = null;
     }
 
     /**
@@ -236,11 +236,11 @@ class ZMResultList extends ZMObject
      */
     public function getNumberOfPages()
     {
-        if (0 == $this->pagination_) {
+        if (0 == $this->pagination) {
             return 1;
         }
 
-        return (int) ceil($this->getNumberOfResults() / $this->pagination_);
+        return (int) ceil($this->getNumberOfResults() / $this->pagination);
     }
 
     /**
@@ -250,7 +250,7 @@ class ZMResultList extends ZMObject
      */
     public function hasPreviousPage()
     {
-        return 1 < $this->page_;
+        return 1 < $this->page;
     }
 
     /**
@@ -260,7 +260,7 @@ class ZMResultList extends ZMObject
      */
     public function hasNextPage()
     {
-        return $this->page_ < $this->getNumberOfPages();
+        return $this->page < $this->getNumberOfPages();
     }
 
     /**
@@ -270,7 +270,7 @@ class ZMResultList extends ZMObject
      */
     public function getPreviousPageNumber()
     {
-        return $this->hasPreviousPage() ? ($this->page_ - 1) : 1;
+        return $this->hasPreviousPage() ? ($this->page - 1) : 1;
     }
 
     /**
@@ -280,7 +280,7 @@ class ZMResultList extends ZMObject
      */
     public function getNextPageNumber()
     {
-        return $this->hasNextPage() ? ($this->page_ + 1) : $this->getNumberOfPages();
+        return $this->hasNextPage() ? ($this->page + 1) : $this->getNumberOfPages();
     }
 
     /**
@@ -290,18 +290,18 @@ class ZMResultList extends ZMObject
      */
     public function getResults()
     {
-        if (null === $this->results_) {
+        if (null === $this->results) {
             $results = $this->getAllResults();
 
-            if (!$this->resultSource_->isFinal()) {
-                foreach ($this->filters_ as $filter) {
+            if (!$this->resultSource->isFinal()) {
+                foreach ($this->filters as $filter) {
                     if (!$filter->isActive())
                         continue;
 
                     $results = $filter->filter($results);
                 }
 
-                foreach ($this->sorters_ as $sorter) {
+                foreach ($this->sorters as $sorter) {
                     if ($sorter->isActive()) {
                         $results = $sorter->sort($results);
                         // can't have more than one sorter active here
@@ -310,11 +310,11 @@ class ZMResultList extends ZMObject
                 }
             }
 
-            if (0 != $this->pagination_) {
-                $end = $this->page_ * $this->pagination_;
+            if (0 != $this->pagination) {
+                $end = $this->page * $this->pagination;
                 $end = $end > count($results) ? count($results) : $end;
-                $start = ((int) ($end / $this->pagination_)) * $this->pagination_;
-                $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
+                $start = ((int) ($end / $this->pagination)) * $this->pagination;
+                $start = ($start == $end && 0 < $end) ? $start - $this->pagination : $start;
             } else {
                 // all
                 $end = count($results);
@@ -322,13 +322,13 @@ class ZMResultList extends ZMObject
             }
 
             // use this as array_slice might reorder the array if keys are not in order
-            $this->results_ = array();
+            $this->results = array();
             for ($ii=0; $ii<($end-$start); ++$ii) {
-                $this->results_[] = $results[$start+$ii];
+                $this->results[] = $results[$start+$ii];
             }
         }
 
-        return $this->results_;
+        return $this->results;
     }
 
     /**
@@ -341,11 +341,11 @@ class ZMResultList extends ZMObject
      */
     public function getAllResults()
     {
-        if (null === $this->allResults_) {
-            $this->allResults_ = $this->buildResults();
+        if (null === $this->allResults) {
+            $this->allResults = $this->buildResults();
         }
 
-        return $this->allResults_;
+        return $this->allResults;
     }
 
     /**
@@ -355,9 +355,9 @@ class ZMResultList extends ZMObject
      */
     protected function buildResults()
     {
-        if (null !== $this->resultSource_) {
+        if (null !== $this->resultSource) {
             // always force load here; either it is the first time, or the pagination changed, so we need to reload anyway
-            return $this->resultSource_->getResults(true);
+            return $this->resultSource->getResults(true);
         }
 
         return array();

@@ -61,20 +61,20 @@ class ot_zenmagick {
         $this->output = array();
 
         // find all order total plugins
-        $this->plugins_ = array();
+        $this->plugins = array();
         foreach (Runtime::getContainer()->get('pluginService')->getPluginsForContext() as $plugin) {
             if ($plugin instanceof ZMOrderTotal) {
-                $this->plugins_[$plugin->getId()] = $plugin;
+                $this->plugins[$plugin->getId()] = $plugin;
             }
         }
 
         // add ative plugin ids to the description
-        if (0 < count($this->plugins_)) {
-            $ids = ' (' . implode(',', array_keys($this->plugins_)) . ')';
+        if (0 < count($this->plugins)) {
+            $ids = ' (' . implode(',', array_keys($this->plugins)) . ')';
             $this->title .= $ids;
         }
 
-        $this->installed_ = null;
+        $this->installed = null;
     }
 
     /**
@@ -95,7 +95,7 @@ class ot_zenmagick {
         $request = $this->container->get('request');
         $shoppingCart = Runtime::getContainer()->get('shoppingCart');
         $detailsList = array();
-        foreach ($this->plugins_ as $plugin) {
+        foreach ($this->plugins as $plugin) {
             if (null != ($details = $plugin->calculate($request, $shoppingCart))) {
                 if (!is_array($details)) {
                     $details = array($details);
@@ -127,15 +127,15 @@ class ot_zenmagick {
      * @return boolean <code>true</code> if active.
      */
     public function check() {
-        if (null === $this->installed_) {
+        if (null === $this->installed) {
           $sql = "SELECT configuration_value FROM %table.configuration%
                   WHERE configuration_key = :key";
           $args = array('key' => 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
           $result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'configuration');
-          $this->installed_ = null != $result;
+          $this->installed = null != $result;
         }
 
-        return $this->installed_;
+        return $this->installed;
     }
 
     /**

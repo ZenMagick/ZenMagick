@@ -29,8 +29,8 @@ use ZMOffers;
  */
 class Offers extends ZMOffers
 {
-    private $productGroupPricing_;
-    private $lookupDone_;
+    private $productGroupPricing;
+    private $lookupDone;
 
     /**
      * Create new offers instance for the given product.
@@ -40,8 +40,8 @@ class Offers extends ZMOffers
     public function __construct($product)
     {
         parent::__construct($product);
-        $this->productGroupPricing_ = null;
-        $this->lookupDone_ = false;
+        $this->productGroupPricing = null;
+        $this->lookupDone = false;
     }
 
     /**
@@ -49,7 +49,7 @@ class Offers extends ZMOffers
      */
     public function getProductPrice($tax=true)
     {
-        $price = $this->product_->getProductPrice();
+        $price = $this->product->getProductPrice();
 
         // check for fixed price
         if (null != ($productGroupPricing = $this->getProductGroupPricing())) {
@@ -68,12 +68,12 @@ class Offers extends ZMOffers
      */
     private function getProductGroupPricing()
     {
-        if (!$this->lookupDone_) {
-            $this->lookupDone_ = true;
+        if (!$this->lookupDone) {
+            $this->lookupDone = true;
             $account = $this->container->get('request')->getAccount();
             if (null == $account) {
                 // no account, no price group
-                $this->productGroupPricing_ = null;
+                $this->productGroupPricing = null;
 
                 return null;
             }
@@ -81,18 +81,18 @@ class Offers extends ZMOffers
             $priceGroup = $account->getPriceGroup();
             if (null == $priceGroup) {
                 // no price group
-                $this->productGroupPricing_ = null;
+                $this->productGroupPricing = null;
 
                 return null;
             }
 
-            $productGroupPricings = $this->container->get('productGroupPricingService')->getProductGroupPricings($this->product_->getId(), $priceGroup->getId(), true);
+            $productGroupPricings = $this->container->get('productGroupPricingService')->getProductGroupPricings($this->product->getId(), $priceGroup->getId(), true);
             if (0 < count($productGroupPricings)) {
-                $this->productGroupPricing_ = array_pop($productGroupPricings);
+                $this->productGroupPricing = array_pop($productGroupPricings);
             }
         }
 
-        return $this->productGroupPricing_;
+        return $this->productGroupPricing;
     }
 
     /**

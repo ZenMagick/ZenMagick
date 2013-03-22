@@ -34,12 +34,12 @@ abstract class DashboardWidget extends Widget
     const STATUS_INFO = '';
     const STATUS_NOTICE = 'ui-state-highlight';
     const STATUS_WARN = 'ui-state-error';
-    private $id_;
-    private $minimize_;
-    private $maximize_;
-    private $options_;
-    private $open_;
-    private $status_;
+    private $id;
+    private $minimize;
+    private $maximize;
+    private $options;
+    private $open;
+    private $status;
 
     /**
      * Create new user.
@@ -50,13 +50,13 @@ abstract class DashboardWidget extends Widget
     {
         parent::__construct();
         // default
-        $this->id_ = get_class($this);
-        $this->setTitle(null != $title ? $title : $this->id_);
-        $this->minimize_ = true;
-        $this->maximize_ = false;
-        $this->options_ = null;
-        $this->open_ = true;
-        $this->status_ = self::STATUS_DEFAULT;
+        $this->id = get_class($this);
+        $this->setTitle(null != $title ? $title : $this->id);
+        $this->minimize = true;
+        $this->maximize = false;
+        $this->options = null;
+        $this->open = true;
+        $this->status = self::STATUS_DEFAULT;
     }
 
     /**
@@ -64,14 +64,14 @@ abstract class DashboardWidget extends Widget
      *
      * @return int The id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Set the id.
      *
      * @param int id The id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Get the (HTML) contents.
@@ -88,14 +88,14 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The minimize flag.
      */
-    public function isMinimize() { return $this->minimize_; }
+    public function isMinimize() { return $this->minimize; }
 
     /**
      * Set the minimize flag.
      *
      * @parm boolean minimize The new value.
      */
-    public function setMinimize($minimize) { $this->minimize_ = $minimize; }
+    public function setMinimize($minimize) { $this->minimize = $minimize; }
 
     /**
      * Get the maximize flag.
@@ -104,35 +104,35 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The maximize flag.
      */
-    public function isMaximize() { return $this->maximize_; }
+    public function isMaximize() { return $this->maximize; }
 
     /**
      * Set the maximize flag.
      *
      * @parm boolean maximize The new value.
      */
-    public function setMaximize($maximize) { $this->maximize_ = $maximize; }
+    public function setMaximize($maximize) { $this->maximize = $maximize; }
 
     /**
      * Set url for options dialog.
      *
      * @parm mixed options Options.
      */
-    public function setOptions($options) { $this->options_ = $options; }
+    public function setOptions($options) { $this->options = $options; }
 
     /**
      * Get options.
      *
      * @return mixed The options or <code>null</code>.
      */
-    public function getOptions() { return $this->options_; }
+    public function getOptions() { return $this->options; }
 
     /**
      * Check if this widget has options.
      *
      * @return boolean <code>true</code> if this widget has configurable options.
      */
-    public function hasOptions() { return null != $this->options_; }
+    public function hasOptions() { return null != $this->options; }
 
     /**
      * Get the open flag.
@@ -141,28 +141,28 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The open flag.
      */
-    public function isOpen() { return $this->open_; }
+    public function isOpen() { return $this->open; }
 
     /**
      * Set the open flag.
      *
      * @parm boolean open The new value.
      */
-    public function setOpen($open) { $this->open_ = Toolbox::asBoolean($open); }
+    public function setOpen($open) { $this->open = Toolbox::asBoolean($open); }
 
     /**
      * Get the status.
      *
      * @return string The status.
      */
-    public function getStatus() { return $this->status_; }
+    public function getStatus() { return $this->status; }
 
     /**
      * Set the status.
      *
      * @param string id The status.
      */
-    public function setStatus($status) { $this->status_ = $status; }
+    public function setStatus($status) { $this->status = $status; }
 
     /**
      * {@inheritDoc}

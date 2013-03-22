@@ -30,7 +30,7 @@ use ZenMagick\Base\ZMObject;
  */
 class ForwardView extends ZMObject implements View
 {
-    private $requestId_;
+    private $requestId;
 
     /**
      * Create a new forward view.
@@ -38,7 +38,7 @@ class ForwardView extends ZMObject implements View
     public function __construct()
     {
         parent::__construct();
-        $this->requestId_ = null;
+        $this->requestId = null;
     }
 
     /**
@@ -50,7 +50,7 @@ class ForwardView extends ZMObject implements View
      */
     public function getRequestId()
     {
-        return $this->requestId_;
+        return $this->requestId;
     }
 
     /**
@@ -60,7 +60,7 @@ class ForwardView extends ZMObject implements View
      */
     public function setRequestId($requestId)
     {
-        $this->requestId_ = $requestId;
+        $this->requestId = $requestId;
     }
 
     /**

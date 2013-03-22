@@ -32,10 +32,10 @@ use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
  */
 class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
 {
-    private $module_;
-    private $selection_;
-    private $fields_;
-    private $prepared_;
+    private $module;
+    private $selection;
+    private $fields;
+    private $prepared;
 
     /**
      * Create a new payment type.
@@ -46,8 +46,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
     {
         parent::__construct();
         $this->setModule($module);
-        $this->fields_ = null;
-        $this->prepared_ = false;
+        $this->fields = null;
+        $this->prepared = false;
     }
 
     /**
@@ -57,9 +57,9 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function setModule($module)
     {
-        $this->module_ = $module;
+        $this->module = $module;
         if (null != $module) {
-            $this->selection_ = $module->selection();
+            $this->selection = $module->selection();
         }
     }
 
@@ -68,7 +68,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getId()
     {
-        return $this->module_->code;
+        return $this->module->code;
     }
 
     /**
@@ -76,7 +76,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getName()
     {
-        return $this->selection_['module'];
+        return $this->selection['module'];
     }
 
     /**
@@ -84,7 +84,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getTitle()
     {
-        return $this->module_->title;
+        return $this->module->title;
     }
 
     /**
@@ -92,28 +92,28 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getDescription()
     {
-        return $this->module_->description;
+        return $this->module->description;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getError() { return $this->module_->get_error(); }
+    public function getError() { return $this->module->get_error(); }
 
     /**
      * {@inheritDoc}
      */
     public function getFields()
     {
-        if (null === $this->fields_) {
-            if (array_key_exists('fields', $this->selection_)) {
-                foreach ($this->selection_['fields'] as $field) {
-                    $this->fields_[] = new \ZMPaymentField($field['title'], htmlspecialchars_decode(htmlentities($field['field'])));
+        if (null === $this->fields) {
+            if (array_key_exists('fields', $this->selection)) {
+                foreach ($this->selection['fields'] as $field) {
+                    $this->fields[] = new \ZMPaymentField($field['title'], htmlspecialchars_decode(htmlentities($field['field'])));
                 }
             }
         }
 
-        return $this->fields_;
+        return $this->fields;
     }
 
     /**
@@ -121,8 +121,8 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getInfo()
     {
-        if (isset($this->module_->email_footer) && !Toolbox::isEmpty($this->module_->email_footer)) {
-            return $this->module_->email_footer;
+        if (isset($this->module->email_footer) && !Toolbox::isEmpty($this->module->email_footer)) {
+            return $this->module->email_footer;
         }
 
         return null;
@@ -133,7 +133,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getFormValidationJS($request)
     {
-        return $this->module_->javascript_validation();
+        return $this->module->javascript_validation();
     }
 
     /**
@@ -141,10 +141,10 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function prepare()
     {
-        if (!$this->prepared_) {
-            $this->module_->pre_confirmation_check();
-            $this->module_->confirmation();
-            $this->prepared_ = true;
+        if (!$this->prepared) {
+            $this->module->pre_confirmation_check();
+            $this->module->confirmation();
+            $this->prepared = true;
         }
     }
 
@@ -156,7 +156,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
         // TODO: move into controller
         ZenCartMock::startMock(Runtime::getContainer()->get('shoppingCart'));
         $this->prepare();
-        $button =  $this->module_->process_button();
+        $button =  $this->module->process_button();
         ZenCartMock::cleanupMock();
 
         return $button;
@@ -169,7 +169,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
     {
         $this->prepare();
 
-        return isset($this->module_->form_action_url) ? $this->module_->form_action_url : Runtime::getContainer()->get('router')->generate('checkout_process');
+        return isset($this->module->form_action_url) ? $this->module->form_action_url : Runtime::getContainer()->get('router')->generate('checkout_process');
     }
 
     /**
@@ -177,7 +177,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
      */
     public function getOrderStatus()
     {
-        return isset($this->module_->order_status) && is_numeric($this->module_->order_status) && ($this->module_->order_status > 0) ? $this->module_->order_status : null;
+        return isset($this->module->order_status) && is_numeric($this->module->order_status) && ($this->module->order_status > 0) ? $this->module->order_status : null;
     }
 
 }

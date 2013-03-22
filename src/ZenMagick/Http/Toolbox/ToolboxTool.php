@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  */
 class ToolboxTool extends ZMObject
 {
-    protected $toolbox_;
-    protected $view_;
+    protected $toolbox;
+    protected $view;
 
     /**
      * Get the request.
@@ -48,7 +48,7 @@ class ToolboxTool extends ZMObject
      */
     public function setToolbox($toolbox)
     {
-        $this->toolbox_ = $toolbox;
+        $this->toolbox = $toolbox;
     }
 
     /**
@@ -58,7 +58,7 @@ class ToolboxTool extends ZMObject
      */
     public function getToolbox()
     {
-        return $this->toolbox_;
+        return $this->toolbox;
     }
 
     /**
@@ -68,7 +68,7 @@ class ToolboxTool extends ZMObject
      */
     public function setView($view)
     {
-        $this->view_ = $view;
+        $this->view = $view;
     }
 
     /**
@@ -78,7 +78,7 @@ class ToolboxTool extends ZMObject
      */
     public function getView()
     {
-        return $this->view_;
+        return $this->view;
     }
 
 }

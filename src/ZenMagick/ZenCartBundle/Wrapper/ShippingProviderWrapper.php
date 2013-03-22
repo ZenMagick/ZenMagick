@@ -34,8 +34,8 @@ use ZenMagick\ZenCartBundle\Wrapper\ShippingMethodWrapper;
  */
 class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
 {
-    private $zenModule_;
-    private $errors_;
+    private $zenModule;
+    private $errors;
 
     /**
      * Create a new shipping provider.
@@ -45,8 +45,8 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
     public function __construct($module=null)
     {
         parent::__construct();
-        $this->zenModule_ = $module;
-        $this->errors_ = array();
+        $this->zenModule = $module;
+        $this->errors = array();
     }
 
     /**
@@ -56,43 +56,43 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
      */
     public function setModule($module)
     {
-        $this->zenModule_ = $module;
+        $this->zenModule = $module;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getId() { return $this->zenModule_->code; }
+    public function getId() { return $this->zenModule->code; }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() { return $this->zenModule_->title; }
+    public function getName() { return $this->zenModule->title; }
 
     /**
      * {@inheritDoc}
      */
-    public function hasIcon() { return !Toolbox::isEmpty($this->zenModule_->icon); }
+    public function hasIcon() { return !Toolbox::isEmpty($this->zenModule->icon); }
 
     /**
      * {@inheritDoc}
      */
-    public function getIcon() { return $this->hasIcon() ? $this->zenModule_->icon : null; }
+    public function getIcon() { return $this->hasIcon() ? $this->zenModule->icon : null; }
 
     /**
      * {@inheritDoc}
      */
-    public function isInstalled() { return $this->zenModule_->check(); }
+    public function isInstalled() { return $this->zenModule->check(); }
 
     /**
      * {@inheritDoc}
      */
-    public function hasErrors() { return 0 < count($this->errors_); }
+    public function hasErrors() { return 0 < count($this->errors); }
 
     /**
      * {@inheritDoc}
      */
-    public function getErrors() { return $this->errors_; }
+    public function getErrors() { return $this->errors; }
 
     /**
      * {@inheritDoc}
@@ -114,20 +114,20 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
             $address = $shoppingCart->getShippingAddress();
         }
 
-        $this->errors_ = array();
+        $this->errors = array();
 
         ZenCartMock::startMock($shoppingCart, $address);
 
         // create new instance for each quote!
         // this is required as most modules do stuff in the c'tor (for example zone checks)
-        $clazzName = get_class($this->zenModule_);
+        $clazzName = get_class($this->zenModule);
         $module = new $clazzName();
 
         $quotes = $module->quote();
 
         // capture error(s)
         if (is_array($quotes) && array_key_exists('error', $quotes)) {
-            $this->errors_ = array($quotes['error']);
+            $this->errors = array($quotes['error']);
 
             return array();
         }

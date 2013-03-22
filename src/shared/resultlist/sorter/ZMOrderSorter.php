@@ -31,17 +31,17 @@ use ZenMagick\Base\Database\SqlAware;
 class ZMOrderSorter extends ZMResultListSorter implements SqlAware
 {
     // supported sorts
-    private $methods_ = array(
+    private $methods = array(
         'date' => '_cmpDate',
         'status' => '_cmpStatus'
     );
     // as options
-    private $options_ = array(
+    private $options = array(
         'date' => 'Date',
         'status' => 'Status'
     );
     // as SQL
-    private $sql_ = array(
+    private $sql = array(
         // XXX: allow to use mapped name
         'date' => 'date_purchased',
         'status' => 'orders_status'
@@ -66,7 +66,7 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    public function isActive() { return array_key_exists($this->sortId_, $this->methods_); }
+    public function isActive() { return array_key_exists($this->sortId, $this->methods); }
 
     /**
      * Sort the given list according to this sorters criteria.
@@ -80,7 +80,7 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
             return $list;
         }
 
-        $method = $this->methods_[$this->sortId_];
+        $method = $this->methods[$this->sortId];
         usort($list, array($this, $method));
         if ($this->isDescending()) {
             $list = array_reverse($list);
@@ -97,8 +97,8 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
     public function getOptions()
     {
         $options = array();
-        foreach ($this->options_ as $id => $name) {
-            $option = new ZMSortOption($name, $id, $id == $this->sortId_, $this->isDescending());
+        foreach ($this->options as $id => $name) {
+            $option = new ZMSortOption($name, $id, $id == $this->sortId, $this->isDescending());
             $options[] = $option;
         }
 
@@ -110,11 +110,11 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
      */
     public function getQueryDetails($method=null, $args=array())
     {
-        if (!$this->isActive() || !array_key_exists($this->sortId_, $this->sql_)) {
+        if (!$this->isActive() || !array_key_exists($this->sortId, $this->sql)) {
             return null;
         }
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
+        return new QueryDetails(ZMRuntime::getDatabase(), $this->sql[$this->sortId] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }

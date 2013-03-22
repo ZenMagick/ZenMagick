@@ -32,14 +32,14 @@ use ZenMagick\Base\ZMObject;
  */
 class PaymentTypes extends ZMObject
 {
-    private $paymentTypes_;
+    private $paymentTypes;
 
     /**
      * Create new instance.
      */
     public function __construct()
     {
-        $this->paymentTypes_ = null;
+        $this->paymentTypes = null;
     }
 
     /**
@@ -50,9 +50,9 @@ class PaymentTypes extends ZMObject
      */
     public function getPaymentTypes($all=false)
     {
-        if (null === $this->paymentTypes_) {
+        if (null === $this->paymentTypes) {
             $zcPath = $this->container->getParameter('zencart.root_dir');
-            $this->paymentTypes_ = array();
+            $this->paymentTypes = array();
             if (defined('MODULE_PAYMENT_INSTALLED') && !Toolbox::isEmpty(MODULE_PAYMENT_INSTALLED)) {
                 // get a list of modules and stuff
                 $moduleInfos = array();
@@ -70,7 +70,7 @@ class PaymentTypes extends ZMObject
                         if ($all || $module->enabled) {
                             $wrapper = Beans::getBean('ZenMagick\ZenCartBundle\Wrapper\PaymentTypeWrapper');
                             $wrapper->setModule($module);
-                            $this->paymentTypes_[$module->code] = $wrapper;
+                            $this->paymentTypes[$module->code] = $wrapper;
                         }
                         continue;
                     }
@@ -85,13 +85,13 @@ class PaymentTypes extends ZMObject
                     if ($all || $module->enabled) {
                         $wrapper = Beans::getBean('ZenMagick\ZenCartBundle\Wrapper\PaymentTypeWrapper');
                         $wrapper->setModule($module);
-                        $this->paymentTypes_[$module->code] = $wrapper;
+                        $this->paymentTypes[$module->code] = $wrapper;
                     }
                 }
             }
         }
 
-        return $this->paymentTypes_;
+        return $this->paymentTypes;
     }
 
     /**

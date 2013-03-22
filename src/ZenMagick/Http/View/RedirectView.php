@@ -35,10 +35,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class RedirectView extends ZMObject implements View
 {
     protected $secure;
-    protected $url_;
-    protected $parameter_;
-    protected $status_;
-    protected $requestId_;
+    protected $url;
+    protected $parameter;
+    protected $status;
+    protected $requestId;
 
     /**
      * Create a new redirect view.
@@ -47,10 +47,10 @@ class RedirectView extends ZMObject implements View
     {
         parent::__construct();
         $this->secure = false;
-        $this->url_ = null;
-        $this->parameter_ = '';
-        $this->status_ = 302;
-        $this->requestId_ = null;
+        $this->url = null;
+        $this->parameter = '';
+        $this->status = 302;
+        $this->requestId = null;
     }
 
     /**
@@ -66,7 +66,7 @@ class RedirectView extends ZMObject implements View
      */
     public function generate($request, $template=null, $variables=array())
     {
-        return new RedirectResponse($this->getRedirectUrl($request), $this->status_);
+        return new RedirectResponse($this->getRedirectUrl($request), $this->status);
     }
 
     /**
@@ -76,7 +76,7 @@ class RedirectView extends ZMObject implements View
      */
     public function setParameter($parameter)
     {
-        $this->parameter_ = $parameter;
+        $this->parameter = $parameter;
     }
 
     /**
@@ -98,7 +98,7 @@ class RedirectView extends ZMObject implements View
      */
     public function setUrl($url)
     {
-        $this->url_ = $url;
+        $this->url = $url;
     }
 
     /**
@@ -110,7 +110,7 @@ class RedirectView extends ZMObject implements View
      */
     public function setStatus($status)
     {
-        $this->status_ = (int) $status;
+        $this->status = (int) $status;
     }
 
     /**
@@ -120,7 +120,7 @@ class RedirectView extends ZMObject implements View
      */
     public function setRequestId($requestId)
     {
-        $this->requestId_ = $requestId;
+        $this->requestId = $requestId;
     }
 
     /**
@@ -132,7 +132,7 @@ class RedirectView extends ZMObject implements View
      */
     public function getRequestId()
     {
-        return $this->requestId_;
+        return $this->requestId;
     }
 
     /**
@@ -143,7 +143,7 @@ class RedirectView extends ZMObject implements View
      */
     public function getRedirectUrl($request)
     {
-        return (($this->url_) ? $this->url_ : $this->container->get('router')->generate($this->getRequestId(), $this->parameter_));
+        return (($this->url) ? $this->url : $this->container->get('router')->generate($this->getRequestId(), $this->parameter));
     }
 
 }

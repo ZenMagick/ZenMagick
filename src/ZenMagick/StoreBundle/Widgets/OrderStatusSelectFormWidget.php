@@ -34,7 +34,7 @@ use ZenMagick\Http\Widgets\Form\SelectFormWidget;
  */
 class OrderStatusSelectFormWidget extends SelectFormWidget
 {
-    private $showKey_;
+    private $showKey;
 
     /**
      * Create new instance.
@@ -42,7 +42,7 @@ class OrderStatusSelectFormWidget extends SelectFormWidget
     public function __construct()
     {
         parent::__construct();
-        $this->showKey_ = true;
+        $this->showKey = true;
     }
 
     /**
@@ -52,7 +52,7 @@ class OrderStatusSelectFormWidget extends SelectFormWidget
      */
     public function setShowKey($enable)
     {
-        $this->showKey_ = $enable;
+        $this->showKey = $enable;
     }
 
     /**
@@ -62,7 +62,7 @@ class OrderStatusSelectFormWidget extends SelectFormWidget
      */
     public function isShowKey()
     {
-        return $this->showKey_;
+        return $this->showKey;
     }
 
     /**
@@ -74,7 +74,7 @@ class OrderStatusSelectFormWidget extends SelectFormWidget
         // @todo remove  dependency on language and request
         $languageId = null != $request ? $request->getSelectedLanguage()->getId() : 1;
         foreach ($this->container->get('orderService')->getOrderStatusList($languageId) as $idp) {
-            $options[$idp->getOrderStatusId()] = $idp->getName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
+            $options[$idp->getOrderStatusId()] = $idp->getName() . ($this->showKey ? ' ('.$idp->getOrderStatusId().')': '');
         }
 
         return $options;

@@ -101,12 +101,12 @@ class SQLPatch extends InstallationPatch
             $sm->dropTable($table);
         }
 
-        if (isset($this->sqlUndoFiles_)) {
+        if (isset($this->sqlUndoFiles)) {
             $baseDir = $this->patchRoot;
             $status = true;
-            foreach ($this->sqlUndoFiles_ as $file) {
+            foreach ($this->sqlUndoFiles as $file) {
                 $sql = file($baseDir.$file);
-                $status |= $this->_runSQL($sql);
+                $status |= $this->runSQL($sql);
             }
 
             return $status;
@@ -120,7 +120,7 @@ class SQLPatch extends InstallationPatch
      *
      * @param string sql Some sql.
      */
-    public function _runSQL($sql)
+    public function runSQL($sql)
     {
         $sql = trim(preg_replace('/[<>]/', '_', $sql));
         if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
@@ -131,7 +131,7 @@ class SQLPatch extends InstallationPatch
             $results = SQLRunner::execute_sql($sql);
             $messages = SQLRunner::process_patch_results($results);
             foreach ($messages as $message) {
-                $this->messages_[] = $message;
+                $this->messages[] = $message;
             }
 
             return empty($results['error']);
@@ -153,9 +153,9 @@ class SQLPatch extends InstallationPatch
         // do only interactive
         if ($force || $this->isOpen()) {
             $status = true;
-            foreach ($this->sqlFiles_ as $file) {
+            foreach ($this->sqlFiles as $file) {
                 $sql = file($baseDir.$file);
-                $status |= $this->_runSQL($sql);
+                $status |= $this->runSQL($sql);
             }
 
             return $status;

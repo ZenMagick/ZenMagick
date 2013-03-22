@@ -28,9 +28,9 @@ use ZenMagick\Base\ZMObject;
  */
 class MediaType extends ZMObject
 {
-    private $id_;
-    private $name_;
-    private $extension_;
+    private $id;
+    private $name;
+    private $extension;
 
     /**
      * Create new instance.
@@ -38,9 +38,9 @@ class MediaType extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->id_ = 0;
-        $this->name_ = null;
-        $this->extension_ = null;
+        $this->id = 0;
+        $this->name = null;
+        $this->extension = null;
     }
 
     /**
@@ -48,41 +48,41 @@ class MediaType extends ZMObject
      *
      * @return int The media type id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the media type name.
      *
      * @return string The media type name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the media type file extension.
      *
      * @return string The media type file extension.
      */
-    public function getExtension() { return $this->extension_; }
+    public function getExtension() { return $this->extension; }
 
     /**
      * Set the media type id.
      *
      * @param int id The media type id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the media type name.
      *
      * @param string name The media type name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the media type file extension.
      *
      * @param string extension The media type file extension.
      */
-    public function setExtension($extension) { $this->extension_ = $extension; }
+    public function setExtension($extension) { $this->extension = $extension; }
 
 }

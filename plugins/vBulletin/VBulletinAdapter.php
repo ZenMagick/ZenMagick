@@ -34,9 +34,9 @@ use ZenMagick\Base\ZMObject;
  */
 class VBulletinAdapter extends ZMObject
 {
-    private $database_;
-    private $dbConfig_;
-    private $userTable_;
+    private $database;
+    private $dbConfig;
+    private $userTable;
 
     /**
      * Create new instance.
@@ -51,7 +51,7 @@ class VBulletinAdapter extends ZMObject
         }
 
         // db config
-        $this->dbConfig_ = array(
+        $this->dbConfig = array(
             'host' => $config['MasterServer']['servername'],
             'port' => $config['MasterServer']['port'],
             'database' => $config['Database']['dbname'],
@@ -59,7 +59,7 @@ class VBulletinAdapter extends ZMObject
             'password' => $config['MasterServer']['password'],
             'driver' => $config['Database']['dbtype'],
         );
-        $this->userTable_ = $config['Database']['tableprefix'] . 'user';
+        $this->userTable = $config['Database']['tableprefix'] . 'user';
     }
 
     /**
@@ -69,12 +69,12 @@ class VBulletinAdapter extends ZMObject
      */
     protected function getDatabase()
     {
-        if (null == $this->database_) {
-            ZMRuntime::setDatabase('vbulletin', $this->dbConfig_);
-            $this->database_ = ZMRuntime::getDatabase('vbulletin');
+        if (null == $this->database) {
+            ZMRuntime::setDatabase('vbulletin', $this->dbConfig);
+            $this->database = ZMRuntime::getDatabase('vbulletin');
         }
 
-        return $this->database_;
+        return $this->database;
     }
 
     /**
@@ -147,10 +147,10 @@ class VBulletinAdapter extends ZMObject
      */
     public function getAccountForNickName($nickName)
     {
-        $sql = "SELECT * FROM " . $this->userTable_ . "
+        $sql = "SELECT * FROM " . $this->userTable . "
                 WHERE username = :username";
 
-        return $this->getDatabase()->querySingle($sql, array('username' => $nickName), $this->userTable_);
+        return $this->getDatabase()->querySingle($sql, array('username' => $nickName), $this->userTable);
     }
 
     /**
@@ -161,10 +161,10 @@ class VBulletinAdapter extends ZMObject
      */
     public function getAccountForEmail($email)
     {
-        $sql = "SELECT * FROM " . $this->userTable_ . "
+        $sql = "SELECT * FROM " . $this->userTable . "
                 WHERE email = :email";
         // assum unique email address...
-        return $this->getDatabase()->querySingle($sql, array('email' => $email), $this->userTable_);
+        return $this->getDatabase()->querySingle($sql, array('email' => $email), $this->userTable);
     }
 
     /**
@@ -184,7 +184,7 @@ class VBulletinAdapter extends ZMObject
             'email' => $account->getEmail()
         );
 
-        $data = $this->getDatabase()->createModel($this->userTable_, $data);
+        $data = $this->getDatabase()->createModel($this->userTable, $data);
 
         if (is_array($data) && array_key_exists('userid', $data)) {
             return true;
@@ -213,7 +213,7 @@ class VBulletinAdapter extends ZMObject
                 $updates['password'] = md5($password);
             }
             $data = array_merge($data, $updates);
-            $this->getDatabase()->updateModel($this->userTable_, $data);
+            $this->getDatabase()->updateModel($this->userTable, $data);
 
             return true;
         }
@@ -231,7 +231,7 @@ class VBulletinAdapter extends ZMObject
     {
         $data = $this->getAccountForEmail($email);
         if (is_array($data) && array_key_exists('userid', $data)) {
-            return $this->getDatabase()->removeModel($this->userTable_, array('userid' => $data['userid']));
+            return $this->getDatabase()->removeModel($this->userTable, array('userid' => $data['userid']));
         }
 
         return false;

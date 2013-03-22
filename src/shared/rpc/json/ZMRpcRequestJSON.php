@@ -27,8 +27,8 @@ use ZenMagick\Base\Beans;
  */
 class ZMRpcRequestJSON
 {
-    private $request_;
-    private $json_;
+    private $request;
+    private $json;
 
     /**
      * Create new instance
@@ -37,8 +37,8 @@ class ZMRpcRequestJSON
      */
     public function __construct($request=null)
     {
-        $this->request_ = $request;
-        $this->json_ = json_decode(trim(file_get_contents('php://input')));
+        $this->request = $request;
+        $this->json = json_decode(trim(file_get_contents('php://input')));
 
     }
 
@@ -49,14 +49,14 @@ class ZMRpcRequestJSON
      */
     public function setRequest($request)
     {
-        $this->request_ = $request;
+        $this->request = $request;
     }
     /**
      * {@inheritDoc}
      */
     public function getRequest()
     {
-        return $this->request_;
+        return $this->request;
     }
 
     /**
@@ -64,7 +64,7 @@ class ZMRpcRequestJSON
      */
     public function getId()
     {
-        return $this->json_->id;
+        return $this->json->id;
     }
 
     /**
@@ -72,7 +72,7 @@ class ZMRpcRequestJSON
      */
     public function getMethod()
     {
-        return $this->json_->method;
+        return $this->json->method;
     }
 
     /**
@@ -80,7 +80,7 @@ class ZMRpcRequestJSON
      */
     public function getData()
     {
-        return $this->json_->params;
+        return $this->json->params;
     }
 
     /**

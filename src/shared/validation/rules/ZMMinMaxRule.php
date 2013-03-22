@@ -26,8 +26,8 @@
  */
 class ZMMinMaxRule extends ZMRule
 {
-    private $min_;
-    private $max_;
+    private $min;
+    private $max;
 
     /**
      * Create new min/max length rule.
@@ -51,7 +51,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function setMin($min)
     {
-        $this->min_ = $min;
+        $this->min = $min;
     }
 
     /**
@@ -61,7 +61,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function getMin()
     {
-        return $this->min_;
+        return $this->min;
     }
 
     /**
@@ -71,7 +71,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function setMax($max)
     {
-        $this->max_ = $max;
+        $this->max = $max;
     }
 
     /**
@@ -81,7 +81,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function getMax()
     {
-        return $this->max_;
+        return $this->max;
     }
 
     /**
@@ -94,8 +94,8 @@ class ZMMinMaxRule extends ZMRule
     public function validate($request, $data)
     {
         return !array_key_exists($this->getName(), $data) || empty($data[$this->getName()])
-            || $this->min_ <= strlen(trim($data[$this->getName()]))
-            || (0 != $this->max_ && $this->max_ < strlen(trim($data[$this->getName()])));
+            || $this->min <= strlen(trim($data[$this->getName()]))
+            || (0 != $this->max && $this->max < strlen(trim($data[$this->getName()])));
     }
 
     /**
@@ -105,7 +105,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min_, $this->max_);
+        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min, $this->max);
     }
 
     /**
@@ -118,7 +118,7 @@ class ZMMinMaxRule extends ZMRule
         $js = "    new Array('min'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",".$this->min_;
+        $js .= ",".$this->min;
         $js .= ")";
 
         return $js;

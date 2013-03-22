@@ -37,7 +37,7 @@ class SideboxDummyPatch extends FilePatch
     public function __construct()
     {
         parent::__construct('sideboxDummies');
-        $this->label_ = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
+        $this->label = 'Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins';
         $this->sideBoxPath = $this->container->getParameter('zencart.root_dir').'/includes/modules/sideboxes/';
     }
 
@@ -121,7 +121,7 @@ class SideboxDummyPatch extends FilePatch
      */
     public function undo()
     {
-        $dummies = $this->_getDummies();
+        $dummies = $this->getDummies();
         foreach ($dummies as $file) {
             @unlink($file);
         }
@@ -134,7 +134,7 @@ class SideboxDummyPatch extends FilePatch
      *
      * @return array A list of dummy sidebox files.
      */
-    protected function _getDummies()
+    protected function getDummies()
     {
         $dummies = array();
         if (file_exists($this->sideBoxPath)) {

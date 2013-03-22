@@ -29,7 +29,7 @@ use ZenMagick\ZenMagickBundle\Controller\DefaultController;
  */
 class PluginAdminController extends DefaultController
 {
-    private $plugin_;
+    private $plugin;
 
     /**
      * Create a new instance.
@@ -39,7 +39,7 @@ class PluginAdminController extends DefaultController
     public function __construct($plugin)
     {
         parent::__construct();
-        $this->plugin_ = $plugin;
+        $this->plugin = $plugin;
     }
 
     /**
@@ -49,7 +49,7 @@ class PluginAdminController extends DefaultController
      */
     public function setPlugin($plugin)
     {
-        $this->plugin_ = $plugin;
+        $this->plugin = $plugin;
     }
 
     /**
@@ -59,11 +59,11 @@ class PluginAdminController extends DefaultController
      */
     public function getPlugin()
     {
-        if (!is_object($this->plugin_)) {
-            $this->plugin_ = $this->container->get('pluginService')->getPluginForId($this->plugin_);
+        if (!is_object($this->plugin)) {
+            $this->plugin = $this->container->get('pluginService')->getPluginForId($this->plugin);
         }
 
-        return $this->plugin_;
+        return $this->plugin;
     }
 
     /**

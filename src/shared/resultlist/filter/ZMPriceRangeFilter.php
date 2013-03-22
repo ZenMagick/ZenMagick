@@ -29,7 +29,7 @@ use ZenMagick\Base\Beans;
  */
 class ZMPriceRangeFilter extends ZMResultListFilter
 {
-    private $ranges_;
+    private $ranges;
 
     /**
      * Create new instance.
@@ -38,13 +38,13 @@ class ZMPriceRangeFilter extends ZMResultListFilter
     {
         parent::__construct('prfilter', _zm('Price Range'));
 
-        $this->ranges_ = array();
-        if (!empty($this->filterValues_) && is_array($this->filterValues_)) {
+        $this->ranges = array();
+        if (!empty($this->filterValues) && is_array($this->filterValues)) {
             // values are in the form of from-to
-            foreach ($this->filterValues_ as $value) {
+            foreach ($this->filterValues as $value) {
                 $range = explode('-', $value);
                 if (!empty($value)) {
-                    $this->ranges_[$value] = $range;
+                    $this->ranges[$value] = $range;
                 }
             }
         }
@@ -58,8 +58,8 @@ class ZMPriceRangeFilter extends ZMResultListFilter
      */
     public function exclude($obj)
     {
-        if (0 == count($this->ranges_)) return false;
-        foreach ($this->ranges_ as $range) {
+        if (0 == count($this->ranges)) return false;
+        foreach ($this->ranges as $range) {
           if ($range[0] < $obj->getPrice() && $obj->getPrice() <= $range[1])
               return false;
         }
@@ -79,7 +79,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter
         $prices = array();
         $lowest = 100000;
         $highest = 0;
-        foreach ($this->list_->getAllResults() as $result) {
+        foreach ($this->list->getAllResults() as $result) {
             $price = $result->getPrice();
             // get lowest/highest price
             $lowest = $lowest < $price ? $lowest : $price;
@@ -103,7 +103,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter
             $option = Beans::getBean('ZMFilterOption');
             $option->setName($name);
             $option->setKey($key);
-            $option->setActive(array_key_exists($key, $this->ranges_));
+            $option->setActive(array_key_exists($key, $this->ranges));
             $options[$option->getId()] = $option;
         }
 

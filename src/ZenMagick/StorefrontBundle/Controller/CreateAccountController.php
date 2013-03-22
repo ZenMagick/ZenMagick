@@ -37,7 +37,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  */
 class CreateAccountController extends DefaultController
 {
-    private $createDefaultAddress_;
+    private $createDefaultAddress;
 
     /**
      * Create new instance.
@@ -45,7 +45,7 @@ class CreateAccountController extends DefaultController
     public function __construct()
     {
         parent::__construct();
-        $this->createDefaultAddress_ = true;
+        $this->createDefaultAddress = true;
     }
 
     /**
@@ -56,8 +56,8 @@ class CreateAccountController extends DefaultController
     public function setCreateDefaultAddress($value)
     {
         // make sure we convert to boolean; typically this would be set via a bean definition
-        $this->createDefaultAddress_ = Toolbox::asBoolean($value);
-        $this->container->get('logger')->debug('createDefaultAddress set to: '.$this->createDefaultAddress_);
+        $this->createDefaultAddress = Toolbox::asBoolean($value);
+        $this->container->get('logger')->debug('createDefaultAddress set to: '.$this->createDefaultAddress);
     }
 
     /**
@@ -77,7 +77,7 @@ class CreateAccountController extends DefaultController
 
         $address = null;
         $addressService = $this->container->get('addressService');
-        if ($this->createDefaultAddress_) {
+        if ($this->createDefaultAddress) {
             // account and address refer to each other...
             $address = $registration->getAddress();
             $address->setPrimary(true);

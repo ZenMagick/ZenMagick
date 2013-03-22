@@ -28,7 +28,7 @@
  */
 class ZMFieldMatchRule extends ZMRule
 {
-    private $other_;
+    private $other;
 
     /**
      * Create new field match rule.
@@ -50,7 +50,7 @@ class ZMFieldMatchRule extends ZMRule
      */
     public function setOther($other)
     {
-        $this->other_ = $other;
+        $this->other = $other;
     }
 
     /**
@@ -60,7 +60,7 @@ class ZMFieldMatchRule extends ZMRule
      */
     public function getOther()
     {
-        return $this->other_;
+        return $this->other;
     }
 
     /**
@@ -72,7 +72,7 @@ class ZMFieldMatchRule extends ZMRule
      */
     public function validate($request, $data)
     {
-        return empty($data[$this->getName()]) || empty($data[$this->other_]) || ($data[$this->getName()] == $data[$this->other_]);
+        return empty($data[$this->getName()]) || empty($data[$this->other]) || ($data[$this->getName()] == $data[$this->other]);
     }
 
     /**
@@ -82,7 +82,7 @@ class ZMFieldMatchRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->other_);
+        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->other);
     }
 
     /**
@@ -95,7 +95,7 @@ class ZMFieldMatchRule extends ZMRule
         $js = "    new Array('fieldMatch'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
-        $js .= ",'".$this->other_."'";
+        $js .= ",'".$this->other."'";
         $js .= ")";
 
         return $js;

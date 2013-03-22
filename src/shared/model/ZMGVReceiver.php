@@ -30,10 +30,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMGVReceiver extends ZMObject
 {
-    private $name_;
-    private $email_;
-    private $amount_;
-    private $message_;
+    private $name;
+    private $email;
+    private $amount;
+    private $message;
 
     /**
      * Create new instance.
@@ -41,10 +41,10 @@ class ZMGVReceiver extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->name_ = null;
-        $this->email_ = null;
-        $this->amount_ = 0;
-        $this->message_ = null;
+        $this->name = null;
+        $this->email = null;
+        $this->amount = 0;
+        $this->message = null;
     }
 
     /**
@@ -52,49 +52,49 @@ class ZMGVReceiver extends ZMObject
      *
      * @return string The receiver name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the receiver email.
      *
      * @return string The receiver email.
      */
-    public function getEmail() { return $this->email_; }
+    public function getEmail() { return $this->email; }
 
     /**
      * Get the amount.
      *
      * @return string The (formatted) amount.
      */
-    public function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount; }
 
     /**
      * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    public function hasMessage() { return !empty($this->message_); }
+    public function hasMessage() { return !empty($this->message); }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    public function getMessage() { return $this->message_; }
+    public function getMessage() { return $this->message; }
 
     /**
      * Set the receiver name.
      *
      * @param string name The receiver name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the receiver email.
      *
      * @param string email The receiver email.
      */
-    public function setEmail($email) { $this->email_ = $email; }
+    public function setEmail($email) { $this->email = $email; }
 
     /**
      * Set the amount.
@@ -106,7 +106,7 @@ class ZMGVReceiver extends ZMObject
         // TODO: this should be passed into the method
         $currencyCode = $this->container->get('request')->getSession()->get('currency');
         $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
-        $this->amount_ = $currency->parse($amount, false);
+        $this->amount = $currency->parse($amount, false);
     }
 
     /**
@@ -114,6 +114,6 @@ class ZMGVReceiver extends ZMObject
      *
      * @param string message The message.
      */
-    public function setMessage($message) { $this->message_ = $message; }
+    public function setMessage($message) { $this->message = $message; }
 
 }

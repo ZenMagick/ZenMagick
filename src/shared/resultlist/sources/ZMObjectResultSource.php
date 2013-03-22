@@ -30,14 +30,14 @@ use ZenMagick\Base\Database\SqlAware;
  */
 class ZMObjectResultSource extends ZMObject implements ZMResultSource
 {
-    private $resultList_;
-    private $resultClass_;
-    private $object_;
-    private $method_;
-    private $args_;
-    private $results_;
-    private $totalNumberOfResults_;
-    private $isFinal_;
+    private $resultList;
+    private $resultClass;
+    private $object;
+    private $method;
+    private $args;
+    private $results;
+    private $totalNumberOfResults;
+    private $isFinal;
 
     /**
      * Create a new instance.
@@ -50,19 +50,19 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
     public function __construct($resultClass=null, $object=null, $method=null, $args=array())
     {
         parent::__construct();
-        $this->resultClass_ = $resultClass;
-        $this->object_ = $object;
+        $this->resultClass = $resultClass;
+        $this->object = $object;
         if (is_string($object)) {
-            $this->object_ = Beans::getBean($object);
+            $this->object = Beans::getBean($object);
         }
-        $this->method_ = $method;
-        $this->args_ = $args;
-        if (!is_array($this->args_)) {
-            $this->args_ = array($this->args_);
+        $this->method = $method;
+        $this->args = $args;
+        if (!is_array($this->args)) {
+            $this->args = array($this->args);
         }
-        $this->results_ = null;
-        $this->totalNumberOfResults_ = null;
-        $this->isFinal_ = null;
+        $this->results = null;
+        $this->totalNumberOfResults = null;
+        $this->isFinal = null;
     }
 
     /**
@@ -70,7 +70,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function setResultList($resultList)
     {
-        $this->resultList_ = $resultList;
+        $this->resultList = $resultList;
     }
 
     /**
@@ -78,49 +78,49 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function getResults($reload=false)
     {
-        if ($reload || null === $this->results_) {
-            if ($this->object_ instanceof SqlAware) {
-                if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
+        if ($reload || null === $this->results) {
+            if ($this->object instanceof SqlAware) {
+                if (null != ($queryDetails = $this->object->getQueryDetails($this->method, $this->args))) {
                     // potentially final, so check sorter and filter
-                    $this->isFinal_ = true;
+                    $this->isFinal = true;
                     $queryPager = Beans::getBean('ZenMagick\Base\Database\QueryPager');
                     $queryPager->setQueryDetails($queryDetails);
-                    $sorters = $this->resultList_->getSorters(true);
+                    $sorters = $this->resultList->getSorters(true);
                     if (0 < count($sorters)) {
                         if ($sorters[0] instanceof SqlAware) {
                             $sortDetails = $sorters[0]->getQueryDetails();
                             $queryPager->setOrderBy($sortDetails->getSql());
                         } else {
-                            $this->isFinal_ = false;
+                            $this->isFinal = false;
                         }
                     }
-                    if ($this->resultList_->hasFilters()) {
-                        foreach ($this->resultList_->getFilters(true) as $filter) {
+                    if ($this->resultList->hasFilters()) {
+                        foreach ($this->resultList->getFilters(true) as $filter) {
                             if ($filter instanceof SqlAware) {
                                 $filterDetails = $filter->getQueryDetails();
                                 $queryPager->addFilter($filterDetails->getSql());
                             } else {
-                                $this->isFinal_ = false;
+                                $this->isFinal = false;
                             }
                         }
                     }
 
                     // only use pager if final
-                    if ($this->isFinal_) {
-                        $this->results_ = $queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination());
-                        $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
+                    if ($this->isFinal) {
+                        $this->results = $queryPager->getResults($this->resultList->getPageNumber(), $this->resultList->getPagination());
+                        $this->totalNumberOfResults = $queryPager->getTotalNumberOfResults();
                     }
                 }
             }
             // check in case this method is not supported
-            if (null === $this->results_) {
-                $this->results_ = call_user_func_array(array($this->object_, $this->method_), $this->args_);
-                $this->totalNumberOfResults_ = count($this->results_);
+            if (null === $this->results) {
+                $this->results = call_user_func_array(array($this->object, $this->method), $this->args);
+                $this->totalNumberOfResults = count($this->results);
             }
 
         }
 
-        return $this->results_;
+        return $this->results;
     }
 
     /**
@@ -128,7 +128,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function getResultClass()
     {
-        return $this->resultClass_;
+        return $this->resultClass;
     }
 
     /**
@@ -138,7 +138,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function setResultClass($name)
     {
-        $this->resultClass_ = $name;
+        $this->resultClass = $name;
     }
 
     /**
@@ -148,7 +148,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function setObject($object)
     {
-        $this->object_ = $object;
+        $this->object = $object;
     }
 
     /**
@@ -158,7 +158,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function getMethod()
     {
-        return $this->method_;
+        return $this->method;
     }
 
     /**
@@ -168,7 +168,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function setMethod($name)
     {
-        $this->method_ = $name;
+        $this->method = $name;
     }
 
     /**
@@ -178,7 +178,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function getArgs()
     {
-        return $this->args_;
+        return $this->args;
     }
 
     /**
@@ -188,9 +188,9 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function setArgs($args)
     {
-        $this->args_ = $args;
-        if (!is_array($this->args_)) {
-            $this->args_ = array($this->args_);
+        $this->args = $args;
+        if (!is_array($this->args)) {
+            $this->args = array($this->args);
         }
     }
 
@@ -201,7 +201,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
     {
         $this->getResults();
 
-        return $this->totalNumberOfResults_;
+        return $this->totalNumberOfResults;
     }
 
     /**
@@ -209,11 +209,11 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource
      */
     public function isFinal()
     {
-        if (null === $this->isFinal_) {
+        if (null === $this->isFinal) {
             $this->getResults();
         }
 
-        return $this->isFinal_;
+        return $this->isFinal;
     }
 
 }

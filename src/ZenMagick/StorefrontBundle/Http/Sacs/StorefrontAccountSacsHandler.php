@@ -35,7 +35,7 @@ use ZenMagick\Base\ZMObject;
  */
 class StorefrontAccountSacsHandler extends ZMObject
 {
-    private $levelMap_;
+    private $levelMap;
 
     /**
      * Create new instance.
@@ -43,7 +43,7 @@ class StorefrontAccountSacsHandler extends ZMObject
     public function __construct()
     {
         // which level allows what
-        $this->levelMap_ = array(
+        $this->levelMap = array(
             Account::ANONYMOUS => array(Account::ANONYMOUS, Account::GUEST, Account::REGISTERED),
             Account::GUEST => array(Account::GUEST, Account::REGISTERED),
             Account::REGISTERED => array(Account::REGISTERED)
@@ -77,7 +77,7 @@ class StorefrontAccountSacsHandler extends ZMObject
             $level = $credentials->getType();
         }
 
-        if (!in_array($level, $this->levelMap_[$requiredLevel])) {
+        if (!in_array($level, $this->levelMap[$requiredLevel])) {
             $this->container->get('logger')->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
 
             return false;

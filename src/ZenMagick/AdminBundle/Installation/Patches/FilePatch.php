@@ -29,8 +29,8 @@ use ZenMagick\AdminBundle\Installation\InstallationPatch;
  */
 class FilePatch extends InstallationPatch
 {
-    protected $fileOwner_ = null;
-    protected $fileGroup_ = null;
+    protected $fileOwner = null;
+    protected $fileGroup = null;
 
     /**
      * Create new patch.
@@ -277,11 +277,11 @@ class FilePatch extends InstallationPatch
         if (!$settingsService->get('zenmagick.core.fs.permissions.fix')) {
             return;
         }
-        if (null == $this->fileOwner_ || null == $this->fileGroup_) {
+        if (null == $this->fileOwner || null == $this->fileGroup) {
             clearstatcache();
-            $this->fileOwner_ = fileowner(__FILE__);
-            $this->fileGroup_ = filegroup(__FILE__);
-            if (0 == $this->fileOwner_ && 0 == $this->fileGroup_) {
+            $this->fileOwner = fileowner(__FILE__);
+            $this->fileGroup = filegroup(__FILE__);
+            if (0 == $this->fileOwner && 0 == $this->fileGroup) {
                 return;
             }
         }
@@ -300,9 +300,9 @@ class FilePatch extends InstallationPatch
 
         foreach ($files as $file) {
             if (0 < count($perms)) {
-                @chgrp($file, $this->fileGroup_);
+                @chgrp($file, $this->fileGroup);
             }
-            @chown($file, $this->fileOwner_);
+            @chown($file, $this->fileOwner);
             $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
             @chmod($file, $mod);
 

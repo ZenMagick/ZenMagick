@@ -73,7 +73,7 @@ class TaxClass extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->taxClassId_ = 0;
+        $this->taxClassId = 0;
         $this->title = '';
         $this->description = '';
         $this->lastModified = null;

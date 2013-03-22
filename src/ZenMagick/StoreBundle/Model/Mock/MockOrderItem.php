@@ -27,7 +27,7 @@ use ZenMagick\StoreBundle\Entity\Order\OrderItem;
  */
 class MockOrderItem extends OrderItem
 {
-    private $index_;
+    private $index;
 
     /**
      * Create new instance.
@@ -37,7 +37,7 @@ class MockOrderItem extends OrderItem
     public function __construct($index=1)
     {
         parent::__construct();
-        $this->index_ = $index;
+        $this->index = $index;
     }
 
     /**
@@ -45,7 +45,7 @@ class MockOrderItem extends OrderItem
      */
     public function getQuantity()
     {
-        return $this->index_*2;
+        return $this->index*2;
     }
 
     /**
@@ -53,7 +53,7 @@ class MockOrderItem extends OrderItem
      */
     public function getName()
     {
-        return 'Order Item #'.$this->index_;
+        return 'Order Item #'.$this->index;
     }
 
     /**
@@ -61,7 +61,7 @@ class MockOrderItem extends OrderItem
      */
     public function getCalculatedPrice($tax=true)
     {
-        return $this->index_*19.99;
+        return $this->index*19.99;
     }
 
 }

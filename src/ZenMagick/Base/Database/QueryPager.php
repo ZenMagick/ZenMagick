@@ -28,10 +28,10 @@ use ZenMagick\Base\ZMObject;
  */
 class QueryPager extends ZMObject
 {
-    private $queryDetails_;
-    private $orderBy_;
-    private $filters_;
-    private $totalResultsCount_;
+    private $queryDetails;
+    private $orderBy;
+    private $filters;
+    private $totalResultsCount;
 
     /**
      * Create new instance for the given query.
@@ -40,10 +40,10 @@ class QueryPager extends ZMObject
      */
     public function __construct($queryDetails=null)
     {
-        $this->queryDetails_ = $queryDetails;
-        $this->orderBy_ = '';
-        $this->totalResultsCount_ = -1;
-        $this->filters_ = array();
+        $this->queryDetails = $queryDetails;
+        $this->orderBy = '';
+        $this->totalResultsCount = -1;
+        $this->filters = array();
     }
 
     /**
@@ -53,7 +53,7 @@ class QueryPager extends ZMObject
      */
     public function setQueryDetails($queryDetails)
     {
-        $this->queryDetails_ = $queryDetails;
+        $this->queryDetails = $queryDetails;
     }
 
     /**
@@ -63,7 +63,7 @@ class QueryPager extends ZMObject
      */
     public function setOrderBy($orderBy)
     {
-        $this->orderBy_ = $orderBy;
+        $this->orderBy = $orderBy;
     }
 
     /**
@@ -73,7 +73,7 @@ class QueryPager extends ZMObject
      */
     public function addFilter($filter)
     {
-        $this->filters_[] = $filter;
+        $this->filters[] = $filter;
     }
 
     /**
@@ -84,7 +84,7 @@ class QueryPager extends ZMObject
     protected function getFilterSQL()
     {
         $sql = '';
-        foreach ($this->filters_ as $filter) {
+        foreach ($this->filters as $filter) {
             if (!empty($sql)) {
                 $sql .= ' AND ';
             }
@@ -101,8 +101,8 @@ class QueryPager extends ZMObject
      */
     public function getTotalNumberOfResults()
     {
-        if (0 > $this->totalResultsCount_) {
-            $queryDetails = $this->queryDetails_;
+        if (0 > $this->totalResultsCount) {
+            $queryDetails = $this->queryDetails;
             $sql = $queryDetails->getSql();
 
             // split SQL
@@ -156,10 +156,10 @@ class QueryPager extends ZMObject
             }
 
             $result = $queryDetails->getDatabase()->querySingle($getTotalSql, $queryDetails->getArgs(), $queryDetails->getMapping(), \ZenMagick\Base\Database\Connection::MODEL_RAW);
-            $this->totalResultsCount_ = (int) $result['total'];
+            $this->totalResultsCount = (int) $result['total'];
         }
 
-        return $this->totalResultsCount_;
+        return $this->totalResultsCount;
     }
 
     /**
@@ -171,15 +171,15 @@ class QueryPager extends ZMObject
      */
     public function getResults($page, $pagination)
     {
-        $sql = $this->queryDetails_->getSql();
+        $sql = $this->queryDetails->getSql();
         $lcSql = strtolower($sql);
 
-        if (!empty($this->orderBy_)) {
+        if (!empty($this->orderBy)) {
             if (false !== ($pos = strpos($lcSql, 'order by'))) {
                 // keep original order also
-                $sql = preg_replace('/order by /i', 'order by '.$this->orderBy_.',', $sql);
+                $sql = preg_replace('/order by /i', 'order by '.$this->orderBy.',', $sql);
             } else {
-                $sql .= ' order by '.$this->orderBy_;
+                $sql .= ' order by '.$this->orderBy;
             }
         }
 
@@ -218,7 +218,7 @@ class QueryPager extends ZMObject
         // limit to current page
         $sql .= " limit " . $offset . ", " . $pagination;
 
-        return $this->queryDetails_->query($sql);
+        return $this->queryDetails->query($sql);
     }
 
 }

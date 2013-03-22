@@ -30,20 +30,20 @@ use ZenMagick\Base\Toolbox;
  */
 class VBulletinPlugin extends Plugin
 {
-    private $page_ = '';
-    private $prePostAccount_ = null;
-    private $adapter_ = null;
+    private $page = '';
+    private $prePostAccount = null;
+    private $adapter = null;
 
     /**
      * Get the vBulletin adapter.
      */
     protected function getAdapter()
     {
-        if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
+        if (null == $this->adapter) {
+            $this->adapter = Beans::getBean('ZenMagick\plugins\vBulletin\VBulletinAdapter');
         }
 
-        return $this->adapter_;
+        return $this->adapter;
     }
 
     /**
@@ -55,8 +55,8 @@ class VBulletinPlugin extends Plugin
     public function onContainerReady($event)
     {
         $request = $event->getArgument('request');
-        $this->page_ = $request->getRequestId();
-        $this->prePostAccount_ = $request->getAccount();
+        $this->page = $request->getRequestId();
+        $this->prePostAccount = $request->getAccount();
 
         $settingsService = $this->container->get('settingsService');
 
@@ -70,7 +70,7 @@ class VBulletinPlugin extends Plugin
         $settingsService->set('isAccountNickname', true);
 
         // enable nick name field
-        if ('create_account' == $this->page_) {
+        if ('create_account' == $this->page) {
             $vBulletin = $this->getAdapter();
             // add custom validation rules
             $rules = array(
@@ -82,9 +82,9 @@ class VBulletinPlugin extends Plugin
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             $this->container->get('zmvalidator')->addRules('registration', $rules);
-        } elseif ('account_password' == $this->page_) {
+        } elseif ('account_password' == $this->page) {
             // ??
-        } elseif ('account_edit' == $this->page_) {
+        } elseif ('account_edit' == $this->page) {
             $vBulletin = $this->getAdapter();
             $rules = array(
                 array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (vBulletin).', array($vBulletin, 'vDuplicateChangedNickname')),

@@ -29,7 +29,7 @@ use ZenMagick\Base\ZMObject;
  */
 class InstallationPatcher extends ZMObject
 {
-    private $patches_;
+    private $patches;
 
     /**
      * Create new instance.
@@ -37,17 +37,17 @@ class InstallationPatcher extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->_loadPatches();
+        $this->loadPatches();
     }
 
     /**
      * Load all patches.
      */
-    public function _loadPatches()
+    public function loadPatches()
     {
         $path = __DIR__.'/Patches';
         $ext = '.php';
-        $this->patches_ = array();
+        $this->patches = array();
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
             if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
                 $filename = $fileInfo->getPathname();
@@ -55,7 +55,7 @@ class InstallationPatcher extends ZMObject
                 if (in_array($parent, array('File', 'Sql'))) {
                     $class = sprintf('ZenMagick\AdminBundle\Installation\Patches\%s\%s', $parent, substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext)));
                     $patch = Beans::getBean($class);
-                    $this->patches_[$patch->getId()] = $patch;
+                    $this->patches[$patch->getId()] = $patch;
                 }
             }
         }
@@ -69,7 +69,7 @@ class InstallationPatcher extends ZMObject
      */
     public function isPatchesOpen($groupId=null)
     {
-        foreach ($this->patches_ as $id => $patch) {
+        foreach ($this->patches as $id => $patch) {
             if (null != $groupId && $patch->getGroupId() != $groupId) {
                 continue;
             }
@@ -91,7 +91,7 @@ class InstallationPatcher extends ZMObject
     public function patch($force=false)
     {
         $result = true;
-        foreach ($this->patches_ as $id => $patch) {
+        foreach ($this->patches as $id => $patch) {
             $result |= $patch->patch($force);
         }
 
@@ -106,7 +106,7 @@ class InstallationPatcher extends ZMObject
      */
     public function getPatchForId($id)
     {
-        return array_key_exists($id, $this->patches_) ? $this->patches_[$id] : null;
+        return array_key_exists($id, $this->patches) ? $this->patches[$id] : null;
     }
 
     /**
@@ -118,7 +118,7 @@ class InstallationPatcher extends ZMObject
     public function getPatches($groupId=null)
     {
         $patches = array();
-        foreach ($this->patches_ as $id => $patch) {
+        foreach ($this->patches as $id => $patch) {
             if (null != $groupId && $patch->getGroupId() != $groupId) {
                 continue;
             }

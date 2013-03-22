@@ -29,8 +29,8 @@ use ZenMagick\Base\Runtime;
  */
 class ImageInfo extends ZMImageInfo
 {
-    private $image_;
-    private $formattedParameter_;
+    private $image;
+    private $formattedParameter;
 
     /**
      * Create new image info.
@@ -41,8 +41,8 @@ class ImageInfo extends ZMImageInfo
     public function __construct($image=null, $alt='')
     {
         parent::__construct($image, $alt);
-        $this->image_ = $image;
-        $this->formattedParameter_ = '';
+        $this->image = $image;
+        $this->formattedParameter = '';
         $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('imageHandler2');
     }
 
@@ -52,7 +52,7 @@ class ImageInfo extends ZMImageInfo
     public function setDefaultImage($image)
     {
         parent::setDefaultImage($image);
-        $this->image_ = $image;
+        $this->image = $image;
     }
 
     /**
@@ -62,15 +62,15 @@ class ImageInfo extends ZMImageInfo
      */
     public function getDefaultImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
 
         if (function_exists('handle_image')) {
-            $newimg = handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+            $newimg = handle_image('images/'.$this->image, $this->altText, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
         } else {
-            $newimg = array('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+            $newimg = array('images/'.$this->image, $this->altText, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
         }
 
         return $newimg[0];
@@ -90,7 +90,7 @@ class ImageInfo extends ZMImageInfo
      */
     public function getMediumImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -98,9 +98,9 @@ class ImageInfo extends ZMImageInfo
         $medium = $imageBase.$this->container->get('settingsService')->get('imgSuffixMedium').$ext;
 
         if (function_exists('handle_image')) {
-            $newimg = handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+            $newimg = handle_image('images/'.$medium, $this->altText, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         } else {
-            $newimg = array('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+            $newimg = array('images/'.$medium, $this->altText, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         }
 
         return $newimg[0];
@@ -113,13 +113,13 @@ class ImageInfo extends ZMImageInfo
      */
     public function getLargeImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image_);
+        $comp = ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
 
         $large = $imageBase.$this->container->get('settingsService')->get('imgSuffixLarge').$ext;
-        $newimg = handle_image('images/'.$large, $this->altText_, '', '', '');
+        $newimg = handle_image('images/'.$large, $this->altText, '', '', '');
 
         return $newimg[0];
     }
@@ -138,7 +138,7 @@ class ImageInfo extends ZMImageInfo
      */
     public function getFormattedParameter()
     {
-        return $this->formattedParameter_.parent::getFormattedParameter();
+        return $this->formattedParameter.parent::getFormattedParameter();
     }
 
 }

@@ -31,10 +31,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMSearchResultSource extends ZMObject implements ZMResultSource
 {
-    private $criteria_;
-    private $resultList_;
-    private $results_;
-    private $totalNumberOfResults_;
+    private $criteria;
+    private $resultList;
+    private $results;
+    private $totalNumberOfResults;
 
     /**
      * Create a new instance.
@@ -44,9 +44,9 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
     public function __construct($criteria=null)
     {
         parent::__construct();
-        $this->criteria_ = $criteria;
-        $this->results_ = null;
-        $this->totalNumberOfResults_ = null;
+        $this->criteria = $criteria;
+        $this->results = null;
+        $this->totalNumberOfResults = null;
     }
 
     /**
@@ -56,7 +56,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
      */
     public function setSearchCriteria($criteria)
     {
-        $this->criteria_ = $criteria;
+        $this->criteria = $criteria;
     }
 
     /**
@@ -64,7 +64,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
      */
     public function setResultList($resultList)
     {
-        $this->resultList_ = $resultList;
+        $this->resultList = $resultList;
     }
 
     /**
@@ -72,12 +72,12 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
      */
     public function getResults($reload=false)
     {
-        if ($reload || null === $this->results_) {
+        if ($reload || null === $this->results) {
             $finder = Beans::getBean('ZMProductFinder');
-            $finder->setCriteria($this->criteria_);
-            if (null !== $this->resultList_) {
+            $finder->setCriteria($this->criteria);
+            if (null !== $this->resultList) {
                 // try to set the first active sorter
-                foreach ($this->resultList_->getSorters() as $sorter) {
+                foreach ($this->resultList->getSorters() as $sorter) {
                     if ($sorter->isActive()) {
                         $finder->setSortId($sorter->getSortId());
                         $finder->setDescending($sorter->isDescending());
@@ -89,14 +89,14 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
             $queryPager = Beans::getBean('ZenMagick\Base\Database\QueryPager');
             $queryPager->setQueryDetails($queryDetails);
             $productIds = array();
-            foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {
+            foreach ($queryPager->getResults($this->resultList->getPageNumber(), $this->resultList->getPagination()) as $result) {
                 $productIds[] = $result['productId'];
             }
-            $this->results_ = $this->container->get('productService')->getProductsForIds($productIds, true, $this->criteria_->getLanguageId());
-            $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
+            $this->results = $this->container->get('productService')->getProductsForIds($productIds, true, $this->criteria->getLanguageId());
+            $this->totalNumberOfResults = $queryPager->getTotalNumberOfResults();
         }
 
-        return $this->results_;
+        return $this->results;
     }
 
     /**
@@ -114,7 +114,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource
     {
         $this->getResults();
 
-        return $this->totalNumberOfResults_;
+        return $this->totalNumberOfResults;
     }
 
     /**

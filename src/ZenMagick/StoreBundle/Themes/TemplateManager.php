@@ -34,11 +34,11 @@ class TemplateManager extends ZMObject
     const PAGE_BOTTOM = 'bottom';
     const PAGE_NOW = 'now';
 
-    private $leftColEnabled_;
-    private $rightColEnabled_;
-    private $leftColBoxes_;
-    private $rightColBoxes_;
-    private $tableMeta_;
+    private $leftColEnabled;
+    private $rightColEnabled;
+    private $leftColBoxes;
+    private $rightColBoxes;
+    private $tableMeta;
 
     /**
      * Create new instance.
@@ -46,11 +46,11 @@ class TemplateManager extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->leftColEnabled_ = true;
-        $this->rightColEnabled_ = true;
-        $this->leftColBoxes_ = null;
-        $this->rightColBoxes_ = null;
-        $this->tableMeta_ = array();
+        $this->leftColEnabled = true;
+        $this->rightColEnabled = true;
+        $this->leftColBoxes = null;
+        $this->rightColBoxes = null;
+        $this->tableMeta = array();
     }
 
     /**
@@ -58,42 +58,42 @@ class TemplateManager extends ZMObject
      *
      * @param boolean bool If <code>true</code> the left column will be displayed.
      */
-    public function setLeftColEnabled($bool) { $this->leftColEnabled_ = $bool; }
+    public function setLeftColEnabled($bool) { $this->leftColEnabled = $bool; }
 
     /**
      * Enable/disable the right column.
      *
      * @param boolean bool If <code>true</code> the right column will be displayed.
      */
-    public function setRightColEnabled($bool) { $this->rightColEnabled_ = $bool; }
+    public function setRightColEnabled($bool) { $this->rightColEnabled = $bool; }
 
     /**
      * Set the boxes for the left column.
      *
      * @param array boxes List of box names to be displayed in the left column.
      */
-    public function setLeftColBoxes($boxes) { if (is_array($boxes)) $this->leftColBoxes_ = $boxes; }
+    public function setLeftColBoxes($boxes) { if (is_array($boxes)) $this->leftColBoxes = $boxes; }
 
     /**
      * Set the boxes for the right column.
      *
      * @param array boxes List of box names to be displayed in the right column.
      */
-    public function setRightColBoxes($boxes) { if (is_array($boxes)) $this->rightColBoxes_ = $boxes; }
+    public function setRightColBoxes($boxes) { if (is_array($boxes)) $this->rightColBoxes = $boxes; }
 
     /**
      * Checks if the left column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    public function isLeftColEnabled() { return $this->leftColEnabled_; }
+    public function isLeftColEnabled() { return $this->leftColEnabled; }
 
     /**
      * Checks if the right column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    public function isRightColEnabled() { return $this->rightColEnabled_; }
+    public function isRightColEnabled() { return $this->rightColEnabled; }
 
     /**
      * Get the box names for the left column.
@@ -102,8 +102,8 @@ class TemplateManager extends ZMObject
      */
     public function getLeftColBoxNames()
     {
-        if (null != $this->leftColBoxes_) {
-            return $this->leftColBoxes_;
+        if (null != $this->leftColBoxes) {
+            return $this->leftColBoxes;
         }
 
         $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
@@ -128,8 +128,8 @@ class TemplateManager extends ZMObject
      */
     public function getRightColBoxNames()
     {
-        if (null != $this->rightColBoxes_) {
-            return $this->rightColBoxes_;
+        if (null != $this->rightColBoxes) {
+            return $this->rightColBoxes;
         }
 
         $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
@@ -156,11 +156,11 @@ class TemplateManager extends ZMObject
      */
     public function getFieldLength($table, $field)
     {
-        if (!isset($this->tableMeta_[$table])) {
-            $this->tableMeta_[$table] = \ZMRuntime::getDatabase()->getMetaData($table);
+        if (!isset($this->tableMeta[$table])) {
+            $this->tableMeta[$table] = \ZMRuntime::getDatabase()->getMetaData($table);
         }
 
-        return $this->tableMeta_[$table][$field]['length'];
+        return $this->tableMeta[$table][$field]['length'];
     }
 
     /**

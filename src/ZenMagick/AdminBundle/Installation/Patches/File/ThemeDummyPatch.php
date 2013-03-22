@@ -36,7 +36,7 @@ class ThemeDummyPatch extends FilePatch
     public function __construct()
     {
         parent::__construct('themeDummies');
-        $this->label_ = 'Create admin dummy files for all installed ZenMagick themes';
+        $this->label = 'Create admin dummy files for all installed ZenMagick themes';
         $this->catalogTemplatePath = $this->container->getParameter('zencart.root_dir').'/includes/templates/';
     }
 
@@ -146,7 +146,7 @@ class ThemeDummyPatch extends FilePatch
      */
     public function undo()
     {
-        $dummies = $this->_getDummies();
+        $dummies = $this->getDummies();
         foreach ($dummies as $file) {
             $this->container->get('filesystem')->remove($file);
         }
@@ -159,7 +159,7 @@ class ThemeDummyPatch extends FilePatch
      *
      * @return array A list of dummy templates.
      */
-    public function _getDummies()
+    public function getDummies()
     {
         $dummies = array();
         if (file_exists($this->catalogTemplatePath)) {

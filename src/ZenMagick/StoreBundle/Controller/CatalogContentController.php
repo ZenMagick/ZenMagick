@@ -36,9 +36,9 @@ abstract class CatalogContentController extends DefaultController
 {
     const ACTIVE_CATEGORY = 1;
     const ACTIVE_PRODUCT = 2;
-    protected $catalogRequestId_;
-    protected $name_;
-    private $active_;
+    protected $catalogRequestId;
+    protected $name;
+    private $active;
 
     /**
      * Create new instance.
@@ -50,9 +50,9 @@ abstract class CatalogContentController extends DefaultController
     public function __construct($catalogRequestId, $name, $active=0)
     {
         parent::__construct($catalogRequestId);
-        $this->catalogRequestId_ = $catalogRequestId;
-        $this->name_ = $name;
-        $this->active_ = $active;
+        $this->catalogRequestId = $catalogRequestId;
+        $this->name = $name;
+        $this->active = $active;
     }
 
     /**
@@ -74,7 +74,7 @@ abstract class CatalogContentController extends DefaultController
             $bits |= self::ACTIVE_PRODUCT;
         }
 
-        return $this->active_ & $bits;
+        return $this->active & $bits;
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class CatalogContentController extends DefaultController
      */
     public function getCatalogRequestId()
     {
-        return $this->catalogRequestId_;
+        return $this->catalogRequestId;
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class CatalogContentController extends DefaultController
      */
     public function getName()
     {
-        return $this->name_;
+        return $this->name;
     }
 
     /**

@@ -32,9 +32,9 @@ use ZenMagick\Http\Session\FlashBag;
  */
 class Message
 {
-    private $text_;
-    private $type_;
-    private $ref_;
+    private $text;
+    private $type;
+    private $ref;
 
     /**
      * Create new message.
@@ -45,9 +45,9 @@ class Message
      */
     public function __construct($text='', $type=FlashBag::T_MESSAGE, $ref=FlashBag::REF_GLOBAL)
     {
-        $this->text_ = $text;
-        $this->type_ = $type;
-        $this->ref_ = $ref;
+        $this->text = $text;
+        $this->type = $type;
+        $this->ref = $ref;
     }
 
     /**
@@ -55,41 +55,41 @@ class Message
      *
      * @return string The message text.
      */
-    public function getText() { return $this->text_; }
+    public function getText() { return $this->text; }
 
     /**
      * Get the message type.
      *
      * @return string The message type.
      */
-    public function getType() { return $this->type_; }
+    public function getType() { return $this->type; }
 
     /**
      * Get the message reference.
      *
      * @return string The message reference.
      */
-    public function getRef() { return $this->ref_; }
+    public function getRef() { return $this->ref; }
 
     /**
      * Set the message text.
      *
      * @param string text The message text.
      */
-    public function setText($text) { $this->text_ = $text; }
+    public function setText($text) { $this->text = $text; }
 
     /**
      * Set the message type.
      *
      * @param string type The message type.
      */
-    public function setType($type) { $this->type_ = $type; }
+    public function setType($type) { $this->type = $type; }
 
     /**
      * Set the message reference.
      *
      * @param string ref The message reference.
      */
-    public function setRef($ref) { $this->ref_ = $ref; }
+    public function setRef($ref) { $this->ref = $ref; }
 
 }

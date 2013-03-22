@@ -32,11 +32,11 @@ use ZenMagick\Base\ZMObject;
 class ShoppingCartItem extends ZMObject
 {
     private $shoppingCart;
-    private $id_;
-    private $quantity_;
-    private $itemPrice_;
-    private $oneTimeCharge_;
-    private $attributes_;
+    private $id;
+    private $quantity;
+    private $itemPrice;
+    private $oneTimeCharge;
+    private $attributes;
 
 
     /**
@@ -49,10 +49,10 @@ class ShoppingCartItem extends ZMObject
     {
         parent::__construct();
         $this->shoppingCart = $shoppingCart;
-        $this->id_ = null;
-        $this->quantity_ = 0;
-        $this->itemPrice_ = 0;
-        $this->oneTimeCharge_ = 0;
+        $this->id = null;
+        $this->quantity = 0;
+        $this->itemPrice = 0;
+        $this->oneTimeCharge = 0;
     }
 
 
@@ -135,7 +135,7 @@ class ShoppingCartItem extends ZMObject
         }
 
         // keep copy
-        $this->attributes_ = $attributes;
+        $this->attributes = $attributes;
 
         return $attributes;
     }
@@ -180,7 +180,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function getId()
     {
-        return $this->id_;
+        return $this->id;
     }
 
     /**
@@ -190,7 +190,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function setId($id)
     {
-        $this->id_ = $id;
+        $this->id = $id;
     }
 
     /**
@@ -214,7 +214,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function getQuantity()
     {
-        return $this->quantity_;
+        return $this->quantity;
     }
 
     /**
@@ -224,7 +224,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function setQuantity($quantity)
     {
-        $this->quantity_ = $quantity;
+        $this->quantity = $quantity;
     }
 
     /**
@@ -297,7 +297,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function getItemPrice($tax=true)
     {
-        return $tax ? $this->getTaxRate()->addTax($this->itemPrice_) : $this->itemPrice_;
+        return $tax ? $this->getTaxRate()->addTax($this->itemPrice) : $this->itemPrice;
     }
 
     /**
@@ -307,7 +307,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function setItemPrice($itemPrice)
     {
-        $this->itemPrice_ = $itemPrice;
+        $this->itemPrice = $itemPrice;
     }
 
     /**
@@ -329,7 +329,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function getOneTimeCharge($tax=true)
     {
-        return $tax ? $this->getTaxRate()->addTax($this->oneTimeCharge_) : $this->oneTimeCharge_;
+        return $tax ? $this->getTaxRate()->addTax($this->oneTimeCharge) : $this->oneTimeCharge;
     }
 
     /**
@@ -339,7 +339,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function setOneTimeCharge($amount)
     {
-        $this->oneTimeCharge_ = $amount;
+        $this->oneTimeCharge = $amount;
     }
 
     /**
@@ -349,7 +349,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function setAttributes($attributes)
     {
-        $this->attributes_ = $attributes;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -359,7 +359,7 @@ class ShoppingCartItem extends ZMObject
      */
     public function getAttributes()
     {
-        return $this->attributes_;
+        return $this->attributes;
     }
 
     /**
@@ -372,9 +372,9 @@ class ShoppingCartItem extends ZMObject
     public function getAttributesPrice($tax=true, $quantity=null)
     {
         $price = 0;
-        $quantity = null === $quantity ? $this->quantity_ : $quantity;
+        $quantity = null === $quantity ? $this->quantity : $quantity;
         $productIsFree = $this->getProduct()->isFree();
-        foreach ($this->attributes_ as $attribute) {
+        foreach ($this->attributes as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 if ($productIsFree && $value->isFree()) {
                     // value is only free if product is free
@@ -399,8 +399,8 @@ class ShoppingCartItem extends ZMObject
     public function getAttributesOneTimePrice($tax=true, $quantity=null)
     {
         $price = 0;
-        $quantity = null === $quantity ? $this->quantity_ : $quantity;
-        foreach ($this->attributes_ as $attribute) {
+        $quantity = null === $quantity ? $this->quantity : $quantity;
+        foreach ($this->attributes as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 if ($value->isFree()) { continue; }
                 $price += $value->getOneTimePrice($tax, $quantity);

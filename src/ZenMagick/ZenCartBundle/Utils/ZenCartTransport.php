@@ -35,7 +35,7 @@ use Swift_Events_SendEvent;
  */
 class ZenCartTransport extends Swift_Transport_NullTransport
 {
-    private $_eventDispatcher;
+    private $eventDispatcher;
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class ZenCartTransport extends Swift_Transport_NullTransport
         $eventDispatcher = Swift_DependencyContainer::getInstance()->lookup('transport.eventdispatcher');
         parent::__construct($eventDispatcher);
         // private, so keep own reference
-        $this->_eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -58,8 +58,8 @@ class ZenCartTransport extends Swift_Transport_NullTransport
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
-        if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
-            $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
+        if ($evt = $this->eventDispatcher->createSendEvent($this, $message)) {
+            $this->eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
             if ($evt->bubbleCancelled()) {
                 return 0;
             }
@@ -81,7 +81,7 @@ class ZenCartTransport extends Swift_Transport_NullTransport
 
         if ($evt) {
             $evt->setResult(Swift_Events_SendEvent::RESULT_SUCCESS);
-            $this->_eventDispatcher->dispatchEvent($evt, 'sendPerformed');
+            $this->eventDispatcher->dispatchEvent($evt, 'sendPerformed');
         }
 
         return 1;

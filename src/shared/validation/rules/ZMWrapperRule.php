@@ -26,8 +26,8 @@
  */
 class ZMWrapperRule extends ZMRule
 {
-    private $function_;
-    private $javascript_;
+    private $function;
+    private $javascript;
 
     /**
      * Create new rule.
@@ -39,7 +39,7 @@ class ZMWrapperRule extends ZMRule
     public function __construct($name=null, $msg=null, $function=null)
     {
         parent::__construct($name, "Please enter a value for %s.", $msg);
-        $this->function_ = null;
+        $this->function = null;
         $this->setJavaScript('');
         $this->setFunction($function);
     }
@@ -53,7 +53,7 @@ class ZMWrapperRule extends ZMRule
      */
     public function setFunction($function)
     {
-        $this->function_ = $function;
+        $this->function = $function;
     }
 
     /**
@@ -75,14 +75,14 @@ class ZMWrapperRule extends ZMRule
      */
     public function validate($request, $data)
     {
-        if (is_array($this->function_) && 2 == count($this->function_) && is_object($this->function_[0]) && is_string($this->function_[1])) {
+        if (is_array($this->function) && 2 == count($this->function) && is_object($this->function[0]) && is_string($this->function[1])) {
             // expect object, method name
-            $obj = $this->function_[0];
-            $method = $this->function_[1];
+            $obj = $this->function[0];
+            $method = $this->function[1];
 
             return $obj->$method($request, $data);
-        } elseif (function_exists($this->function_)) {
-            return call_user_func($this->function_, $request, $data);
+        } elseif (function_exists($this->function)) {
+            return call_user_func($this->function, $request, $data);
         }
 
         return true;
@@ -95,7 +95,7 @@ class ZMWrapperRule extends ZMRule
      */
     public function toJSString()
     {
-        return $this->javascript_;
+        return $this->javascript;
     }
 
 }

@@ -46,7 +46,7 @@ class Beans
 {
     public static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
     public static $SETTER_PREFIX = 'set';
-    private static $propertyMap_ = array();
+    private static $propertyMap = array();
 
     /**
      * Get the property mapping for a given class/object.
@@ -62,7 +62,7 @@ class Beans
         $clazz = get_class($obj);
         // key depends on both class and properties
         $cacheKey = $clazz.serialize($properties);
-        if (!array_key_exists($cacheKey, self::$propertyMap_)) {
+        if (!array_key_exists($cacheKey, self::$propertyMap)) {
             $propertiesMap = array();
             if (null === $properties) {
                 foreach (get_class_methods($obj) as $method) {
@@ -87,10 +87,10 @@ class Beans
                     }
                 }
             }
-            self::$propertyMap_[$cacheKey] = $propertiesMap;
+            self::$propertyMap[$cacheKey] = $propertiesMap;
         }
 
-        return self::$propertyMap_[$cacheKey];
+        return self::$propertyMap[$cacheKey];
     }
 
     /**

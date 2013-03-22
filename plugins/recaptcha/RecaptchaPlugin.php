@@ -31,10 +31,10 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
  */
 class RecaptchaPlugin extends Plugin
 {
-    private $captchaEnabled_ = false;
-    private $error_ = null;
+    private $captchaEnabled = false;
+    private $error = null;
     // page => (name, form)
-    private $pageConfig_ = array(
+    private $pageConfig = array(
         'create_account' => array('Create Account', 'registration'),
         'contact_us' => array('Contact Us', 'contactUs'),
         'product_reviews_write' => array('Write Review', 'newReview')
@@ -57,10 +57,10 @@ class RecaptchaPlugin extends Plugin
 
         // check if we need to do anything for this request...
         $requestId = $request->getRequestId();
-        if (true == $this->get($requestId) && isset($this->pageConfig_[$requestId])) {
-            $form = $this->pageConfig_[$requestId][1];
+        if (true == $this->get($requestId) && isset($this->pageConfig[$requestId])) {
+            $form = $this->pageConfig[$requestId][1];
             // active for this page
-            $this->captchaEnabled_ = true;
+            $this->captchaEnabled = true;
             $rules = array(
                 array('ZMRequiredRule', RECAPTCHA_FIELD, 'Please enter the captcha.'),
                 array("ZMWrapperRule", RECAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vRecaptcha'))
@@ -76,7 +76,7 @@ class RecaptchaPlugin extends Plugin
      */
     public function isCaptchaEnabled()
     {
-        return $this->captchaEnabled_;
+        return $this->captchaEnabled;
     }
 
     /**
@@ -84,7 +84,7 @@ class RecaptchaPlugin extends Plugin
      */
     public function showCaptcha()
     {
-        if ($this->captchaEnabled_) {
+        if ($this->captchaEnabled) {
             echo recaptcha_get_html($this->get('publicKey'), $this->getError());
         }
     }
@@ -96,7 +96,7 @@ class RecaptchaPlugin extends Plugin
      */
     public function getError()
     {
-        return $this->error_;
+        return $this->error;
     }
 
     /**
@@ -106,7 +106,7 @@ class RecaptchaPlugin extends Plugin
      */
     public function setError($error)
     {
-        $this->error_ = $error;
+        $this->error = $error;
     }
 
     /**

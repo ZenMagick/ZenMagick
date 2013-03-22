@@ -36,7 +36,7 @@ class CouponAdminMailPatch extends FilePatch
     public function __construct()
     {
         parent::__construct('couponAdminMail');
-        $this->label_ = 'Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail';
+        $this->label = 'Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail';
         $this->couponAdminFile = $this->container->getParameter('zencart.admin_dir').'/coupon_admin.php';
     }
 

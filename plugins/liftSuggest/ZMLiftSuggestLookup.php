@@ -32,7 +32,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface
 {
     const SESSION_NAMESPACE = null;
-    private $plugin_;
+    private $plugin;
     private $container;
 
     /**
@@ -42,8 +42,8 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      */
     public function __construct($plugin=null)
     {
-        $this->plugin_ = null != $plugin ? $plugin : Runtime::getContainer()->get('pluginService')->getPluginForId('liftSuggest');
-        parent::__construct($this->plugin_->getLiftSuggestConfig());
+        $this->plugin = null != $plugin ? $plugin : Runtime::getContainer()->get('pluginService')->getPluginForId('liftSuggest');
+        parent::__construct($this->plugin->getLiftSuggestConfig());
     }
 
     /**

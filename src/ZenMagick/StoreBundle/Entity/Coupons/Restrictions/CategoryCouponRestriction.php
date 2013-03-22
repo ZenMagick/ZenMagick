@@ -30,8 +30,8 @@ use ZenMagick\Base\ZMObject;
  */
 class CategoryCouponRestriction extends ZMObject
 {
-    private $allowed_;
-    private $categoryId_;
+    private $allowed;
+    private $categoryId;
 
     /**
      * Create new instance.
@@ -39,8 +39,8 @@ class CategoryCouponRestriction extends ZMObject
     public function __construct($allowed, $categoryId)
     {
         parent::__construct();
-        $this->allowed_ = $allowed;
-        $this->categoryId_ = $categoryId;
+        $this->allowed = $allowed;
+        $this->categoryId = $categoryId;
     }
 
     /**
@@ -50,7 +50,7 @@ class CategoryCouponRestriction extends ZMObject
      */
     public function isAllowed()
     {
-        return $this->allowed_;
+        return $this->allowed;
     }
 
     /**
@@ -61,7 +61,7 @@ class CategoryCouponRestriction extends ZMObject
      */
     public function getCategory($languageId)
     {
-        return $this->container->get('categoryService')->getCategoryForId($this->categoryId_, $languageId);
+        return $this->container->get('categoryService')->getCategoryForId($this->categoryId, $languageId);
     }
 
 }

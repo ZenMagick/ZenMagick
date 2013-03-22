@@ -37,9 +37,9 @@ use ZenMagick\Http\View\TemplateView;
  */
 class BlockWidget extends Widget
 {
-    private $sortOrder_;
-    private $template_;
-    private $format_;
+    private $sortOrder;
+    private $template;
+    private $format;
 
     /**
      * Create new instance.
@@ -47,9 +47,9 @@ class BlockWidget extends Widget
     public function __construct()
     {
         parent::__construct();
-        $this->sortOrder_ = 0;
-        $this->template_ = null;
-        $this->format_ = null;
+        $this->sortOrder = 0;
+        $this->template = null;
+        $this->format = null;
     }
 
     /**
@@ -59,7 +59,7 @@ class BlockWidget extends Widget
      */
     public function setSortOrder($sortOrder)
     {
-        $this->sortOrder_ = $sortOrder;
+        $this->sortOrder = $sortOrder;
     }
 
     /**
@@ -69,7 +69,7 @@ class BlockWidget extends Widget
      */
     public function getSortOrder()
     {
-        return $this->sortOrder_;
+        return $this->sortOrder;
     }
 
     /**
@@ -79,7 +79,7 @@ class BlockWidget extends Widget
      */
     public function setTemplate($template)
     {
-        $this->template_ = $template;
+        $this->template = $template;
     }
 
     /**
@@ -89,7 +89,7 @@ class BlockWidget extends Widget
      */
     public function getTemplate()
     {
-        return $this->template_;
+        return $this->template;
     }
 
     /**
@@ -101,7 +101,7 @@ class BlockWidget extends Widget
      */
     public function setFormat($format)
     {
-        $this->format_ = $format;
+        $this->format = $format;
     }
 
     /**
@@ -111,7 +111,7 @@ class BlockWidget extends Widget
      */
     public function getFormat()
     {
-        return $this->format_;
+        return $this->format;
     }
 
     /**
@@ -121,13 +121,13 @@ class BlockWidget extends Widget
     {
         $content = '';
 
-        if (!empty($this->template_)) {
+        if (!empty($this->template)) {
             // hand on all custom properties
-            $content = $templateView->fetch($this->template_, $this->getProperties());
+            $content = $templateView->fetch($this->template, $this->getProperties());
         }
 
-        if (!empty($this->format_) && !empty($content)) {
-            $content = sprintf($this->format_, $content);
+        if (!empty($this->format) && !empty($content)) {
+            $content = sprintf($this->format, $content);
         }
 
         return $content;

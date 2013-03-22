@@ -50,7 +50,7 @@ class FlashBag extends BaseFlashBag
     /** Message type <em>error</em>. */
     const T_ERROR = 'error';
 
-    private $uniqueMsgRef_ = array();
+    private $uniqueMsgRef = array();
 
     /**
      * Generic add a message.
@@ -62,11 +62,11 @@ class FlashBag extends BaseFlashBag
     public function addMessage($text, $type=self::T_MESSAGE, $ref=self::REF_GLOBAL)
     {
         $key = trim($text);
-        if (array_key_exists($key, $this->uniqueMsgRef_)) {
+        if (array_key_exists($key, $this->uniqueMsgRef)) {
             return;
         }
 
-        $this->uniqueMsgRef_[$key] = $text;
+        $this->uniqueMsgRef[$key] = $text;
         $message = array('text' => $text, 'type' => $type, 'ref' => $ref);
         $this->add('zenmagick', $message);
     }

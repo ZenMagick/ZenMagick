@@ -38,9 +38,9 @@ use ZenMagick\Http\View\TemplateView;
  */
 abstract class Widget extends ZMObject
 {
-    private $title_;
-    private $description_;
-    private $enabled_;
+    private $title;
+    private $description;
+    private $enabled;
 
     /**
      * Create new instance.
@@ -48,8 +48,8 @@ abstract class Widget extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->title_ = '';
-        $this->enabled_ = true;
+        $this->title = '';
+        $this->enabled = true;
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class Widget extends ZMObject
      */
     public function setTitle($title)
     {
-        $this->title_ = $title;
+        $this->title = $title;
     }
 
     /**
@@ -69,7 +69,7 @@ abstract class Widget extends ZMObject
      */
     public function getTitle()
     {
-        return $this->title_;
+        return $this->title;
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class Widget extends ZMObject
      */
     public function setDescription($description)
     {
-        $this->description_ = $description;
+        $this->description = $description;
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class Widget extends ZMObject
      */
     public function getDescription()
     {
-        return $this->description_;
+        return $this->description;
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class Widget extends ZMObject
      */
     public function setEnabled($enabled)
     {
-        $this->enabled_ = $enabled;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class Widget extends ZMObject
      */
     public function isEnabled()
     {
-        return $this->enabled_;
+        return $this->enabled;
     }
 
     /**

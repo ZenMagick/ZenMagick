@@ -29,17 +29,17 @@ namespace ZenMagick\Base\Cache;
 class ApcCache implements Cache
 {
     const SYSTEM_KEY = "zenmagick.base.cache.apc";
-    private $group_;
-    private $lifetime_;
-    private $lastModified_;
+    private $group;
+    private $lifetime;
+    private $lastModified;
 
     /**
      * Create new instance.
      */
     public function __construct()
     {
-        $this->lifetime_ = 0;
-        $this->lastModified_ = time();
+        $this->lifetime = 0;
+        $this->lastModified = time();
     }
 
     /**
@@ -47,8 +47,8 @@ class ApcCache implements Cache
      */
     public function init($group, $config)
     {
-        $this->group_ = $group;
-        $this->lifetime_ = $config['cacheTTL'];
+        $this->group = $group;
+        $this->lifetime = $config['cacheTTL'];
 
         // update system stats
         $system = apc_fetch(self::SYSTEM_KEY);
@@ -73,9 +73,9 @@ class ApcCache implements Cache
      */
     public function clear()
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        $groupPrefix = $this->group_.'/';
+        $groupPrefix = $this->group.'/';
         $cacheInfo = apc_cache_info('user');
 
         // iterate over all entries and match the group prefix
@@ -93,7 +93,7 @@ class ApcCache implements Cache
      */
     public function lookup($id)
     {
-        return apc_fetch($this->group_.'/'.$id);
+        return apc_fetch($this->group.'/'.$id);
     }
 
     /**
@@ -101,9 +101,9 @@ class ApcCache implements Cache
      */
     public function remove($id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return apc_delete($this->group_.'/'.$id);
+        return apc_delete($this->group.'/'.$id);
     }
 
     /**
@@ -111,9 +111,9 @@ class ApcCache implements Cache
      */
     public function save($data, $id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return apc_store($this->group_.'/'.$id, $data, $this->lifetime_);
+        return apc_store($this->group.'/'.$id, $data, $this->lifetime);
     }
 
     /**
@@ -121,7 +121,7 @@ class ApcCache implements Cache
      */
     public function lastModified()
     {
-        return $this->lastModified_;
+        return $this->lastModified;
     }
 
     /**

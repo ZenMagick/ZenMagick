@@ -37,7 +37,7 @@ class CheckoutHelper extends ZMObject
     const CART_TYPE_PHYSICAL = 'physical';
     const CART_TYPE_VIRTUAL = 'virtual';
     const CART_TYPE_MIXED = 'mixed';
-    private $shoppingCart_;
+    private $shoppingCart;
 
     /**
      * Create new instance.
@@ -47,7 +47,7 @@ class CheckoutHelper extends ZMObject
     public function __construct($shoppingCart=null)
     {
         parent::__construct();
-        $this->shoppingCart_ = $shoppingCart;
+        $this->shoppingCart = $shoppingCart;
     }
 
     /**
@@ -57,7 +57,7 @@ class CheckoutHelper extends ZMObject
      */
     public function setShoppingCart($shoppingCart)
     {
-        $this->shoppingCart_ = $shoppingCart;
+        $this->shoppingCart = $shoppingCart;
     }
 
     /**
@@ -69,7 +69,7 @@ class CheckoutHelper extends ZMObject
     {
         if (Runtime::getSettings()->get('isOrderTotalFreeShipping')) {
             $pass = false;
-            $shippingAddress = $this->shoppingCart_->getShippingAddress();
+            $shippingAddress = $this->shoppingCart->getShippingAddress();
             switch (Runtime::getSettings()->get('freeShippingDestination')) {
             case 'national':
                 if ($shippingAddress->getCountryId() == Runtime::getSettings()->get('storeCountry')) {
@@ -86,7 +86,7 @@ class CheckoutHelper extends ZMObject
                 break;
             }
 
-            if (($pass == true) && ($this->shoppingCart_->getTotal() >= Runtime::getSettings()->get('freeShippingOrderThreshold'))) {
+            if (($pass == true) && ($this->shoppingCart->getTotal() >= Runtime::getSettings()->get('freeShippingOrderThreshold'))) {
                 return true;
             }
         }
@@ -101,7 +101,7 @@ class CheckoutHelper extends ZMObject
      */
     public function isGVOnly()
     {
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $product = $item->getProduct();
             if (!preg_match('/^GIFT/', $product->getModel())) {
                 return false;
@@ -119,7 +119,7 @@ class CheckoutHelper extends ZMObject
     public function freeProductsCount()
     {
         $count = 0;
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isFree()) {
                 ++$count;
@@ -137,7 +137,7 @@ class CheckoutHelper extends ZMObject
     public function virtualProductsCount()
     {
         $count = 0;
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isVirtual()) {
                 ++$count;
@@ -155,7 +155,7 @@ class CheckoutHelper extends ZMObject
     public function freeShippingCount()
     {
         $count = 0;
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isAlwaysFreeShipping()) {
                 ++$count;
@@ -182,13 +182,13 @@ class CheckoutHelper extends ZMObject
      */
     public function getType()
     {
-        if ($this->shoppingCart_->isEmpty()) {
+        if ($this->shoppingCart->isEmpty()) {
             return self::CART_TYPE_PHYSICAL;
         }
 
         $virtual = 0;
         $physical = 0;
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $attributeCheckd = false;
 
             $product = $item->getProduct();
@@ -240,7 +240,7 @@ class CheckoutHelper extends ZMObject
         $this->validateItems();
 
         $map = array();
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             $product = $item->getProduct();
 
             // check product status
@@ -257,7 +257,7 @@ class CheckoutHelper extends ZMObject
             if ($product->isQtyMixed()) {
                 $tqty = 0;
                 // make $qty the total over all attribute combinations (SKUs) in the cart
-                foreach ($this->shoppingCart_->getItems() as $titem) {
+                foreach ($this->shoppingCart->getItems() as $titem) {
                     if ($product->getId() == $titem->getProduct()->getId()) {
                         $tqty += $titem->getQuantity();
                     }
@@ -320,7 +320,7 @@ class CheckoutHelper extends ZMObject
      */
     public function checkStock($messages=true)
     {
-        if (Runtime::getSettings()->get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
+        if (Runtime::getSettings()->get('isEnableStock') && $this->shoppingCart->hasOutOfStockItems()) {
             $flashBag = $this->container->get('session')->getFlashBag();
             if (Runtime::getSettings()->get('isAllowLowStockCheckout')) {
                 if ($messages) {
@@ -350,7 +350,7 @@ class CheckoutHelper extends ZMObject
      */
     public function validateCheckout($request, $showMessages=true)
     {
-        if ($this->shoppingCart_->isEmpty()) {
+        if ($this->shoppingCart->isEmpty()) {
             return "shopping_cart";
         }
         $session = $request->getSession();
@@ -378,7 +378,7 @@ class CheckoutHelper extends ZMObject
             return "low_stock";
         }
 
-        if (!$this->isVirtual() && null == $this->shoppingCart_->getSelectedShippingMethod()) {
+        if (!$this->isVirtual() && null == $this->shoppingCart->getSelectedShippingMethod()) {
             return 'require_shipping';
         }
 
@@ -392,9 +392,9 @@ class CheckoutHelper extends ZMObject
      */
     public function validateItems()
     {
-        foreach ($this->shoppingCart_->getItems() as $item) {
+        foreach ($this->shoppingCart->getItems() as $item) {
             if (null == $item->getProduct()) {
-                $this->shoppingCart_->removeProduct($item->getId());
+                $this->shoppingCart->removeProduct($item->getId());
             }
         }
     }
@@ -412,9 +412,9 @@ class CheckoutHelper extends ZMObject
         // validate addresses
         $session = $request->getSession();
         $account = $request->getAccount();
-        if (!$session->isAnonymous() && !$this->shoppingCart_->hasShippingAddress() && !$this->shoppingCart_->isVirtual()) {
+        if (!$session->isAnonymous() && !$this->shoppingCart->hasShippingAddress() && !$this->shoppingCart->isVirtual()) {
             if (0 < $account->getDefaultAddressId()) {
-                $this->shoppingCart_->setShippingAddressId($account->getDefaultAddressId());
+                $this->shoppingCart->setShippingAddressId($account->getDefaultAddressId());
                 // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
             } else {
                 if ($showMessages) {
@@ -424,9 +424,9 @@ class CheckoutHelper extends ZMObject
                 return "require_shipping_address";
             }
         }
-        if (!$this->shoppingCart_->hasBillingAddress()) {
+        if (!$this->shoppingCart->hasBillingAddress()) {
             if (0 < $account->getDefaultAddressId()) {
-                $this->shoppingCart_->setBillingAddressId($account->getDefaultAddressId());
+                $this->shoppingCart->setBillingAddressId($account->getDefaultAddressId());
             } else {
                 if ($showMessages) {
                     $session->getFlashBag()->error(_zm('Please provide a billing address'));
@@ -449,16 +449,16 @@ class CheckoutHelper extends ZMObject
      */
     public function saveHash($request)
     {
-        if ($this->shoppingCart_->isEmpty()) {
+        if ($this->shoppingCart->isEmpty()) {
             return false;
         }
 
         // TODO: here for zc compatibility
-        if (isset($this->shoppingCart_->cart_->cartID)) {
-            $request->getSession()->set('cartID', $this->shoppingCart_->cart_->cartID);
+        if (isset($this->shoppingCart->cart_->cartID)) {
+            $request->getSession()->set('cartID', $this->shoppingCart->cart_->cartID);
         }
 
-        if (null != ($hash = $this->shoppingCart_->getHash())) {
+        if (null != ($hash = $this->shoppingCart->getHash())) {
             $request->getSession()->set('shoppingCartHash', $hash);
 
             return true;
@@ -475,7 +475,7 @@ class CheckoutHelper extends ZMObject
      */
     public function verifyHash($request)
     {
-        return $request->getSession()->get('shoppingCartHash') == $this->shoppingCart_->getHash();
+        return $request->getSession()->get('shoppingCartHash') == $this->shoppingCart->getHash();
     }
 
     /**
@@ -500,9 +500,9 @@ class CheckoutHelper extends ZMObject
      */
     public function getPaymentTypes()
     {
-        $cartTotal = $this->shoppingCart_->getTotal();
+        $cartTotal = $this->shoppingCart->getTotal();
 
-        ZenCartMock::startMock($this->shoppingCart_, $this->shoppingCart_->getBillingAddress());
+        ZenCartMock::startMock($this->shoppingCart, $this->shoppingCart->getBillingAddress());
 
         //TODO: fix
         $shippingCost = isset($_SESSION['shipping']['cost']) ? $_SESSION['shipping']['cost'] : 0;

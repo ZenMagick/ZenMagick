@@ -29,7 +29,7 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
  */
 class ToolboxCrumbtrail extends ToolboxTool
 {
-    private $crumbs_;
+    private $crumbs;
 
     /**
      * Create new instance.
@@ -46,7 +46,7 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function reset()
     {
-        $this->crumbs_ = array();
+        $this->crumbs = array();
         // always add home
         $this->addCrumb("Home", $this->container->get('router')->generate('index'));
 
@@ -60,7 +60,7 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function clear()
     {
-        $this->crumbs_ = array();
+        $this->crumbs = array();
 
         return $this;
     }
@@ -72,7 +72,7 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function getLastCrumb()
     {
-        return end($this->crumbs_);
+        return end($this->crumbs);
     }
 
     /**
@@ -83,11 +83,11 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function getCrumb($index)
     {
-        if (!is_array($this->crumbs_)) {
+        if (!is_array($this->crumbs)) {
             $this->reset();
         }
 
-        return $this->crumbs_[$index];
+        return $this->crumbs[$index];
     }
 
     /**
@@ -97,11 +97,11 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function getCrumbs()
     {
-        if (!is_array($this->crumbs_)) {
+        if (!is_array($this->crumbs)) {
             $this->reset();
         }
 
-        return $this->crumbs_;
+        return $this->crumbs;
     }
 
     /**
@@ -113,14 +113,14 @@ class ToolboxCrumbtrail extends ToolboxTool
      */
     public function addCrumb($name, $url = null)
     {
-        if (!is_array($this->crumbs_)) {
+        if (!is_array($this->crumbs)) {
             $this->reset();
         }
         $crumb = Beans::getBean('ZenMagick\StorefrontBundle\Http\Tools\Crumb');
         //die(var_dump($crumb));
         $crumb->setName($name);
         $crumb->setUrl($url);
-        $this->crumbs_[] = $crumb;
+        $this->crumbs[] = $crumb;
 
         return $this;
     }

@@ -29,7 +29,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Settings
 {
-    protected $settings_ = array();
+    protected $settings = array();
 
     public function load($resource)
     {
@@ -44,7 +44,7 @@ class Settings
      */
     private function lookup($path)
     {
-        $current = &$this->settings_;
+        $current = &$this->settings;
         foreach (explode('.', $path) as $element) {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
@@ -102,7 +102,7 @@ class Settings
         }
 
         // create path
-        $current = &$this->settings_;
+        $current = &$this->settings;
         foreach (explode('.', $path) as $element) {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
@@ -172,7 +172,7 @@ class Settings
      */
     public function getAll()
     {
-        return $this->settings_;
+        return $this->settings;
     }
 
     /**
@@ -186,7 +186,7 @@ class Settings
             $settings = $settings->getAll();
         }
         if (is_array($settings)) {
-            $this->settings_ = Toolbox::arrayMergeRecursive($this->settings_, $settings);
+            $this->settings = Toolbox::arrayMergeRecursive($this->settings, $settings);
         }
     }
 

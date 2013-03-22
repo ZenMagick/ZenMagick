@@ -31,9 +31,9 @@ use ZenMagick\Http\View\TemplateView;
  */
 class BannerBlockWidget extends Widget
 {
-    private $group_;
-    private $trackDisplay_;
-    private $showAll_;
+    private $group;
+    private $trackDisplay;
+    private $showAll;
 
     /**
      * Create new instance.
@@ -41,9 +41,9 @@ class BannerBlockWidget extends Widget
     public function __construct()
     {
         parent::__construct();
-        $this->group_ = null;
-        $this->trackDisplay_ = true;
-        $this->showAll_ = false;
+        $this->group = null;
+        $this->trackDisplay = true;
+        $this->showAll = false;
         $this->setTitle('Banner Block');
     }
 
@@ -54,7 +54,7 @@ class BannerBlockWidget extends Widget
      */
     public function getGroup()
     {
-        return $this->group_;
+        return $this->group;
     }
 
     /**
@@ -64,7 +64,7 @@ class BannerBlockWidget extends Widget
      */
     public function setGroup($group)
     {
-        $this->group_ = $group;
+        $this->group = $group;
     }
 
     /**
@@ -74,7 +74,7 @@ class BannerBlockWidget extends Widget
      */
     public function setTrackDisplay($trackDisplay)
     {
-        $this->trackDisplay_ = $trackDisplay;
+        $this->trackDisplay = $trackDisplay;
     }
 
     /**
@@ -84,7 +84,7 @@ class BannerBlockWidget extends Widget
      */
     public function isTrackDisplay()
     {
-        return $this->trackDisplay_;
+        return $this->trackDisplay;
     }
 
     /**
@@ -94,7 +94,7 @@ class BannerBlockWidget extends Widget
      */
     public function setShowAll($value)
     {
-        $this->showAll_ = Toolbox::asBoolean($value);
+        $this->showAll = Toolbox::asBoolean($value);
     }
 
     /**
@@ -104,7 +104,7 @@ class BannerBlockWidget extends Widget
      */
     public function isShowAll()
     {
-        return $this->showAll_;
+        return $this->showAll;
     }
 
     /**
@@ -117,7 +117,7 @@ class BannerBlockWidget extends Widget
         }
         $bannerService = $this->container->get('bannerService');
         // try to load banners for the given group
-        if (empty($this->group_) || null == ($banners = $bannerService->getBannersForGroupName($this->group_, $request->isSecure()))) {
+        if (empty($this->group) || null == ($banners = $bannerService->getBannersForGroupName($this->group, $request->isSecure()))) {
             return '';
         }
 
@@ -125,7 +125,7 @@ class BannerBlockWidget extends Widget
         shuffle($banners);
 
         // first or all
-        if (!$this->showAll_) {
+        if (!$this->showAll) {
             $banners = array(array_pop($banners));
         }
 

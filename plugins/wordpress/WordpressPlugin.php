@@ -30,8 +30,8 @@ use ZenMagick\Base\Toolbox;
  */
 class WordpressPlugin extends Plugin
 {
-    private $requestHandler_ = null;
-    private $adapter_ = null;
+    private $requestHandler = null;
+    private $adapter = null;
 
     /**
      * {@inheritDoc}
@@ -67,11 +67,11 @@ class WordpressPlugin extends Plugin
      */
     protected function getAdapter()
     {
-        if (null == $this->adapter_) {
-            $this->adapter_ = Beans::getBean('ZenMagick\plugins\wordpress\WordpressAdapter');
+        if (null == $this->adapter) {
+            $this->adapter = Beans::getBean('ZenMagick\plugins\wordpress\WordpressAdapter');
         }
 
-        return $this->adapter_;
+        return $this->adapter;
     }
 
     /**
@@ -231,11 +231,11 @@ class WordpressPlugin extends Plugin
      */
     public function getRequestHandler($request)
     {
-        if (null == $this->requestHandler_) {
-            $this->requestHandler_ = new WordpressRequestHandler($this, $request);
+        if (null == $this->requestHandler) {
+            $this->requestHandler = new WordpressRequestHandler($this, $request);
         }
 
-        return $this->requestHandler_;
+        return $this->requestHandler;
     }
 
     /**

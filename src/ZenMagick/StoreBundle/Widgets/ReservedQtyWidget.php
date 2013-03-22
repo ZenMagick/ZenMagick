@@ -34,7 +34,7 @@ use ZenMagick\Http\View\TemplateView;
  */
 class ReservedQtyWidget extends Widget
 {
-    private static $qtyMap_ = null;
+    private static $qtyMap = null;
 
     /**
      * Get stats.
@@ -43,7 +43,7 @@ class ReservedQtyWidget extends Widget
      */
     protected function getStats()
     {
-        if (null === self::$qtyMap_) {
+        if (null === self::$qtyMap) {
           $sql = "SELECT op.products_id, SUM(op.products_quantity) AS products_quantity
                   FROM %table.orders% o, %table.orders_products% op
                   WHERE o.orders_id = op.orders_id
@@ -51,13 +51,13 @@ class ReservedQtyWidget extends Widget
                   GROUP BY op.products_id";
           $args = array('orderStatusId' => array(3, 4, 5, 6, 8, 9, 13, 17));
 
-          self::$qtyMap_ = array();
+          self::$qtyMap = array();
           foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders', 'orders_products')) as $result) {
-              self::$qtyMap_[$result['productId']] = $result['qty'];
+              self::$qtyMap[$result['productId']] = $result['qty'];
           }
         }
 
-        return self::$qtyMap_;
+        return self::$qtyMap;
     }
 
     /**

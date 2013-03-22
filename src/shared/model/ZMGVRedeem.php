@@ -28,9 +28,9 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMGVRedeem extends ZMObject
 {
-    private $couponCode_;
-    private $amount_;
-    private $redeemed_;
+    private $couponCode;
+    private $amount;
+    private $redeemed;
 
     /**
      * Create new instance.
@@ -38,9 +38,9 @@ class ZMGVRedeem extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->couponCode_ = null;
-        $this->amount_ = 0;
-        $this->redeemed_ = false;
+        $this->couponCode = null;
+        $this->amount = 0;
+        $this->redeemed = false;
     }
 
     /**
@@ -48,41 +48,41 @@ class ZMGVRedeem extends ZMObject
      *
      * @return string The coupon code.
      */
-    public function getCouponCode() { return $this->couponCode_; }
+    public function getCouponCode() { return $this->couponCode; }
 
     /**
      * Get the amount.
      *
      * @return float The amount.
      */
-    public function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount; }
 
     /**
      * Check if the coupon was redeemed succsessfully.
      *
      * @return boolean <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    public function isRedeemed() { return $this->redeemed_; }
+    public function isRedeemed() { return $this->redeemed; }
 
     /**
      * Set the coupon code.
      *
      * @param string couponCode The coupon code.
      */
-    public function setCouponCode($couponCode) { $this->couponCode_ = $couponCode; }
+    public function setCouponCode($couponCode) { $this->couponCode = $couponCode; }
 
     /**
      * Set the amount.
      *
      * @param float amount The amount.
      */
-    public function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount = $amount; }
 
     /**
      * Set the redeem flag.
      *
      * @param boolean redeemed <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    public function setRedeemed($redeemed) { $this->redeemed_ = $redeemed; }
+    public function setRedeemed($redeemed) { $this->redeemed = $redeemed; }
 
 }

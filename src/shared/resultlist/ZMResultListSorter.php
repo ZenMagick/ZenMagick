@@ -30,10 +30,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMResultListSorter extends ZMObject
 {
-    protected $id_;
-    protected $name_;
-    protected $sortId_;
-    protected $descending_;
+    protected $id;
+    protected $name;
+    protected $sortId;
+    protected $descending;
 
     /**
      * Create a new result list sorter.
@@ -46,11 +46,11 @@ class ZMResultListSorter extends ZMObject
     {
         parent::__construct();
 
-        $this->id_ = $id;
-        $this->sortId_ = $sortId;
-        $this->descending_ = Toolbox::endsWith($this->sortId_, '_d');
-        if (Toolbox::endsWith($this->sortId_, '_a') || $this->descending_) {
-            $this->sortId_ = substr($this->sortId_, 0, strlen($this->sortId_)-2);
+        $this->id = $id;
+        $this->sortId = $sortId;
+        $this->descending = Toolbox::endsWith($this->sortId, '_d');
+        if (Toolbox::endsWith($this->sortId, '_a') || $this->descending) {
+            $this->sortId = substr($this->sortId, 0, strlen($this->sortId)-2);
         }
     }
 
@@ -59,7 +59,7 @@ class ZMResultListSorter extends ZMObject
      *
      * @return boolean <code>true</code> if the current sort order is descending.
      */
-    public function isDescending() { return $this->descending_; }
+    public function isDescending() { return $this->descending; }
 
     /**
      * Returns one or more <code>ZMSortOption</code>s supported by this sorter.
@@ -90,42 +90,42 @@ class ZMResultListSorter extends ZMObject
      *
      * @return string The sorter id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Returns the sorter name.
      *
      * @return string The sorter name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Set the sorters unique id.
      *
      * @param string id The sorter id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the sorter name.
      *
      * @param string name The sorter name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Returns the sorters sort id.
      *
      * @return string The sortid.
      */
-    public function getSortId() { return $this->sortId_; }
+    public function getSortId() { return $this->sortId; }
 
     /**
      * Set the sorters sorter id.
      *
      * @param string id The sort id.
      */
-    public function setSortId($sortId) { $this->sortId_ = $sortId; }
+    public function setSortId($sortId) { $this->sortId = $sortId; }
 
     /**
      * Set the descending flag.
@@ -134,7 +134,7 @@ class ZMResultListSorter extends ZMObject
      */
     public function setDescending($descending)
     {
-        $this->descending_ = $descending;
+        $this->descending = $descending;
     }
 
 }

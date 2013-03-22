@@ -41,7 +41,7 @@ class ZMAlphaFilter extends ZMResultListFilter
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues_[0]); }
+    public function exclude($obj) { return 0 !== strpos(strtolower($obj->getName()), $this->filterValues[0]); }
 
     /**
      * Returns a list of all available filter values.
@@ -52,7 +52,7 @@ class ZMAlphaFilter extends ZMResultListFilter
     {
         // get all used first chars
         $keys = array();
-        foreach ($this->list_->getAllResults() as $result) {
+        foreach ($this->list->getAllResults() as $result) {
             $char = strtolower(substr($result->getName(), 0, 1));
             if (!array_key_exists($char, $keys)) {
                 $keys[$char] = strtoupper($char).'...';
@@ -65,7 +65,7 @@ class ZMAlphaFilter extends ZMResultListFilter
             $option = Beans::getBean('ZMFilterOption');
             $option->setName($name);
             $option->setKey($key);
-            $option->setActive($key == $this->filterValues_[0]);
+            $option->setActive($key == $this->filterValues[0]);
             $options[$option->getId()] = $option;
         }
 

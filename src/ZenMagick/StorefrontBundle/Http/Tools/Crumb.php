@@ -28,8 +28,8 @@ use ZenMagick\Base\ZMObject;
  */
 class Crumb extends ZMObject
 {
-    private $name_;
-    private $url_;
+    private $name;
+    private $url;
 
     /**
      * Create a new crumbtrail crumb.
@@ -40,8 +40,8 @@ class Crumb extends ZMObject
     public function __construct($name=null, $url=null)
     {
         parent::__construct();
-        $this->name_ = $name;
-        $this->url_ = $url;
+        $this->name = $name;
+        $this->url = $url;
     }
 
     /**
@@ -49,27 +49,27 @@ class Crumb extends ZMObject
      *
      * @return string The crumb's name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the url (if any).
      *
      * @return string The crumb's url or <code>null</code>.
      */
-    public function getURL() { return $this->url_; }
+    public function getURL() { return $this->url; }
 
     /**
      * Set the name.
      *
      * @param string name The crumb's name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the url.
      *
      * @param string url The crumb's url.
      */
-    public function setURL($url) { $this->url_ = $url; }
+    public function setURL($url) { $this->url = $url; }
 
 }

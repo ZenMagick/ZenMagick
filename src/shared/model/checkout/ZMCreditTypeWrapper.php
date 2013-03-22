@@ -29,11 +29,11 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMCreditTypeWrapper extends ZMObject
 {
-    private $id_;
-    private $name_;
-    private $instructions_;
-    private $error_;
-    private $fields_;
+    private $id;
+    private $name;
+    private $instructions;
+    private $error;
+    private $fields;
 
     /**
      * Create a new payment type.
@@ -45,11 +45,11 @@ class ZMCreditTypeWrapper extends ZMObject
     public function __construct($id, $name, $instructions='')
     {
         parent::__construct();
-        $this->id_ = $id;
-        $this->name_ = $name;
-        $this->instructions_ = $instructions;
-        $this->error_ = null;
-        $this->fields_ = array();
+        $this->id = $id;
+        $this->name = $name;
+        $this->instructions = $instructions;
+        $this->error = null;
+        $this->fields = array();
     }
 
     /**
@@ -57,7 +57,7 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return int The payment type id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the payment name.
@@ -66,7 +66,7 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return string The payment name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the optional payment instructions.
@@ -75,27 +75,27 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return string Payment instructions.
      */
-    public function getInstructions() { return $this->instructions_; }
+    public function getInstructions() { return $this->instructions; }
 
     /**
      * Get the payment error (if any).
      *
      * @return string The payment error message.
      */
-    public function getError() { return $this->error_; }
+    public function getError() { return $this->error; }
 
     /**
      * Get the payment form fields.
      *
      * @return array A list of <code>ZMPaymentField</code> instances.
      */
-    public function getFields() { return $this->fields_; }
+    public function getFields() { return $this->fields; }
 
     /**
      * Add a form field to this payment type.
      *
      * @param ZMPaymentField field The new form field.
      */
-    public function addField($field) { array_push($this->fields_, $field); }
+    public function addField($field) { array_push($this->fields, $field); }
 
 }

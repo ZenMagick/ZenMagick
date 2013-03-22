@@ -30,7 +30,7 @@ use ZenMagick\AdminBundle\Installation\Patches\SQLPatch;
  */
 class ConfigPatch extends SQLPatch
 {
-    public $sqlUndoFiles_ = array(
+    public $sqlUndoFiles = array(
         "config_undo.sql"
     );
 
@@ -40,7 +40,7 @@ class ConfigPatch extends SQLPatch
     public function __construct()
     {
         parent::__construct('sqlConfig');
-        $this->label_ = 'Setup ZenMagick config groups and initial values';
+        $this->label = 'Setup ZenMagick config groups and initial values';
     }
 
     /**

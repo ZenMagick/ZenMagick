@@ -28,12 +28,12 @@ use ZenMagick\Base\ZMObject;
  */
 class QueryDetails extends ZMObject
 {
-    private $database_;
-    private $sql_;
-    private $args_;
-    private $mapping_;
-    private $modelClass_;
-    private $countCol_;
+    private $database;
+    private $sql;
+    private $args;
+    private $mapping;
+    private $modelClass;
+    private $countCol;
 
     /**
      * Create new instance.
@@ -50,12 +50,12 @@ class QueryDetails extends ZMObject
     public function __construct($database, $sql, $args=array(), $mapping=null, $modelClass=null, $countCol=null)
     {
         parent::__construct();
-        $this->database_ = $database;
-        $this->sql_ = $sql;
-        $this->args_ = $args;
-        $this->mapping_ = $mapping;
-        $this->modelClass_ = $modelClass;
-        $this->countCol_ = $countCol;
+        $this->database = $database;
+        $this->sql = $sql;
+        $this->args = $args;
+        $this->mapping = $mapping;
+        $this->modelClass = $modelClass;
+        $this->countCol = $countCol;
     }
 
     /**
@@ -65,7 +65,7 @@ class QueryDetails extends ZMObject
      */
     public function getDatabase()
     {
-        return $this->database_;
+        return $this->database;
     }
 
     /**
@@ -75,7 +75,7 @@ class QueryDetails extends ZMObject
      */
     public function getSql()
     {
-        return $this->sql_;
+        return $this->sql;
     }
 
     /**
@@ -85,7 +85,7 @@ class QueryDetails extends ZMObject
      */
     public function getArgs()
     {
-        return $this->args_;
+        return $this->args;
     }
 
     /**
@@ -95,7 +95,7 @@ class QueryDetails extends ZMObject
      */
     public function getMapping()
     {
-        return $this->mapping_;
+        return $this->mapping;
     }
 
     /**
@@ -105,7 +105,7 @@ class QueryDetails extends ZMObject
      */
     public function getModelClass()
     {
-        return $this->modelClass_;
+        return $this->modelClass;
     }
 
     /**
@@ -115,7 +115,7 @@ class QueryDetails extends ZMObject
      */
     public function getCountCol()
     {
-        return $this->countCol_;
+        return $this->countCol;
     }
 
     /**
@@ -126,7 +126,7 @@ class QueryDetails extends ZMObject
      */
     public function query($sql=null)
     {
-        return $this->database_->fetchAll(null != $sql ? $sql : $this->sql_, $this->args_, $this->mapping_, $this->modelClass_);
+        return $this->database->fetchAll(null != $sql ? $sql : $this->sql, $this->args, $this->mapping, $this->modelClass);
     }
 
 }

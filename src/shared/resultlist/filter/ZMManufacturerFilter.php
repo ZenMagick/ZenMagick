@@ -45,7 +45,7 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) { return $obj->getManufacturerId() != $this->filterValues_[0]; }
+    public function exclude($obj) { return $obj->getManufacturerId() != $this->filterValues[0]; }
 
     /**
      * Returns a list of all available filter values.
@@ -55,13 +55,13 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware
     public function getOptions()
     {
         $options = array();
-        foreach ($this->list_->getAllResults() as $result) {
+        foreach ($this->list->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
                 $option = Beans::getBean('ZMFilterOption');
                 $option->setId($manufacturer->getId());
                 $option->setName($manufacturer->getName());
-                $option->setActive($manufacturer->getId() == $this->filterValues_[0]);
+                $option->setActive($manufacturer->getId() == $this->filterValues[0]);
                 $options[$option->getId()] = $option;
             }
         }

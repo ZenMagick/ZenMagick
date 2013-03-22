@@ -46,7 +46,7 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware
      */
     public function exclude($obj)
     {
-        return !in_array($obj->getOrderStatusId(), $this->filterValues_);
+        return !in_array($obj->getOrderStatusId(), $this->filterValues);
     }
 
     /**

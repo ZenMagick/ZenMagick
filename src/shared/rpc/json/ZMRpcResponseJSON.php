@@ -27,11 +27,11 @@
  */
 class ZMRpcResponseJSON implements ZMRpcResponse
 {
-    private $rpcRequest_;
-    private $status_;
-    private $messages_;
-    private $data_;
-    private $returnCode_;
+    private $rpcRequest;
+    private $status;
+    private $messages;
+    private $data;
+    private $returnCode;
 
     /**
      * Create new instance
@@ -40,11 +40,11 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function __construct($rpcRequest=null)
     {
-        $this->rpcRequest_ = $rpcRequest;
-        $this->status_ = true;
-        $this->messages_ = array();
-        $this->data_ = null;
-        $this->returnCode_ = 0;
+        $this->rpcRequest = $rpcRequest;
+        $this->status = true;
+        $this->messages = array();
+        $this->data = null;
+        $this->returnCode = 0;
     }
 
     /**
@@ -54,7 +54,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function setRpcRequest($rpcRequest)
     {
-        $this->rpcRequest_ = $rpcRequest;
+        $this->rpcRequest = $rpcRequest;
     }
 
     /**
@@ -62,10 +62,10 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function addMessage($msg, $type)
     {
-        if (!array_key_exists($type, $this->messages_)) {
-            $this->messages_[$type] = array();
+        if (!array_key_exists($type, $this->messages)) {
+            $this->messages[$type] = array();
         }
-        $this->messages_[$type][] = $msg;
+        $this->messages[$type][] = $msg;
     }
 
     /**
@@ -73,8 +73,8 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function setStatus($status, $code=0)
     {
-        $this->status_ = $status;
-        $this->returnCode_ = $code;
+        $this->status = $status;
+        $this->returnCode = $code;
     }
 
     /**
@@ -82,7 +82,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function getStatus()
     {
-        return $this->status_;
+        return $this->status;
     }
 
     /**
@@ -90,7 +90,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function getReturnCode()
     {
-        return $this->returnCode_;
+        return $this->returnCode;
     }
 
     /**
@@ -98,7 +98,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse
      */
     public function setData($data)
     {
-        $this->data_ = $data;
+        $this->data = $data;
     }
 
     /**
@@ -115,22 +115,22 @@ class ZMRpcResponseJSON implements ZMRpcResponse
     public function __toString()
     {
         $response = new stdClass();
-        $response->id = $this->rpcRequest_->getId();
+        $response->id = $this->rpcRequest->getId();
         $response->jsonrpc = "2.0";
-        if ($this->status_) {
+        if ($this->status) {
             // ok: put data into result
             $response->result = new stdClass();
-            $response->result->data = $this->data_;
-            $response->result->messages = $this->messages_;
+            $response->result->data = $this->data;
+            $response->result->messages = $this->messages;
         } else {
             // error: create default message, put actual messages into data
             $response->error = new stdClass();
-            $response->error->code = $this->returnCode_;
+            $response->error->code = $this->returnCode;
             $response->error->message = "failed";
             $response->error->data = new stdClass();
             // possible data
-            $response->error->data->data = $this->data_;
-            $response->error->data->messages = $this->messages_;
+            $response->error->data->data = $this->data;
+            $response->error->data->messages = $this->messages;
         }
 
         return json_encode($response);

@@ -28,9 +28,9 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMFilterOption extends ZMObject
 {
-    private $name_;
-    private $id_;
-    private $active_;
+    private $name;
+    private $id;
+    private $active;
 
     /**
      * Create a new filter option.
@@ -42,9 +42,9 @@ class ZMFilterOption extends ZMObject
     public function __construct($name=null, $id=null, $active=false)
     {
         parent::__construct();
-        $this->name_ = $name;
-        $this->id_ = $id;
-        $this->active_ = $active;
+        $this->name = $name;
+        $this->id = $id;
+        $this->active = $active;
     }
 
     /**
@@ -52,41 +52,41 @@ class ZMFilterOption extends ZMObject
      *
      * @return int The option id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    public function isActive() { return $this->active_; }
+    public function isActive() { return $this->active; }
 
     /**
      * Set the option id.
      *
      * @param int id The option id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the option name.
      *
      * @param string name The option name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the active flag.
      *
      * @param boolean value The new value.
      */
-    public function setActive($value) { $this->active_ = $value; }
+    public function setActive($value) { $this->active = $value; }
 
 }

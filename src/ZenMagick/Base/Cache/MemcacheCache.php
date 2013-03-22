@@ -31,21 +31,21 @@ use Memcache;
 class MemcacheCache implements Cache
 {
     const SYSTEM_KEY = "zenmagick.base.cache.memcache";
-    private $group_;
-    private $memcache_;
-    private $lifetime_;
-    private $lastModified_;
-    private $compress_;
+    private $group;
+    private $memcache;
+    private $lifetime;
+    private $lastModified;
+    private $compress;
 
     /**
      * Create new instance.
      */
     public function __construct()
     {
-        $this->memcache_ = null;
-        $this->lifetime_ = 0;
-        $this->lastModified_ = time();
-        $this->compress_ = 0;
+        $this->memcache = null;
+        $this->lifetime = 0;
+        $this->lastModified = time();
+        $this->compress = 0;
     }
 
     /**
@@ -56,13 +56,13 @@ class MemcacheCache implements Cache
      */
     protected function getMemcache($config=array())
     {
-        if (null == $this->memcache_) {
-            $this->memcache_ = new Memcache();
+        if (null == $this->memcache) {
+            $this->memcache = new Memcache();
             $config = array_merge(array('host' => 'localhost', 'port' => 11211), $config);
-            $this->memcache_->connect($config['host'], $config['port']);
+            $this->memcache->connect($config['host'], $config['port']);
         }
 
-        return $this->memcache_;
+        return $this->memcache;
     }
 
     /**
@@ -70,20 +70,20 @@ class MemcacheCache implements Cache
      */
     public function init($group, $config)
     {
-        $this->group_ = $group;
-        $this->memcache_ = $this->getMemcache($config);
+        $this->group = $group;
+        $this->memcache = $this->getMemcache($config);
         $config = array_merge(array('cacheTTL' => 0, 'compress' => false), $config);
-        $this->lifetime_ = $config['cacheTTL'];
-        $this->compress_ = $config['compress'] ? MEMCACHE_COMPRESSED : 0;
+        $this->lifetime = $config['cacheTTL'];
+        $this->compress = $config['compress'] ? MEMCACHE_COMPRESSED : 0;
 
         // update system stats
-        $system = $this->memcache_->get(self::SYSTEM_KEY);
+        $system = $this->memcache->get(self::SYSTEM_KEY);
         if (!$system) {
             $system = array();
             $system['groups'] = array();
         }
         $system['groups'][$group] = $config;
-        $this->memcache_->set(self::SYSTEM_KEY, $system, false, 0);
+        $this->memcache->set(self::SYSTEM_KEY, $system, false, 0);
     }
 
     /**
@@ -99,17 +99,17 @@ class MemcacheCache implements Cache
      */
     public function clear()
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
         // iterate over all entries and match the group prefix
-        $groupPrefix = $this->group_.'/';
-        foreach ($this->memcache_->getExtendedStats('items') as $host => $hostSummary) {
+        $groupPrefix = $this->group.'/';
+        foreach ($this->memcache->getExtendedStats('items') as $host => $hostSummary) {
             foreach ($hostSummary['items'] as $slabId => $details) {
-                $slabItems = $this->memcache_->getExtendedStats('cachedump', $slabId, $details['number']);
+                $slabItems = $this->memcache->getExtendedStats('cachedump', $slabId, $details['number']);
                 $keys = array_keys($slabItems[$host]);
                 foreach ($keys as $key) {
                     if (0 === strpos($key, $groupPrefix)) {
-                        $this->memcache_->delete($key);
+                        $this->memcache->delete($key);
                     }
                 }
             }
@@ -123,7 +123,7 @@ class MemcacheCache implements Cache
      */
     public function lookup($id)
     {
-        return $this->memcache_->get($this->group_.'/'.$id);
+        return $this->memcache->get($this->group.'/'.$id);
     }
 
     /**
@@ -131,9 +131,9 @@ class MemcacheCache implements Cache
      */
     public function remove($id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return $this->memcache_->delete($this->group_.'/'.$id);
+        return $this->memcache->delete($this->group.'/'.$id);
     }
 
     /**
@@ -141,9 +141,9 @@ class MemcacheCache implements Cache
      */
     public function save($data, $id)
     {
-        $this->lastModified_ = time();
+        $this->lastModified = time();
 
-        return $this->memcache_->set($this->group_.'/'.$id, $data, $this->compress_, $this->lifetime_);
+        return $this->memcache->set($this->group.'/'.$id, $data, $this->compress, $this->lifetime);
     }
 
     /**
@@ -151,7 +151,7 @@ class MemcacheCache implements Cache
      */
     public function lastModified()
     {
-        return $this->lastModified_;
+        return $this->lastModified;
     }
 
     /**

@@ -22,7 +22,7 @@ use ZenMagick\Base\Runtime;
 
 class ZMRuntime
 {
-    private static $databaseMap_ = array();
+    private static $databaseMap = array();
 
     /**
      * Set database connection parameters for a connection name.
@@ -38,7 +38,7 @@ class ZMRuntime
         $conf['driverOptions'] = array('table_prefix' => $conf['prefix']);
         $conf['driver'] = 'pdo_mysql';
 
-        self::$databaseMap_[$name] = $conf;
+        self::$databaseMap[$name] = $conf;
     }
 
     /**
@@ -52,15 +52,15 @@ class ZMRuntime
         if (null !== Runtime::getContainer()) {
             return Runtime::getContainer()->get('doctrine.dbal.'.$conf.'_connection');
         }
-        if (is_array(self::$databaseMap_[$conf])) {
-            self::$databaseMap_[$conf] = Doctrine\DBAL\DriverManager::getConnection(self::$databaseMap_[$conf]);
+        if (is_array(self::$databaseMap[$conf])) {
+            self::$databaseMap[$conf] = Doctrine\DBAL\DriverManager::getConnection(self::$databaseMap[$conf]);
         }
 
-        return self::$databaseMap_[$conf];
+        return self::$databaseMap[$conf];
     }
 
     public static function getDatabases()
     {
-        return self::$databaseMap_;
+        return self::$databaseMap;
     }
 }

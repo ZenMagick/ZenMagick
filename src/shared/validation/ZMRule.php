@@ -28,9 +28,9 @@ use ZenMagick\Base\ZMObject;
  */
 abstract class ZMRule extends ZMObject
 {
-    private $name_;
-    private $msg_;
-    private $defaultMsg_;
+    private $name;
+    private $msg;
+    private $defaultMsg;
 
     /**
      * Create new validation rule.
@@ -63,7 +63,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getName()
     {
-        return str_replace(array('[', ']'), '', $this->name_);
+        return str_replace(array('[', ']'), '', $this->name);
     }
 
     /**
@@ -73,7 +73,7 @@ abstract class ZMRule extends ZMObject
      */
     public function setName($name)
     {
-        $this->name_ = $name;
+        $this->name = $name;
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getJSName()
     {
-        return $this->name_;
+        return $this->name;
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getMsg()
     {
-        return $this->msg_;
+        return $this->msg;
     }
 
     /**
@@ -107,7 +107,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getDefaultMsg()
     {
-        return $this->defaultMsg_;
+        return $this->defaultMsg;
     }
 
     /**
@@ -117,7 +117,7 @@ abstract class ZMRule extends ZMObject
      */
     public function setMsg($msg)
     {
-        $this->msg_ = $msg;
+        $this->msg = $msg;
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class ZMRule extends ZMObject
      */
     public function setDefaultMsg($msg)
     {
-        $this->defaultMsg_ = $msg;
+        $this->defaultMsg = $msg;
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getErrorMsg()
     {
-        return null != $this->msg_ ? _zm($this->msg_) : sprintf(_zm($this->defaultMsg_), ucwords(str_replace('_', ' ', $this->name_)));
+        return null != $this->msg ? _zm($this->msg) : sprintf(_zm($this->defaultMsg), ucwords(str_replace('_', ' ', $this->name)));
     }
 
 }

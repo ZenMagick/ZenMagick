@@ -35,7 +35,7 @@ class Toolbox
     /** Random type hexadecimal. */
     const RANDOM_HEX = 'hex';
 
-    private static $seedDone_;
+    private static $seedDone;
 
     /**
      * Generate a random value.
@@ -54,9 +54,9 @@ class Toolbox
         self::RANDOM_HEX => '0123456789abcdef',
         );
 
-        if (!self::$seedDone_) {
+        if (!self::$seedDone) {
             mt_srand((double) microtime() * 1000200);
-            self::$seedDone_ = true;
+            self::$seedDone = true;
         }
 
         $chars = array_key_exists($type, $types) ? $types[$type] : $type;

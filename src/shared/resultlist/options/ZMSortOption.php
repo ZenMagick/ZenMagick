@@ -31,10 +31,10 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMSortOption extends ZMObject
 {
-    private $name_;
-    private $id_;
-    private $active_;
-    private $decending_;
+    private $name;
+    private $id;
+    private $active;
+    private $decending;
 
     /**
      * Create a new sort option.
@@ -48,10 +48,10 @@ class ZMSortOption extends ZMObject
     {
         parent::__construct();
 
-        $this->name_ = $name;
-        $this->id_ = $id;
-        $this->active_ = $active;
-        $this->decending_ = $decending;
+        $this->name = $name;
+        $this->id = $id;
+        $this->active = $active;
+        $this->decending = $decending;
     }
 
     /**
@@ -59,28 +59,28 @@ class ZMSortOption extends ZMObject
      *
      * @return string The option id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the reverse option id.
      *
      * @return string The reverse option id.
      */
-    public function getReverseId() { return $this->id_ . ($this->decending_ ? '_a' : '_d'); }
+    public function getReverseId() { return $this->id . ($this->decending ? '_a' : '_d'); }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    public function isActive() { return $this->active_; }
+    public function isActive() { return $this->active; }
 
     /**
      * Check if the sorting is ascending or decending.
@@ -88,6 +88,6 @@ class ZMSortOption extends ZMObject
      * @return boolean <code>true</code> if sorting is decending, <code>false</code> if sorting
      *  is ascending.
      */
-    public function isDecending() { return $this->decending_; }
+    public function isDecending() { return $this->decending; }
 
 }

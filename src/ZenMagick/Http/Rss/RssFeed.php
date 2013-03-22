@@ -29,8 +29,8 @@ use ZenMagick\Base\ZMObject;
  */
 class RssFeed extends ZMObject
 {
-    private $channel_;
-    private $items_;
+    private $channel;
+    private $items;
 
     /**
      * Create new RSS feed.
@@ -38,8 +38,8 @@ class RssFeed extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->channel_ = null;
-        $this->items_ = array();
+        $this->channel = null;
+        $this->items = array();
     }
 
     /**
@@ -49,34 +49,34 @@ class RssFeed extends ZMObject
      */
     public function hasContents()
     {
-        return 0 != count($this->items_);
+        return 0 != count($this->items);
     }
     /**
      * Get the channel.
      *
      * @return RssChannel The channel.
      */
-    public function getChannel() { return $this->channel_; }
+    public function getChannel() { return $this->channel; }
 
     /**
      * Get the feed items.
      *
      * @return Iterator An iterator over <code>RssItem</code> instances.
      */
-    public function getItems() { return $this->items_; }
+    public function getItems() { return $this->items; }
 
     /**
      * Set the channel.
      *
      * @param RssChannel channel The channel.
      */
-    public function setChannel($channel) { $this->channel_ = $channel; }
+    public function setChannel($channel) { $this->channel = $channel; }
 
     /**
      * Set the feed items.
      *
      * @param Iterator items An iterator over <code>RssItem</code> instances.
      */
-    public function setItems(Iterator $items) { $this->items_ = $items; }
+    public function setItems(Iterator $items) { $this->items = $items; }
 
 }

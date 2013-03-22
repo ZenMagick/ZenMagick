@@ -33,8 +33,8 @@ class ResourceManager extends ZMObject
     const HEADER = 'header';
     const FOOTER = 'footer';
     const NOW = 'now';
-    private $resources_;
-    private $resourcesAsTemplates_;
+    private $resources;
+    private $resourcesAsTemplates;
     private $view;
     private $virtualPathMap;
 
@@ -44,8 +44,8 @@ class ResourceManager extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->resources_ = array('css' => array(), 'js' => array());
-        $this->resourcesAsTemplates_ = false;
+        $this->resources = array('css' => array(), 'js' => array());
+        $this->resourcesAsTemplates = false;
         $this->view = null;
         $this->virtualPathMap = array();
     }
@@ -91,7 +91,7 @@ class ResourceManager extends ZMObject
      */
     public function setResourcesAsTemplates($value)
     {
-        $this->resourcesAsTemplates_ = $value;
+        $this->resourcesAsTemplates = $value;
     }
 
     /**
@@ -101,7 +101,7 @@ class ResourceManager extends ZMObject
      */
     public function isResourcesAsTemplates()
     {
-        return $this->resourcesAsTemplates_;
+        return $this->resourcesAsTemplates;
     }
 
     /**
@@ -135,9 +135,9 @@ class ResourceManager extends ZMObject
      */
     protected function styles($css, $inline=false, $attr=array())
     {
-        if (!array_key_exists($css, $this->resources_['css'])) {
+        if (!array_key_exists($css, $this->resources['css'])) {
             // avoid duplicates
-            $this->resources_['css'][$css] = array(
+            $this->resources['css'][$css] = array(
                 'filename' => $css,
                 'inline' => $inline,
                 'external' => $this->isExternal($css),
@@ -156,12 +156,12 @@ class ResourceManager extends ZMObject
      */
     public function jsFile($filename, $position=self::HEADER, $inline=false)
     {
-        if (array_key_exists($filename, $this->resources_['js'])) {
+        if (array_key_exists($filename, $this->resources['js'])) {
             // check if we need to do anything else or update the position
-            if ($this->resources_['js'][$filename]['done']) {
+            if ($this->resources['js'][$filename]['done']) {
                 $this->container->get('logger')->debug('skipping '.$filename.' as already done');
             }
-            if (self::FOOTER == $this->resources_['js'][$filename]['position']) {
+            if (self::FOOTER == $this->resources['js'][$filename]['position']) {
                 if (self::HEADER == $position) {
                     $this->container->get('logger')->debug('upgrading '.$filename.' to HEADER');
 
@@ -172,7 +172,7 @@ class ResourceManager extends ZMObject
         }
 
         // record details in any case
-        $this->resources_['js'][$filename] = array(
+        $this->resources['js'][$filename] = array(
             'filename' => $filename,
             'inline' => $inline,
             'position' => $position,
@@ -181,8 +181,8 @@ class ResourceManager extends ZMObject
         );
 
         if (self::NOW == $position) {
-            $this->resources_['js'][$filename]['done'] = true;
-            if ($this->resources_['js'][$filename]['inline']) {
+            $this->resources['js'][$filename]['done'] = true;
+            if ($this->resources['js'][$filename]['inline']) {
                 echo '<script type="text/javascript">',"\n";
                 echo $this->view->fetch($filename);
                 echo '</script>',"\n";
@@ -211,7 +211,7 @@ class ResourceManager extends ZMObject
             // absolute path
             return $resource;
         } else {
-            $type = $this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE;
+            $type = $this->resourcesAsTemplates ? View::TEMPLATE : View::RESOURCE;
             if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
                 if (null != ($uri= $this->file2uri($path))) {
                     $url = $this->container->get('netTool')->absoluteUrl($uri);
@@ -337,31 +337,31 @@ class ResourceManager extends ZMObject
      */
     public function getResourceContents()
     {
-        if (0 == count($this->resources_['js']) && 0 == count($this->resources_['css'])) {
+        if (0 == count($this->resources['js']) && 0 == count($this->resources['css'])) {
             return null;
         }
 
         // first build separate lists to allow group processing
         $header = array();
         $footer = array();
-        foreach ($this->resources_['js'] as $filename => $details) {
+        foreach ($this->resources['js'] as $filename => $details) {
             if (!$details['done']) {
                 if (self::HEADER == $details['position']) {
                     $header[] = $details;
                 } elseif (self::FOOTER == $details['position']) {
                     $footer[] = $details;
                 }
-                $this->resources_['js'][$filename]['done'] = true;
+                $this->resources['js'][$filename]['done'] = true;
             }
         }
-        if (0 == count($header) && 0 == count($footer) && 0 == count($this->resources_['css'])) {
+        if (0 == count($header) && 0 == count($footer) && 0 == count($this->resources['css'])) {
             return null;
         }
 
         // process
         $contents = array('header' => '', 'footer' => '');
 
-        $contents['header'] .= $this->handleResourceGroup($this->resources_['css'], 'css', self::HEADER);
+        $contents['header'] .= $this->handleResourceGroup($this->resources['css'], 'css', self::HEADER);
 
         $contents['header'] .= $this->handleResourceGroup($header, 'js', self::HEADER);
         $contents['footer'] .= $this->handleResourceGroup($footer, 'js', self::FOOTER);

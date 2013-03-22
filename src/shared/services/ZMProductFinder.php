@@ -39,9 +39,9 @@ use ZenMagick\Base\Database\QueryDetails;
  */
 class ZMProductFinder extends ZMObject
 {
-    protected $criteria_;
-    protected $sortId_;
-    protected $descending_;
+    protected $criteria;
+    protected $sortId;
+    protected $descending;
 
     /**
      * Create a new instance.
@@ -51,9 +51,9 @@ class ZMProductFinder extends ZMObject
     public function __construct($criteria=null)
     {
         parent::__construct();
-        $this->criteria_ = $criteria;
-        $this->sortId_ = null;
-        $this->descending_ = false;
+        $this->criteria = $criteria;
+        $this->sortId = null;
+        $this->descending = false;
     }
 
     /**
@@ -63,7 +63,7 @@ class ZMProductFinder extends ZMObject
      */
     public function setCriteria($criteria)
     {
-        $this->criteria_ = $criteria;
+        $this->criteria = $criteria;
     }
 
     /**
@@ -73,7 +73,7 @@ class ZMProductFinder extends ZMObject
      */
     public function setDescending($descending)
     {
-        $this->descending_ = $descending;
+        $this->descending = $descending;
     }
 
     /**
@@ -83,7 +83,7 @@ class ZMProductFinder extends ZMObject
      */
     public function setSortId($sortId)
     {
-        $this->sortId_ = $sortId;
+        $this->sortId = $sortId;
     }
 
     /**
@@ -93,7 +93,7 @@ class ZMProductFinder extends ZMObject
      */
     public function execute()
     {
-        $queryDetails = $this->buildQuery($this->criteria_);
+        $queryDetails = $this->buildQuery($this->criteria);
 
         return $queryDetails;
     }
@@ -251,25 +251,25 @@ class ZMProductFinder extends ZMObject
         }
 
         $sort = " ORDER BY\n";
-        if (null !== $this->sortId_) {
-            switch ($this->sortId_) {
+        if (null !== $this->sortId) {
+            switch ($this->sortId) {
             case 'model':
-                $sort .= " p.products_model " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_model " . ($this->descending ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'name':
-                $sort .= " pd.products_name " . ($this->descending_ ? "DESC" : "");
+                $sort .= " pd.products_name " . ($this->descending ? "DESC" : "");
                 break;
             case 'manufacturer':
-                $sort .= " m.manufacturers_name " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " m.manufacturers_name " . ($this->descending ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'price':
-                $sort .= " p.products_price_sorter " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_price_sorter " . ($this->descending ? "DESC" : "") . ", pd.products_name";
                 break;
             case 'weight':
-                $sort .= " p.products_weight " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
+                $sort .= " p.products_weight " . ($this->descending ? "DESC" : "") . ", pd.products_name";
                 break;
             default:
-                $this->container->get('logger')->warn('invalid sort id: ' . $this->sortId_);
+                $this->container->get('logger')->warn('invalid sort id: ' . $this->sortId);
                $sort .= " p.products_sort_order,  pd.products_name";
                break;
             }

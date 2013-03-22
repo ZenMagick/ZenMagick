@@ -30,7 +30,7 @@ use ZenMagick\Base\ZMObject;
  */
 class SalemakerService extends ZMObject
 {
-    private $sales_;
+    private $sales;
 
     /**
      * Create new instance.
@@ -38,7 +38,7 @@ class SalemakerService extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->sales_ = null;
+        $this->sales = null;
     }
 
     /**
@@ -55,18 +55,18 @@ class SalemakerService extends ZMObject
             $categoryId = $product->getDefaultCategory(null)->getId();
         }
 
-        if (null === $this->sales_) {
+        if (null === $this->sales) {
             $sql = "SELECT *
                     FROM %table.salemaker_sales%
                     WHERE sale_status = '1'";
-            $this->sales_ = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZenMagick\Base\Database\Connection::MODEL_RAW);
+            $this->sales = \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', \ZenMagick\Base\Database\Connection::MODEL_RAW);
         }
 
         $hasSale = false;
         $saleDiscount = 0;
         $saleCondition = 0;
         $saleDiscountType = 5; //No Sale or Skip Products with Special
-        foreach ($this->sales_ as $result) {
+        foreach ($this->sales as $result) {
             $categories = explode(',', $result['sale_categories_all']);
             if (in_array($categoryId, $categories)) {
                 $hasSale = true;

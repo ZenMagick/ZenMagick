@@ -29,11 +29,11 @@ use ZenMagick\Base\ZMObject;
  */
 class ZMResultListFilter extends ZMObject
 {
-    protected $list_;
-    protected $id_;
-    protected $name_;
-    protected $value_;
-    protected $filterValues_;
+    protected $list;
+    protected $id;
+    protected $name;
+    protected $value;
+    protected $filterValues;
 
     /**
      * Create a new result list filter.
@@ -46,10 +46,10 @@ class ZMResultListFilter extends ZMObject
     {
         parent::__construct();
 
-        $this->id_ = $id;
-        $this->name_ = $name;
-        $this->value_ = $value;
-        $this->filterValues_ = explode(",", $value);
+        $this->id = $id;
+        $this->name = $name;
+        $this->value = $value;
+        $this->filterValues = explode(",", $value);
     }
 
     /**
@@ -60,7 +60,7 @@ class ZMResultListFilter extends ZMObject
      *
      * @param ZMResultList list The current result list.
      */
-    public function setResultList($list) { $this->list_ = $list; }
+    public function setResultList($list) { $this->list = $list; }
 
     /**
      * Filter the given list using the filters <code>exclude($obj)</code> method.
@@ -95,7 +95,7 @@ class ZMResultListFilter extends ZMObject
      */
     public function isActive()
     {
-        return !Toolbox::isEmpty($this->value_);
+        return !Toolbox::isEmpty($this->value);
     }
 
     /**
@@ -112,7 +112,7 @@ class ZMResultListFilter extends ZMObject
      *
      * @return array An array of string values.
      */
-    public function getSelectedValues() { return $this->filterValues_; }
+    public function getSelectedValues() { return $this->filterValues; }
 
     /**
      * Returns a list of all available filter values.
@@ -136,41 +136,41 @@ class ZMResultListFilter extends ZMObject
      *
      * @return string The filters unique form field name.
      */
-    public function getId() { return $this->id_ . ($this->isMultiSelection() ? '[]' : ''); }
+    public function getId() { return $this->id . ($this->isMultiSelection() ? '[]' : ''); }
 
     /**
      * Returns the filter name.
      *
      * @return string The filter name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Returns the filter value.
      *
      * @return string The filter value.
      */
-    public function getValue() { return $this->value_; }
+    public function getValue() { return $this->value; }
 
     /**
      * Set the filters unique form field name.
      *
      * @param string id The filters unique form field name.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the filter name.
      *
      * @param string name The filter name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the filter value.
      *
      * @param string value The filter value.
      */
-    public function setValue($value) { $this->value_ = $value; }
+    public function setValue($value) { $this->value = $value; }
 
 }

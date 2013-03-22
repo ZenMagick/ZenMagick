@@ -28,10 +28,10 @@ use ZenMagick\Base\ZMObject;
  */
 class RecordCompany extends ZMObject
 {
-    private $recordCompanyId_;
-    private $name_;
-    private $image_;
-    private $url_;
+    private $recordCompanyId;
+    private $name;
+    private $image;
+    private $url;
 
     /**
      * Create new instance.
@@ -39,10 +39,10 @@ class RecordCompany extends ZMObject
     public function __construct()
     {
         parent::__construct();
-        $this->recordCompanyId_ = 0;
-        $this->name_ = '';
-        $this->image_ = null;
-        $this->url_ = null;
+        $this->recordCompanyId = 0;
+        $this->name = '';
+        $this->image = null;
+        $this->url = null;
     }
 
     /**
@@ -50,69 +50,69 @@ class RecordCompany extends ZMObject
      *
      * @return int The record company id.
      */
-    public function getRecordCompanyId() { return $this->recordCompanyId_; }
+    public function getRecordCompanyId() { return $this->recordCompanyId; }
 
     /**
      * Get the record company name.
      *
      * @return string The name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Check if an image is available.
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    public function hasImage() { return !empty($this->image_); }
+    public function hasImage() { return !empty($this->image); }
 
     /**
      * Get the record company image.
      *
      * @return string The record company image.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
 
     /**
      * Checks if a URL exists for this company.
      *
      * @return boolean <code>true</code> if a URL exists, <code>false</code> if not.
      */
-    public function hasUrl() { return !empty($this->url_); }
+    public function hasUrl() { return !empty($this->url); }
 
     /**
      * Get the record company ULR.
      *
      * @return string The URL.
      */
-    public function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url; }
 
     /**
      * Set the record company id.
      *
      * @param int id The record company id.
      */
-    public function setRecordCompanyId($id) { $this->recordCompanyId_ = $id; }
+    public function setRecordCompanyId($id) { $this->recordCompanyId = $id; }
 
     /**
      * Set the record company name.
      *
      * @param string name The name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the record company image.
      *
      * @param string image The record company image.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
 
     /**
      * Set the record company ULR.
      *
      * @param string url The URL.
      */
-    public function setUrl($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url = $url; }
 
 }

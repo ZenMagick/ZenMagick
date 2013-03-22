@@ -31,7 +31,7 @@ use ZenMagick\Base\Database\SqlAware;
  */
 class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
 {
-    private $productIds_;
+    private $productIds;
 
     /**
      * Create new instance.
@@ -39,18 +39,18 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
     public function __construct()
     {
         parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->query->get('cfilter'));
-        $this->productIds_ = null;
+        $this->productIds = null;
     }
 
     // lazy load all included productIds
     protected function getProductIds()
     {
-        if (null === $this->productIds_) {
+        if (null === $this->productIds) {
             $languageId = $this->container->get('session')->getLanguageId();
-            $this->productIds_ = $this->container->get('productService')->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
+            $this->productIds = $this->container->get('productService')->getProductIdsForCategoryId($this->filterValues[0], $languageId);
         }
 
-        return $this->productIds_;
+        return $this->productIds;
     }
 
     /**
@@ -74,13 +74,13 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
     public function getOptions()
     {
         $options = array();
-        foreach ($this->list_->getAllResults() as $result) {
+        foreach ($this->list->getAllResults() as $result) {
             $category = $result->getDefaultCategory($this->container->get('session')->getLanguageId());
             if (null != $category) {
                 $option = Beans::getBean('ZMFilterOption');
                 $option->setId($category->getId());
                 $option->setName($category->getName());
-                $option->setActive($category->getId() == $this->filterValues_[0]);
+                $option->setActive($category->getId() == $this->filterValues[0]);
                 $options[$option->getId()] = $option;
             }
         }
