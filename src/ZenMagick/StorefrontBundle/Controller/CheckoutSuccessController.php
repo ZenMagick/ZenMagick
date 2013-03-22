@@ -77,7 +77,8 @@ class CheckoutSuccessController extends DefaultController
     {
         $request = $event->getArgument('request');
         $session = $request->getSession();
-        if ($this->container->get('settingsService')->get('isLogoffGuestAfterOrder') && $session->isGuest()) {
+        $isGuest = !$this->get('security.context')->isGranted('ROLE_REGISTERED');
+        if ($this->container->get('settingsService')->get('isLogoffGuestAfterOrder') && $isGuest) {
             $session->clear();
         }
     }
