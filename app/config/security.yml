@@ -71,14 +71,14 @@ security:
 #
 # @todo enable by default? 
 #
-#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-#        - { path: ^/account/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-#        - { path: ^/account/password/recover, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-#        - { path: ^/account, roles: ROLE_REGISTERED, requires_channel: https }
-#        - { path: ^/cart, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-#        - { path: ^/checkout, roles: ROLE_GUEST, requires_channel: https }
-#        - { path: ^/guest-history, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-#        - { path: ^/gift-voucher, roles: ROLE_GUEST, requires_channel: https }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/account/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/account/password/recover, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/account, roles: ROLE_REGISTERED, requires_channel: https }
+        - { path: ^/cart, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/checkout, roles: ROLE_GUEST, requires_channel: https }
+        - { path: ^/guest-history, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/gift-voucher, roles: ROLE_GUEST, requires_channel: https }
 
 
 
