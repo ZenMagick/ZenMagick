@@ -59,16 +59,17 @@ class SacsManager extends ZMObject
     {
         $this->container = $container;
         parent::__construct();
-        $this->reset();
+
         $context = Runtime::getContext();
-        $rootDir = $this->container->getParameter('zenmagick.root_dir');
-        $file = sprintf('%s/src/ZenMagick/%sBundle/config/sacs_mappings.yaml', $rootDir, ucfirst($context));
-        $this->load($file, false);
-        $providers = array();
         if ('admin' == $context) {
+            $this->reset();
+            $rootDir = $this->container->getParameter('zenmagick.root_dir');
+            $file = sprintf('%s/src/ZenMagick/%sBundle/config/sacs_mappings.yaml', $rootDir, ucfirst($context));
+            $this->load($file, false);
+            $providers = array();
             $providers = array('ZenMagick\AdminBundle\Services\DBSacsPermissionProvider');
+            $this->loadProviderMappings($providers);
         }
-        $this->loadProviderMappings($providers);
     }
 
     /**
@@ -80,9 +81,6 @@ class SacsManager extends ZMObject
         $this->handlers = array();
         $this->permissionProviders = array();
         $context = Runtime::getContext();
-        if ('storefront' == $context) {
-            $def = 'ZenMagick\StorefrontBundle\Http\Sacs\StorefrontAccountSacsHandler';
-        }
         if ('admin' == $context) {
             $def = 'ZenMagick\Http\Sacs\Handler\UserRoleSacsHandler';
         }
@@ -190,6 +188,7 @@ class SacsManager extends ZMObject
      */
     public function authorize($request, $requestId, $credentials, $action=true)
     {
+        if(empty($this->handlers)) return true;
         $this->container->get('logger')->info('authorizing requestId: '.$requestId);
         // no responsible handler means fail
         $result = null;
@@ -211,11 +210,7 @@ class SacsManager extends ZMObject
             if (!$request->isXmlHttpRequest()) {
                 $request->saveFollowUpUrl();
             }
-            $loginRoute = 'login';
-            if (Runtime::isContextMatch('admin')) {
-                $loginRoute = 'admin_login';
-            }
-            $request->redirect($this->container->get('router')->generate($loginRoute));
+            $request->redirect($this->container->get('router')->generate('admin_login'));
             exit;
         }
 
