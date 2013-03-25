@@ -113,11 +113,10 @@ class ToolboxForm extends ToolboxTool
         echo '>';
 
         // add hidden form fields if any params set
-        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         if (0 < count($hidden)) {
             echo '<div>';
             foreach ($hidden as $name => $value) {
-                echo '<input type="hidden" name="'.$name.'" value="'.$value.'"'.$slash.'>';
+                echo '<input type="hidden" name="'.$name.'" value="'.$value.'" />';
             }
             echo '</div>';
         }
@@ -159,13 +158,12 @@ class ToolboxForm extends ToolboxTool
      */
     public function hiddenCartFields($item)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-        $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '"'.$slash.'>';
+        $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '" />';
         if ($item->hasAttributes()) {
             foreach ($item->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $attributeValue) {
                     $html .= '<input type="hidden" name="id[' . $item->getId() . '][' . $attribute->getId() . ']" value="' .
-                      $attributeValue->getId() . '"'.$slash.'>';
+                      $attributeValue->getId() . '" />';
                 }
             }
         }
@@ -211,7 +209,7 @@ class ToolboxForm extends ToolboxTool
     public function checked($setting, $value=true, $default=false)
     {
         if ($setting === $value || ($default && !isset($setting))) {
-            echo Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
+            echo ' checked="checked"';
         }
     }
 
@@ -263,12 +261,7 @@ class ToolboxForm extends ToolboxTool
             $selected = $item->$oValue() === $selectedId;
             $html .= '<option value="' . $item->$oValue() . '"';
             if ($selected) {
-                if (Runtime::getSettings()->get('zenmagick.http.html.xhtml')) {
-                    $selected = ' selected="selected"';
-                } else {
-                    $selected = ' selected';
-                }
-                $html .= $selected;
+                $html .= ' selected="selected"';
             }
             $html .= '>' . $item->$oText() . '</option>';
         }
@@ -286,10 +279,9 @@ class ToolboxForm extends ToolboxTool
      */
     public function hiddenList($name, $values)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
-            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
+            $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
         }
 
         return $html;
@@ -307,11 +299,10 @@ class ToolboxForm extends ToolboxTool
             $data = $tmp;
         }
         // add hidden form fields if any params set
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         if (0 < count($data)) {
             echo '<div>';
             foreach ($data as $name => $value) {
-                echo '<input type="hidden" name="'.$name.'" value="'.$value.'"'.$slash.'>';
+                echo '<input type="hidden" name="'.$name.'" value="'.$value.'" />';
             }
             echo '</div>';
         }

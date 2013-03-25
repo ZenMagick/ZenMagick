@@ -117,10 +117,9 @@ class ToolboxHtml extends ToolboxTool
         if (0 !== strpos($imgSrc, '/')) {
             $imgSrc = $this->getRequest()->getBasePath() . '/' . $imgSrc;
         }
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText()).'" ';
         $html .= $imageInfo->getFormattedParameter();
-        $html .= $slash.'>';
+        $html .= ' />';
 
         return $html;
     }

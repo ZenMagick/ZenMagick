@@ -17,7 +17,6 @@ zenmagick:
   http:
     ## html
     html:
-      xhtml: false
       charset: utf-8
     view:
       defaultLayout: default_layout.html.php

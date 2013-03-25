@@ -84,8 +84,6 @@ class BooleanFormWidget extends FormWidget
      */
     protected function renderCheckbox($request)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-        $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
         $html = Runtime::getContainer()->get('htmlTool');
         $idBase = $html->encode($this->get('id'));
         $name = $this->getName();
@@ -100,8 +98,8 @@ class BooleanFormWidget extends FormWidget
         }
 
         ob_start();
-        echo '<input type="hidden" name="'.$this->getCheckboxHiddenValueName($name).'" value="'.($value ? 'true' : 'false').'"'.$slash.'>';
-        echo '<input type="checkbox" id="'.$idBase.'" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
+        echo '<input type="hidden" name="'.$this->getCheckboxHiddenValueName($name).'" value="'.($value ? 'true' : 'false').'" />';
+        echo '<input type="checkbox" id="'.$idBase.'" name="'.$name.'" value="true"'.($value ? ' checked="checked"' : '').' />';
         if (!empty($label)) {
             echo ' <label for="'.$idBase.'">'.$html->encode(_zm($label)).'</label>';
         }
@@ -117,8 +115,6 @@ class BooleanFormWidget extends FormWidget
      */
     protected function renderRadio($request)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-        $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
         $html = Runtime::getContainer()->get('htmlTool');
         $idBase = $html->encode($this->get('id'));
         $name = $this->getName();
@@ -129,9 +125,9 @@ class BooleanFormWidget extends FormWidget
         $value = $this->getValue();
 
         ob_start();
-        echo '<input type="radio" id="'.$idBase.'_true" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
+        echo '<input type="radio" id="'.$idBase.'_true" name="'.$name.'" value="true"'.($value ? ' checked="checked"' : '').' />';
         echo ' <label for="'.$idBase.'_true">'.$html->encode(_zm($this->get('label_true'))).'</label>';
-        echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? $checked : '').$slash.'>';
+        echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? ' checked="checked"' : '').' />';
         echo ' <label for="'.$idBase.'_false">'.$html->encode(_zm($this->get('label_false'))).'</label>';
 
         return ob_get_clean();
@@ -145,8 +141,6 @@ class BooleanFormWidget extends FormWidget
      */
     protected function renderSelect($request)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-        $selected = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' selected="selected"' : ' selected';
         $html = Runtime::getContainer()->get('htmlTool');
         $id = $html->encode($this->get('id'));
         $name = $this->getName();
@@ -154,8 +148,8 @@ class BooleanFormWidget extends FormWidget
 
         ob_start();
         echo '<select '.(!empty($id) ? ' id="'.$id.'"' : '').' name="'.$name.'">';
-        echo '  <option value="true"'.(!$value ? $selected : '').'>'.$html->encode(_zm($this->get('label_true'))).'</option>';
-        echo '  <option value="false"'.(!$value ? $selected : '').'>'.$html->encode(_zm($this->get('label_false'))).'</option>';
+        echo '  <option value="true"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode(_zm($this->get('label_true'))).'</option>';
+        echo '  <option value="false"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode(_zm($this->get('label_false'))).'</option>';
         echo '</select>';
 
         return ob_get_clean();

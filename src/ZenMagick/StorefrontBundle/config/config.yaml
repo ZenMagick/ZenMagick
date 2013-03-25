@@ -14,10 +14,6 @@ zenmagick:
     resultlist:
       defaultPagination: 10
 
-  http:
-    #html
-    html:
-      xhtml: true
 apps:
   store:
     #default access level; same as anonymous

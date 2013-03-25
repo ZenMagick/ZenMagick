@@ -301,7 +301,6 @@ class ResourceManager extends ZMObject
                 }
             }
         } elseif ('css' == $group) {
-            $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
                 $load = null;
@@ -316,7 +315,7 @@ class ResourceManager extends ZMObject
                 if ($details['inline']) {
                     $load = sprintf('<style%s>%s</style>', $attr, $details['filename']);
                 } elseif (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
-                    $load = sprintf('<link%s href="%s"%s>', $attr, $href, $slash);
+                    $load = sprintf('<link%s href="%s" />', $attr, $href);
                 }
                 if ($load) {
                     $css .= $details['attr']['prefix'];

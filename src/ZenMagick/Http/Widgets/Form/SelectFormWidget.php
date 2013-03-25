@@ -159,11 +159,7 @@ class SelectFormWidget extends FormWidget
         foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
             if (in_array($oval, $values)) {
-                if (Runtime::getSettings()->get('zenmagick.http.html.xhtml')) {
-                    $selected = ' selected="selected"';
-                } else {
-                    $selected = ' selected';
-                }
+                $selected = ' selected="selected"';
             }
             $output .= '<option'.$selected.' value="'.$html->encode($oval).'">'.$html->encode($name).'</option>';
         }
@@ -179,8 +175,6 @@ class SelectFormWidget extends FormWidget
      */
     public function renderRadio($request)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-        $checked = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? ' checked="checked"' : ' checked';
 
         $values = $this->getValue();
         if (!is_array($values)) {
@@ -198,7 +192,7 @@ class SelectFormWidget extends FormWidget
         ob_start();
         $index = 0;
         foreach ($this->getOptions($request) as $oval => $name) {
-            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.$html->encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
+            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.$html->encode($oval).'"'.($oval==$value ? ' checked="checked"' : '').' />';
             echo ' <label for="'.$idBase.'-'.$index.'">'.$html->encode(_zm($name)).'</label>';
             ++$index;
         }

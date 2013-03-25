@@ -212,8 +212,6 @@ abstract class FormWidget extends Widget
      */
     public function getAttributeString($request, $addValue=true, $addName=true)
     {
-        $isXhtml = Runtime::getSettings()->get('zenmagick.http.html.xhtml');
-
         $html = Runtime::getContainer()->get('htmlTool');
         $attr = '';
         if ($addName) {
@@ -227,12 +225,7 @@ abstract class FormWidget extends Widget
             if (in_array($name, $this->attributeNames)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
                     if (Toolbox::asBoolean($this->get($name))) {
-                        // only add if true
-                        if ($isXhtml) {
-                            $attr .= ' '.$name.'="'.$name.'"';
-                        } else {
-                            $attr .= ' '.$name;
-                        }
+                        $attr .= ' '.$name.'="'.$name.'"';
                     }
                 } else {
                     $value = $this->encode ? $html->encode($value) : $value;

@@ -317,12 +317,11 @@ class ToolboxMacro extends ToolboxTool
         $element['type'] = 'radio';
         $elements = array();
         $index = 1;
-        $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$attribute->getId().']';
             $checked = $value->isDefault() ? ' checked="checked"' : '';
-            $radio = '<input type="radio" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
+            $radio = '<input type="radio" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.' />';
             $radio .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             array_push($elements, $radio);
         }
@@ -346,12 +345,11 @@ class ToolboxMacro extends ToolboxTool
         $element['type'] = 'checkbox';
         $elements = array();
         $index = 1;
-        $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$attribute->getId().']['.$value->getId().']';
             $checked = $value->isDefault() ? ' checked="checked"' : '';
-            $checkbox = '<input type="checkbox" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.$slash.'>';
+            $checkbox = '<input type="checkbox" id="'.$id.'" name="'.$name.'" value="'.$value->getId().'"'.$checked.' />';
             $checkbox .= '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             array_push($elements, $checkbox);
         }
@@ -376,12 +374,11 @@ class ToolboxMacro extends ToolboxTool
         $elements = array();
         $index = 1;
         $settingsService = $this->container->get('settingsService');
-        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$settingsService->get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
-            $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
+            $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value="" />';
             array_push($elements, $text);
         }
         $element['html'] = $elements;
@@ -405,14 +402,13 @@ class ToolboxMacro extends ToolboxTool
         $elements = array();
         $index = 1;
         $settingsService = $this->container->get('settingsService');
-        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index;
             $name = 'id['.$settingsService->get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
-            $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
-            $text .= '<input type="hidden" name="'.$settingsService->get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"'.$slash.'>';
-            $text .= '<input type="hidden" name="'.$settingsService->get('textOptionPrefix').$settingsService->get('uploadOptionPrefix').$uploadIndex.'" value=""'.$slash.'>';
+            $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value="" />';
+            $text .= '<input type="hidden" name="'.$settingsService->get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'" />';
+            $text .= '<input type="hidden" name="'.$settingsService->get('textOptionPrefix').$settingsService->get('uploadOptionPrefix').$uploadIndex.'" value="" />';
             array_push($elements, $text);
         }
         $element['html'] = $elements;
@@ -480,13 +476,12 @@ class ToolboxMacro extends ToolboxTool
     {
         $toolbox = $this->getToolbox();
         $settingsService = $this->container->get('settingsService');
-        $slash = $settingsService->get('zenmagick.http.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
             // TODO: where are images coming from in the future??
             $path = realpath($this->container->getParameter('zencart.root_dir').'/images/'.$value->getImage());
             if (file_exists($path)) {
-                $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+                $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'" />';
             }
         }
         $label .= _zm($value->getName());

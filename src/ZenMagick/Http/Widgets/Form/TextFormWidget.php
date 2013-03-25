@@ -43,9 +43,7 @@ class TextFormWidget extends FormWidget
      */
     public function render($request, TemplateView $templateView)
     {
-        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-
-        return '<input type="text"'.$this->getAttributeString($request).$slash.'>';
+        return '<input type="text"'.$this->getAttributeString($request).' />';
     }
 
 }

@@ -140,8 +140,7 @@ class BannerBlockWidget extends Widget
                 $toolbox = Runtime::getContainer()->get('toolbox');
                 $html = $toolbox->html;
                 $net = $toolbox->net;
-                $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.$html->encode($banner->getTitle()).'"'.$slash.'>';
+                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.$html->encode($banner->getTitle()).'" />';
                 if (Toolbox::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
