@@ -6,9 +6,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <!-- set siwftmailer.transport to @zencartTransport to use the zencart legacy email system -->
-        <service id="zencartTransport" class="ZenMagick\ZenCartBundle\Utils\ZenCartTransport" />
-        <!-- @todo move to bundle xml when we have one -->
         <service id="zenCartAutoLoader" class="ZenMagick\ZenCartBundle\Utils\ZenCartAutoLoader">
             <call method="setRootDir">
                 <argument>%zencart.root_dir%</argument>
