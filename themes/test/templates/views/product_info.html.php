@@ -34,7 +34,7 @@ use ZenMagick\StoreBundle\Services\Products;
       <?php if ($imageInfo->hasLargeImage()) { ?>
           <a href="<?php echo $imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?></a><br>
           |<a href="<?php echo $imageInfo->getLargeImage() ?>" rel="lightbox[gallery]">Click to enlarge (lightbox[gallery]) - FTW!</a>|<br>
-          |<?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $imageInfo); } ?>|
+          |
       <?php } else { ?>
           <?php echo $html->image($imageInfo, Products::IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -95,7 +95,6 @@ use ZenMagick\StoreBundle\Services\Products;
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
                   <a href="<?php echo $addImg->getLargeImage() ?>" rel="lightbox[gallery]"><img src="<?php echo $addImg->getDefaultImage() ?>" alt="" title="" /></a>
-                  <br><?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $addImg, false); } ?>
               <?php } else { ?>
                   <img src="<?php echo $addImg->getDefaultImage() ?>" alt="" title="" />
               <?php } ?>
