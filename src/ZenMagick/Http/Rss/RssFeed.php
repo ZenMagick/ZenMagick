@@ -56,27 +56,39 @@ class RssFeed extends ZMObject
      *
      * @return RssChannel The channel.
      */
-    public function getChannel() { return $this->channel; }
+    public function getChannel()
+    {
+        return $this->channel;
+    }
 
     /**
      * Get the feed items.
      *
      * @return Iterator An iterator over <code>RssItem</code> instances.
      */
-    public function getItems() { return $this->items; }
+    public function getItems()
+    {
+        return $this->items;
+    }
 
     /**
      * Set the channel.
      *
      * @param RssChannel channel The channel.
      */
-    public function setChannel($channel) { $this->channel = $channel; }
+    public function setChannel($channel)
+    {
+        $this->channel = $channel;
+    }
 
     /**
      * Set the feed items.
      *
      * @param Iterator items An iterator over <code>RssItem</code> instances.
      */
-    public function setItems(Iterator $items) { $this->items = $items; }
+    public function setItems(Iterator $items)
+    {
+        $this->items = $items;
+    }
 
 }

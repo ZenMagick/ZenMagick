@@ -56,8 +56,14 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
     }
 
     // sort functions
-    public function _cmpDate($a, $b) { return ($a->getOrderDate() == $b->getOrderDate()) ? 0 : ($a->getOrderDate() > $b->getOrderDate()) ? +1 : -1; }
-    public function _cmpStatus($a, $b) { return ($a->getOrderStatusId() == $b->getOrderStatusId()) ? 0 : ($a->getOrderStatusId() > $b->getOrderStatusId()) ? +1 : -1; }
+    public function _cmpDate($a, $b)
+    {
+        return ($a->getOrderDate() == $b->getOrderDate()) ? 0 : ($a->getOrderDate() > $b->getOrderDate()) ? +1 : -1;
+    }
+    public function _cmpStatus($a, $b)
+    {
+        return ($a->getOrderStatusId() == $b->getOrderStatusId()) ? 0 : ($a->getOrderStatusId() > $b->getOrderStatusId()) ? +1 : -1;
+    }
 
     /**
      * Returns <code>true</code> if this sorter is currently active.
@@ -66,7 +72,10 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    public function isActive() { return array_key_exists($this->sortId, $this->methods); }
+    public function isActive()
+    {
+        return array_key_exists($this->sortId, $this->methods);
+    }
 
     /**
      * Sort the given list according to this sorters criteria.

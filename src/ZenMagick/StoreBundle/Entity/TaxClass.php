@@ -85,42 +85,70 @@ class TaxClass extends ZMObject
      *
      * @param int id The id.
      */
-    public function setTaxClassId($id) { $this->taxClassId = $id; }
+    public function setTaxClassId($id)
+    {
+        $this->taxClassId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the title.
      *
      * @param string $title The title.
      */
-    public function setTitle($title) { $this->title = $title; }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 
     /**
      * Set the description.
      *
      * @param string $description The description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * Set the date the class was added.
      *
      * @param datetime $dateAdded The added date.
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
 
     /**
      * Set the last modified date.
      *
      * @param datetime $lastModified The last modified date.
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
 
     /**
      * Get the id.
      *
      * @return integer $taxClassId The id.
      */
-    public function getId() { return $this->taxClassId; }
+    public function getId()
+    {
+        return $this->taxClassId;
+    }
 
     /**
      * Get the id.
@@ -128,33 +156,48 @@ class TaxClass extends ZMObject
      * @deprecated
      * @return integer $taxClassId The id.
      */
-    public function getTaxClassId() { return $this->getId(); }
+    public function getTaxClassId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the title.
      *
      * @return string $title The title.
      */
-    public function getTitle() { return $this->title; }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Get the description.
      *
      * @return string $description The description.
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Get the date the class was added.
      *
      * @return datetime $dateAdded The added date.
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get the last modified date.
      *
      * @return datetime $lastModified The last modified date.
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 }

@@ -52,76 +52,109 @@ class ZMEmailMessage extends ZMObject
      *
      * @return string The sender email address.
      */
-    public function getFromEmail() { return $this->fromEmail; }
+    public function getFromEmail()
+    {
+        return $this->fromEmail;
+    }
 
     /**
      * Get the sender name.
      *
      * @return string The sender name.
      */
-    public function getFromName() { return $this->fromName; }
+    public function getFromName()
+    {
+        return $this->fromName;
+    }
 
     /**
      * Get the recipient email address.
      *
      * @return string The recipient email address.
      */
-    public function getToEmail() { return $this->toEmail; }
+    public function getToEmail()
+    {
+        return $this->toEmail;
+    }
 
     /**
      * Get the receiver name.
      *
      * @return string The recipient name.
      */
-    public function getToName() { return $this->toName; }
+    public function getToName()
+    {
+        return $this->toName;
+    }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    public function getMessage() { return $this->message; }
+    public function getMessage()
+    {
+        return $this->message;
+    }
 
     /**
      * Set the sender email address.
      *
      * @param string email The sender email address.
      */
-    public function setFromEmail($email) { $this->fromEmail = $email; }
+    public function setFromEmail($email)
+    {
+        $this->fromEmail = $email;
+    }
 
     /**
      * Set the sender name.
      *
      * @param string name The sender name.
      */
-    public function setFromName($name) { $this->fromName = $name; }
+    public function setFromName($name)
+    {
+        $this->fromName = $name;
+    }
 
     /**
      * Set the recipient email address.
      *
      * @param string email The recipient email address.
      */
-    public function setToEmail($email) { $this->toEmail = $email; }
+    public function setToEmail($email)
+    {
+        $this->toEmail = $email;
+    }
 
     /**
      * Set the receiver name.
      *
      * @param string name The recipient name.
      */
-    public function setToName($name) { $this->toName = $name; }
+    public function setToName($name)
+    {
+        $this->toName = $name;
+    }
 
     /**
      * Set the message.
      *
      * @param string message The message.
      */
-    public function setMessage($message) { $this->message = $message; }
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
     /**
      * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    public function hasMessage() { return !empty($this->message); }
+    public function hasMessage()
+    {
+        return !empty($this->message);
+    }
 
 }

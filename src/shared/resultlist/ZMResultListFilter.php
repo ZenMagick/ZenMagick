@@ -60,7 +60,10 @@ class ZMResultListFilter extends ZMObject
      *
      * @param ZMResultList list The current result list.
      */
-    public function setResultList($list) { $this->list = $list; }
+    public function setResultList($list)
+    {
+        $this->list = $list;
+    }
 
     /**
      * Filter the given list using the filters <code>exclude($obj)</code> method.
@@ -86,7 +89,10 @@ class ZMResultListFilter extends ZMObject
      * @param mixed obj The obecjt to examine.
      * @return boolean <code>true</code> if the object is to be excluded, <code>false</code> if not.
      */
-    public function exclude($obj) { return false; }
+    public function exclude($obj)
+    {
+        return false;
+    }
 
     /**
      * Returns <code>true</code> if this filter is currently active.
@@ -103,7 +109,10 @@ class ZMResultListFilter extends ZMObject
      *
      * @return boolean <code>true</code> if multiple filter values are supported, <code>false</code> if not.
      */
-    public function isMultiSelection() { return false; }
+    public function isMultiSelection()
+    {
+        return false;
+    }
 
     /**
      * Returns a list of active filter values.
@@ -112,14 +121,20 @@ class ZMResultListFilter extends ZMObject
      *
      * @return array An array of string values.
      */
-    public function getSelectedValues() { return $this->filterValues; }
+    public function getSelectedValues()
+    {
+        return $this->filterValues;
+    }
 
     /**
      * Returns a list of all available filter values.
      *
      * @return array An array of string values.
      */
-    public function getOptions() { $options = array(); return $options; }
+    public function getOptions()
+    {
+        $options = array(); return $options;
+    }
 
     /**
      * Returns <code>true</code> if this filter is avaialble for usage.
@@ -129,48 +144,69 @@ class ZMResultListFilter extends ZMObject
      *
      * @return boolean <code>true</code> if available, <code>false</code> if not.
      */
-    public function isAvailable() { return 1 < count($this->getOptions()); }
+    public function isAvailable()
+    {
+        return 1 < count($this->getOptions());
+    }
 
     /**
      * Returns the filters unique form field name.
      *
      * @return string The filters unique form field name.
      */
-    public function getId() { return $this->id . ($this->isMultiSelection() ? '[]' : ''); }
+    public function getId()
+    {
+        return $this->id . ($this->isMultiSelection() ? '[]' : '');
+    }
 
     /**
      * Returns the filter name.
      *
      * @return string The filter name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Returns the filter value.
      *
      * @return string The filter value.
      */
-    public function getValue() { return $this->value; }
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Set the filters unique form field name.
      *
      * @param string id The filters unique form field name.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the filter name.
      *
      * @param string name The filter name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the filter value.
      *
      * @param string value The filter value.
      */
-    public function setValue($value) { $this->value = $value; }
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
 }

@@ -52,49 +52,70 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod
      *
      * @return int The shipping method id.
      */
-    public function getId() { return $this->zenMethod['id']; }
+    public function getId()
+    {
+        return $this->zenMethod['id'];
+    }
 
     /**
      * Set the shipping method id.
      *
      * @param int id The shipping method id.
      */
-    public function setId($id) {  }
+    public function setId($id)
+    {
+        
+    }
 
     /**
      * Get the shipping method name.
      *
      * @return string The shipping method name.
      */
-    public function getName() { return $this->zenMethod['title']; }
+    public function getName()
+    {
+        return $this->zenMethod['title'];
+    }
 
     /**
      * Get the shipping cost.
      *
      * @return float The shipping cost.
      */
-    public function getCost() { return $this->taxRate->addTax($this->zenMethod['cost']); }
+    public function getCost()
+    {
+        return $this->taxRate->addTax($this->zenMethod['cost']);
+    }
 
     /**
      * Get the shipping provider.
      *
      * @return ZMShippingProvider The shipping provider.
      */
-    public function getProvider() { return $this->provider; }
+    public function getProvider()
+    {
+        return $this->provider;
+    }
 
     /**
      * Set the shipping provider.
      *
      * @param ZMShippingProvider provider The shipping provider.
      */
-    public function setProvider($provider) { $this->provider = $provider; }
+    public function setProvider($provider)
+    {
+        $this->provider = $provider;
+    }
 
     /**
      * Set the tax rate.
      *
      * @param TaxRate taxRate The tax rate.
      */
-    public function setTaxRate($taxRate) { $this->taxRate = $taxRate; }
+    public function setTaxRate($taxRate)
+    {
+        $this->taxRate = $taxRate;
+    }
 
     /**
      * Get the shipping id.

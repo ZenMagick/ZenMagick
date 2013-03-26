@@ -96,7 +96,10 @@ class ShoppingCart extends ZMObject
      *
      * @return boolean <code>true</code> if the cart is empty, <code>false</code> if the cart is not empty.
      */
-    public function isEmpty() { return 0 == $this->getSize(); }
+    public function isEmpty()
+    {
+        return 0 == $this->getSize();
+    }
 
     /**
      * Clear this cart.
@@ -116,7 +119,10 @@ class ShoppingCart extends ZMObject
      *
      * @return int The number of different products in the cart.
      */
-    public function getSize() { return count($this->getItems()); }
+    public function getSize()
+    {
+        return count($this->getItems());
+    }
 
     /**
      * Calculate cart hash.
@@ -528,14 +534,20 @@ class ShoppingCart extends ZMObject
      *
      * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
-    public function hasShippingAddress() { return null !== $this->session->get('sendto'); }
+    public function hasShippingAddress()
+    {
+        return null !== $this->session->get('sendto');
+    }
 
     /**
      * Checks if the cart has a billing address.
      *
      * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
-    public function hasBillingAddress() { return null !== $this->session->get('billto'); }
+    public function hasBillingAddress()
+    {
+        return null !== $this->session->get('billto');
+    }
 
     /**
      * Get the current shipping address.

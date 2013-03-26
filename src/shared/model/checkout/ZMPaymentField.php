@@ -52,13 +52,19 @@ class ZMPaymentField extends ZMObject
      *
      * @return string The field name/label.
      */
-    public function getLabel() { return $this->label; }
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
     /**
      * Get the field HTML.
      *
      * @return string The field HTML.
      */
-    public function getHTML() { return $this->html; }
+    public function getHTML()
+    {
+        return $this->html;
+    }
 
 }

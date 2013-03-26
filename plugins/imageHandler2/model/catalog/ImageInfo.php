@@ -81,7 +81,10 @@ class ImageInfo extends ZMImageInfo
      *
      * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
-    public function hasMediumImage() { return true; }
+    public function hasMediumImage()
+    {
+        return true;
+    }
 
     /**
      * Get the medium image.
@@ -129,7 +132,10 @@ class ImageInfo extends ZMImageInfo
      *
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
-    public function hasLargeImage() { return true; }
+    public function hasLargeImage()
+    {
+        return true;
+    }
 
     /**
      * Get the parameter formatted as <code>key="value" </code>.

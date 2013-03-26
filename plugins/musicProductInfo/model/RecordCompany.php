@@ -50,69 +50,107 @@ class RecordCompany extends ZMObject
      *
      * @return int The record company id.
      */
-    public function getRecordCompanyId() { return $this->recordCompanyId; }
+    public function getRecordCompanyId()
+    {
+        return $this->recordCompanyId;
+    }
 
     /**
      * Get the record company name.
      *
      * @return string The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Check if an image is available.
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    public function hasImage() { return !empty($this->image); }
+    public function hasImage()
+    {
+        return !empty($this->image);
+    }
 
     /**
      * Get the record company image.
      *
      * @return string The record company image.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Checks if a URL exists for this company.
      *
      * @return boolean <code>true</code> if a URL exists, <code>false</code> if not.
      */
-    public function hasUrl() { return !empty($this->url); }
+    public function hasUrl()
+    {
+        return !empty($this->url);
+    }
 
     /**
      * Get the record company ULR.
      *
      * @return string The URL.
      */
-    public function getUrl() { return $this->url; }
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
     /**
      * Set the record company id.
      *
      * @param int id The record company id.
      */
-    public function setRecordCompanyId($id) { $this->recordCompanyId = $id; }
+    public function setRecordCompanyId($id)
+    {
+        $this->recordCompanyId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the record company name.
      *
      * @param string name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the record company image.
      *
      * @param string image The record company image.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
     /**
      * Set the record company ULR.
      *
      * @param string url The URL.
      */
-    public function setUrl($url) { $this->url = $url; }
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
 
 }

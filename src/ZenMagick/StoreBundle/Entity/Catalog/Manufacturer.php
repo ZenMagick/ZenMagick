@@ -97,45 +97,66 @@ class Manufacturer extends ZMObject
      *
      * @return integer $manufacturerId The manufacturer id.
      */
-    public function getId() { return $this->manufacturerId; }
+    public function getId()
+    {
+        return $this->manufacturerId;
+    }
 
     //@todo deprecated doctrine backwards compatibility
-    public function getManufacturerId() { return $this->getId(); }
+    public function getManufacturerId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the manufacturer name.
      *
      * @return string $name The manufacturer name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the manufacturer image.
      *
      * @return string $image The manufacturer image.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Get dateAdded
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get lastModified
      *
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Check if a manufacturer image exists.
      *
      * @return boolean <code>true</code> if an image exists, <code>false</code> if not.
      */
-    public function hasImage() { return !empty($this->image); }
+    public function hasImage()
+    {
+        return !empty($this->image);
+    }
 
     /**
      * Get the manufacturer image info.
@@ -156,31 +177,54 @@ class Manufacturer extends ZMObject
      *
      * @return string The manufacturer url.
      */
-    public function getUrl() { return $this->url; }
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
     /**
      * Set the manufacturer id.
      *
      * @param int id The manufacturer id.
      */
-    public function setId($id) { $this->manufacturerId = $id; }
+    public function setId($id)
+    {
+        $this->manufacturerId = $id;
+
+        return $this;
+    }
 
     // @todo deprecated doctrine backwards compatbility
-    public function setManufacturerId($id) { $this->setId($id); }
+    public function setManufacturerId($id)
+    {
+        $this->setId($id);
+
+        return $this;
+    }
 
     /**
      * Set the manufacturer name.
      *
      * @param string $name The manufacturer name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the manufacturer image.
      *
      * @param string $image The manufacturer image.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
     /**
      * Set dateAdded
@@ -188,7 +232,12 @@ class Manufacturer extends ZMObject
      * @author  DerManoMann
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
 
     /**
      * Set lastModified
@@ -196,55 +245,89 @@ class Manufacturer extends ZMObject
      * @author  DerManoMann
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
 
     /**
      * Set the manufacturer url.
      *
      * @param string url The manufacturer url.
      */
-    public function setUrl($url) { $this->url = $url; }
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    public function getLanguageId() { return $this->languageId; }
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    public function setLanguageId($languageId) { $this->languageId = $languageId; }
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
 
     /**
      * Get the click counter.
      *
      * @return int The click count for this manufactuer and language.
      */
-    public function getClickCount() { return $this->clickCount; }
+    public function getClickCount()
+    {
+        return $this->clickCount;
+    }
 
     /**
      * Set the click counter.
      *
      * @param int clickCount The click count for this manufactuer and language.
      */
-    public function setClickCount($clickCount) { $this->clickCount = $clickCount; }
+    public function setClickCount($clickCount)
+    {
+        $this->clickCount = $clickCount;
+
+        return $this;
+    }
 
     /**
      * Get the date of the last click.
      *
      * @return date The last click date.
      */
-    public function getLastClick() { return $this->lastClick; }
+    public function getLastClick()
+    {
+        return $this->lastClick;
+    }
 
     /**
      * Set the date of the last click.
      *
      * @param date lastClick The last click date.
      */
-    public function setLastClick($lastClick) { $this->lastClick = $lastClick; }
+    public function setLastClick($lastClick)
+    {
+        $this->lastClick = $lastClick;
+
+        return $this;
+    }
 
 }

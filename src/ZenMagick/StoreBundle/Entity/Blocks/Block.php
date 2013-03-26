@@ -88,76 +88,128 @@ class Block extends ZMObject
      *
      * @return int The block id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the group id.
      *
      * @return int The group id.
      */
-    public function getGroupId() { return $this->groupId; }
+    public function getGroupId()
+    {
+        return $this->groupId;
+    }
 
     /**
      * Get the name
      *
      * @return string The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the definition
      *
      * @return string The definition
      */
-    public function getDefinition() { return $this->definition; }
+    public function getDefinition()
+    {
+        return $this->definition;
+    }
 
     /**
      * Get the sort order
      *
      * @return integer The sort order
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Set the block id.
      *
      * @param id int The block id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Set the group id.
      *
      * @param int id The new group id.
      */
-    public function setGroupId($id) { $this->groupId = $id; }
+    public function setGroupId($id)
+    {
+        $this->groupId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the name.
      *
      * @param string name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the definition.
      *
      * @param string definition The definition.
      */
-    public function setDefinition($definition) { $this->definition = $definition; }
+    public function setDefinition($definition)
+    {
+        $this->definition = $definition;
+
+        return $this;
+    }
 
     /**
      * Set the sort order
      *
      * @param integer sortOrder The sort order
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
 
     //TODO: remove
-    public function setBlocks_to_groups_id($id) { $this->blockId = $id; }
-    public function setBlock_group_id($id) { $this->groupId = $id; }
-    public function setBlock_name($name) { $this->name = $name; }
-    public function setSort_order($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setBlocks_to_groups_id($id)
+    {
+        $this->blockId = $id;
+    }
+    public function setBlock_group_id($id)
+    {
+        $this->groupId = $id;
+    }
+    public function setBlock_name($name)
+    {
+        $this->name = $name;
+    }
+    public function setSort_order($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+    }
 
     /**
      * Set template

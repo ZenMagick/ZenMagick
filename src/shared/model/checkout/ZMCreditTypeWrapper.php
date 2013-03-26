@@ -57,7 +57,10 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return int The payment type id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the payment name.
@@ -66,7 +69,10 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return string The payment name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the optional payment instructions.
@@ -75,27 +81,39 @@ class ZMCreditTypeWrapper extends ZMObject
      *
      * @return string Payment instructions.
      */
-    public function getInstructions() { return $this->instructions; }
+    public function getInstructions()
+    {
+        return $this->instructions;
+    }
 
     /**
      * Get the payment error (if any).
      *
      * @return string The payment error message.
      */
-    public function getError() { return $this->error; }
+    public function getError()
+    {
+        return $this->error;
+    }
 
     /**
      * Get the payment form fields.
      *
      * @return array A list of <code>ZMPaymentField</code> instances.
      */
-    public function getFields() { return $this->fields; }
+    public function getFields()
+    {
+        return $this->fields;
+    }
 
     /**
      * Add a form field to this payment type.
      *
      * @param ZMPaymentField field The new form field.
      */
-    public function addField($field) { array_push($this->fields, $field); }
+    public function addField($field)
+    {
+        array_push($this->fields, $field);
+    }
 
 }

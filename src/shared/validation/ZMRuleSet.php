@@ -49,7 +49,10 @@ class ZMRuleSet extends ZMObject
      *
      * @return int The rule set id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Add a new <code>ZMRule</code>.

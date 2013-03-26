@@ -195,45 +195,66 @@ class Coupon extends ZMObject
      *
      * @return int $couponId The coupon id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     // @todo deprecated doctrine backwards compatiblity
-    public function getCouponId() { return $this->getId(); }
+    public function getCouponId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the coupon code.
      *
      * @return string $code The coupon code.
      */
-    public function getCode() { return $this->code; }
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Get the coupon type.
      *
      * @return string $type The coupon type.
      */
-    public function getType() { return $this->type; }
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Get the amount.
      *
      * @return float $amount The coupon amount.
      */
-    public function getAmount() { return $this->amount; }
+    public function getAmount()
+    {
+        return $this->amount;
+    }
 
     /**
      * Get the coupon name.
      *
      * @return string The coupon name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the coupon description.
      *
      * @return string The coupon description.
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Get the coupon translations.
@@ -250,77 +271,110 @@ class Coupon extends ZMObject
      *
      * @return float $minOrderAmount The minimum order amount.
      */
-    public function getMinOrderAmount() { return $this->minOrderAmount; }
+    public function getMinOrderAmount()
+    {
+        return $this->minOrderAmount;
+    }
 
     /**
      * Get the coupon start date.
      *
      * @return datetime $startDate The coupon start date.
      */
-    public function getStartDate() { return $this->startDate; }
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
 
     /**
      * Get the coupon expiry date.
      *
      * @return datetime $expiryDate The coupon expiry date.
      */
-    public function getExpiryDate() { return $this->expiryDate; }
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
 
     /**
      * Get the uses per coupon.
      *
      * @return int $usesPerCoupon The uses per coupon.
      */
-    public function getUsesPerCoupon() { return $this->usesPerCoupon; }
+    public function getUsesPerCoupon()
+    {
+        return $this->usesPerCoupon;
+    }
 
     /**
      * Get the uses per coupon.
      *
      * @return int $usesPerUser The uses per coupon.
      */
-    public function getUsesPerUser() { return $this->usesPerUser; }
+    public function getUsesPerUser()
+    {
+        return $this->usesPerUser;
+    }
 
     /**
      * Check if this coupon qualifies for free shipping.
      *
      * @return boolean <code>true</code> if this coupon qualifies for free shipping, <code>false</code> if not.
      */
-    public function isFreeShipping() { return 'S' == $this->type; }
+    public function isFreeShipping()
+    {
+        return 'S' == $this->type;
+    }
 
     /**
      * Check if this coupon is active.
      *
      * @return boolean $active <code>true</code> if this coupon is active.
      */
-    public function isActive() { return 'Y' == $this->active; }
+    public function isActive()
+    {
+        return 'Y' == $this->active;
+    }
 
     /**
      * Check if this a fixed amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a fixed amount assigned, <code>false</code> if not.
      */
-    public function isFixedAmount() { return 'F' == $this->type; }
+    public function isFixedAmount()
+    {
+        return 'F' == $this->type;
+    }
 
     /**
      * Check if this a percentage amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a percentage amount assigned, <code>false</code> if not.
      */
-    public function isPercentage() { return 'P' == $this->type; }
+    public function isPercentage()
+    {
+        return 'P' == $this->type;
+    }
 
     /**
      * Get the date the coupon was created.
      *
      * @return datetime $dateCreated
      */
-    public function getDateCreated() { return $this->dateCreated; }
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
 
     /**
      * Get the date the coupon was last modified.
      *
      * @return datetime $dateModified
      */
-    public function getDateModified() { return $this->dateModified; }
+    public function getDateModified()
+    {
+        return $this->dateModified;
+    }
 
     /**
      * Get coupon restrictions.
@@ -337,100 +391,175 @@ class Coupon extends ZMObject
      *
      * @param int $id The coupon id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     // @todo deperecated doctrine backwards compatibility
-    public function setCouponId($id) { $this->setId($id); }
+    public function setCouponId($id)
+    {
+        $this->setId($id);
+
+        return $this;
+    }
 
     /**
      * Set the coupon code.
      *
      * @param string $code The coupon code.
      */
-    public function setCode($code) { $this->code = $code; }
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
 
     /**
      * Set the coupon type.
      *
      * @param string $type The coupon type.
      */
-    public function setType($type) { $this->type = $type; }
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * Set the amount.
      *
      * @param float $amount The coupon amount.
      */
-    public function setAmount($amount) { $this->amount = $amount; }
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
 
     /**
      * Set the coupon name.
      *
      * @param string name The coupon name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the coupon description.
      *
      * @param string description The coupon description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * Set the minimum order amount.
      *
      * @param float $amount The new minimum order amount.
      */
-    public function setMinOrderAmount($amount) { $this->minOrderAmount = $amount; }
+    public function setMinOrderAmount($amount)
+    {
+        $this->minOrderAmount = $amount;
+
+        return $this;
+    }
 
     /**
      * Set the coupon start date.
      *
      * @param string $date The coupon start date.
      */
-    public function setStartDate($date) { $this->startDate = $date; }
+    public function setStartDate($date)
+    {
+        $this->startDate = $date;
+
+        return $this;
+    }
 
     /**
      * Set the coupon expiry date.
      *
      * @param string $date The coupon expiry date.
      */
-    public function setExpiryDate($date) { $this->expiryDate = $date; }
+    public function setExpiryDate($date)
+    {
+        $this->expiryDate = $date;
+
+        return $this;
+    }
 
     /**
      * Set the uses per coupon.
      *
      * @param int $uses The uses per coupon.
      */
-    public function setUsesPerCoupon($uses) { $this->usesPerCoupon = $uses; }
+    public function setUsesPerCoupon($uses)
+    {
+        $this->usesPerCoupon = $uses;
+
+        return $this;
+    }
 
     /**
      * Set the uses per user.
      *
      * @param int $uses The uses per user.
      */
-    public function setUsesPerUser($uses) { $this->usesPerUser = $uses; }
+    public function setUsesPerUser($uses)
+    {
+        $this->usesPerUser = $uses;
+
+        return $this;
+    }
 
     /**
      * Set the active flag.
      *
      * @param string $active The new flag.
      */
-    public function setActive($active) { $this->active = $active; }
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
 
     /**
      * Set the date the coupon was created
      *
      * @param datetime $dateCreated
      */
-    public function setDateCreated($dateCreated) { $this->dateCreated = $dateCreated; }
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
 
     /**
      * Set the date the coupon was modified.
      * @param datetime $dateModified
      */
-    public function setDateModified($dateModified) { $this->dateModified = $dateModified; }
+    public function setDateModified($dateModified)
+    {
+        $this->dateModified = $dateModified;
+
+        return $this;
+    }
 
     /**
      * Set the coupon translation.

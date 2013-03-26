@@ -54,83 +54,131 @@ class MediaItem extends ZMObject
      *
      * @return int The media item id.
      */
-    public function getMediaItemId() { return $this->mediaItemId; }
+    public function getMediaItemId()
+    {
+        return $this->mediaItemId;
+    }
 
     /**
      * Get the media id.
      *
      * @return int The media id.
      */
-    public function getMediaId() { return $this->mediaId; }
+    public function getMediaId()
+    {
+        return $this->mediaId;
+    }
 
     /**
      * Get the media filename.
      *
      * @return string The media filename.
      */
-    public function getFilename() { return $this->filename; }
+    public function getFilename()
+    {
+        return $this->filename;
+    }
 
     /**
      * Get the added date.
      *
      * @return string The date the media was added.
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get the media type id.
      *
      * @return int The media type id.
      */
-    public function getMediaTypeId() { return $this->mediaTypeId; }
+    public function getMediaTypeId()
+    {
+        return $this->mediaTypeId;
+    }
 
     /**
      * Get the media type.
      *
      * @return MediaType The media type.
      */
-    public function getMediaType() { return $this->mediaType; }
+    public function getMediaType()
+    {
+        return $this->mediaType;
+    }
 
     /**
      * Set the media item id.
      *
      * @param int id The media item id.
      */
-    public function setMediaItemId($id) { $this->mediaItemId = $id; }
+    public function setMediaItemId($id)
+    {
+        $this->mediaItemId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the media id.
      *
      * @param int mediaId The media id.
      */
-    public function setMediaId($mediaId) { $this->mediaId = $mediaId; }
+    public function setMediaId($mediaId)
+    {
+        $this->mediaId = $mediaId;
+
+        return $this;
+    }
 
     /**
      * Set the media filename.
      *
      * @param string filename The media filename.
      */
-    public function setFilename($filename) { $this->filename = $filename; }
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
 
     /**
      * Set the added date.
      *
      * @param string date The date the media was added.
      */
-    public function setDateAdded($date) { $this->dateAdded = $date; }
+    public function setDateAdded($date)
+    {
+        $this->dateAdded = $date;
+
+        return $this;
+    }
 
     /**
      * Set the media type id.
      *
      * @param int id The media type id.
      */
-    public function setMediaTypeId($id) { $this->mediaTypeId = $id; }
+    public function setMediaTypeId($id)
+    {
+        $this->mediaTypeId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the media type.
      *
      * @param MediaType mediaType The media type.
      */
-    public function setMediaType($mediaType) { $this->mediaType = $mediaType; }
+    public function setMediaType($mediaType)
+    {
+        $this->mediaType = $mediaType;
+
+        return $this;
+    }
 
 }

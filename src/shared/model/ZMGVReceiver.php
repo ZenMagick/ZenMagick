@@ -52,49 +52,74 @@ class ZMGVReceiver extends ZMObject
      *
      * @return string The receiver name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the receiver email.
      *
      * @return string The receiver email.
      */
-    public function getEmail() { return $this->email; }
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * Get the amount.
      *
      * @return string The (formatted) amount.
      */
-    public function getAmount() { return $this->amount; }
+    public function getAmount()
+    {
+        return $this->amount;
+    }
 
     /**
      * Check if there is a message.
      *
      * @return boolean <code>true</code> if there is a message, <code>false</code> if not.
      */
-    public function hasMessage() { return !empty($this->message); }
+    public function hasMessage()
+    {
+        return !empty($this->message);
+    }
 
     /**
      * Get the message.
      *
      * @return string The message.
      */
-    public function getMessage() { return $this->message; }
+    public function getMessage()
+    {
+        return $this->message;
+    }
 
     /**
      * Set the receiver name.
      *
      * @param string name The receiver name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the receiver email.
      *
      * @param string email The receiver email.
      */
-    public function setEmail($email) { $this->email = $email; }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     /**
      * Set the amount.
@@ -114,6 +139,11 @@ class ZMGVReceiver extends ZMObject
      *
      * @param string message The message.
      */
-    public function setMessage($message) { $this->message = $message; }
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
 
 }

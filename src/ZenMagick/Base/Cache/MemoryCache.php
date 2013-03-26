@@ -58,7 +58,10 @@ class MemoryCache implements Cache
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { return true; }
+    public function isAvailable()
+    {
+        return true;
+    }
 
     /**
      * {@inheritDoc}

@@ -79,49 +79,76 @@ class CouponTranslations extends ZMObject
      *
      * @return integer $couponId
      */
-    public function getCouponId() { return $this->coupon->getId(); }
+    public function getCouponId()
+    {
+        return $this->coupon->getId();
+    }
 
     /**
      * Get languageId
      *
      * @return integer $languageId
      */
-    public function getLanguageId() { return $this->languageId; }
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
 
     /**
      * Get coupon name
      *
      * @return string $name
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get coupon description
      *
      * @return text $description
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Set name of the coupon
      *
      * @param string $name
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set languageId of the coupon
      *
      * @param integer $languageId
      */
-    public function setLanguageId($languageId) { $this->languageId = $languageId; }
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
 
     /**
      * Set description of the coupon
      *
      * @param text $description
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * Set coupon

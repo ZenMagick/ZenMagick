@@ -62,7 +62,10 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return string The title.
      */
-    public function getTitle() { return $this->title; }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Set the title.
@@ -71,7 +74,12 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @param string title The title.
      */
-    public function setTitle($title) { $this->title = $title; }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 
     /**
      * Get the amount.
@@ -80,14 +88,22 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return float The amount.
      */
-    public function getAmount() { return $this->amount; }
+    public function getAmount()
+    {
+        return $this->amount;
+    }
 
     /**
      * Set the amount.
      *
      * @param float amount The amount.
      */
-    public function setAmount($amount) { $this->amount = $amount; }
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
 
     /**
      * Get the display value.
@@ -98,27 +114,43 @@ class ZMOrderTotalLineDetails extends ZMObject
      *
      * @return float The value.
      */
-    public function getDisplayValue() { return $this->value; }
+    public function getDisplayValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Set the display value.
      *
      * @param float value The value.
      */
-    public function setDisplayValue($value) { $this->value = $value; }
+    public function setDisplayValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
 
     /**
      * Get the tax class id.
      *
      * @return int The tax class id.
      */
-    public function getTaxClassId() { return $this->taxClassId; }
+    public function getTaxClassId()
+    {
+        return $this->taxClassId;
+    }
 
     /**
      * Set the tax class id.
      *
      * @param int taxClassId The tax class id.
      */
-    public function setTaxClassId($taxClassId) { $this->taxClassId = $taxClassId; }
+    public function setTaxClassId($taxClassId)
+    {
+        $this->taxClassId = $taxClassId;
+
+        return $this;
+    }
 
 }

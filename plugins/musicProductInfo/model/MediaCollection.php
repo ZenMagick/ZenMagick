@@ -48,48 +48,75 @@ class MediaCollection extends ZMObject
      *
      * @return int The collection id.
      */
-    public function getCollectionId() { return $this->collectionId; }
+    public function getCollectionId()
+    {
+        return $this->collectionId;
+    }
 
     /**
      * Get the collection name.
      *
      * @return string The collection name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the media items.
      *
      * @return array A list of <code>Media</code> objects.
      */
-    public function getItems() { return $this->items; }
+    public function getItems()
+    {
+        return $this->items;
+    }
 
     /**
      * Set the collection id.
      *
      * @param int collectionId The collection id.
      */
-    public function setCollectionId($collectionId) { $this->collectionId = $collectionId; }
+    public function setCollectionId($collectionId)
+    {
+        $this->collectionId = $collectionId;
+
+        return $this;
+    }
 
     /**
      * Set the collection name.
      *
      * @param string name The collection name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the media items.
      *
      * @param array items A list of <code>Media</code> objects.
      */
-    public function setItems($items) { $this->items = $items; }
+    public function setItems($items)
+    {
+        $this->items = $items;
+
+        return $this;
+    }
 
     /**
      * Add a single media items.
      *
      * @param Media item A single <code>Media</code> object.
      */
-    public function addItem($item) { $this->items[] = $item; }
+    public function addItem($item)
+    {
+        $this->items[] = $item;
+    }
 
 }

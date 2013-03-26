@@ -49,13 +49,19 @@ class ZMIdNamePair extends ZMObject
      *
      * @return string The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
 }

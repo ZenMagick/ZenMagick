@@ -39,41 +39,65 @@ class MetaTagDetails extends ZMObject
      *
      * @return string The title.
      */
-    public function getTitle() { return $this->title; }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Get the keywords.
      *
      * @return string The keywords.
      */
-    public function getKeywords() { return $this->keywords; }
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
 
     /**
      * Get the description.
      *
      * @return string The description.
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Set the title.
      *
      * @param string title The title.
      */
-    public function setTitle($title) { $this->title = $title; }
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 
     /**
      * Set the keywords.
      *
      * @param string keywords The keywords.
      */
-    public function setKeywords($keywords) { $this->keywords = $keywords; }
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
 
     /**
      * Set the description.
      *
      * @param string description The description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
 }

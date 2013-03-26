@@ -162,14 +162,20 @@ class OrderItem extends ZMObject
      *
      * @return int The order item id.
      */
-    public function getId() { return $this->orderItemId; }
+    public function getId()
+    {
+        return $this->orderItemId;
+    }
 
     /**
      * Get the order item product id.
      *
      * @return int The order item product id.
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Get the product this item is associated to.
@@ -186,21 +192,30 @@ class OrderItem extends ZMObject
      *
      * @return int The quantity for this item.
      */
-    public function getQuantity() { return $this->qty; }
+    public function getQuantity()
+    {
+        return $this->qty;
+    }
 
     /**
      * Get the item name.
      *
      * @return string The item name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the model.
      *
      * @return string The item model.
      */
-    public function getModel() { return $this->model; }
+    public function getModel()
+    {
+        return $this->model;
+    }
 
     /**
      * Get the tax rate.
@@ -233,76 +248,125 @@ class OrderItem extends ZMObject
      *
      * @return boolean </code>true</code> if attributes exist, <code>false</code> if not.
      */
-    public function hasAttributes() { return 0 < count($this->attributes); }
+    public function hasAttributes()
+    {
+        return 0 < count($this->attributes);
+    }
 
     /**
      * Get the item attributes.
      *
      * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code> instances.
      */
-    public function getAttributes() { return $this->attributes; }
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
 
     /**
      * Set the order item id.
      *
      * @param int id The order item id.
      */
-    public function setId($id) { $this->orderItemId = $id; }
+    public function setId($id)
+    {
+        $this->orderItemId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the order item product id.
      *
      * @param int productId The order item product id.
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
 
     /**
      * Set the quantity.
      *
      * @param int qty The quantity for this item.
      */
-    public function setQty($qty) { $this->qty = $qty; }
+    public function setQty($qty)
+    {
+        $this->qty = $qty;
+
+        return $this;
+    }
 
     /**
      * Set the item name.
      *
      * @param string name The item name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the model.
      *
      * @param string model The item model.
      */
-    public function setModel($model) { $this->model = $model; }
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
 
     /**
      * Set the tax rate.
      *
      * @param float taxRate The tax rate.
      */
-    public function setTaxRate($taxRate) { $this->taxRate = $taxRate; }
+    public function setTaxRate($taxRate)
+    {
+        $this->taxRate = $taxRate;
+
+        return $this;
+    }
 
     /**
      * Set the calculated price.
      *
      * @param float price The calculated price.
      */
-    public function setCalculatedPrice($price) { $this->calculatedPrice = $price; }
+    public function setCalculatedPrice($price)
+    {
+        $this->calculatedPrice = $price;
+
+        return $this;
+    }
 
     /**
      * Add an item attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute A <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code>.
      */
-    public function addAttribute($attribute) { $this->attributes[] = $attribute; }
+    public function addAttribute($attribute)
+    {
+        $this->attributes[] = $attribute;
+    }
 
     /**
      * Set item attributes.
      *
      * @param array attributes A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Attribute</code> instances.
      */
-    public function setAttributes($attributes) { $this->attributes = $attributes; }
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
+    }
 
 }

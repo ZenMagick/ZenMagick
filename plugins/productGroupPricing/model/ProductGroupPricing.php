@@ -87,125 +87,197 @@ class ProductGroupPricing extends ZMObject
      *
      * @return int The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set the id.
      *
      * @param int id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get the product id.
      *
      * @return int The product id.
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Set the product id.
      *
      * @param int productId The product id.
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
 
     /**
      * Get the group id.
      *
      * @return int The group id.
      */
-    public function getGroupId() { return $this->groupId; }
+    public function getGroupId()
+    {
+        return $this->groupId;
+    }
 
     /**
      * Set the group id.
      *
      * @param int groupId The group id.
      */
-    public function setGroupId($groupId) { $this->groupId = $groupId; }
+    public function setGroupId($groupId)
+    {
+        $this->groupId = $groupId;
+
+        return $this;
+    }
 
     /**
      * Get the discount.
      *
      * @return float The discount.
      */
-    public function getDiscount() { return $this->discount; }
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
 
     /**
      * Set the before tax flag.
      *
      * @param boolean value The new value.
      */
-    public function setBeforeTax($value) { $this->beforeTax = $value; }
+    public function setBeforeTax($value)
+    {
+        $this->beforeTax = $value;
+
+        return $this;
+    }
 
     /**
      * Get the before tax flag.
      *
      * @return boolean If <code>true</code> apply the discount before tax, otherwise after.
      */
-    public function isBeforeTax() { return $this->beforeTax; }
+    public function isBeforeTax()
+    {
+        return $this->beforeTax;
+    }
 
     /**
      * Set the discount.
      *
      * @param float discount The discount.
      */
-    public function setDiscount($discount) { $this->discount = $discount; }
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
 
     /**
      * Get the discount type.
      *
      * @return string The type.
      */
-    public function getType() { return $this->type; }
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Set the discount type.
      *
      * @param string type The discount type.
      */
-    public function setType($type) { $this->type = $type; }
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * Check if discount also applies to sale/special prices.
      *
      * @return boolean <code>true<code> if this discount is valid for sale/special prices too, <code>false</code> if not.
      */
-    public function isAllowSaleSpecial() { return $this->allowSaleSpecial; }
+    public function isAllowSaleSpecial()
+    {
+        return $this->allowSaleSpecial;
+    }
 
     /**
      * Configure whether the discount also applies to sale/special prices or not.
      *
      * @param boolean allowSaleSpecial <code>true<code> if this discount is also valid for sale/special prices, <code>false</code> if not.
      */
-    public function setAllowSaleSpecial($allowSaleSpecial) { $this->allowSaleSpecial = $allowSaleSpecial; }
+    public function setAllowSaleSpecial($allowSaleSpecial)
+    {
+        $this->allowSaleSpecial = $allowSaleSpecial;
+
+        return $this;
+    }
 
     /**
      * Get the start date.
      *
      * @return string The start date.
      */
-    public function getStartDate() { return $this->startDate; }
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
 
     /**
      * Set the start date.
      *
      * @param string date The start date.
      */
-    public function setStartDate($date) { $this->startDate = $date; }
+    public function setStartDate($date)
+    {
+        $this->startDate = $date;
+
+        return $this;
+    }
 
     /**
      * Get the end date.
      *
      * @return string The end date.
      */
-    public function getEndDate() { return $this->endDate; }
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
 
     /**
      * Set the end date.
      *
      * @param string date The end date.
      */
-    public function setEndDate($date) { $this->endDate = $date; }
+    public function setEndDate($date)
+    {
+        $this->endDate = $date;
+
+        return $this;
+    }
 
 }

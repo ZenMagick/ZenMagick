@@ -60,14 +60,20 @@ class ThemeBuilder extends ZMObject
      *
      * @param string name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Build a theme.

@@ -58,40 +58,64 @@ class BlockGroup extends ZMObject
      *
      * @return int The group id.
      */
-    public function getId() { return $this->idd; }
+    public function getId()
+    {
+        return $this->idd;
+    }
 
     /**
      * Get the name
      *
      * @return string The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the description
      *
      * @return string The description
      */
-    public function getDescription() { return $this->description; }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * Set the group id.
      *
      * @param int id The new group id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Set the name.
      *
      * @param string name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the description.
      *
      * @param string description The description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }

@@ -64,14 +64,20 @@ abstract class DashboardWidget extends Widget
      *
      * @return int The id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set the id.
      *
      * @param int id The id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get the (HTML) contents.
@@ -88,14 +94,20 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The minimize flag.
      */
-    public function isMinimize() { return $this->minimize; }
+    public function isMinimize()
+    {
+        return $this->minimize;
+    }
 
     /**
      * Set the minimize flag.
      *
      * @parm boolean minimize The new value.
      */
-    public function setMinimize($minimize) { $this->minimize = $minimize; }
+    public function setMinimize($minimize)
+    {
+        $this->minimize = $minimize;
+    }
 
     /**
      * Get the maximize flag.
@@ -104,35 +116,50 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The maximize flag.
      */
-    public function isMaximize() { return $this->maximize; }
+    public function isMaximize()
+    {
+        return $this->maximize;
+    }
 
     /**
      * Set the maximize flag.
      *
      * @parm boolean maximize The new value.
      */
-    public function setMaximize($maximize) { $this->maximize = $maximize; }
+    public function setMaximize($maximize)
+    {
+        $this->maximize = $maximize;
+    }
 
     /**
      * Set url for options dialog.
      *
      * @parm mixed options Options.
      */
-    public function setOptions($options) { $this->options = $options; }
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
 
     /**
      * Get options.
      *
      * @return mixed The options or <code>null</code>.
      */
-    public function getOptions() { return $this->options; }
+    public function getOptions()
+    {
+        return $this->options;
+    }
 
     /**
      * Check if this widget has options.
      *
      * @return boolean <code>true</code> if this widget has configurable options.
      */
-    public function hasOptions() { return null != $this->options; }
+    public function hasOptions()
+    {
+        return null != $this->options;
+    }
 
     /**
      * Get the open flag.
@@ -141,28 +168,40 @@ abstract class DashboardWidget extends Widget
      *
      * @return boolean The open flag.
      */
-    public function isOpen() { return $this->open; }
+    public function isOpen()
+    {
+        return $this->open;
+    }
 
     /**
      * Set the open flag.
      *
      * @parm boolean open The new value.
      */
-    public function setOpen($open) { $this->open = Toolbox::asBoolean($open); }
+    public function setOpen($open)
+    {
+        $this->open = Toolbox::asBoolean($open);
+    }
 
     /**
      * Get the status.
      *
      * @return string The status.
      */
-    public function getStatus() { return $this->status; }
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Set the status.
      *
      * @param string id The status.
      */
-    public function setStatus($status) { $this->status = $status; }
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     /**
      * {@inheritDoc}

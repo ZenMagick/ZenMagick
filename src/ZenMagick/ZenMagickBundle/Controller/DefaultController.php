@@ -197,7 +197,10 @@ class DefaultController extends Controller
      * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    public function processPost($request) { return $this->processGet($request); }
+    public function processPost($request)
+    {
+        return $this->processGet($request);
+    }
 
     /**
      * Lookup the appropriate view for the given name.

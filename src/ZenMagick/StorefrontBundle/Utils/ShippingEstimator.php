@@ -189,7 +189,10 @@ class ShippingEstimator extends ZMObject
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    public function isCartEmpty() { return Runtime::getContainer()->get('shoppingCart')->isEmpty(); }
+    public function isCartEmpty()
+    {
+        return Runtime::getContainer()->get('shoppingCart')->isEmpty();
+    }
 
     /**
      * Get current address (if any)

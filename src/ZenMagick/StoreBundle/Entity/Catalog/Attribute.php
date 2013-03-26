@@ -138,112 +138,174 @@ class Attribute extends ZMObject
         $this->values = array();
     }
 
-    public function getAttributeId() { return $this->attributeId; }
+    public function getAttributeId()
+    {
+        return $this->attributeId;
+    }
 
     /**
      * Get the attribute id.
      *
      * @return int The attribute id.
      */
-    public function getId() { return $this->attributeId; }
+    public function getId()
+    {
+        return $this->attributeId;
+    }
 
     /**
      * Get the product id.
      *
      * @return int The product id.
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Get the attribute name.
      *
      * @return string The attribute name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the attribute type.
      *
      * @return string The attribute type.
      */
-    public function getType() { return $this->type; }
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Get the attribute sort order.
      *
      * @return int The attribute sort order.
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Get the attribute comment.
      *
      * @return string The attribute comment.
      */
-    public function getComment() { return $this->comment; }
+    public function getComment()
+    {
+        return $this->comment;
+    }
 
     /**
      * Get the attribute values.
      *
      * @return array A list of <code>ZMAttributeValue</code> objects.
      */
-    public function getValues() { return $this->values; }
+    public function getValues()
+    {
+        return $this->values;
+    }
 
     /**
      * Set the attribute id.
      *
      * @param int id the attribute id.
      */
-    public function setAttributeId($id) { $this->attributeId = $id; }
+    public function setAttributeId($id)
+    {
+        $this->attributeId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the attribute id.
      *
      * @param int id the attribute id.
      */
-    public function setId($id) { $this->attributeId = $id; }
+    public function setId($id)
+    {
+        $this->attributeId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the product id.
      *
      * @param int productId The product id.
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
 
     /**
      * Set the attribute name.
      *
      * @param string name The attribute name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the attribute type.
      *
      * @return string The attribute type.
      */
-    public function setType($type) { $this->type = $type; }
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * Set the attribute sort order.
      *
      * @param int sortOrder The attribute sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
 
     /**
      * Set the attribute comment.
      *
      * @param string comment The attribute comment.
      */
-    public function setComment($comment) { $this->comment = $comment; }
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
 
     /**
      * Add an attribute value.
      *
      * @param ZMAttributeValue value A <code>ZMAttributeValue</code>.
      */
-    public function addValue($value) { $this->values[] = $value; }
+    public function addValue($value)
+    {
+        $this->values[] = $value;
+    }
 
     /**
      * Clear all values.

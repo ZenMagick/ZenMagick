@@ -51,7 +51,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return string The search term.
      */
-    public function getKeywords($default='') { return $this->get('keywords', $default); }
+    public function getKeywords($default='')
+    {
+        return $this->get('keywords', $default);
+    }
 
     /**
      * Get the include description flag.
@@ -59,7 +62,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return boolean <code>true</code> if descriptions should be searched too.
      */
-    public function isIncludeDescription($default=true) { return Toolbox::asBoolean($this->get('includeDescription', $default)); }
+    public function isIncludeDescription($default=true)
+    {
+        return Toolbox::asBoolean($this->get('includeDescription', $default));
+    }
 
     /**
      * Get the category.
@@ -67,7 +73,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return integer The category id.
      */
-    public function getCategoryId($default=0) { return $this->get('categoryId', $default); }
+    public function getCategoryId($default=0)
+    {
+        return $this->get('categoryId', $default);
+    }
 
     /**
      * Get the include subcategories flag.
@@ -75,7 +84,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return boolean <code>true</code> if subcategories should be searched too.
      */
-    public function isIncludeSubcategories($default=true) { return Toolbox::asBoolean($this->get('includeSubcategories', $default)); }
+    public function isIncludeSubcategories($default=true)
+    {
+        return Toolbox::asBoolean($this->get('includeSubcategories', $default));
+    }
 
     /**
      * Get the manufacturer.
@@ -83,7 +95,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return integer The manufacturer id.
      */
-    public function getManufacturerId($default='') { return $this->get('manufacturerId', $default); }
+    public function getManufacturerId($default='')
+    {
+        return $this->get('manufacturerId', $default);
+    }
 
     /**
      * Get the from date.
@@ -91,7 +106,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return string The from date.
      */
-    public function getDateFrom($default='') { return $this->get('dateFrom', $default); }
+    public function getDateFrom($default='')
+    {
+        return $this->get('dateFrom', $default);
+    }
 
     /**
      * Get the to date.
@@ -99,7 +117,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return string The to date.
      */
-    public function getDateTo($default='') { return $this->get('dateTo', $default); }
+    public function getDateTo($default='')
+    {
+        return $this->get('dateTo', $default);
+    }
 
     /**
      * Set the from date.
@@ -133,7 +154,10 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return string The price from.
      */
-    public function getPriceFrom($default='') { return $this->get('priceFrom', $default); }
+    public function getPriceFrom($default='')
+    {
+        return $this->get('priceFrom', $default);
+    }
 
     /**
      * Get the price to.
@@ -141,48 +165,69 @@ class ZMSearchCriteria extends ZMObject
      * @param string default A default value.
      * @return string The price to.
      */
-    public function getPriceTo($default='') { return $this->get('priceTo', $default); }
+    public function getPriceTo($default='')
+    {
+        return $this->get('priceTo', $default);
+    }
 
     /**
      * Check if prices are tax inclusive.
      *
      * @return boolean <code>true</code> if included, <code>false</code> if not.
      */
-    public function isIncludeTax() { return Toolbox::asBoolean($this->get('includeTax')); }
+    public function isIncludeTax()
+    {
+        return Toolbox::asBoolean($this->get('includeTax'));
+    }
 
     /**
      * Get the country for tax calculations (if required).
      *
      * @return integer The country id.
      */
-    public function getCountryId() { return $this->get('countryId'); }
+    public function getCountryId()
+    {
+        return $this->get('countryId');
+    }
 
     /**
      * Get the zone for tax calculations (if required).
      *
      * @return integer The zone id.
      */
-    public function getZoneId() { return $this->get('zoneId', 0); }
+    public function getZoneId()
+    {
+        return $this->get('zoneId', 0);
+    }
 
     /**
      * Get the language id.
      *
      * @return integer The language id.
      */
-    public function getLanguageId() { return $this->get('languageId'); }
+    public function getLanguageId()
+    {
+        return $this->get('languageId');
+    }
 
     /**
      * Check if only active products should be searched or all.
      *
      * @return boolean <code>true</code> if all products should be searched, <code>false</code> for active only.
      */
-    public function isSearchAll() { return $this->get('searchAll'); }
+    public function isSearchAll()
+    {
+        return $this->get('searchAll');
+    }
 
     /**
      * Set the search all flag.
      *
      * @param boolean value <code>true</code> if all products should be searched, <code>false</code> for active only.
      */
-    public function setSearchAll($value) { $this->set('searchAll', $value); }
+    public function setSearchAll($value)
+    {
+        $this->set('searchAll', $value);
+    }
 
 }

@@ -124,14 +124,22 @@ class TaxRate extends ZMObject
      *
      * @return integer $id The tax rate idendtifier.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set the tax rate identifier
      *
      * @param integer $id The tax rate identifier.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get the tax description.
@@ -152,91 +160,144 @@ class TaxRate extends ZMObject
      *
      * @return float $rate The tax rate.
      */
-    public function getRate() { return $this->rate; }
+    public function getRate()
+    {
+        return $this->rate;
+    }
 
     /**
      * Set the tax description.
      *
      * @param string $description The tax description.
      */
-    public function setDescription($description) { $this->description = $description; }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 
     /**
      * Set the tax rate.
      *
      * @param float $rate The tax rate.
      */
-    public function setRate($rate) { $this->rate = round($rate, $this->container->get('settingsService')->get('calculationDecimals') + 2); }
+    public function setRate($rate)
+    {
+        $this->rate = round($rate, $this->container->get('settingsService')->get('calculationDecimals') + 2);
+
+        return $this;
+    }
 
     /**
      * Get the tax class id.
      *
      * @return integer $classId The tax class id or <em>0</em>.
      */
-    public function getClassId() { return $this->classId; }
+    public function getClassId()
+    {
+        return $this->classId;
+    }
 
     /**
      * Set the tax class id.
      *
      * @param integer $classId The tax class id.
      */
-    public function setClassId($classId) { $this->classId = $classId; }
+    public function setClassId($classId)
+    {
+        $this->classId = $classId;
+
+        return $this;
+    }
 
     /**
      * Get the country id.
      *
      * @return int The country id or <em>0</em>.
      */
-    public function getCountryId() { return $this->countryId; }
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
 
     /**
      * Set the country id.
      *
      * @param int countryId The country id.
      */
-    public function setCountryId($countryId) { $this->countryId = $countryId; }
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
 
     /**
      * Get the zone id.
      *
      * @return integer $zoneId The zone id or <em>0</em>.
      */
-    public function getZoneId() { return $this->zoneId; }
+    public function getZoneId()
+    {
+        return $this->zoneId;
+    }
 
     /**
      * Set the zone id.
      *
      * @param integer $zoneId The zone id.
      */
-    public function setZoneId($zoneId) { $this->zoneId = $zoneId; }
+    public function setZoneId($zoneId)
+    {
+        $this->zoneId = $zoneId;
+
+        return $this;
+    }
 
     /**
      * Get tax priority.
      *
      * @return integer $priority
      */
-    public function getPriority() { return $this->priority; }
+    public function getPriority()
+    {
+        return $this->priority;
+    }
 
     /**
      * Set tax priority.
      *
      * @param integer $priority
      */
-    public function setPriority($priority) { $this->priority = $priority; }
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
 
     /**
      * Get dateAdded
      *
      * @return datetime $dateAdded
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Set dateAdded
      *
      * @param datetime $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
 
     /**
      * Get lastModified
@@ -244,7 +305,10 @@ class TaxRate extends ZMObject
      * @author DerManoMann
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Set lastModified
@@ -252,7 +316,12 @@ class TaxRate extends ZMObject
      * @author  DerManoMann
      * @param datetime $lastModified
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
 
     /**
      * Add tax to the given amount.

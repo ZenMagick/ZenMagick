@@ -328,7 +328,10 @@ class Session extends BaseSession implements ContainerAwareInterface
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
-    public function isRegistered() { return $this->getType() == Account::REGISTERED; }
+    public function isRegistered()
+    {
+        return $this->getType() == Account::REGISTERED;
+    }
 
     /**
      * Set the account for the current session.

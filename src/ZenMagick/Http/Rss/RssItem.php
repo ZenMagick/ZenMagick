@@ -49,28 +49,40 @@ class RssItem extends ZMObject
      *
      * @return string The item title.
      */
-    public function getTitle() { return $this->get('title'); }
+    public function getTitle()
+    {
+        return $this->get('title');
+    }
 
     /**
      * Get the item link.
      *
      * @return string The item link.
      */
-    public function getLink() { return $this->get('link'); }
+    public function getLink()
+    {
+        return $this->get('link');
+    }
 
     /**
      * Get the item description.
      *
      * @return string The item description.
      */
-    public function getDescription() { return $this->get('description'); }
+    public function getDescription()
+    {
+        return $this->get('description');
+    }
 
     /**
      * Get the item categories.
      *
      * @return array The item categories.
      */
-    public function getCategories() { return (array) $this->get('category'); }
+    public function getCategories()
+    {
+        return (array) $this->get('category');
+    }
 
     /**
      * Get the item publish date.
@@ -92,49 +104,70 @@ class RssItem extends ZMObject
      *
      * @return array List of custom tags.
      */
-    public function getTags() { return $this->get('tags', array()); }
+    public function getTags()
+    {
+        return $this->get('tags', array());
+    }
 
     /**
      * Set the item title.
      *
      * @param string title The item title.
      */
-    public function setTitle($title) { $this->set('title', $title); }
+    public function setTitle($title)
+    {
+        $this->set('title', $title);
+    }
 
     /**
      * Set the item link.
      *
      * @param string link The item link.
      */
-    public function setLink($link) { $this->set('link', $link); }
+    public function setLink($link)
+    {
+        $this->set('link', $link);
+    }
 
     /**
      * Set the item description.
      *
      * @param string description The item description.
      */
-    public function setDescription($description) { $this->set('description', $description); }
+    public function setDescription($description)
+    {
+        $this->set('description', $description);
+    }
 
     /**
      * set the item category.
      *
      * @param string category The item category.
      */
-    public function setCategory($category) { $this->set('category', $category); }
+    public function setCategory($category)
+    {
+        $this->set('category', $category);
+    }
 
     /**
      * Set the item publish date.
      *
      * @param string date The item publish date.
      */
-    public function setPubDate($date) { $this->set('pubDate', $date); }
+    public function setPubDate($date)
+    {
+        $this->set('pubDate', $date);
+    }
 
     /**
      * Set a list of custom tags to be handled.
      *
      * @param array tags List of custom tags.
      */
-    public function setTags($tags) { $this->set('tags', $tags); }
+    public function setTags($tags)
+    {
+        $this->set('tags', $tags);
+    }
 
     /**
      * Add tag.

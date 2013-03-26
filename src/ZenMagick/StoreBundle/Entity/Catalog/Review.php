@@ -125,63 +125,96 @@ class Review extends ZMObject
         $this->descriptions = new ArrayCollection();
     }
 
-    public function getReviewId() { return $this->id; }
+    public function getReviewId()
+    {
+        return $this->id;
+    }
     /**
      * Get the review id.
      *
      * @return int The review id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the rating.
      *
      * @return int The review rating.
      */
-    public function getRating() { return $this->rating; }
+    public function getRating()
+    {
+        return $this->rating;
+    }
 
     /**
      * Get the view counter.
      *
      * @return int The view counter.
      */
-    public function getViewCount() { return $this->viewCount; }
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
 
     /**
      * Get the review product id.
      *
      * @return int The review product id.
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
      * Get the review account id
      *
      * @return integer $accountId
      */
-    public function getAccountId() { return $this->accountId; }
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
     /**
      * Check if this review is active.
      *
      * @return boolean <code>true</code> if the review is active.
      */
-    public function isActive() { return $this->status; }
+    public function isActive()
+    {
+        return $this->status;
+    }
 
     /**
      * Get the review product name.
      *
      * @return string The review product name.
      */
-    public function getProductName() { return $this->productName; }
-    public function getName() { return $this->getProductName; }
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+    public function getName()
+    {
+        return $this->getProductName;
+    }
 
     /**
      * Get the review product image.
      *
      * @return string The review product image.
      */
-    public function getProductImage() { return $this->productImage; }
-    public function getImage() { return $this->productImage; }
+    public function getProductImage()
+    {
+        return $this->productImage;
+    }
+    public function getImage()
+    {
+        return $this->productImage;
+    }
 
     /**
      * Get the review product image info.
@@ -221,21 +254,30 @@ class Review extends ZMObject
      *
      * @return string The added date.
      */
-    public function getDateAdded() { return $this->dateAdded; }
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
 
     /**
      * Get the date the review was last modified
      *
      * @return datetime $lastModified
      */
-    public function getLastModified() { return $this->lastModified; }
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Get the review author.
      *
      * @return string The name of the author.
      */
-    public function getAuthor() { return $this->author; }
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 
     /**
      * Get the language id.
@@ -243,7 +285,10 @@ class Review extends ZMObject
      * @deprecated
      * @return int The lanugage id.
      */
-    public function getLanguageId() { return $this->languageId; }
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
 
     /**
      * Set the review id.
@@ -251,68 +296,128 @@ class Review extends ZMObject
      * @deprecated
      * @param int id The review id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     // @todo deprecated doctrine backwards compatbility
-    public function setReviewId($id) { $this->setId($id); }
+    public function setReviewId($id)
+    {
+        $this->setId($id);
+
+        return $this;
+    }
 
     /**
      * Set the rating.
      *
      * @param int rating The review rating.
      */
-    public function setRating($rating) { $this->rating = $rating; }
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
 
     /**
      * Set the view counter.
      *
      * @param int viewCount The view counter.
      */
-    public function setViewCount($viewCount) { $this->viewCount = $viewCount; }
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+
+        return $this;
+    }
 
     /**
      * Set the review product id.
      *
      * @param int productId The review product id.
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
 
     /**
      * Set the review account id
      *
      * @param integer $accountId
      */
-    public function setAccountId($accountId) { $this->accountId = $accountId; }
+    public function setAccountId($accountId)
+    {
+        $this->accountId = $accountId;
+
+        return $this;
+    }
 
     /**
      * Set the reviews active state.
      *
      * @param boolean value <code>true</code> if the review is active.
      */
-    public function setActive($status) { $this->status = $status; }
+    public function setActive($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
 
     /**
      * Set the review product name.
      *
      * @param string name The review product name.
      */
-    public function setProductName($name) { $this->productName = $name; }
-    public function setName($name) { $this->productName = $name; }
+    public function setProductName($name)
+    {
+        $this->productName = $name;
+
+        return $this;
+    }
+    public function setName($name)
+    {
+        $this->productName = $name;
+
+        return $this;
+    }
 
     /**
      * Set the review product image.
      *
      * @param string image The review product image.
      */
-    public function setProductImage($image) { $this->productImage = $image; }
-    public function setImage($image) { $this->productImage = $image; }
+    public function setProductImage($image)
+    {
+        $this->productImage = $image;
+
+        return $this;
+    }
+    public function setImage($image)
+    {
+        $this->productImage = $image;
+
+        return $this;
+    }
 
     /**
      * Set the review text.
      * @deprecated
      * @param string text The review text.
      */
-    public function setText($text) { $this->setDescription($text, $this->languageId); }
+    public function setText($text)
+    {
+        $this->setDescription($text, $this->languageId);
+
+        return $this;
+    }
 
     public function setDescription($text, $languageId)
     {
@@ -330,20 +435,35 @@ class Review extends ZMObject
      *
      * @param string $dateAdded The added date.
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
 
     /**
      * Set the date the review was modified.
      *
      * @param datetime lastModified the modified date
      */
-    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+
+        return $this;
+    }
     /**
      * Set the review author.
      *
      * @param string author The name of the author.
      */
-    public function setAuthor($author) { $this->author = $author; }
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
 
     /**
      * Set the language id.

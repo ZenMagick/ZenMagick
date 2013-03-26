@@ -112,97 +112,153 @@ class OrderTotalLine extends ZMObject
      *
      * @return int The order total id.
      */
-    public function getId() { return $this->orderTotalId; }
+    public function getId()
+    {
+        return $this->orderTotalId;
+    }
 
     /**
      * Get the order  id.
      *
      * @return int The order id.
      */
-    public function getOrderId() { return $this->orderId; }
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
 
     /**
      * Get the order total name.
      *
      * @return string The order total name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the order total value.
      *
      * @return string The formatted order total value.
      */
-    public function getValue() { return $this->value; }
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Get the order total amount.
      *
      * @return float The order total amount.
      */
-    public function getAmount() { return $this->amount; }
+    public function getAmount()
+    {
+        return $this->amount;
+    }
 
     /**
      * Get the order total type.
      *
      * @return string The order total type.
      */
-    public function getType() { return $this->type; }
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Get the sort order.
      *
      * @return integer sort order.
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Set the order total id.
      *
      * @param int id The order total id.
      */
-    public function setId($id) { return $this->orderTotalId = $id; }
+    public function setId($id)
+    {
+        return $this->orderTotalId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the order id.
      *
      * @param int id The order id.
      */
-    public function setOrderId($orderId) { return $this->orderId = $orderId; }
+    public function setOrderId($orderId)
+    {
+        return $this->orderId = $orderId;
+
+        return $this;
+    }
 
     /**
      * Set the order total name.
      *
      * @oparam string name The order total name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the order total value.
      *
      * @param string value The formatted order total value.
      */
-    public function setValue($value) { $this->value = $value; }
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
 
     /**
      * Set the order total amount.
      *
      * @param float amount The order total amount.
      */
-    public function setAmount($amount) { $this->amount = $amount; }
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
 
     /**
      * Set the order total type.
      *
      * @param string type The order total type.
      */
-    public function setType($type) { $this->type = $type; }
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * Set the sort order.
      *
      * @param integer sortOrder The sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
 
 }

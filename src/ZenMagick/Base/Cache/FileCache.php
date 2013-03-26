@@ -82,7 +82,10 @@ class FileCache extends ZMObject implements Cache
     /**
      * {@inheritDoc}
      */
-    public function isAvailable() { return $this->available; }
+    public function isAvailable()
+    {
+        return $this->available;
+    }
 
     /**
      * {@inheritDoc}

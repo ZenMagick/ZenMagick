@@ -49,27 +49,39 @@ class Crumb extends ZMObject
      *
      * @return string The crumb's name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the url (if any).
      *
      * @return string The crumb's url or <code>null</code>.
      */
-    public function getURL() { return $this->url; }
+    public function getURL()
+    {
+        return $this->url;
+    }
 
     /**
      * Set the name.
      *
      * @param string name The crumb's name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the url.
      *
      * @param string url The crumb's url.
      */
-    public function setURL($url) { $this->url = $url; }
+    public function setURL($url)
+    {
+        $this->url = $url;
+    }
 
 }

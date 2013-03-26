@@ -49,28 +49,40 @@ class RssChannel extends ZMObject
      *
      * @return string The channel title.
      */
-    public function getTitle() { return $this->get('title'); }
+    public function getTitle()
+    {
+        return $this->get('title');
+    }
 
     /**
      * Get the channel link.
      *
      * @return string The channel link.
      */
-    public function getLink() { return $this->get('link'); }
+    public function getLink()
+    {
+        return $this->get('link');
+    }
 
     /**
      * Get the channel encoding.
      *
      * @return string The channel encoding.
      */
-    public function getEncoding() { return $this->get('encoding'); }
+    public function getEncoding()
+    {
+        return $this->get('encoding');
+    }
 
     /**
      * Get the channel description.
      *
      * @return string The channel description.
      */
-    public function getDescription() { return $this->get('description'); }
+    public function getDescription()
+    {
+        return $this->get('description');
+    }
 
     /**
      * Get the channels last build date.
@@ -92,112 +104,160 @@ class RssChannel extends ZMObject
      *
      * @return string The channels image title.
      */
-    public function getImageTitle() { return $this->get('image_title'); }
+    public function getImageTitle()
+    {
+        return $this->get('image_title');
+    }
 
     /**
      * Get the channels image link.
      *
      * @return string The channels image link.
      */
-    public function getImageLink() { return $this->get('image_link'); }
+    public function getImageLink()
+    {
+        return $this->get('image_link');
+    }
 
     /**
      * Get the channels image width.
      *
      * @return string The channels image width.
      */
-    public function getImageWidth() { return $this->get('image_width'); }
+    public function getImageWidth()
+    {
+        return $this->get('image_width');
+    }
 
     /**
      * Get the channels image height.
      *
      * @return string The channels image height.
      */
-    public function getImageHeight() { return $this->get('image_height'); }
+    public function getImageHeight()
+    {
+        return $this->get('image_height');
+    }
 
     /**
      * Get a list of custom tags to be handled.
      *
      * @return array List of custom tags.
      */
-    public function getTags() { return $this->get('tags', array()); }
+    public function getTags()
+    {
+        return $this->get('tags', array());
+    }
 
     /**
      * Checks if the channel has an image.
      *
      * @return boolean <code>true</code> if a channel image is available, <code>false</code> if not.
      */
-    public function hasImage() { return array_key_exists('image_url', $this->getPropertyNames()); }
+    public function hasImage()
+    {
+        return array_key_exists('image_url', $this->getPropertyNames());
+    }
 
     /**
      * Set the channel title.
      *
      * @param string title The channel title.
      */
-    public function setTitle($title) { $this->set('title', $title); }
+    public function setTitle($title)
+    {
+        $this->set('title', $title);
+    }
 
     /**
      * Set the channel link.
      *
      * @param string link The channel link.
      */
-    public function setLink($link) { $this->set('link', $link); }
+    public function setLink($link)
+    {
+        $this->set('link', $link);
+    }
 
     /**
      * Set the channel encoding.
      *
      * @param string encoding The channel encoding.
      */
-    public function setEncoding($encoding) { $this->set('encoding', $encoding); }
+    public function setEncoding($encoding)
+    {
+        $this->set('encoding', $encoding);
+    }
 
     /**
      * Set the channel description.
      *
      * @param string description The channel description.
      */
-    public function setDescription($description) { $this->set('description', $description); }
+    public function setDescription($description)
+    {
+        $this->set('description', $description);
+    }
 
     /**
      * Set the channels last build date.
      *
      * @param string date The channels last build date.
      */
-    public function setLastBuildDate($date) { $this->set('lastBuildDate', $date); }
+    public function setLastBuildDate($date)
+    {
+        $this->set('lastBuildDate', $date);
+    }
 
     /**
      * Set the channels image title.
      *
      * @param string title The channels image title.
      */
-    public function setImageTitle($title) { $this->set('image_title', $title); }
+    public function setImageTitle($title)
+    {
+        $this->set('image_title', $title);
+    }
 
     /**
      * set the channels image link.
      *
      * @param string link The channels image link.
      */
-    public function setImageLink($lin) { $this->set('image_link', $link); }
+    public function setImageLink($lin)
+    {
+        $this->set('image_link', $link);
+    }
 
     /**
      * set the channels image width.
      *
      * @param int width The channels image width.
      */
-    public function setImageWidth($width) { $this->set('image_width', $width); }
+    public function setImageWidth($width)
+    {
+        $this->set('image_width', $width);
+    }
 
     /**
      * Set the channels image height.
      *
      * @param int height The channels image height.
      */
-    public function setImageHeight($height) { $this->set('image_height', $height); }
+    public function setImageHeight($height)
+    {
+        $this->set('image_height', $height);
+    }
 
     /**
      * Set a list of custom tags to be handled.
      *
      * @param array tags List of custom tags.
      */
-    public function setTags($tags) { $this->set('tags', $tags); }
+    public function setTags($tags)
+    {
+        $this->set('tags', $tags);
+    }
 
     /**
      * Add tag.

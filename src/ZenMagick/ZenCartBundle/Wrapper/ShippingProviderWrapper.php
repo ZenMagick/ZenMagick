@@ -62,37 +62,58 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider
     /**
      * {@inheritDoc}
      */
-    public function getId() { return $this->zenModule->code; }
+    public function getId()
+    {
+        return $this->zenModule->code;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function getName() { return $this->zenModule->title; }
+    public function getName()
+    {
+        return $this->zenModule->title;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function hasIcon() { return !Toolbox::isEmpty($this->zenModule->icon); }
+    public function hasIcon()
+    {
+        return !Toolbox::isEmpty($this->zenModule->icon);
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function getIcon() { return $this->hasIcon() ? $this->zenModule->icon : null; }
+    public function getIcon()
+    {
+        return $this->hasIcon() ? $this->zenModule->icon : null;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function isInstalled() { return $this->zenModule->check(); }
+    public function isInstalled()
+    {
+        return $this->zenModule->check();
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function hasErrors() { return 0 < count($this->errors); }
+    public function hasErrors()
+    {
+        return 0 < count($this->errors);
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function getErrors() { return $this->errors; }
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
     /**
      * {@inheritDoc}

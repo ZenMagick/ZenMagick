@@ -92,75 +92,123 @@ class Country extends ZMObject
      *
      * @return integer $countryId The country id.
      */
-    public function getId() { return $this->countryId; }
+    public function getId()
+    {
+        return $this->countryId;
+    }
 
     // @todo deprecated doctrine backwards compatibility
-    public function getCountryId() { return $this->getId(); }
+    public function getCountryId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the country name.
      *
      * @return string $name The country name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the country ISO code 2.
      *
      * @return string $isoCode2 The country ISO code 2.
      */
-    public function getIsoCode2() { return $this->isoCode2; }
+    public function getIsoCode2()
+    {
+        return $this->isoCode2;
+    }
 
     /**
      * Get the country ISO code 3.
      *
      * @return string $isoCode3 The country ISO code 3.
      */
-    public function getIsoCode3() { return $this->isoCode3; }
+    public function getIsoCode3()
+    {
+        return $this->isoCode3;
+    }
 
     /**
      * Get the address format id.
      *
      * @return int $addressFormatId The address format id.
      */
-    public function getAddressFormatId() { return $this->addressFormatId; }
+    public function getAddressFormatId()
+    {
+        return $this->addressFormatId;
+    }
 
     /**
      * Set the country id.
      *
      * @param int id The country id.
      */
-    public function setId($id) { $this->countryId = $id; }
+    public function setId($id)
+    {
+        $this->countryId = $id;
+
+        return $this;
+    }
 
     //@todo doctrine deprecated backwards compatibility
-    public function setCountryId($id) { $this->setId($id); }
+    public function setCountryId($id)
+    {
+        $this->setId($id);
+
+        return $this;
+    }
 
     /**
      * Set the country name.
      *
      * @param string $name The country name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the country ISO code 2.
      *
      * @param string $code The country ISO code 2.
      */
-    public function setIsoCode2($code) { $this->isoCode2 = $code; }
+    public function setIsoCode2($code)
+    {
+        $this->isoCode2 = $code;
+
+        return $this;
+    }
 
     /**
      * Set the country ISO code 3.
      *
      * @param string $code The country ISO code 3.
      */
-    public function setIsoCode3($code) { $this->isoCode3 = $code; }
+    public function setIsoCode3($code)
+    {
+        $this->isoCode3 = $code;
+
+        return $this;
+    }
 
     /**
      * Set the address format id.
      *
      * @param int $addressFormatId The address format id.
      */
-    public function setAddressFormatId($addressFormatId) { $this->addressFormatId = $addressFormatId; }
+    public function setAddressFormatId($addressFormatId)
+    {
+        $this->addressFormatId = $addressFormatId;
+
+        return $this;
+    }
 
 }

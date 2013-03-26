@@ -66,21 +66,30 @@ class ZMAttributeValue extends ZMObject
      *
      * @return int The attribute value id.
      */
-    public function getId() { return $this->get('attributeValueId'); }
+    public function getId()
+    {
+        return $this->get('attributeValueId');
+    }
 
     /**
      * Get the parent attribute.
      *
      * @return ZenMagick\StoreBundle\Entity\Catalog\Attribute The attribute.
      */
-    public function getAttribute() { return $this->attribute; }
+    public function getAttribute()
+    {
+        return $this->attribute;
+    }
 
     /**
      * Get the attribute value name.
      *
      * @return string The attribute value name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the value price.
@@ -238,105 +247,156 @@ class ZMAttributeValue extends ZMObject
      *
      * @return string The price prefix.
      */
-    public function getPricePrefix() { return $this->pricePrefix; }
+    public function getPricePrefix()
+    {
+        return $this->pricePrefix;
+    }
 
     /**
      * Check if the attribute is free.
      *
      * @return boolean <code>true</code> if the value is free, <code>false</code> if not.
      */
-    public function isFree() { return $this->isFree; }
+    public function isFree()
+    {
+        return $this->isFree;
+    }
 
     /**
      * Get the attribute weight.
      *
      * @return double The attribute weight.
      */
-    public function getWeight() { return $this->weight; }
+    public function getWeight()
+    {
+        return $this->weight;
+    }
 
     /**
      * Get the weight prefix.
      *
      * @return string The weight prefix.
      */
-    public function getWeightPrefix() { return $this->weightPrefix; }
+    public function getWeightPrefix()
+    {
+        return $this->weightPrefix;
+    }
 
     /**
      * Check if the attribute is 'display only'.
      *
      * @return boolean <code>true</code> if the value is display only, <code>false</code> if not.
      */
-    public function isDisplayOnly() { return $this->isDisplayOnly; }
+    public function isDisplayOnly()
+    {
+        return $this->isDisplayOnly;
+    }
 
     /**
      * Check if this is the default value.
      *
      * @return boolean <code>true</code> if this is the default value, <code>false</code> if not.
      */
-    public function isDefault() { return $this->isDefault; }
+    public function isDefault()
+    {
+        return $this->isDefault;
+    }
 
     /**
      * Check if this value is discounted.
      *
      * @return boolean <code>true</code> if this value is discounted, <code>false</code> if not.
      */
-    public function isDiscounted() { return $this->isDiscounted; }
+    public function isDiscounted()
+    {
+        return $this->isDiscounted;
+    }
 
     /**
      * Check if this value has an associated image.
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    public function hasImage() { return null !== $this->image && '' != $this->image; }
+    public function hasImage()
+    {
+        return null !== $this->image && '' != $this->image;
+    }
 
     /**
      * Check if the base price is included.
      *
      * @return boolean <code>true</code> if the base price is included, <code>false</code> if not.
      */
-    public function isIncludeInBasePrice() { return $this->isIncludeInBasePrice; }
+    public function isIncludeInBasePrice()
+    {
+        return $this->isIncludeInBasePrice;
+    }
 
     /**
      * Get the attribute value image (if any).
      *
      * @return string The attribute value image name.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Check if the price factor is one time.
      *
      * @return boolean <code>true</code> if the price factor is one time only, <code>false</code> if not.
      */
-    public function isPriceFactorOneTime() { return $this->isPriceFactorOneTime; }
+    public function isPriceFactorOneTime()
+    {
+        return $this->isPriceFactorOneTime;
+    }
 
     /**
      * Get the tax rate.
      *
      * @return TaxRate The tax rate.
      */
-    public function getTaxRate() { return $this->taxRate; }
+    public function getTaxRate()
+    {
+        return $this->taxRate;
+    }
 
     /**
      * Set the attribute value id.
      *
      * @param int id The attribute value id.
      */
-    public function setId($id) { $this->set('attributeValueId', $id); }
+    public function setId($id)
+    {
+        $this->set('attributeValueId', $id);
+
+        return $this;
+    }
 
     /**
      * Set the parent attribute.
      *
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      */
-    public function setAttribute($attribute ) { $this->attribute = $attribute; }
+    public function setAttribute($attribute )
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
 
     /**
      * Set the attribute value name.
      *
      * @param string name The attribute value name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the value price.
@@ -353,98 +413,166 @@ class ZMAttributeValue extends ZMObject
      *
      * @param double oneTimePrice The attributes one time price.
      */
-    public function setOneTimePrice($oneTimePrice) { $this->oneTimePrice = $oneTimePrice; }
+    public function setOneTimePrice($oneTimePrice)
+    {
+        $this->oneTimePrice = $oneTimePrice;
+
+        return $this;
+    }
 
     /**
      * Set the price prefix.
      *
      * @param string pricePrefix The price prefix.
      */
-    public function setPricePrefix($pricePrefix) { $this->pricePrefix = $pricePrefix; }
+    public function setPricePrefix($pricePrefix)
+    {
+        $this->pricePrefix = $pricePrefix;
+
+        return $this;
+    }
 
     /**
      * Sheck the attribute free flag.
      *
      * @param boolean value <code>true</code> if the value is free, <code>false</code> if not.
      */
-    public function setFree($value) { $this->isFree = $value; }
+    public function setFree($value)
+    {
+        $this->isFree = $value;
+
+        return $this;
+    }
 
     /**
      * Set the attribute weight.
      *
      * @return double weight The attribute weight.
      */
-    public function setWeight($weight) { $this->weight = $weight; }
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
 
     /**
      * Set the weight prefix.
      *
      * @param string weightPrefix The weight prefix.
      */
-    public function setWeightPrefix($weightPrefix) { $this->weightPrefix = $weightPrefix; }
+    public function setWeightPrefix($weightPrefix)
+    {
+        $this->weightPrefix = $weightPrefix;
+
+        return $this;
+    }
 
     /**
      * Set the attribute is 'display only' flag.
      *
      * @param boolean value <code>true</code> if the value is display only, <code>false</code> if not.
      */
-    public function setDisplayOnly($value) { $this->isDisplayOnly = $value; }
+    public function setDisplayOnly($value)
+    {
+        $this->isDisplayOnly = $value;
+
+        return $this;
+    }
 
     /**
      * Set the default value flag.
      *
      * @param boolean value <code>true</code> if this is the default value, <code>false</code> if not.
      */
-    public function setDefault($value) { $this->isDefault = $value; }
+    public function setDefault($value)
+    {
+        $this->isDefault = $value;
+
+        return $this;
+    }
 
     /**
      * Set the is discounted flag.
      *
      * @param boolean value <code>true</code> if this value is discounted, <code>false</code> if not.
      */
-    public function setDiscounted($value) { $this->isDiscounted = $value; }
+    public function setDiscounted($value)
+    {
+        $this->isDiscounted = $value;
+
+        return $this;
+    }
 
     /**
      * Set the attribute value image (if any).
      *
      * @param string image The attribute value image name.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
     /**
      * Set the price factor is one time flag.
      *
      * @param boolean value <code>true</code> if the price factor is one time only, <code>false</code> if not.
      */
-    public function setPriceFactorOneTime($value) { $this->isPriceFactorOneTime = $value; }
+    public function setPriceFactorOneTime($value)
+    {
+        $this->isPriceFactorOneTime = $value;
+
+        return $this;
+    }
 
     /**
      * Set the base price is included flag.
      *
      * @param boolean value <code>true</code> if the base price is included, <code>false</code> if not.
      */
-    public function setIncludeInBasePrice($value) { $this->isIncludeInBasePrice = $value; }
+    public function setIncludeInBasePrice($value)
+    {
+        $this->isIncludeInBasePrice = $value;
+
+        return $this;
+    }
 
     /**
      * Set the tax rate.
      *
      * @param TaxRate taxRate The tax rate.
      */
-    public function setTaxRate($taxRate) { $this->taxRate = $taxRate; }
+    public function setTaxRate($taxRate)
+    {
+        $this->taxRate = $taxRate;
+
+        return $this;
+    }
 
     /**
      * Get the attribute value sort order.
      *
      * @return int The attribute sort order.
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Set the attribute value sort order.
      *
      * @param int sortOrder The attribute sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
 
     /**
      * Calculate the letter count.

@@ -82,58 +82,98 @@ class Zone extends ZMObject
      *
      * @return integer $zoneId The id.
      */
-    public function getId() { return $this->zoneId; }
+    public function getId()
+    {
+        return $this->zoneId;
+    }
 
     /**
      * Get the country id.
      *
      * @return integer $countryId
      */
-    public function getCountryId() { return $this->countryId; }
+    public function getCountryId()
+    {
+        return $this->countryId;
+    }
 
-    public function getZoneId() { return $this->getId(); }
+    public function getZoneId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the code.
      *
      * @return string $code The code.
      */
-    public function getCode() { return $this->code; }
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Get the name.
      *
      * @return string $name The name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Set the id.
      *
      * @param string id The id.
      */
-    public function setId($id) { $this->zoneId =  $id; }
+    public function setId($id)
+    {
+        $this->zoneId =  $id;
 
-    public function setZoneId($zoneId) { $this->setId($zoneId); }
+        return $this;
+    }
+
+    public function setZoneId($zoneId)
+    {
+        $this->setId($zoneId);
+
+        return $this;
+    }
     /**
      * Set the country id.
      *
      * @param integer $countryId
      */
-    public function setCountryId($countryId) { $this->countryId = $countryId; }
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
 
     /**
      * Set the code.
      *
      * @param string $code The code.
      */
-    public function setCode($code) { $this->code = $code; }
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
 
     /**
      * Set the name.
      *
      * @param string $name The name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
 }

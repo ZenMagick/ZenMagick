@@ -54,7 +54,10 @@ class UpgradeExceptions
      *
      * @return smallint
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set sqlFile
@@ -84,40 +87,64 @@ class UpgradeExceptions
      *
      * @param string $reason
      */
-    public function setReason($reason) { return $this; }
+    public function setReason($reason)
+    {
+        return $this;
+
+        return $this;
+    }
 
     /**
      * Get reason
      *
      * @return string
      */
-    public function getReason() { return $this->reason; }
+    public function getReason()
+    {
+        return $this->reason;
+    }
 
     /**
      * Set errorDate
      *
      * @param datetime $errorDate
      */
-    public function setErrorDate($errorDate) { $this->errorDate = $errorDate; }
+    public function setErrorDate($errorDate)
+    {
+        $this->errorDate = $errorDate;
+
+        return $this;
+    }
 
     /**
      * Get errorDate
      *
      * @return datetime
      */
-    public function getErrorDate() { return $this->errorDate; }
+    public function getErrorDate()
+    {
+        return $this->errorDate;
+    }
 
     /**
      * Set sqlStatement
      *
      * @param text $sqlStatement
      */
-    public function setSqlStatement($sqlStatement) { $this->sqlStatement = $sqlStatement; }
+    public function setSqlStatement($sqlStatement)
+    {
+        $this->sqlStatement = $sqlStatement;
+
+        return $this;
+    }
 
     /**
      * Get sqlStatement
      *
      * @return text
      */
-    public function getSqlStatement() { return $this->sqlStatement; }
+    public function getSqlStatement()
+    {
+        return $this->sqlStatement;
+    }
 }

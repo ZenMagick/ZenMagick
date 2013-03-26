@@ -65,8 +65,14 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware
     }
 
     // sort functions
-    public function _cmpModel($a, $b) { return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1; }
-    public function _cmpName($a, $b) { return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1; }
+    public function _cmpModel($a, $b)
+    {
+        return ($a->getModel() == $b->getModel()) ? 0 : ($a->getModel() > $b->getModel()) ? +1 : -1;
+    }
+    public function _cmpName($a, $b)
+    {
+        return ($a->getName() == $b->getName()) ? 0 : ($a->getName() > $b->getName()) ? +1 : -1;
+    }
     public function _cmpManufacturerName($a, $b)
     {
         $am = $a->getManufacturer();
@@ -74,8 +80,14 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware
         if (null == $am || null == $bm) return 0;
         return ($am->getName() == $bm->getName()) ? 0 : ($am->getName() > $bm->getName()) ? +1 : -1;
     }
-    public function _cmpPrice($a, $b) { return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1; }
-    public function _cmpWeight($a, $b) { return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1; }
+    public function _cmpPrice($a, $b)
+    {
+        return ($a->getPrice() == $b->getPrice()) ? 0 : ($a->getPrice() > $b->getPrice()) ? +1 : -1;
+    }
+    public function _cmpWeight($a, $b)
+    {
+        return ($a->getWeight() == $b->getWeight()) ? 0 : ($a->getWeight() > $b->getWeight()) ? +1 : -1;
+    }
 
     /**
      * Returns <code>true</code> if this sorter is currently active.
@@ -84,7 +96,10 @@ class ZMProductSorter extends ZMResultListSorter implements SqlAware
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    public function isActive() { return array_key_exists($this->sortId, $this->methods); }
+    public function isActive()
+    {
+        return array_key_exists($this->sortId, $this->methods);
+    }
 
     /**
      * Sort the given list according to this sorters criteria.

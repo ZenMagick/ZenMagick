@@ -76,92 +76,148 @@ class Language extends ZMObject
     private $sortOrder;
 
     // @todo deprecated, but needed until we change the property name
-    public function getLanguageId() { return $this->getId(); }
+    public function getLanguageId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get the language id.
      *
      * @return int $id The language id.
      */
-    public function getId() { return $this->languageId; }
+    public function getId()
+    {
+        return $this->languageId;
+    }
 
     /**
      * Get the language name.
      *
      * @return string $name The language name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the language image.
      *
      * @return string $image The language image.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Get the language code.
      *
      * @return string $code The language code.
      */
-    public function getCode() { return $this->code; }
+    public function getCode()
+    {
+        return $this->code;
+    }
 
     /**
      * Get the language directory name.
      *
      * @return string $directory The language directory name.
      */
-    public function getDirectory() { return $this->directory; }
+    public function getDirectory()
+    {
+        return $this->directory;
+    }
 
     /**
      * Get the language sort order.
      *
      * @return integer $sortOrder
      */
-    public function getSortOrder() { return $this->sortOrder; }
+    public function getSortOrder()
+    {
+        return $this->sortOrder;
+    }
 
     /**
      * Set the language id.
      *
      * @param int $id The language id.
      */
-    public function setId($id) { $this->languageId = $id; }
+    public function setId($id)
+    {
+        $this->languageId = $id;
+
+        return $this;
+    }
 
     // @todo doctrine deprecated
-    public function setLanguageId($id) { $this->setId($id); }
+    public function setLanguageId($id)
+    {
+        $this->setId($id);
+
+        return $this;
+    }
 
     /**
      * Set the language name.
      *
      * @param string $name The language name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the language image.
      *
      * @param string $image The language image.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
     /**
      * Set the language code.
      *
      * @param string $code The language code.
      */
-    public function setCode($code) { $this->code = $code; }
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
 
     /**
      * Set the language directory name.
      *
      * @param string $directory The language directory name.
      */
-    public function setDirectory($directory) { $this->directory = $directory; }
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+
+        return $this;
+    }
 
     /**
      * Set the language sort order.
      *
      * @param integer $sortOrder
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+    public function setSortOrder($sortOrder)
+    {
+        $this->sortOrder = $sortOrder;
+
+        return $this;
+    }
 }

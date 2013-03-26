@@ -299,7 +299,10 @@ class ZMOffers extends ZMObject
      *
      * @return float The discount in percent.
      */
-    public function getDiscountPercent() { return $this->discountPercent; }
+    public function getDiscountPercent()
+    {
+        return $this->discountPercent;
+    }
 
     /**
      * Get the discount amount.
@@ -339,14 +342,20 @@ class ZMOffers extends ZMObject
      *
      * @return boolean <code>true</code> if a special price is available.
      */
-    public function isSpecial() { return 0 != $this->specialPrice && $this->specialPrice != $this->basePrice && !$this->isSale(); }
+    public function isSpecial()
+    {
+        return 0 != $this->specialPrice && $this->specialPrice != $this->basePrice && !$this->isSale();
+    }
 
     /**
      * Checks if a sale price is available.
      *
      * @return boolean <code>true</code> if a sale price is available.
      */
-    public function isSale() { return 0 != $this->salePrice; }
+    public function isSale()
+    {
+        return 0 != $this->salePrice;
+    }
 
     /**
      * Get the calculated price.

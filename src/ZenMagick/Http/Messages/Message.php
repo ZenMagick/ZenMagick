@@ -55,41 +55,59 @@ class Message
      *
      * @return string The message text.
      */
-    public function getText() { return $this->text; }
+    public function getText()
+    {
+        return $this->text;
+    }
 
     /**
      * Get the message type.
      *
      * @return string The message type.
      */
-    public function getType() { return $this->type; }
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Get the message reference.
      *
      * @return string The message reference.
      */
-    public function getRef() { return $this->ref; }
+    public function getRef()
+    {
+        return $this->ref;
+    }
 
     /**
      * Set the message text.
      *
      * @param string text The message text.
      */
-    public function setText($text) { $this->text = $text; }
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
 
     /**
      * Set the message type.
      *
      * @param string type The message type.
      */
-    public function setType($type) { $this->type = $type; }
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
     /**
      * Set the message reference.
      *
      * @param string ref The message reference.
      */
-    public function setRef($ref) { $this->ref = $ref; }
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+    }
 
 }

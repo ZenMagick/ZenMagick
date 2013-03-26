@@ -154,84 +154,120 @@ class Address extends ZMObject
      *
      * @return int The account id.
      */
-    public function getId() { return $this->addressId; }
+    public function getId()
+    {
+        return $this->addressId;
+    }
 
     /**
      * Get the account id.
      *
      * @return int The account id.
      */
-    public function getAccountId() { return $this->accountId; }
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
 
     /**
      * Get the first name.
      *
      * @return string The first name.
      */
-    public function getFirstName() { return $this->firstName; }
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
 
     /**
      * Get the last name.
      *
      * @return string The last name.
      */
-    public function getLastName() { return $this->lastName; }
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
 
     /**
      * Get the gender.
      *
      * @return string The gender ('f' or 'm').
      */
-    public function getGender() { return $this->gender; }
+    public function getGender()
+    {
+        return $this->gender;
+    }
 
     /**
      * Get the company name.
      *
      * @return string The company name.
      */
-    public function getCompanyName() { return $this->companyName; }
+    public function getCompanyName()
+    {
+        return $this->companyName;
+    }
 
     /**
      * Get the address line.
      *
      * @return string The address line.
      */
-    public function getAddressLine1() { return $this->addressLine1; }
+    public function getAddressLine1()
+    {
+        return $this->addressLine1;
+    }
 
     /**
      * Get the suburb.
      *
      * @return string The suburb.
      */
-    public function getSuburb() { return $this->suburb; }
+    public function getSuburb()
+    {
+        return $this->suburb;
+    }
 
     /**
      * Get the postcode.
      *
      * @return string The postcode.
      */
-    public function getPostcode() { return $this->postcode; }
+    public function getPostcode()
+    {
+        return $this->postcode;
+    }
 
     /**
      * Get the city.
      *
      * @return string The city.
      */
-    public function getCity() { return $this->city; }
+    public function getCity()
+    {
+        return $this->city;
+    }
 
     /**
      * Get the state.
      *
      * @return string The state.
      */
-    public function getState() { return $this->state; }
+    public function getState()
+    {
+        return $this->state;
+    }
 
     /**
      * Get the zone id.
      *
      * @return int The zone id.
      */
-    public function getZoneId() { return $this->zoneId; }
+    public function getZoneId()
+    {
+        return $this->zoneId;
+    }
 
     /**
      * Get the country.
@@ -252,42 +288,64 @@ class Address extends ZMObject
      *
      * @return int The countryId or <em>0</em>.
      */
-    public function getCountryId() { return null != $this->country ? $this->country->getId() : $this->countryId; }
+    public function getCountryId()
+    {
+        return null != $this->country ? $this->country->getId() : $this->countryId;
+    }
 
     /**
      * Check if the address is the primary address.
      *
      * @return boolean <code>true</code> if the address is the primary adddress, <code>false</code> if not.
      */
-    public function isPrimary() { return $this->isPrimary; }
+    public function isPrimary()
+    {
+        return $this->isPrimary;
+    }
 
     /**
      * Get the format.
      *
      * @return string The format.
      */
-    public function getFormat() { return $this->format; }
+    public function getFormat()
+    {
+        return $this->format;
+    }
 
     /**
      * Set the format.
      *
      * @param string format The format.
      */
-    public function setFormat($format) { $this->format = $format; }
+    public function setFormat($format)
+    {
+        $this->format = $format;
+
+        return $this;
+    }
 
     /**
      * Get the full name.
      *
      * @return string The formatted full name.
      */
-    public function getFullName() { return $this->firstName . ' ' . $this->lastName; }
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 
     /**
      * Set the account id.
      *
      * @param int accountId The account id.
      */
-    public function setAccountId($accountId) { $this->accountId = $accountId; }
+    public function setAccountId($accountId)
+    {
+        $this->accountId = $accountId;
+
+        return $this;
+    }
 
     /**
      * Get the address format id.
@@ -314,97 +372,167 @@ class Address extends ZMObject
      *
      * @param boolean value The new status.
      */
-    public function setPrimary($value) { $this->isPrimary = $value; }
+    public function setPrimary($value)
+    {
+        $this->isPrimary = $value;
+
+        return $this;
+    }
 
     /**
      * Set the address id.
      *
      * @param int id The account id.
      */
-    public function setId($id) { $this->addressId = $id; }
+    public function setId($id)
+    {
+        $this->addressId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the first name.
      *
      * @param string firstName The first name.
      */
-    public function setFirstName($name) { $this->firstName = $name; }
+    public function setFirstName($name)
+    {
+        $this->firstName = $name;
+
+        return $this;
+    }
 
     /**
      * Set the last name.
      *
      * @param string name The last name.
      */
-    public function setLastName($name) { $this->lastName = $name; }
+    public function setLastName($name)
+    {
+        $this->lastName = $name;
+
+        return $this;
+    }
 
     /**
      * Set the gender.
      *
      * @param string gender The gender ('f' or 'm').
      */
-    public function setGender($gender) { $this->gender = $gender; }
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
 
     /**
      * Set the address line.
      *
      * @param string addressLine The address line.
      */
-    public function setAddressLine1($addressLine) { $this->addressLine1 = $addressLine; }
+    public function setAddressLine1($addressLine)
+    {
+        $this->addressLine1 = $addressLine;
+
+        return $this;
+    }
 
     /**
      * Set the suburb.
      *
      * @param string suburbThe suburb.
      */
-    public function setSuburb($suburb) { $this->suburb = $suburb; }
+    public function setSuburb($suburb)
+    {
+        $this->suburb = $suburb;
+
+        return $this;
+    }
 
     /**
      * Set the postcode.
      *
      * @param string postcode The postcode.
      */
-    public function setPostcode($postcode) { $this->postcode = $postcode; }
+    public function setPostcode($postcode)
+    {
+        $this->postcode = $postcode;
+
+        return $this;
+    }
 
     /**
      * Set the city.
      *
      * @param string city The city.
      */
-    public function setCity($city) { $this->city = $city; }
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
 
     /**
      * Set the state.
      *
      * @param string state The state.
      */
-    public function setState($state) { $this->state= $state; }
+    public function setState($state)
+    {
+        $this->state= $state;
+
+        return $this;
+    }
 
     /**
      * Set the zone id.
      *
      * @param int zoneId The zone id.
      */
-    public function setZoneId($zoneId) { $this->zoneId = $zoneId; }
+    public function setZoneId($zoneId)
+    {
+        $this->zoneId = $zoneId;
+
+        return $this;
+    }
 
     /**
      * Set the country.
      *
      * @param Country country The country.
      */
-    public function setCountry($country) { $this->country = $country; }
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
 
     /**
      * Set the country id.
      *
      * @param int countryId The country id.
      */
-    public function setCountryId($countryId) { $this->countryId = $countryId; }
+    public function setCountryId($countryId)
+    {
+        $this->countryId = $countryId;
+
+        return $this;
+    }
 
     /**
      * Set the company name.
      *
      * @param string name The company name.
      */
-    public function setCompanyName($name) { $this->companyName = $name; }
+    public function setCompanyName($name)
+    {
+        $this->companyName = $name;
+
+        return $this;
+    }
 
 }

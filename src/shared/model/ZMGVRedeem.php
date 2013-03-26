@@ -48,41 +48,65 @@ class ZMGVRedeem extends ZMObject
      *
      * @return string The coupon code.
      */
-    public function getCouponCode() { return $this->couponCode; }
+    public function getCouponCode()
+    {
+        return $this->couponCode;
+    }
 
     /**
      * Get the amount.
      *
      * @return float The amount.
      */
-    public function getAmount() { return $this->amount; }
+    public function getAmount()
+    {
+        return $this->amount;
+    }
 
     /**
      * Check if the coupon was redeemed succsessfully.
      *
      * @return boolean <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    public function isRedeemed() { return $this->redeemed; }
+    public function isRedeemed()
+    {
+        return $this->redeemed;
+    }
 
     /**
      * Set the coupon code.
      *
      * @param string couponCode The coupon code.
      */
-    public function setCouponCode($couponCode) { $this->couponCode = $couponCode; }
+    public function setCouponCode($couponCode)
+    {
+        $this->couponCode = $couponCode;
+
+        return $this;
+    }
 
     /**
      * Set the amount.
      *
      * @param float amount The amount.
      */
-    public function setAmount($amount) { $this->amount = $amount; }
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
 
     /**
      * Set the redeem flag.
      *
      * @param boolean redeemed <code>true</code> if the coupon was redeemed succsessfully, <code>false</code> if not.
      */
-    public function setRedeemed($redeemed) { $this->redeemed = $redeemed; }
+    public function setRedeemed($redeemed)
+    {
+        $this->redeemed = $redeemed;
+
+        return $this;
+    }
 
 }

@@ -59,28 +59,40 @@ class ZMSortOption extends ZMObject
      *
      * @return string The option id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the reverse option id.
      *
      * @return string The reverse option id.
      */
-    public function getReverseId() { return $this->id . ($this->decending ? '_a' : '_d'); }
+    public function getReverseId()
+    {
+        return $this->id . ($this->decending ? '_a' : '_d');
+    }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    public function isActive() { return $this->active; }
+    public function isActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Check if the sorting is ascending or decending.
@@ -88,6 +100,9 @@ class ZMSortOption extends ZMObject
      * @return boolean <code>true</code> if sorting is decending, <code>false</code> if sorting
      *  is ascending.
      */
-    public function isDecending() { return $this->decending; }
+    public function isDecending()
+    {
+        return $this->decending;
+    }
 
 }

@@ -58,42 +58,68 @@ class TemplateManager extends ZMObject
      *
      * @param boolean bool If <code>true</code> the left column will be displayed.
      */
-    public function setLeftColEnabled($bool) { $this->leftColEnabled = $bool; }
+    public function setLeftColEnabled($bool)
+    {
+        $this->leftColEnabled = $bool;
+
+        return $this;
+    }
 
     /**
      * Enable/disable the right column.
      *
      * @param boolean bool If <code>true</code> the right column will be displayed.
      */
-    public function setRightColEnabled($bool) { $this->rightColEnabled = $bool; }
+    public function setRightColEnabled($bool)
+    {
+        $this->rightColEnabled = $bool;
+
+        return $this;
+    }
 
     /**
      * Set the boxes for the left column.
      *
      * @param array boxes List of box names to be displayed in the left column.
      */
-    public function setLeftColBoxes($boxes) { if (is_array($boxes)) $this->leftColBoxes = $boxes; }
+    public function setLeftColBoxes($boxes)
+    {
+        if (is_array($boxes)) $this->leftColBoxes = $boxes;
+
+        return $this;
+    }
 
     /**
      * Set the boxes for the right column.
      *
      * @param array boxes List of box names to be displayed in the right column.
      */
-    public function setRightColBoxes($boxes) { if (is_array($boxes)) $this->rightColBoxes = $boxes; }
+    public function setRightColBoxes($boxes)
+    {
+        if (is_array($boxes)) $this->rightColBoxes = $boxes;
+
+        return $this;
+    }
 
     /**
      * Checks if the left column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    public function isLeftColEnabled() { return $this->leftColEnabled; }
+    public function isLeftColEnabled()
+    {
+        return $this->leftColEnabled;
+    }
 
     /**
      * Checks if the right column is active.
      *
      * @return boolean <code>true</code> if the column is active, <code>false</code> if not.
      */
-    public function isRightColEnabled() { return $this->rightColEnabled; }
+    public function isRightColEnabled()
+    {
+        return $this->rightColEnabled;
+    }
 
     /**
      * Get the box names for the left column.

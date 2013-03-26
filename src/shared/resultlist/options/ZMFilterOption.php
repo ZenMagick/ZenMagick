@@ -52,41 +52,59 @@ class ZMFilterOption extends ZMObject
      *
      * @return int The option id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the option name.
      *
      * @return string The option name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Check if this option is active.
      *
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
-    public function isActive() { return $this->active; }
+    public function isActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Set the option id.
      *
      * @param int id The option id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the option name.
      *
      * @param string name The option name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Set the active flag.
      *
      * @param boolean value The new value.
      */
-    public function setActive($value) { $this->active = $value; }
+    public function setActive($value)
+    {
+        $this->active = $value;
+    }
 
 }

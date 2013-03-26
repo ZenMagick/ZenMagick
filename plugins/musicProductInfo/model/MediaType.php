@@ -48,41 +48,65 @@ class MediaType extends ZMObject
      *
      * @return int The media type id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the media type name.
      *
      * @return string The media type name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the media type file extension.
      *
      * @return string The media type file extension.
      */
-    public function getExtension() { return $this->extension; }
+    public function getExtension()
+    {
+        return $this->extension;
+    }
 
     /**
      * Set the media type id.
      *
      * @param int id The media type id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Set the media type name.
      *
      * @param string name The media type name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the media type file extension.
      *
      * @param string extension The media type file extension.
      */
-    public function setExtension($extension) { $this->extension = $extension; }
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
 
 }

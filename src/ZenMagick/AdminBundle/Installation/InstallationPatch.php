@@ -52,21 +52,30 @@ class InstallationPatch extends ZMObject
      *
      * @return string The id of the patch.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Get the patch label.
      *
      * @return string The label of the patch.
      */
-    public function getLabel() { return $this->label; }
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
     /**
      * Returns a list of other patches it depends on.
      *
      * @return array List of patch names.
      */
-    public function dependsOn() { return array(); }
+    public function dependsOn()
+    {
+        return array();
+    }
 
     /**
      * Checks if this patch can still be applied.

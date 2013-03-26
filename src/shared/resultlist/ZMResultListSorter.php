@@ -59,14 +59,20 @@ class ZMResultListSorter extends ZMObject
      *
      * @return boolean <code>true</code> if the current sort order is descending.
      */
-    public function isDescending() { return $this->descending; }
+    public function isDescending()
+    {
+        return $this->descending;
+    }
 
     /**
      * Returns one or more <code>ZMSortOption</code>s supported by this sorter.
      *
      * @return array An array of one or more <code>ZMSortOption</code> instances.
      */
-    public function getOptions() { $values = array(); return $values; }
+    public function getOptions()
+    {
+        $values = array(); return $values;
+    }
 
     /**
      * Sort the given list according to this sorters criteria.
@@ -74,7 +80,10 @@ class ZMResultListSorter extends ZMObject
      * @param array list The list to sort.
      * @return array The sorted list.
      */
-    public function sort($list) { return $list; }
+    public function sort($list)
+    {
+        return $list;
+    }
 
     /**
      * Returns <code>true</code> if this sorter is currently active.
@@ -83,49 +92,70 @@ class ZMResultListSorter extends ZMObject
      *
      * @return boolean <code>true</code> if the sorter is active, <code>false</code> if not.
      */
-    public function isActive() { return false; }
+    public function isActive()
+    {
+        return false;
+    }
 
     /**
      * Returns the sorters unique id.
      *
      * @return string The sorter id.
      */
-    public function getId() { return $this->id; }
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Returns the sorter name.
      *
      * @return string The sorter name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Set the sorters unique id.
      *
      * @param string id The sorter id.
      */
-    public function setId($id) { $this->id = $id; }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Set the sorter name.
      *
      * @param string name The sorter name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Returns the sorters sort id.
      *
      * @return string The sortid.
      */
-    public function getSortId() { return $this->sortId; }
+    public function getSortId()
+    {
+        return $this->sortId;
+    }
 
     /**
      * Set the sorters sorter id.
      *
      * @param string id The sort id.
      */
-    public function setSortId($sortId) { $this->sortId = $sortId; }
+    public function setSortId($sortId)
+    {
+        $this->sortId = $sortId;
+    }
 
     /**
      * Set the descending flag.

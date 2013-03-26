@@ -101,56 +101,80 @@ class ZMImageInfo extends ZMObject
      *
      * @return boolean <code>true</code> if there is an image, <code>false</code> if not.
      */
-    public function hasImage() { return '' != $this->imageDefault; }
+    public function hasImage()
+    {
+        return '' != $this->imageDefault;
+    }
 
     /**
      * Get the default image.
      *
      * @return string The default image.
      */
-    public function getDefaultImage() { return $this->imageDefault; }
+    public function getDefaultImage()
+    {
+        return $this->imageDefault;
+    }
 
     /**
      * Check if there is a medium image.
      *
      * @return boolean <code>true</code> if there is a medium image, <code>false</code> if not.
      */
-    public function hasMediumImage() { return $this->imageMedium != $this->imageDefault; }
+    public function hasMediumImage()
+    {
+        return $this->imageMedium != $this->imageDefault;
+    }
 
     /**
      * Get the medium image.
      *
      * @return string The medium image.
      */
-    public function getMediumImage() { return $this->imageMedium; }
+    public function getMediumImage()
+    {
+        return $this->imageMedium;
+    }
 
     /**
      * Get the large image.
      *
      * @return string The large image.
      */
-    public function getLargeImage() { return $this->imageLarge; }
+    public function getLargeImage()
+    {
+        return $this->imageLarge;
+    }
 
     /**
      * Check if there is a large image.
      *
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
-    public function hasLargeImage() { return $this->imageLarge != $this->imageMedium; }
+    public function hasLargeImage()
+    {
+        return $this->imageLarge != $this->imageMedium;
+    }
 
     /**
      * Set the alt text.
      *
      * @param string text The alt text.
      */
-    public function setAltText($text) { $this->altText = $text; }
+    public function setAltText($text)
+    {
+        $this->altText = $text;
+    }
 
     /**
      * Get the alt text.
      *
      * @return string The alt text.
      */
-    public function getAltText() { return $this->altText; }
+    public function getAltText()
+    {
+        return $this->altText;
+    }
 
     /**
      * Set the parameter.
@@ -172,7 +196,10 @@ class ZMImageInfo extends ZMObject
      *
      * @return array Map of key/value pairs.
      */
-    public function getParameter() { return $this->parameter; }
+    public function getParameter()
+    {
+        return $this->parameter;
+    }
 
     /**
      * Get the parameter formatted as <code>key="value" </code>.

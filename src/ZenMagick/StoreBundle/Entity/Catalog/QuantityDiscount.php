@@ -88,68 +88,108 @@ class QuantityDiscount extends ZMObject
      * @todo doctrine this id is NOT UNIQUE
      * @return int $quantityDiscountIdThe discount id.
      */
-    public function getId() { return $this->quantityDiscountId; }
+    public function getId()
+    {
+        return $this->quantityDiscountId;
+    }
 
     /**
      * Get the product id.
      *
      * @return integer $productId The product id.
      */
-    public function getProductId() { return $this->productId; }
+    public function getProductId()
+    {
+        return $this->productId;
+    }
 
     /**
     * Get the upper quantity [excl.].
      *
      * @return integer $quantity The upper quantity.
      */
-    public function getQuantity() { return $this->quantity; }
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
 
     /**
      * Get the discount value (amount, percent, etc).
      *
      * @return float The discount value.
      */
-    public function getValue() { return $this->value; }
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * Get the calculated discount price.
      *
      * @return float $price The discounted price.
      */
-    public function getPrice() { return $this->price; }
+    public function getPrice()
+    {
+        return $this->price;
+    }
 
     /**
      * Set the discount id.
      *
      * @param int id The discount id.
      */
-    public function setId($id) { return $this->quantityDiscountId = $id; }
+    public function setId($id)
+    {
+        return $this->quantityDiscountId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the product id.
      *
      * @param integer $productId The product id.
      */
-    public function setProductId($productId) { $this->productId = $productId; }
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
 
     /**
      * Set the upper quantity [excl.].
      *
      * @param float $quantity The upper quantity.
      */
-    public function setQuantity($quantity) { $this->quantity = $quantity; }
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
 
     /**
      * Set the discount value (amount, percent, etc).
      *
      * @param float value The discount value.
      */
-    public function setValue($value) { $this->value = $value; }
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
 
     /**
      * Set the calculated discount price.
      *
      * @param float $price The discounted price.
      */
-    public function setPrice($price) { $this->price = $price; }
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
 }

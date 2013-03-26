@@ -98,7 +98,10 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType
     /**
      * {@inheritDoc}
      */
-    public function getError() { return $this->module->get_error(); }
+    public function getError()
+    {
+        return $this->module->get_error();
+    }
 
     /**
      * {@inheritDoc}

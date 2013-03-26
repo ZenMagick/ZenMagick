@@ -154,77 +154,110 @@ class SalemakerSale extends ZMObject
      * @return integer $saleId
      * @deprecated (use getId() throughout)
      */
-    public function getSaleId() { return $this->getId(); }
+    public function getSaleId()
+    {
+        return $this->getId();
+    }
 
     /**
      * Get id of sale.
      *
      * @return integer $id
      */
-    public function getId() { return $this->saleId; }
+    public function getId()
+    {
+        return $this->saleId;
+    }
 
     /**
      * Get status
      *
      * @return boolean $status
      */
-    public function getStatus() { return $this->status; }
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Get name
      *
      * @return string $name
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get deductionValue
      *
      * @return decimal $deductionValue
      */
-    public function getDeductionValue() { return $this->deductionValue; }
+    public function getDeductionValue()
+    {
+        return $this->deductionValue;
+    }
 
     /**
      * Get deductionType
      *
      * @return boolean $deductionType
      */
-    public function getDeductionType() { return $this->deductionType; }
+    public function getDeductionType()
+    {
+        return $this->deductionType;
+    }
 
     /**
      * Get priceFrom
      *
      * @return decimal $priceFrom
      */
-    public function getPriceFrom() { return $this->priceFrom; }
+    public function getPriceFrom()
+    {
+        return $this->priceFrom;
+    }
 
     /**
      * Get priceTo
      *
      * @return decimal $priceTo
      */
-    public function getPriceTo() { return $this->priceTo; }
+    public function getPriceTo()
+    {
+        return $this->priceTo;
+    }
 
     /**
      * Get specialsCondition
      *
      * @return boolean $specialsCondition
      */
-    public function getSpecialsCondition() { return $this->specialsCondition; }
+    public function getSpecialsCondition()
+    {
+        return $this->specialsCondition;
+    }
 
     /**
      * Get categoriesSelected
      *
      * @return text $categoriesSelected
      */
-    public function getCategoriesSelected() { return $this->categoriesSelected; }
+    public function getCategoriesSelected()
+    {
+        return $this->categoriesSelected;
+    }
 
     /**
      * Get categoriesAll
      *
      * @return text $categoriesAll
      */
-    public function getCategoriesAll() { return $this->categoriesAll; }
+    public function getCategoriesAll()
+    {
+        return $this->categoriesAll;
+    }
 
     /**
      * Get dateStart
@@ -302,89 +335,154 @@ class SalemakerSale extends ZMObject
      *
      * @param string $name
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set deductionValue
      *
      * @param decimal $deductionValue
      */
-    public function setDeductionValue($deductionValue) { $this->deductionValue = $deductionValue; }
+    public function setDeductionValue($deductionValue)
+    {
+        $this->deductionValue = $deductionValue;
+
+        return $this;
+    }
 
     /**
      * Set deductionType
      *
      * @param boolean $deductionType
      */
-    public function setDeductionType($deductionType) { $this->deductionType = $deductionType; }
+    public function setDeductionType($deductionType)
+    {
+        $this->deductionType = $deductionType;
+
+        return $this;
+    }
 
     /**
      * Set priceFrom
      *
      * @param decimal $priceFrom
      */
-    public function setPriceFrom($priceFrom) { $this->priceFrom = $priceFrom; }
+    public function setPriceFrom($priceFrom)
+    {
+        $this->priceFrom = $priceFrom;
+
+        return $this;
+    }
 
     /**
      * Set priceTo
      *
      * @param decimal $priceTo
      */
-    public function setPriceTo($priceTo) { $this->priceTo = $priceTo; }
+    public function setPriceTo($priceTo)
+    {
+        $this->priceTo = $priceTo;
+
+        return $this;
+    }
 
     /**
      * Set specialsCondition
      *
      * @param boolean $specialsCondition
      */
-    public function setSpecialsCondition($specialsCondition) { $this->specialsCondition = $specialsCondition; }
+    public function setSpecialsCondition($specialsCondition)
+    {
+        $this->specialsCondition = $specialsCondition;
+
+        return $this;
+    }
 
     /**
      * Set categoriesSelected
      *
      * @param text $categoriesSelected
      */
-    public function setCategoriesSelected($categoriesSelected) { $this->categoriesSelected = $categoriesSelected; }
+    public function setCategoriesSelected($categoriesSelected)
+    {
+        $this->categoriesSelected = $categoriesSelected;
+
+        return $this;
+    }
 
     /**
      * Set categoriesAll
      *
      * @param text $categoriesAll
      */
-    public function setCategoriesAll($categoriesAll) { $this->categoriesAll = $categoriesAll; }
+    public function setCategoriesAll($categoriesAll)
+    {
+        $this->categoriesAll = $categoriesAll;
+
+        return $this;
+    }
 
     /**
      * Set dateStart
      *
      * @param date $dateStart
      */
-    public function setDateStart($dateStart) { $this->dateStart = $dateStart; }
+    public function setDateStart($dateStart)
+    {
+        $this->dateStart = $dateStart;
+
+        return $this;
+    }
 
     /**
      * Set dateEnd
      *
      * @param date $dateEnd
      */
-    public function setDateEnd($dateEnd) { $this->dateEnd = $dateEnd; }
+    public function setDateEnd($dateEnd)
+    {
+        $this->dateEnd = $dateEnd;
+
+        return $this;
+    }
 
     /**
      * Set dateAdded
      *
      * @param date $dateAdded
      */
-    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+
+        return $this;
+    }
 
     /**
      * Set dateLastModified
      *
      * @param date $dateLastModified
      */
-    public function setDateLastModified($dateLastModified) { $this->dateLastModified = $dateLastModified; }
+    public function setDateLastModified($dateLastModified)
+    {
+        $this->dateLastModified = $dateLastModified;
+
+        return $this;
+    }
 
     /**
      * Set dateStatusChange
      *
      * @param date $dateStatusChange
      */
-    public function setDateStatusChange($dateStatusChange) { $this->dateStatusChange = $dateStatusChange; }
+    public function setDateStatusChange($dateStatusChange)
+    {
+        $this->dateStatusChange = $dateStatusChange;
+
+        return $this;
+    }
 }

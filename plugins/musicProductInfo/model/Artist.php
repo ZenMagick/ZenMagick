@@ -54,35 +54,50 @@ class Artist extends ZMObject
      *
      * @return int The artist id.
      */
-    public function getArtistId() { return $this->artistId; }
+    public function getArtistId()
+    {
+        return $this->artistId;
+    }
 
     /**
      * Get the artist name.
      *
      * @return string The artist name.
      */
-    public function getName() { return $this->name; }
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Get the genre.
      *
      * @return string The genre.
      */
-    public function getGenre() { return $this->genre; }
+    public function getGenre()
+    {
+        return $this->genre;
+    }
 
     /**
      * Check if an image is available.
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    public function hasImage() { return !empty($this->image); }
+    public function hasImage()
+    {
+        return !empty($this->image);
+    }
 
     /**
      * Get the artist image.
      *
      * @return string The artist image.
      */
-    public function getImage() { return $this->image; }
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * Get the image info.
@@ -103,62 +118,101 @@ class Artist extends ZMObject
      *
      * @return boolean <code>true</code> if a URL is available, <code>false</code> if not.
      */
-    public function hasUrl() { return !empty($this->url); }
+    public function hasUrl()
+    {
+        return !empty($this->url);
+    }
 
     /**
      * Get the artist URL.
      *
      * @return string The artist URL.
      */
-    public function getUrl() { return $this->url; }
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
     /**
      * Get the record company.
      *
      * @return ZMRecordCompany The record company.
      */
-    public function getRecordCompany() { return $this->recordCompany; }
+    public function getRecordCompany()
+    {
+        return $this->recordCompany;
+    }
 
     /**
      * Set the artist id.
      *
      * @param int id The artist id.
      */
-    public function setArtistId($id) { $this->artistId = $id; }
+    public function setArtistId($id)
+    {
+        $this->artistId = $id;
+
+        return $this;
+    }
 
     /**
      * Set the artist name.
      *
      * @param string name The artist name.
      */
-    public function setName($name) { $this->name = $name; }
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 
     /**
      * Set the genre.
      *
      * @param string genre The genre.
      */
-    public function setGenre($genre) { $this->genre = $genre; }
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
 
     /**
      * Set the artist image.
      *
      * @param string image The artist image.
      */
-    public function setImage($image) { $this->image = $image; }
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
     /**
      * Set the artist URL.
      *
      * @param string url The artist URL.
      */
-    public function setUrl($url) { $this->url = $url; }
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
 
     /**
      * Set the record company.
      *
      * @param ZMRecordCompany recordCompany The record company.
      */
-    public function setRecordCompany($recordCompany) { $this->recordCompany = $recordCompany; }
+    public function setRecordCompany($recordCompany)
+    {
+        $this->recordCompany = $recordCompany;
+
+        return $this;
+    }
 
 }
