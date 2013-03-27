@@ -104,6 +104,7 @@ class ResourceResolver extends ZMObject
     protected function getApplicationTemplateLocations()
     {
         $rootDir = $this->container->getParameter('zenmagick.root_dir');
+
         return array($this->getApplicationTemplatePath(), $rootDir.'/src/ZenMagick/ZenCartBundle/Resources/views');
     }
 
@@ -155,6 +156,7 @@ class ResourceResolver extends ZMObject
     protected function getApplicationResourceLocations()
     {
         $rootDir = $this->container->getParameter('zenmagick.root_dir');
+
         return array($this->getApplicationDocRoot(), $rootDir.'/src/ZenMagick/ZenCartBundle/Resources/public/');
     }
 

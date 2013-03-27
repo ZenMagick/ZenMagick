@@ -69,7 +69,7 @@ class AdminMessageStack
     {
         $output = '<table width="100%">';
         $messages = $this->flashBag->getMessages();
-        foreach($messages as $message) {
+        foreach ($messages as $message) {
             $class = 'messageStackError';
             $type = $message->getType();
             if (in_array($type, array('error', 'success', 'warn'))) {

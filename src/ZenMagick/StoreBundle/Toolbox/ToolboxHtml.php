@@ -202,7 +202,7 @@ class ToolboxHtml extends ToolboxTool
     {
         $toolbox = $this->getToolbox();
         $page = $this->container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
-        if($page->isNewWin()) {
+        if ($page->isNewWin()) {
             if (isset($attr['class'])) {
                 $attr['class'] .= ' new-win ';
             } else {

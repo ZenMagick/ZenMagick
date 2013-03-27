@@ -101,7 +101,7 @@ class DownloadController extends DefaultController
             $link = @symlink($filePath, $pubDir.'/'.$pubLocalDir.'/'.$outputFileName);
             if ($link) {
                 $url = $this->get('netTool')->absoluteUrl('pub/'.$pubLocalDir.'/'.$outputFileName, true);
-                return new ResponseRedirect($url, 303);
+                return new RedirectRedirect($url, 303);
             }
         }
         // Streaming downloads.

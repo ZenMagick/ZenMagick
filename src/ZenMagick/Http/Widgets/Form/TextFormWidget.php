@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Widgets\Form;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\View\TemplateView;
 
 /**

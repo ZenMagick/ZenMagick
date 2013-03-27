@@ -20,7 +20,6 @@
 
 namespace ZenMagick\plugins\productGroupPricing\service;
 
-
 /**
  * Add logic to transparently apply discounts.
  *

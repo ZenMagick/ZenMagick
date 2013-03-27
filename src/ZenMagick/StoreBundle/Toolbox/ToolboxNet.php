@@ -131,6 +131,7 @@ class ToolboxNet extends ToolboxTool
         if ($page->isSsl()) {
             $href = str_replace('http:', 'https:', $href);
         }
+
         return $href;
     }
 

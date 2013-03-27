@@ -28,7 +28,7 @@ use ZenMagick\ZenMagickBundle\Controller\DefaultController;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
-class ZMSubscriptionRequestController extends DefaultController
+class SubscriptionRequestController extends DefaultController
 {
     /**
      * Create the model from the current request.

@@ -103,6 +103,7 @@ class AdminController extends DefaultController
     {
         if (!$this->validateSecurityToken($request)) {
             $this->get('session.flash_bag')->error(_zm('Security token validation failed'));
+
             return new RedirectResponse($request->server->get('HTTP_REFERER'));
         }
 

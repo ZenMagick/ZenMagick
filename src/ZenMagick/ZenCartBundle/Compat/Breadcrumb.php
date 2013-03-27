@@ -72,7 +72,7 @@ class Breadcrumb
      * It has been modified to use <li>
      * when the separator is not the default.
      *
-     * @param string $separator
+     * @param  string $separator
      * @return string
      */
     public function trail($separator = '&nbsp;&nbsp;')

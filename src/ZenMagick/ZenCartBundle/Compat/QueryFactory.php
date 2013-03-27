@@ -134,7 +134,7 @@ class QueryFactory
         if (!in_array($commandType, array('des', 'sel', 'sho'))) {
             return  $this->conn->executeUpdate($sql);
         }
-        if ($limit) $sql .= ' LIMIT ' . (int)$limit;
+        if ($limit) $sql .= ' LIMIT ' . (int) $limit;
 
         $qcp = null;
         $resultClass = __NAMESPACE__.'\QueryFactoryResult';
@@ -195,7 +195,7 @@ class QueryFactory
         $sql = $platform->getListTableColumnsSQL($table, $dbName);
 
         $meta = array();
-        foreach($this->conn->fetchAll($sql) as $column) {
+        foreach ($this->conn->fetchAll($sql) as $column) {
             $columnInfo = new QueryFactoryMeta($column['Type']);
             $meta[$column['Field']] = $columnInfo;
         }
@@ -278,7 +278,7 @@ class QueryFactory
      *
      * @param  mixed  $value value to bind
      * @param  string $type  type of value
-     * @return mixed         modified value
+     * @return mixed  modified value
      */
     public function getBindVarValue($value, $type)
     {

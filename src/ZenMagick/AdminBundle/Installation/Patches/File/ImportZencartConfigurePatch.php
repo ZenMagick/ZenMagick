@@ -22,7 +22,6 @@ namespace ZenMagick\AdminBundle\Installation\Patches\File;
 use ZenMagick\AdminBundle\Installation\Patches\FilePatch;
 use Symfony\Component\Yaml\Yaml;
 
-
 /**
  * Patch to create a config/store-config.yaml from zencart includes/configure.php
  *

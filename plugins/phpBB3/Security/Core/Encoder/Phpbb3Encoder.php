@@ -22,7 +22,6 @@ namespace ZenMagick\plugins\phpBB3\Security\Core\Encoder;
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
 
-
 /**
  * phpBB3 password encoder.
  *

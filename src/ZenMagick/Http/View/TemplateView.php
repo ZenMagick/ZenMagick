@@ -22,7 +22,6 @@ namespace ZenMagick\Http\View;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Toolbox\Toolbox;
-use ZenMagick\Http\Toolbox\ToolboxTool;
 
 /**
  * A template view.
@@ -228,7 +227,7 @@ class TemplateView extends ZMObject implements View
      */
     protected function getEngine()
     {
-		return $this->container->get('templating');
+        return $this->container->get('templating');
     }
 
     /**

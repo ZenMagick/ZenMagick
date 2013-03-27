@@ -67,10 +67,12 @@ class AccountNotificationsController extends DefaultController
         switch ($notifyType) {
             case 'add':
                 $account = $this->container->get('accountService')->addSubscribedProductIds($account, $subscribedProducts);
+
                 return new RedirectResponse($request->headers->get('referer'));
                 break;
             case 'remove':
                 $account = $this->container->get('accountService')->removeSubscribedProductIds($account, $subscribedProducts);
+
                 return new RedirectResponse($request->headers->get('referer'));
                 break;
         }

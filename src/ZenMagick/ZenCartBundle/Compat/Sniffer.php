@@ -89,7 +89,6 @@ class Sniffer
         $meta = $this->queryFactory->metaColumn($tableName, $columnName);
 
         if ($columnType == $meta->getSqlType()) return true;
-
         return $returnFound ? $meta->getSqlType() : false;
     }
 }

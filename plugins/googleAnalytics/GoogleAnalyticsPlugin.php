@@ -20,7 +20,6 @@
 namespace ZenMagick\plugins\googleAnalytics;
 
 use ZenMagick\Base\Plugins\Plugin;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 
 /**

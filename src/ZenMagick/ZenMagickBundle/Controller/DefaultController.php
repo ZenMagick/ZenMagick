@@ -21,7 +21,6 @@
 namespace ZenMagick\ZenMagickBundle\Controller;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Http\Request;
 use ZenMagick\Http\Forms\Form;

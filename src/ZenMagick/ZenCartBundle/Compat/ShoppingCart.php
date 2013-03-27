@@ -104,6 +104,7 @@ class ShoppingCart extends Base
     private function getActualProductId($fullProductId)
     {
         $pieces = explode(':', $fullProductId);
+
         return $pieces[0];
     }
 
@@ -117,8 +118,8 @@ class ShoppingCart extends Base
     {
         $db = $this->getDb();
         $check = $db->Execute("select products_options_sort_order from %table.products_options%
-                              where products_options_id = '" . (int)$options_id . "'
-                              and language_id = '" . (int)$this->getSessionVar('languages_id') . "' limit 1");
+                              where products_options_id = '" . (int) $options_id . "'
+                              and language_id = '" . (int) $this->getSessionVar('languages_id') . "' limit 1");
 
         $sort_prefix = '';
         if (isset($check->fields['products_options_sort_order'])) {
@@ -127,9 +128,9 @@ class ShoppingCart extends Base
 
         $check_options_id = $db->Execute("select products_id, options_id, options_values_id, products_options_sort_order
                              from %table.products_attributes%
-                             where products_id='" . (int)$products_id . "'
-                             and options_id='" . (int)$options_id . "'
-                             and options_values_id = '" . (int)$options_values_id . "' limit 1");
+                             where products_id='" . (int) $products_id . "'
+                             and options_id='" . (int) $options_id . "'
+                             and options_values_id = '" . (int) $options_values_id . "' limit 1");
 
         $sort_suffix = '';
         if (isset($check_options_id->fields['products_options_sort_order'])) {
@@ -170,7 +171,7 @@ class ShoppingCart extends Base
                     $this->getConn()->insert('customers_basket', array(
                         'customers_id' => (int) $this->getSessionVar('customer_id'),
                         'products_id' => addslashes($products_id),
-                        'customers_basket_quantity' => (float)$qty,
+                        'customers_basket_quantity' => (float) $qty,
                         'customers_basket_date_added' => date('Ymd')
                     ));
 
@@ -1505,7 +1506,6 @@ class ShoppingCart extends Base
                 $in_cart_mixed_qty += $check_contents[$products_id]['qty'];
             }
         }
-
 
         return $in_cart_mixed_qty;
     }

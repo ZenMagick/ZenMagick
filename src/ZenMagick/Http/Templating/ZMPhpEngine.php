@@ -34,7 +34,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 
-
 /**
  * The ZenMagick PHP template engine.
  *

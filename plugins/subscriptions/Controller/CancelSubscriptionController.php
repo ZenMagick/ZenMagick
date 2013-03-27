@@ -28,7 +28,7 @@ use ZenMagick\ZenMagickBundle\Controller\DefaultController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMCancelSubscriptionController extends DefaultController
+class CancelSubscriptionController extends DefaultController
 {
     /**
      * {@inheritDoc}

@@ -60,7 +60,6 @@ class ZenCartExtension extends Extension
         $nativeAdmin = isset($config['admin']['native']) && $config['admin']['native'];
         $container->setParameter('zencart.admin.native', $nativeAdmin);
 
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.xml');

@@ -20,7 +20,6 @@
 
 namespace ZenMagick\ZenCartBundle\Controller;
 
-use ZenMagick\Base\Toolbox;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -168,6 +167,7 @@ class StorefrontController extends DefaultController
         $controllerFile = null;
         $autoLoader = $this->container->get('zencartAutoLoader');
         if ('ipn_handler' == $request->getRequestId()) { // @todo handle other common zencart entry points like googlebase
+
             return $autoLoader->resolveFile('ipn_main_handler.php');
         }
 
@@ -261,6 +261,7 @@ class StorefrontController extends DefaultController
 
         $tpl = compact('breadcrumb', 'canonicalLink', 'lng', 'robotsNoIndex', 'show_welcome', 'this_is_home_page', 'zv_onload');
         $tpl['session_started'] = true;
+
         return $tpl;
     }
 

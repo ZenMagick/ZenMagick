@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\plugins\phpbb3;
+namespace ZenMagick\plugins\phpBB3;
 
 use ZenMagick\Base\ZMObject;
 

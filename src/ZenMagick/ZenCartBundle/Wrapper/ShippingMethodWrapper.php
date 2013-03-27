@@ -64,7 +64,7 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod
      */
     public function setId($id)
     {
-        
+
     }
 
     /**

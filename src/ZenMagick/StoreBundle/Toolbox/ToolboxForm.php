@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Toolbox;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Http\Toolbox\ToolboxTool;
 use ZenMagick\Http\Session\Validation\FormTokenSessionValidator;
 
