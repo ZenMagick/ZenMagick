@@ -12,3 +12,4 @@ Thumbs.db
 composer.phar
 local.properties
 local.xml
+phpunit.xml
