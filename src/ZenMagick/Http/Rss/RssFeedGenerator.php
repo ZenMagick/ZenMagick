@@ -21,8 +21,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use DateTime;
-
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
@@ -112,7 +110,7 @@ class RssFeedGenerator extends ZMObject
             '  <atom:link href="'.$this->encode($channel->getLink()).'" rel="self" type="application/rss+xml" />',
             '  <link><![CDATA['.$channel->getLink().']]></link>',
             '  <description><![CDATA['.$this->encode($channel->getDescription()).']]></description>',
-            '  <lastBuildDate>'.$channel->getLastBuildDate()->format(DateTime::RSS).'</lastBuildDate>'
+            '  <lastBuildDate>'.$channel->getLastBuildDate()->format(\DateTime::RSS).'</lastBuildDate>'
         );
 
         $this->customTags($channel, '  ');
@@ -183,7 +181,7 @@ class RssFeedGenerator extends ZMObject
         echo "   <description>".$this->encode($item->getDescription())."</description>\n";
         echo "   <guid>".$this->encode($item->getLink())."</guid>\n";
         if (null !== $item->getPubDate()) {
-            echo "   <pubDate>".$item->getPubDate()->format(DateTime::RSS)."</pubDate>\n";
+            echo "   <pubDate>".$item->getPubDate()->format(\DateTime::RSS)."</pubDate>\n";
         }
 
         $this->customTags($item, '   ');

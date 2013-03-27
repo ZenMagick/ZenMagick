@@ -19,14 +19,12 @@
  */
 namespace ZenMagick\plugins\howDidYouHear\validation\rules;
 
-use ZMRequiredRule;
-
 /**
  * Make other text field required if Other selected in drop down.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SourceOtherRule extends ZMRequiredRule
+class SourceOtherRule extends \ZMRequiredRule
 {
     /**
      * Create new required rule.

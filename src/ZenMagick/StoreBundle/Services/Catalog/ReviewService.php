@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\Connection;
 
@@ -254,8 +253,8 @@ class ReviewService extends ZMObject
         $author = ($this->useNickName && 0 < strlen(trim($account->getNickName()))) ? $account->getNickName() : $account->getFullName();
         $review->setAuthor($author);
         $review->setAccountId($account->getId());
-        $review->setLastModified(new DateTime());
-        $review->setDateAdded(new DateTime());
+        $review->setLastModified(new \DateTime());
+        $review->setDateAdded(new \DateTime());
         $isApproveReviews = $this->container->get('settingsService')->get('isApproveReviews');
         $review->setActive($isApproveReviews ? false : true);
 

@@ -20,7 +20,6 @@
 
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Entity\Blocks\BlockGroup;
 use ZenMagick\StoreBundle\Entity\Blocks\Block;
@@ -41,7 +40,7 @@ class Blocks extends ZMObject
     {
         $sql = 'SELECT DISTINCT group_name FROM %table.block_groups%';
         $ids = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'block_groups') as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'block_groups') as $result) {
             $ids[] = $result['group_name'];
         }
 
@@ -58,12 +57,12 @@ class Blocks extends ZMObject
     {
         $sql = 'INSERT INTO %table.block_groups% (group_name, description) VALUES (:group_name, :description)';
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
-        $conn = ZMRuntime::getDatabase();
+        $conn = \ZMRuntime::getDatabase();
         $conn->updateObj($sql, $args, 'block_groups');
         $blockGroup->setId($conn->getResource()->lastInsertId());
 
         return $blockGroup;
-        //return ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);
+        //return \ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);
     }
 
     /**
@@ -75,10 +74,10 @@ class Blocks extends ZMObject
     {
         $sql = 'DELETE FROM %table.block_groups% WHERE group_name = :group_name';
         $args = array('group_name' => $groupName);
-        ZMRuntime::getDatabase()->updateObj($sql, $args, 'block_groups');
+        \ZMRuntime::getDatabase()->updateObj($sql, $args, 'block_groups');
 
         //TODO: delete group blocks
-        //return ZMRuntime::getDatabase()->removeModel('block_groups', array('group_name' => $groupName));
+        //return \ZMRuntime::getDatabase()->removeModel('block_groups', array('group_name' => $groupName));
     }
 
     /**
@@ -91,11 +90,11 @@ class Blocks extends ZMObject
     {
         // TODO: cache loading all groups when first accessed
         $sql = 'SELECT block_group_id FROM %table.block_groups% WHERE group_name = :group_name';
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
 
         $sql = "SELECT * FROM %table.blocks_to_groups% WHERE block_group_id = :block_group_id ORDER BY sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZenMagick\StoreBundle\Entity\Blocks\Block');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZenMagick\StoreBundle\Entity\Blocks\Block');
     }
 
     /**
@@ -109,7 +108,7 @@ class Blocks extends ZMObject
     {
         // TODO: cache loading all groups when first accessed
         $sql = 'SELECT block_group_id FROM %table.block_groups% WHERE group_name = :group_name';
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
 
         $data = array(
             'block_group_id' => $result['block_group_id'],
@@ -117,7 +116,7 @@ class Blocks extends ZMObject
             'definition' => $block->getDefinition(),
             'sort_order' => $block->getSortOrder()
         );
-        $data = ZMRuntime::getDatabase()->createModel('blocks_to_groups', $data);
+        $data = \ZMRuntime::getDatabase()->createModel('blocks_to_groups', $data);
         $block->setBlockId($data['blocks_to_groups_id']);
 
         return $block;
@@ -138,7 +137,7 @@ class Blocks extends ZMObject
             'sort_order' => $block->getSortOrder()
         );
 
-        return ZMRuntime::getDatabase()->updateModel('blocks_to_groups', $data);
+        return \ZMRuntime::getDatabase()->updateModel('blocks_to_groups', $data);
     }
 
     /**
@@ -148,7 +147,7 @@ class Blocks extends ZMObject
      */
     public function deleteBlockForId($blockId)
     {
-        return ZMRuntime::getDatabase()->removeModel('blocks_to_groups', array('blocks_to_groups_id' => $blockId));
+        return \ZMRuntime::getDatabase()->removeModel('blocks_to_groups', array('blocks_to_groups_id' => $blockId));
     }
 
 }

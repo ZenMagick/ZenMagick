@@ -20,7 +20,6 @@
 
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Base\Database\QueryDetails;
 use ZenMagick\Base\Database\SqlAware;
@@ -71,7 +70,7 @@ class EZPages extends ZMObject implements SqlAware
         $sql .= " ORDER BY toc_sort_order, pages_title";
         $args = array('languageId' => $languageId);
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZenMagick\StoreBundle\Entity\EZPage', 'pages_id');
+        return new QueryDetails(\ZMRuntime::getDatabase(), $sql, $args, array('ezpages'), 'ZenMagick\StoreBundle\Entity\EZPage', 'pages_id');
     }
 
     /**
@@ -102,7 +101,7 @@ class EZPages extends ZMObject implements SqlAware
                 WHERE pages_id = :id";
         $sql .= " AND languages_id = :languageId";
 
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -119,7 +118,7 @@ class EZPages extends ZMObject implements SqlAware
                 WHERE pages_title = :title";
         $sql .= " AND languages_id = :languageId";
 
-        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -138,7 +137,7 @@ class EZPages extends ZMObject implements SqlAware
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -156,7 +155,7 @@ class EZPages extends ZMObject implements SqlAware
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY header_sort_order, pages_title";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -174,7 +173,7 @@ class EZPages extends ZMObject implements SqlAware
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -192,7 +191,7 @@ class EZPages extends ZMObject implements SqlAware
         $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY footer_sort_order, pages_title";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), 'ezpages', 'ZenMagick\StoreBundle\Entity\EZPage');
     }
 
     /**
@@ -203,7 +202,7 @@ class EZPages extends ZMObject implements SqlAware
      */
     public function createPage($page)
     {
-        return ZMRuntime::getDatabase()->createModel('ezpages', $page);
+        return \ZMRuntime::getDatabase()->createModel('ezpages', $page);
     }
 
     /**
@@ -214,7 +213,7 @@ class EZPages extends ZMObject implements SqlAware
      */
     public function updatePage($page)
     {
-        ZMRuntime::getDatabase()->updateModel('ezpages', $page);
+        \ZMRuntime::getDatabase()->updateModel('ezpages', $page);
 
         return true;
     }
@@ -227,7 +226,7 @@ class EZPages extends ZMObject implements SqlAware
      */
     public function removePage($page)
     {
-        ZMRuntime::getDatabase()->removeModel('ezpages', $page);
+        \ZMRuntime::getDatabase()->removeModel('ezpages', $page);
 
         return true;
     }

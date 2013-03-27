@@ -20,7 +20,6 @@
 
 namespace ZenMagick\StoreBundle\Services\Account;
 
-use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -45,7 +44,7 @@ class Addresses extends ZMObject
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
         }
-        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
+        $address = \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -65,7 +64,7 @@ class Addresses extends ZMObject
         $sql = "SELECT *
                 FROM %table.address_book%
                 WHERE customers_id = :accountId";
-        $addresses = ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
+        $addresses = \ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'address_book', 'ZenMagick\StoreBundle\Entity\Address');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {
@@ -83,7 +82,7 @@ class Addresses extends ZMObject
      */
     public function updateAddress($address)
     {
-        return ZMRuntime::getDatabase()->updateModel('address_book', $address);
+        return \ZMRuntime::getDatabase()->updateModel('address_book', $address);
     }
 
     /**
@@ -94,7 +93,7 @@ class Addresses extends ZMObject
      */
     public function createAddress($address)
     {
-        return ZMRuntime::getDatabase()->createModel('address_book', $address);
+        return \ZMRuntime::getDatabase()->createModel('address_book', $address);
     }
 
     /**
@@ -107,7 +106,7 @@ class Addresses extends ZMObject
     {
         $sql = "DELETE FROM %table.address_book%
                 WHERE  address_book_id = :id";
-        ZMRuntime::getDatabase()->updateObj($sql, array('id' => $addressId), 'address_book');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('id' => $addressId), 'address_book');
 
         return true;
     }
@@ -135,7 +134,7 @@ class Addresses extends ZMObject
         $sql = "SELECT address_format
                 FROM %table.address_format%
                 WHERE address_format_id = :id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), 'address_format');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressFormatId), 'address_format');
 
         return $result['format'];
     }

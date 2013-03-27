@@ -22,14 +22,13 @@ namespace ZenMagick\plugins\phpBB3\Security\Core\Encoder;
 use Phpass\Hash;
 use Phpass\Hash\Adapter\Portable;
 
-use PhpassEncoder;
 
 /**
  * phpBB3 password encoder.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Phpbb3Encoder extends PhpassEncoder
+class Phpbb3Encoder extends \PhpassEncoder
 {
     /**
      * Create instance.

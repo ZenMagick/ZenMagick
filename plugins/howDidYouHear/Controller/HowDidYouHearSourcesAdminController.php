@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\howDidYouHear\Controller;
 
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
@@ -38,7 +37,7 @@ class HowDidYouHearSourcesAdminController extends DefaultController
         $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
                 FROM %table.sources% s
                 ORDER BY s.sources_name ASC";
-        $sourceStats = ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'ZenMagick\Base\ZMObject');
+        $sourceStats = \ZMRuntime::getDatabase()->fetchAll($sql, array(), array('sources'), 'ZenMagick\Base\ZMObject');
         $resultSource = new ZMArrayResultSource('ZenMagick\Base\ZMObject', $sourceStats);
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
@@ -56,15 +55,15 @@ class HowDidYouHearSourcesAdminController extends DefaultController
         if ('create' == $action) {
             $name = $request->request->get('source');
             if (!empty($name)) {
-                ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
+                \ZMRuntime::getDatabase()->createModel('sources', array('sources_name' => $name));
                 $this->get('session.flash_bag')->success('Source "'.$name.'" created.');
             }
         } elseif ('delete' == $action) {
             $sourceId = $request->request->get('sourceId');
             if (!empty($sourceId)) {
-                $model = ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));
+                $model = \ZMRuntime::getDatabase()->loadModel('sources', array('sources_id' => $sourceId));
                 if (null !== $model) {
-                    ZMRuntime::getDatabase()->removeModel('sources', array('sources_id' => $sourceId));
+                    \ZMRuntime::getDatabase()->removeModel('sources', array('sources_id' => $sourceId));
                     $this->get('session.flash_bag')->success('Source "'.$model['sources_name'].'" deleted.');
                 }
             }

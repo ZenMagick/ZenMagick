@@ -20,7 +20,6 @@
 
 namespace ZenMagick\plugins\productGroupPricing\model;
 
-use DateTime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -75,11 +74,11 @@ class ProductGroupPricing extends ZMObject
         $startDate = $request->getParameter('startDate');
         if (empty($startDate)) {
             // default to current date
-            $startDate = new DateTime();
+            $startDate = new \DateTime();
         }
         $localeService = $this->container->get('localeService');
-        $this->startDate = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $startDate);
-        $this->endDate = DateTime::createFromFormat($localeService->getFormat('date', 'short'), $request->getParameter('endDate'));
+        $this->startDate = \DateTime::createFromFormat($localeService->getFormat('date', 'short'), $startDate);
+        $this->endDate = \DateTime::createFromFormat($localeService->getFormat('date', 'short'), $request->getParameter('endDate'));
     }
 
     /**

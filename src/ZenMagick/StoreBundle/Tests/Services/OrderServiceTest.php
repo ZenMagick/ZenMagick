@@ -112,7 +112,7 @@ class OrderServiceTest extends ZenMagickTestCase
     {
         $downloads = $this->get('orderService')->getDownloadsForOrderId(12);
         foreach ($downloads as $dl) {
-            $this->assertTrue($dl->getorderDate() instanceof DateTime);
+            $this->assertTrue($dl->getorderDate() instanceof \DateTime);
             echo 'id: '.$dl->getId()."<BR>";
             echo '* isDownloadable:'.$dl->isDownloadable()."<BR>";
             echo '* isLimited:'.$dl->isLimited()."<BR>";
@@ -179,7 +179,7 @@ class OrderServiceTest extends ZenMagickTestCase
 
             // clean up
             $sql = "DELETE FROM %table.orders_status_history% WHERE orders_status_history_id = :orderStatusHistoryId";
-            ZMRuntime::getDatabase()->updateObj($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), 'orders_status_history');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('orderStatusHistoryId' => $newOrderStatus->getId()), 'orders_status_history');
         } else {
             $this->markTestIncomplete('test order not found');
         }

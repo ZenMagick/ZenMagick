@@ -60,7 +60,7 @@ class ZMDateRule extends ZMRule
     {
         $value = $data[$this->getName()];
 
-        return empty($value) || null != DateTime::createFromFormat($this->getFormat(), $value);
+        return empty($value) || null != \DateTime::createFromFormat($this->getFormat(), $value);
     }
 
     /**

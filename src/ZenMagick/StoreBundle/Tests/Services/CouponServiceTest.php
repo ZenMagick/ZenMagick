@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
 use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
@@ -65,7 +64,7 @@ class CouponServiceTest extends ZenMagickTestCase
             $sql = "DELETE FROM %table.". $table."%
                     WHERE coupon_id = :".$idName;
             foreach ($this->createdCouponIds as $couponId) {
-                ZMRuntime::getDatabase()->updateObj($sql, array($idName => $couponId), $table);
+                \ZMRuntime::getDatabase()->updateObj($sql, array($idName => $couponId), $table);
             }
         }
 
@@ -73,7 +72,7 @@ class CouponServiceTest extends ZenMagickTestCase
             $sql = "DELETE FROM %table.".$table."%
                     WHERE customer_id = :accountId";
             foreach ($this->accountIds as $accountId) {
-                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId), $table);
+                \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId), $table);
             }
         }
         parent::tearDown();
@@ -223,7 +222,7 @@ class CouponServiceTest extends ZenMagickTestCase
             // manually check database
             $sql = "SELECT * FROM %table.coupon_email_track%
                     WHERE coupon_id = :couponId";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'ZenMagick\Base\ZMObject');
+            $result = \ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_email_track', 'ZenMagick\Base\ZMObject');
             $this->assertNotNull($result);
             $this->assertEquals('foo@bar.com', $result->getEmailTo());
         } else {
@@ -246,7 +245,7 @@ class CouponServiceTest extends ZenMagickTestCase
         // manually check database
         $sql = "SELECT * FROM %table.coupon_redeem_track%
                 WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'ZenMagick\Base\ZMObject');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), 'coupon_redeem_track', 'ZenMagick\Base\ZMObject');
         $this->assertNotNull($result);
         $this->assertEquals('127.0.0.1', $result->getRedeemIp());
 
@@ -274,7 +273,7 @@ class CouponServiceTest extends ZenMagickTestCase
         // delete balance record to test create
         $sql = "DELETE FROM %table.coupon_gv_customer%
                 WHERE customer_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), 'coupon_gv_customer');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $this->getAccountId()), 'coupon_gv_customer');
 
         // new coupon worth $5
         $couponCode = $couponService->createCouponCode('foo@bar.com');

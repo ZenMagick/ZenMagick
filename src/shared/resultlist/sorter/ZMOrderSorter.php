@@ -123,7 +123,7 @@ class ZMOrderSorter extends ZMResultListSorter implements SqlAware
             return null;
         }
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $this->sql[$this->sortId] . ($this->isDescending() ? ' DESC' : ' ASC'));
+        return new QueryDetails(\ZMRuntime::getDatabase(), $this->sql[$this->sortId] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }

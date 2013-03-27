@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base;
 
-use Serializable;
 use ZenMagick\Base\Runtime;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
@@ -34,7 +33,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMObject extends ContainerAware implements Serializable
+class ZMObject extends ContainerAware implements \Serializable
 {
     private static $methods = array();
     protected $properties;

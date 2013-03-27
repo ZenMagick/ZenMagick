@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\subscriptions\Controller;
 
-use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Database\Connection;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
@@ -29,7 +28,7 @@ use ZenMagick\ZenMagickBundle\Controller\DefaultController;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMCancelSubscriptionController extends Controller
+class ZMCancelSubscriptionController extends DefaultController
 {
     /**
      * {@inheritDoc}
@@ -59,7 +58,7 @@ class ZMCancelSubscriptionController extends Controller
         // check for number of scheduled orders
         $sql = "SELECT COUNT(orders_id) AS total FROM %table.orders%
                 WHERE subscription_order_id = :subscriptionOrderId";
-        $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', Connection::MODEL_RAW);
+        $results = \ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', Connection::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
             $this->get('session.flash_bag')->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
@@ -74,7 +73,7 @@ class ZMCancelSubscriptionController extends Controller
                     FROM %table.orders%
                     WHERE orders_id = :orderId
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', Connection::MODEL_RAW);
+            $result = \ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', Connection::MODEL_RAW);
             if (null == $result) {
                 $this->get('session.flash_bag')->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
 
@@ -85,7 +84,7 @@ class ZMCancelSubscriptionController extends Controller
         $sql = "UPDATE %table.orders%
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), 'orders');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), 'orders');
         $this->get('session.flash_bag')->success(_zm("Subscription canceled!"));
 
         $settingsService = $this->container->get('settingsService');

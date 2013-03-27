@@ -19,15 +19,13 @@
  */
 namespace ZenMagick\Base;
 
-use Exception;
-use ReflectionClass;
 
 /**
  * Exception base class.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMException extends Exception
+class ZMException extends \Exception
 {
     /**
      * Create new instance.
@@ -71,7 +69,7 @@ class ZMException extends Exception
 
             return implode(', ', $va);
         } elseif (is_object($value)) {
-            $rc = new ReflectionClass($value);
+            $rc = new \ReflectionClass($value);
             if ($rc->hasMethod('__toString')) {
                 return (string) $value;
             } else {

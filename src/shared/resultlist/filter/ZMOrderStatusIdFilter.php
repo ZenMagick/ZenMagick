@@ -54,7 +54,7 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements SqlAware
      */
     public function getQueryDetails($method=null, $args=array())
     {
-        return new QueryDetails(ZMRuntime::getDatabase(), 'o.orders_status = 2');
+        return new QueryDetails(\ZMRuntime::getDatabase(), 'o.orders_status = 2');
     }
 
 }

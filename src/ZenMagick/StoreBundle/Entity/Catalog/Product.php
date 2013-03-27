@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
-use ZMImageInfo;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 
@@ -1255,7 +1254,7 @@ class Product extends ZMObject
      */
     public function getAdditionalImages()
     {
-        return ZMImageInfo::getAdditionalImages($this->image);
+        return \ZMImageInfo::getAdditionalImages($this->image);
     }
 
 

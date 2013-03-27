@@ -22,8 +22,6 @@
  */
 namespace ZenMagick\StorefrontBundle\Controller;
 
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
 
@@ -166,9 +164,9 @@ class DownloadController extends DefaultController
     protected function cleanTempDir($dir)
     {
         if (empty($dir) || !is_writable($dir)) return;
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
-             RecursiveIteratorIterator::CHILD_FIRST);
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
+             \RecursiveIteratorIterator::CHILD_FIRST);
 
         foreach ($iterator as $path) {
             if ($path->isDir()) {

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\ZenCartBundle\Mock;
 
-use DirectoryIterator;
 use ZenMagick\StoreBundle\Themes\ThemeStatusMapBuilder;
 
 /**
@@ -39,7 +38,7 @@ class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder
         $pathIdMap = parent::getPathIdMap();
 
         foreach ($this->getBasePath() as $basePath) {
-            foreach (new DirectoryIterator($basePath) as $templateInfo) {
+            foreach (new \DirectoryIterator($basePath) as $templateInfo) {
                 if ($templateInfo->isDir() && !$templateInfo->isDot()) {
                     $id = $templateInfo->getFilename();
                     $path = $templateInfo->getPathname();

@@ -105,7 +105,7 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
 
 // optimize database tables
 if (null != $view['request']->getParameter('optimizeDb')) {
-    $database = ZMRuntime::getDatabase();
+    $database = \ZMRuntime::getDatabase();
     $sm = $database->getSchemaManager();
     foreach ($sm->listTables() as $table) {
         $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");

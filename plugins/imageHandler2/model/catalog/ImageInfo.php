@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\imageHandler2\model\catalog;
 
-use ZMImageInfo;
 use ZenMagick\Base\Runtime;
 
 /**
@@ -27,7 +26,7 @@ use ZenMagick\Base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ImageInfo extends ZMImageInfo
+class ImageInfo extends \ZMImageInfo
 {
     private $image;
     private $formattedParameter;
@@ -62,7 +61,7 @@ class ImageInfo extends ZMImageInfo
      */
     public function getDefaultImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image);
+        $comp = \ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -93,7 +92,7 @@ class ImageInfo extends ZMImageInfo
      */
     public function getMediumImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image);
+        $comp = \ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];
@@ -116,7 +115,7 @@ class ImageInfo extends ZMImageInfo
      */
     public function getLargeImage()
     {
-        $comp = ZMImageInfo::splitImageName($this->image);
+        $comp = \ZMImageInfo::splitImageName($this->image);
         $subdir = $comp[0];
         $ext = $comp[1];
         $imageBase = $comp[2];

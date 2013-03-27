@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -110,7 +109,7 @@ class SalemakerService extends ZMObject
         // TODO: we should be able to get products without a language id
         $languageCode = $container->get('settingsService')->get('defaultLanguageCode');
         $languageId = $container->get('languageService')->getLanguageForCode($languageCode)->getLanguageId();
-        $now = new DateTime();
+        $now = new \DateTime();
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'salemaker_sales', 'ZenMagick\StoreBundle\Entity\Catalog\SalemakerSale') as $sale) {
             $dateStart = $sale->getDateStart();
             $dateEnd = $sale->getDateEnd();
@@ -120,7 +119,7 @@ class SalemakerService extends ZMObject
                 $sale->setStatus(true);
             }
             // @todo the original code also disabled sales tht haven't started yet. is that something we should worry about?
-            if ($sale->getStatus() && null != $dateEnd && new DateTime() >= $dateEnd) {
+            if ($sale->getStatus() && null != $dateEnd && new \DateTime() >= $dateEnd) {
                 $sale->setStatus(false);
             }
 

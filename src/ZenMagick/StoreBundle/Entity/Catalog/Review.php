@@ -20,8 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Entity\Catalog;
 
-use ZMImageInfo;
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -121,7 +119,7 @@ class Review extends ZMObject
         $this->setActive(true);
         $this->setViewCount(0);
         $this->setDateAdded(null);
-        $this->setLastModified(new DateTime());
+        $this->setLastModified(new \DateTime());
         $this->descriptions = new ArrayCollection();
     }
 

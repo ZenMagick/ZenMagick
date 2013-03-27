@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Database;
 
-use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 
@@ -107,7 +106,7 @@ class TableMapper extends ZMObject
             if (empty($table)) continue;
 
             if (!array_key_exists($table, $this->tableMap)) {
-                $this->setMappingForTable($table, ZMRuntime::getDatabase()->getMetaData($table));
+                $this->setMappingForTable($table, \ZMRuntime::getDatabase()->getMetaData($table));
             }
 
             $mappings = array_merge($mappings, $this->tableMap[$table]);

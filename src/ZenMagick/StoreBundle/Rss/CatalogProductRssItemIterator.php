@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Rss;
 
-use Iterator;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Rss\RssItem;
 
@@ -28,7 +27,7 @@ use ZenMagick\Http\Rss\RssItem;
  *
  * @author DerManoMann
  */
-class CatalogProductRssItemIterator extends ZMObject implements Iterator
+class CatalogProductRssItemIterator extends ZMObject implements \Iterator
 {
     private $productInfo;
     private $languageId;

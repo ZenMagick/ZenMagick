@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Database;
 
-use PDO;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
@@ -399,7 +398,7 @@ class Connection extends DbalConnection
 
         $stmt = $this->prepareStatement($sql, $params, $mapping);
         $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $stmt->closeCursor();
 
         if (self::MODEL_RAW == $modelClass) return $rows;

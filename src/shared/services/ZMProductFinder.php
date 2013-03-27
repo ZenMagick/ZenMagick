@@ -218,12 +218,12 @@ class ZMProductFinder extends ZMObject
         $dateFormat = $this->container->get('localeService')->getFormat('date', 'short');
         if (!Toolbox::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
-            $args['1#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());
+            $args['1#dateAdded'] = \DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());
         }
 
         if (!Toolbox::isEmpty($criteria->getDateTo())) {
             $where .= " AND p.products_date_added <= :2#dateAdded";
-            $args['2#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateTo());
+            $args['2#dateAdded'] = \DateTime::createFromFormat($dateFormat, $criteria->getDateTo());
         }
 
         if ($criteria->isIncludeTax()) {
@@ -283,7 +283,7 @@ class ZMProductFinder extends ZMObject
         $sql = $select . $from . $where . $sort;
         $tables = array('products', 'products_description', 'manufacturers', 'categories', 'tax_rates', 'zones_to_geo_zones');
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
+        return new QueryDetails(\ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
     }
 
     /**

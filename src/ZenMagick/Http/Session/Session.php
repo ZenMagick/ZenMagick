@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Session;
 
-use Serializable;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Account;
@@ -110,7 +109,7 @@ class Session extends BaseSession implements ContainerAwareInterface
             }
             if (Runtime::isContextMatch($context)) {
                 $service = $this->container->get($id);
-                if ($service instanceof Serializable) {
+                if ($service instanceof \Serializable) {
                     $autoSave[$id] = array('ser' => serialize($service), 'restore' => $restore, 'type' => $type);
                 }
             }

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Locales;
 
-use DateTime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -161,7 +160,7 @@ class Locales extends ZMObject
      */
     public function shortDate($date)
     {
-        if ($date instanceof DateTime) {
+        if ($date instanceof \DateTime) {
             return $date->format($this->getFormat('date', 'short'));
         }
 
@@ -176,7 +175,7 @@ class Locales extends ZMObject
      */
     public function longDate($date)
     {
-        if ($date instanceof DateTime) {
+        if ($date instanceof \DateTime) {
             return $date->format($this->getFormat('date', 'long'));
         }
     }

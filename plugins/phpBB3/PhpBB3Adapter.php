@@ -20,7 +20,6 @@
 
 namespace ZenMagick\plugins\phpbb3;
 
-use ZMRuntime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -68,8 +67,8 @@ class PhpBB3Adapter extends ZMObject
             if (isset($dbport)) {
                 $dbconf['port'] = $dbport;
             }
-            ZMRuntime::setDatabase('phpbb', $dbconf);
-            $this->database = ZMRuntime::getDatabase('phpbb');
+            \ZMRuntime::setDatabase('phpbb', $dbconf);
+            $this->database = \ZMRuntime::getDatabase('phpbb');
         }
 
         return $this->database;

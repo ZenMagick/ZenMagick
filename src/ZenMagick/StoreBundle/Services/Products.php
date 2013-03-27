@@ -21,7 +21,6 @@
 
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
@@ -107,7 +106,7 @@ class Products extends ZMObject implements SqlAware
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
+        return new QueryDetails(\ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
     /**
@@ -128,7 +127,7 @@ class Products extends ZMObject implements SqlAware
         $sql .= " pd.products_id = p.products_id
                     AND pd.language_id = :languageId
                   ORDER BY p.products_sort_order, pd.products_name";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('products', 'products_description'));
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('products', 'products_description'));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -155,7 +154,7 @@ class Products extends ZMObject implements SqlAware
         $sql .= " pd.products_id = p.products_id
                     AND pd.language_id = :languageId
                   ORDER BY p.products_sort_order, pd.products_name";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('products', 'products_description'));
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array('languageId' => $languageId), array('products', 'products_description'));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -200,7 +199,7 @@ class Products extends ZMObject implements SqlAware
                         AND pd.language_id = :languageId
                       ORDER BY p.products_sort_order, pd.products_name";
             $args = array('languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'products_to_categories'));
+            $results = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'products_to_categories'));
             foreach ($results as $result) {
                 $cId = $result['categoryId'];
                 if (!isset($this->categoryProductMap[$mainKey][$cId])) {
@@ -245,7 +244,7 @@ class Products extends ZMObject implements SqlAware
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
 
-        return new QueryDetails(ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
+        return new QueryDetails(\ZMRuntime::getDatabase(), $sql, $args, array('products', 'specials', 'products_description', 'products_to_categories'), 'ZenMagick\StoreBundle\Entity\Catalog\Product', 'p.products_id');
     }
 
     /**
@@ -282,7 +281,7 @@ class Products extends ZMObject implements SqlAware
                     AND p.manufacturers_id = m.manufacturers_id AND p.manufacturers_id = :manufacturerId
                   ORDER BY p.products_sort_order, pd.products_name";
         $args = array('manufacturerId' => $manufacturerId, 'languageId' => $languageId);
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'manufacturers'));
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'manufacturers'));
         $productIds = array();
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
@@ -304,7 +303,7 @@ class Products extends ZMObject implements SqlAware
      */
     public function getProductTypeSetting($productId, $field, $keyPprefix='_INFO', $keySuffix='SHOW_', $fieldPrefix= '_', $fieldSuffix='')
     {
-        $database = ZMRuntime::getDatabase();
+        $database = \ZMRuntime::getDatabase();
         $sql = "select products_type from %table.products%
                 where products_id = :productId";
         $typeResult = $database->querySingle($sql, array('productId' => $productId), 'products', Connection::MODEL_RAW);
@@ -518,7 +517,7 @@ class Products extends ZMObject implements SqlAware
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
+        $product = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
         if (null != $product && null != $this->cache) {
             $this->cache->save($product, Toolbox::hash('product', $product->getId(), $product->getLanguageId()));
         }
@@ -552,7 +551,7 @@ class Products extends ZMObject implements SqlAware
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
+        $product = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
 
         if (null != $this->cache && null != $product) {
             $this->cache->save($product, Toolbox::hash('product', $productId, $languageId));
@@ -604,7 +603,7 @@ class Products extends ZMObject implements SqlAware
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('productId' => $needLoadIds, 'languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
+            $results = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products', 'products_description', 'specials'), 'ZenMagick\StoreBundle\Entity\Catalog\Product');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
@@ -636,9 +635,9 @@ class Products extends ZMObject implements SqlAware
      */
     public function updateProduct($product)
     {
-        ZMRuntime::getDatabase()->updateModel('products', $product);
-        ZMRuntime::getDatabase()->updateModel('products_description', $product);
-        ZMRuntime::getDatabase()->updateModel('meta_tags_products_description', $product->getMetaTagDetails());
+        \ZMRuntime::getDatabase()->updateModel('products', $product);
+        \ZMRuntime::getDatabase()->updateModel('products_description', $product);
+        \ZMRuntime::getDatabase()->updateModel('meta_tags_products_description', $product->getMetaTagDetails());
 
         // update cache
         if (null != $this->cache) {
@@ -662,7 +661,7 @@ class Products extends ZMObject implements SqlAware
                 AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
 
-        return ZMRuntime::getDatabase()->updateObj($sql, $args, 'products_description');
+        return \ZMRuntime::getDatabase()->updateObj($sql, $args, 'products_description');
     }
 
     /**
@@ -676,7 +675,7 @@ class Products extends ZMObject implements SqlAware
     private function getProductIds($sql, $args=array(), $tables='products')
     {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[] = $productId;
         }
@@ -696,7 +695,7 @@ class Products extends ZMObject implements SqlAware
     private function getRandomProductIds($sql, $max=0, $args=array(), $tables='products')
     {
         $productIds = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[$productId] = $productId;
         }
@@ -722,7 +721,7 @@ class Products extends ZMObject implements SqlAware
         $sql = "SELECT products_quantity
                 from %table.products%
                 where products_id = :productId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'products');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'products');
         $available = 0;
         if (null != $result) {
             $available = $result['quantity'];
@@ -759,7 +758,7 @@ class Products extends ZMObject implements SqlAware
                   AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
 
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_products_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
+        return \ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_products_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 
     /**

@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\vBulletin;
 
-use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
@@ -70,8 +69,8 @@ class VBulletinAdapter extends ZMObject
     protected function getDatabase()
     {
         if (null == $this->database) {
-            ZMRuntime::setDatabase('vbulletin', $this->dbConfig);
-            $this->database = ZMRuntime::getDatabase('vbulletin');
+            \ZMRuntime::setDatabase('vbulletin', $this->dbConfig);
+            $this->database = \ZMRuntime::getDatabase('vbulletin');
         }
 
         return $this->database;

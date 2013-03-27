@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Base\Plugins;
 
-use DirectoryIterator;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\Yaml\Yaml;
 use ZenMagick\Base\Toolbox;
@@ -128,7 +127,7 @@ class PluginStatusMapBuilder extends ZMObject implements CacheWarmerInterface
         foreach ($this->pluginDirs as $basePath) {
             if (file_exists($basePath) && is_dir($basePath)) {
                 $pathIdMap[$basePath] = array();
-                foreach (new DirectoryIterator($basePath) as $filename => $fileInfo) {
+                foreach (new \DirectoryIterator($basePath) as $filename => $fileInfo) {
                     if ($fileInfo->isDir() && !$fileInfo->isDot() && file_exists($fileInfo->getPathname().'/plugin.yaml')) {
                         $id = $fileInfo->getFilename();
                         $pathIdMap[$basePath][] = array('id' => $fileInfo->getFilename(), 'pluginDir' => $fileInfo->getPathname());

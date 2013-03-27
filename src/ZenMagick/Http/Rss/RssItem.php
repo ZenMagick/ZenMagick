@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -92,11 +91,11 @@ class RssItem extends ZMObject
     public function getPubDate()
     {
         $pubDate = $this->get('pubDate');
-        if ($pubDate instanceof DateTime) {
+        if ($pubDate instanceof \DateTime) {
           return $pubDate;
         }
 
-        return new DateTime($pubDate);
+        return new \DateTime($pubDate);
     }
 
     /**

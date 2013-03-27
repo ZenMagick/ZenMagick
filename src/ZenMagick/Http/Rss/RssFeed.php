@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use Iterator;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -86,7 +85,7 @@ class RssFeed extends ZMObject
      *
      * @param Iterator items An iterator over <code>RssItem</code> instances.
      */
-    public function setItems(Iterator $items)
+    public function setItems(\Iterator $items)
     {
         $this->items = $items;
     }

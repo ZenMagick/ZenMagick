@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
@@ -92,7 +91,7 @@ class Categories extends ZMObject
                 WHERE products_id = :productId";
         $args = array('productId' => $productId);
         $category = null;
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'products_to_categories');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'products_to_categories');
         if (null !== $result) {
             $category = $this->getCategoryForId($result['categoryId'], $languageId);
         }
@@ -132,7 +131,7 @@ class Categories extends ZMObject
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, c.sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -144,7 +143,7 @@ class Categories extends ZMObject
                         AND c.parent_id IN (:categoryId)
                       ORDER BY c.parent_id, c.sort_order, cd.categories_name";
             $args = array('categoryId' => array_keys($rootCategories), 'languageId' => $languageId);
-            foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
+            foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
                 $rootCategories[$category->getParentId()]->addChild($category);
             }
         }
@@ -268,14 +267,14 @@ class Categories extends ZMObject
                 $category->setParentId(0);
             }
         }
-        $category = ZMRuntime::getDatabase()->createModel('categories', $category);
-        $category = ZMRuntime::getDatabase()->createModel('categories_description', $category);
+        $category = \ZMRuntime::getDatabase()->createModel('categories', $category);
+        $category = \ZMRuntime::getDatabase()->createModel('categories_description', $category);
         $this->invalidateCache($category->getLanguageId());
 
         // update children
         foreach ($category->getChildren() as $child) {
             $child->setParentId($category->getId());
-            ZMRuntime::getDatabase()->updateModel('categories', $child);
+            \ZMRuntime::getDatabase()->updateModel('categories', $child);
             $this->invalidateCache($languageId, $child);
         }
 
@@ -305,8 +304,8 @@ class Categories extends ZMObject
     public function updateCategory($category)
     {
         $languageId = $category->getLanguageId();
-        ZMRuntime::getDatabase()->updateModel('categories', $category);
-        ZMRuntime::getDatabase()->updateModel('categories_description', $category);
+        \ZMRuntime::getDatabase()->updateModel('categories', $category);
+        \ZMRuntime::getDatabase()->updateModel('categories_description', $category);
         $this->invalidateCache($languageId, $category);
 
         // two way check of parent/child relationships
@@ -315,7 +314,7 @@ class Categories extends ZMObject
             if ($cat->getParentId() != $category->getId() && in_array($cat->getId(), $childIds)) {
                 // new child
                 $cat->setParentId($category->getId());
-                ZMRuntime::getDatabase()->updateModel('categories', $cat);
+                \ZMRuntime::getDatabase()->updateModel('categories', $cat);
                 $this->invalidateCache($languageId, $cat);
             }
 
@@ -323,7 +322,7 @@ class Categories extends ZMObject
             if ($cat->getParentId() == $category->getId() && !in_array($cat->getId(), $childIds)) {
                 // removed
                 $cat->setParentId(0);
-                ZMRuntime::getDatabase()->updateModel('categories', $cat);
+                \ZMRuntime::getDatabase()->updateModel('categories', $cat);
                 $this->invalidateCache($languageId, $cat);
             }
         }
@@ -339,8 +338,8 @@ class Categories extends ZMObject
     public function deleteCategory($category)
     {
         $languageId = $category->getLanguageId();
-        ZMRuntime::getDatabase()->removeModel('categories', $category);
-        ZMRuntime::getDatabase()->removeModel('categories_description', $category);
+        \ZMRuntime::getDatabase()->removeModel('categories', $category);
+        \ZMRuntime::getDatabase()->removeModel('categories_description', $category);
         $this->invalidateCache($category->getLanguageId());
 
         if (array_key_exists($languageId, $this->categories) && array_key_exists($category->getId(), $this->categories[$languageId])) {
@@ -352,16 +351,16 @@ class Categories extends ZMObject
         foreach ($this->getCategories($category->getLanguageId()) as $cat) {
             if ($cat->getParentId() == $categoryId) {
                 $cat->setParentId(0);
-                ZMRuntime::getDatabase()->updateModel('categories', $cat);
+                \ZMRuntime::getDatabase()->updateModel('categories', $cat);
                 $this->invalidateCache($languageId, $cat);
             }
         }
 
         // remove all product/category mappings
         $sql = "DELETE FROM %table.products_to_categories% WHERE categories_id = :categoryId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'products_to_categories');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'products_to_categories');
         $sql = "DELETE FROM %table.product_types_to_category% WHERE category_id = :categoryId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'product_types_to_category');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('categoryId' => $category->getId()), 'product_types_to_category');
     }
 
     /**
@@ -385,7 +384,7 @@ class Categories extends ZMObject
         $productTypeIdMap = array();
         $sql = "SELECT * FROM %table.product_types_to_category%
                 ORDER BY category_id";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), 'product_types_to_category') as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'product_types_to_category') as $result) {
             if (!array_key_exists($result['categoryId'],  $productTypeIdMap)) {
                 $productTypeIdMap[$result['categoryId']] = array();
             }
@@ -416,7 +415,7 @@ class Categories extends ZMObject
         $sql .= " ORDER BY c.parent_id, c.sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('categories', 'categories_description'), 'ZenMagick\StoreBundle\Entity\Catalog\Category') as $category) {
             $categories[$category->getId()] = $category;
         }
 
@@ -446,7 +445,7 @@ class Categories extends ZMObject
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
 
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
+        return \ZMRuntime::getDatabase()->querySingle($sql, $args, 'meta_tags_categories_description', 'ZenMagick\StoreBundle\Entity\Catalog\MetaTagDetails');
     }
 
 }

@@ -21,7 +21,6 @@
 namespace ZenMagick\plugins\phpbb3\tests;
 
 use ZenMagick\StoreBundle\Entity\Account;
-use ZMRuntime;
 use ZenMagick\plugins\unitTests\simpletest\TestCase;
 
 /**
@@ -59,7 +58,7 @@ class TestPhpBB3Adapter extends TestCase
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
         $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
-        ZMRuntime::getDatabase()->removeModel('customers', $account);
+        \ZMRuntime::getDatabase()->removeModel('customers', $account);
     }
 
     /**

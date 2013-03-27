@@ -20,14 +20,13 @@
 
 namespace ZenMagick\plugins\productGroupPricing\service;
 
-use ZMOffers;
 
 /**
  * Add logic to transparently apply discounts.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Offers extends ZMOffers
+class Offers extends \ZMOffers
 {
     private $productGroupPricing;
     private $lookupDone;

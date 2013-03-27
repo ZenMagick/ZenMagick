@@ -21,7 +21,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use ArrayIterator;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\ZMObject;
 
@@ -88,7 +87,7 @@ class RssFeedLoader extends ZMObject
                 break;
             }
         }
-        $feed->setItems(new ArrayIterator($items));
+        $feed->setItems(new \ArrayIterator($items));
 
         // cache if enabled
         if ($this->cache) {

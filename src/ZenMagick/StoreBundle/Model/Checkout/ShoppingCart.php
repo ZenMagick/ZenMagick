@@ -19,9 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Model\Checkout;
 
-use ZMCreditTypeWrapper;
 use ZenMagick\StoreBundle\Entity\Order\OrderTotalLine;
-use ZMPaymentField;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
 use ZenMagick\StoreBundle\Entity\TaxRate;
@@ -675,7 +673,7 @@ class ShoppingCart extends ZMObject
         if (null != ($zenTotals = $this->_getZenTotals())) {
             $zenTypes = $zenTotals->credit_selection();
             foreach ($zenTypes as $zenType) {
-                $creditType = new ZMCreditTypeWrapper($zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
+                $creditType = new \ZMCreditTypeWrapper($zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
                 if (isset($zenType['credit_class_error'])) {
                     $creditType->error_ = $zenType['credit_class_error'];
                 }
@@ -683,7 +681,7 @@ class ShoppingCart extends ZMObject
                     foreach ($zenType['fields'] as $zenField) {
                         //XXX fix HTML
                         $field = str_replace('textfield', 'text', $zenField['field']);
-                        $creditType->addField(new ZMPaymentField($zenField['title'], $field));
+                        $creditType->addField(new \ZMPaymentField($zenField['title'], $field));
                     }
                 }
                 if (isset($zenType['checkbox'])) {
@@ -694,7 +692,7 @@ class ShoppingCart extends ZMObject
                     $field = trim(substr($checkbox, $pos));
                     //XXX fix submitFunction functionallity
                     $field = str_replace('submitFunction()', "submitFunction(this, ".$this->getTotal().")", $field);
-                    $creditType->addField(new ZMPaymentField($title, $field));
+                    $creditType->addField(new \ZMPaymentField($title, $field));
                 }
                 array_push($creditTypes, $creditType);
             }

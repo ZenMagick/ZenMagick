@@ -20,7 +20,6 @@
  */
 namespace ZenMagick\StoreBundle\Model\Catalog\Associations;
 
-use ZMRuntime;
 use ZenMagick\StoreBundle\Model\Catalog\ProductAssociation;
 use ZenMagick\StoreBundle\Services\Catalog\ProductAssociationHandler;
 
@@ -61,7 +60,7 @@ class SimilarOrderProductAssociationHandler implements ProductAssociationHandler
         $args = array('productId' => $productId);
 
         $assoc = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, 'products') as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, 'products') as $result) {
             $assoc[] = new ProductAssociation($result['productId']);
         }
 

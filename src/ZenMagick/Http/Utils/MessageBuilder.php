@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Utils;
 
-use Swift_Message;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\View;
 
@@ -169,7 +168,7 @@ class MessageBuilder extends ZMObject
      */
     public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8')
     {
-        return Swift_Message::newInstance($subject, $body, $contentType, $charset);
+        return \Swift_Message::newInstance($subject, $body, $contentType, $charset);
     }
 
 }

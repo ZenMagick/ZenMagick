@@ -22,8 +22,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use DOMDocument;
-
 /**
  * Rss feed parser.
  *
@@ -96,7 +94,7 @@ class RssParser
         $this->document = array();
         $this->channel = array();
         $this->items = array();
-        $domDocument = new DOMDocument;
+        $domDocument = new \DOMDocument;
         $domDocument->strictErrorChecking = $this->config['strictErrorChecking'];
         $domDocument->loadXML($feed);
         $this->document = $this->parseNodes($domDocument->childNodes);

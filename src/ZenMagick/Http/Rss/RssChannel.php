@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\Http\Rss;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -92,11 +91,11 @@ class RssChannel extends ZMObject
     public function getLastBuildDate()
     {
         $lastBuildDate = $this->get('lastBuildDate');
-        if ($lastBuildDate instanceof DateTime) {
+        if ($lastBuildDate instanceof \DateTime) {
           return $lastBuildDate;
         }
 
-        return new DateTime($lastBuildDate);
+        return new \DateTime($lastBuildDate);
     }
 
     /**

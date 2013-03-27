@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Services;
 
-use DateTime;
+use \DateTime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Catalog\Review;
@@ -45,7 +45,7 @@ class ReviewServiceTest extends ZenMagickTestCase
             $this->assertEquals('There\'s Something About Mary Linked', $review->getProductName());
             $this->assertEquals('dvd/theres_something_about_mary.gif', $review->getProductImage());
             $this->assertEquals('This really is a very funny but old movie!', $review->getText());
-            $this->assertEquals(new DateTime('2003-12-23 03:18:19'), $review->getDateAdded());
+            $this->assertEquals(new \DateTime('2003-12-23 03:18:19'), $review->getDateAdded());
             $this->assertEquals('Bill Smith', $review->getAuthor());
         }
     }

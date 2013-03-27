@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\plugins\subscriptions\Controller;
 
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\AdminBundle\Controller\PluginAdminController;
@@ -48,7 +47,7 @@ class SubscriptionAdminController extends PluginAdminController
         $sql = "SELECT orders_id FROM %table.orders%
                 WHERE  is_subscription = :subscription
                 ORDER BY subscription_next_order DESC";
-        $results = ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), 'orders');
+        $results = \ZMRuntime::getDatabase()->fetchAll($sql, array('subscription' => true), 'orders');
         $orderIds = array();
         foreach ($results as $result) {
             if (null != ($order = $this->container->get('orderService')->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {
@@ -77,7 +76,7 @@ class SubscriptionAdminController extends PluginAdminController
             $sql = "UPDATE %table.orders%
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
-            ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');
             $this->get('session.flash_bag')->success(_zm("Subscription canceled!"));
         }
 

@@ -56,7 +56,7 @@ class ZMAttributes extends ZMObject
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $product->getLanguageId());
-        $attributes = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products_options', 'products_attributes'), 'ZenMagick\StoreBundle\Entity\Catalog\Attribute');
+        $attributes = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('products_options', 'products_attributes'), 'ZenMagick\StoreBundle\Entity\Catalog\Attribute');
         if (0 == count($attributes)) {
             return $attributes;
         }
@@ -83,7 +83,7 @@ class ZMAttributes extends ZMObject
         // read all in one go
         $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $product->getLanguageId());
         $mapping = array('products_options_values', 'products_attributes');
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, $mapping, 'ZMAttributeValue') as $value) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, $mapping, 'ZMAttributeValue') as $value) {
             $attribute = $attributeMap[$value->getAttributeId()];
             $value->setAttribute($attribute);
             $value->setTaxRate($product->getTaxRate());
@@ -113,7 +113,7 @@ class ZMAttributes extends ZMObject
                   WHERE pa.products_id = :productId
                     AND pa.options_values_id in (:attributeValueId)
                     AND pa.products_attributes_id = pad.products_attributes_id";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), \ZenMagick\Base\Database\Connection::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('products_attributes', 'products_attributes_download'), \ZenMagick\Base\Database\Connection::MODEL_RAW);
 
         return 0 != $result['total'];
     }

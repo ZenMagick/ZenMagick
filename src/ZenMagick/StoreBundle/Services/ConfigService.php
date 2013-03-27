@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Services;
 
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Entity\ConfigGroup;
@@ -66,7 +65,7 @@ class ConfigService extends ZMObject
             "useFunction" => $useFunction,
             "setFunction" => $setFunction
         );
-        ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
+        \ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
     }
 
     /**
@@ -85,7 +84,7 @@ class ConfigService extends ZMObject
         $configGroup->setVisible($visible);
         $configGroup->setSortOrder($sortOrder);
 
-        return ZMRuntime::getDatabase()->createModel('configuration_group', $configGroup);
+        return \ZMRuntime::getDatabase()->createModel('configuration_group', $configGroup);
     }
 
     /**
@@ -100,7 +99,7 @@ class ConfigService extends ZMObject
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
         $args = array("key" => $key, "value" => $value);
-        ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
+        \ZMRuntime::getDatabase()->updateObj($sql, $args, 'configuration');
     }
 
     /**
@@ -148,7 +147,7 @@ class ConfigService extends ZMObject
                 WHERE configuration_key like :key
                 ORDER BY sort_order, configuration_id";
         $args = array('key' => $pattern);
-        $values = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
+        $values = \ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
 
         return $this->buildObjects($values);
     }
@@ -166,7 +165,7 @@ class ConfigService extends ZMObject
                 WHERE configuration_group_id like :groupId
                 ORDER BY sort_order, configuration_id";
         $args = array('groupId' => $groupId);
-        $values = ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
+        $values = \ZMRuntime::getDatabase()->fetchAll($sql, $args, 'configuration');
 
         return $this->buildObjects($values);
     }
@@ -180,7 +179,7 @@ class ConfigService extends ZMObject
     {
         $sql = "DELETE FROM %table.configuration%
                 WHERE configuration_key = :key";
-        ZMRuntime::getDatabase()->updateObj($sql, array('key' => $key), 'configuration');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('key' => $key), 'configuration');
     }
 
     /**
@@ -192,7 +191,7 @@ class ConfigService extends ZMObject
     {
         $sql = "DELETE FROM %table.configuration%
                 WHERE configuration_key like :key";
-        ZMRuntime::getDatabase()->updateObj($sql, array('key' => $pattern), 'configuration');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('key' => $pattern), 'configuration');
     }
 
     /**
@@ -207,7 +206,7 @@ class ConfigService extends ZMObject
                 FROM %table.configuration_group%
                 WHERE configuration_group_id = :id";
 
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
+        return \ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
     }
 
     /**
@@ -222,7 +221,7 @@ class ConfigService extends ZMObject
                 FROM %table.configuration_group%
                 WHERE configuration_group_title = :name";
 
-        return ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
+        return \ZMRuntime::getDatabase()->querySingle($sql, array('name' => $name), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
     }
 
     /**
@@ -236,7 +235,7 @@ class ConfigService extends ZMObject
                 FROM %table.configuration_group%
                 ORDER BY sort_order";
 
-        return ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
+        return \ZMRuntime::getDatabase()->fetchAll($sql, array(), 'configuration_group', 'ZenMagick\StoreBundle\Entity\ConfigGroup');
     }
 
     /**
@@ -248,7 +247,7 @@ class ConfigService extends ZMObject
     {
         $map = array();
         $sql = "SELECT configuration_key, configuration_value FROM %table.configuration%";
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql) as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql) as $result) {
             $map[$result['configuration_key']] = $result['configuration_value'];
         }
 

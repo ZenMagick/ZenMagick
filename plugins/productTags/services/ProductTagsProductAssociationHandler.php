@@ -20,7 +20,6 @@
 
 namespace ZenMagick\plugins\productTags\services;
 
-use ZMProductAssociationHandler;
 use ZenMagick\Base\ZMException;
 
 /**
@@ -30,7 +29,7 @@ use ZenMagick\Base\ZMException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductTagsProductAssociationHandler implements ZMProductAssociationHandler
+class ProductTagsProductAssociationHandler implements \ZMProductAssociationHandler
 {
     /**
      * {@inheritDoc}
@@ -56,7 +55,7 @@ class ProductTagsProductAssociationHandler implements ZMProductAssociationHandle
 
         $assoc = array();
         foreach ($tagService->getProductIdsForTags($tags, $languageId) as $pid) {
-            $assoc[] = new ZMProductAssociation($pid);
+            $assoc[] = new \ZMProductAssociation($pid);
         }
 
         return $assoc;

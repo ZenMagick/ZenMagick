@@ -20,7 +20,6 @@
 
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -51,11 +50,11 @@ class ProductSpecialsService extends ZMObject
             $availableDate = $special->getAvailableDate();
             $expiryDate = $special->getExpiryDate();
             $active = $special->getStatus();
-            if (!$active && null != $availableDate && new DateTime() >= $availableDate) {
+            if (!$active && null != $availableDate && new \DateTime() >= $availableDate) {
                 $special->setStatus(true);
             }
             // @todo the original code also disabled specials that haven't started yet. is that something we should worry about?
-            if ($special->getStatus() && null != $expiryDate && new DateTime() >= $expiryDate) {
+            if ($special->getStatus() && null != $expiryDate && new \DateTime() >= $expiryDate) {
                 $special->setStatus(false);
             }
 

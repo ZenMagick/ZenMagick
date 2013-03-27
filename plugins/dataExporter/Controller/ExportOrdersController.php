@@ -20,8 +20,6 @@
 
 namespace ZenMagick\plugins\dataExporter\Controller;
 
-use DateTime;
-use ZMRuntime;
 use ZenMagick\StoreBundle\Entity\Order\Order;
 use ZenMagick\Base\Beans;
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
@@ -70,11 +68,11 @@ class ExportOrdersController extends DefaultController
         $viewData = array();
         if (null != $fromDate) {
             $dateFormat = $this->getDateFormat();
-            $orderDateFrom = DateTime::createFromFormat($dateFormat.' H:i:s', $fromDate.' 00:00:00');
+            $orderDateFrom = \DateTime::createFromFormat($dateFormat.' H:i:s', $fromDate.' 00:00:00');
             if (!empty($toDate)) {
-                $orderDateTo = DateTime::createFromFormat($dateFormat.' H:i:s', $toDate.' 00:00:00');
+                $orderDateTo = \DateTime::createFromFormat($dateFormat.' H:i:s', $toDate.' 00:00:00');
             } else {
-                $orderDateTo = new DateTime();
+                $orderDateTo = new \DateTime();
                 $toDate = $orderDateTo->format($dateFormat);
             }
 
@@ -91,7 +89,7 @@ class ExportOrdersController extends DefaultController
                     ORDER BY orders_id DESC";
             $args = array('languageId' => 1, '1#orderDate' => $orderDateFrom, '2#orderDate' => $orderDateTo);
             // load as array to save memory
-            $results = ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders', 'orders_total', 'orders_status'));
+            $results = \ZMRuntime::getDatabase()->fetchAll($sql, $args, array('orders', 'orders_total', 'orders_status'));
 
             // prepare data
             $header = array(

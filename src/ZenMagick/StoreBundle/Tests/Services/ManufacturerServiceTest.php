@@ -19,8 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Services;
 
-use DateTime;
-use ZMRuntime;
 use ZenMagick\Base\Beans;
 use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
 
@@ -85,9 +83,9 @@ class ManufacturerServiceTest extends ZenMagickTestCase
         // create new manufacturer without info record
         $newManufacturer = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Manufacturer');
         $newManufacturer->setName('Foo');
-        $newManufacturer->setDateAdded(new DateTime());
-        $newManufacturer->setLastModified(new DateTime());
-        $newManufacturer = ZMRuntime::getDatabase()->createModel('manufacturers', $newManufacturer);
+        $newManufacturer->setDateAdded(new \DateTime());
+        $newManufacturer->setLastModified(new \DateTime());
+        $newManufacturer = \ZMRuntime::getDatabase()->createModel('manufacturers', $newManufacturer);
 
         $manufacturer = $this->get('manufacturerService')->getManufacturerForId($newManufacturer->getId(), 1);
         if ($this->assertNotNull($manufacturer)) {
@@ -96,7 +94,7 @@ class ManufacturerServiceTest extends ZenMagickTestCase
         }
 
         // remove again
-        ZMRuntime::getDatabase()->removeModel('manufacturers', $newManufacturer);
+        \ZMRuntime::getDatabase()->removeModel('manufacturers', $newManufacturer);
     }
 
 }

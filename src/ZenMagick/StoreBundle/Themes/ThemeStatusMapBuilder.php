@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Themes;
 
-use DirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
 use ZenMagick\Base\ZMObject;
 
@@ -109,7 +108,7 @@ class ThemeStatusMapBuilder extends ZMObject
     {
         $folder = array();
         foreach ($this->basePath as $basePath) {
-            foreach (new DirectoryIterator($basePath) as $fileInfo) {
+            foreach (new \DirectoryIterator($basePath) as $fileInfo) {
                 if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                     $path = $fileInfo->getPathname();
                     $configFile = sprintf('%s/theme.yaml', $path);
@@ -120,7 +119,7 @@ class ThemeStatusMapBuilder extends ZMObject
                         $locales = array();
                         $localeBaseDir = sprintf('%s/locale', $path);
                         if (file_exists($localeBaseDir) && is_dir($localeBaseDir)) {
-                            foreach (new DirectoryIterator($localeBaseDir) as $localeInfo) {
+                            foreach (new \DirectoryIterator($localeBaseDir) as $localeInfo) {
                                 if ($localeInfo->isDir() && !$localeInfo->isDot()) {
                                     $locales[$localeInfo->getFilename()] = $localeInfo->getPathname();
                                 }

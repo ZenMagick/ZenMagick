@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Rss;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Rss\RssChannel;
 use ZenMagick\Http\Rss\RssFeed;
@@ -131,7 +130,7 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
         $channel->setLink($router->generate('index', array(), true));
         $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
-        $channel->setLastBuildDate(new DateTime());
+        $channel->setLastBuildDate(new \DateTime());
 
         $feed = new RssFeed();
         $feed->setChannel($channel);

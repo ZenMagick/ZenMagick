@@ -20,7 +20,6 @@
 
 namespace ZenMagick\StoreBundle\Services\Account;
 
-use ZMRuntime;
 use ZenMagick\Base\Toolbox;
 use ZenMagick\Base\Database\Connection;
 use ZenMagick\StoreBundle\Entity\Account;
@@ -59,7 +58,7 @@ class Accounts
                   LEFT JOIN %table.customers_info% ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
+        if (null != ($account = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -82,7 +81,7 @@ class Accounts
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
+        if (null != ($account = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account'))) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -105,7 +104,7 @@ class Accounts
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -138,7 +137,7 @@ class Accounts
         }
 
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), array('customers', 'customers_info'), 'ZenMagick\StoreBundle\Entity\Account') as $account) {
             if (Toolbox::isEmpty($account->getPassword())) {
                 $account->setType(Account::GUEST);
             }
@@ -161,7 +160,7 @@ class Accounts
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId);
 
-        return ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_info');
+        return \ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_info');
     }
 
     /**
@@ -177,7 +176,7 @@ class Accounts
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers'), Connection::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, array('customers'), Connection::MODEL_RAW);
 
         return 0 < $result['total'];
     }
@@ -190,11 +189,11 @@ class Accounts
      */
     public function createAccount($account)
     {
-        $account = ZMRuntime::getDatabase()->createModel('customers', $account);
+        $account = \ZMRuntime::getDatabase()->createModel('customers', $account);
         $now = new \DateTime();
         $account->setAccountCreateDate($now);
         $account->setLastModifiedDate($now);
-        ZMRuntime::getDatabase()->createModel('customers_info', $account);
+        \ZMRuntime::getDatabase()->createModel('customers_info', $account);
 
         return $account;
     }
@@ -210,19 +209,19 @@ class Accounts
      */
     public function updateAccount($account)
     {
-        ZMRuntime::getDatabase()->updateModel('customers', $account);
+        \ZMRuntime::getDatabase()->updateModel('customers', $account);
         $now = new \DateTime();
         $account->setLastModifiedDate($now);
 
         // check for existence in case record does not exist...
         $sql = "SELECT COUNT(*) AS total FROM %table.customers_info%
                 WHERE customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array('customers_info'), Connection::MODEL_RAW);
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array('customers_info'), Connection::MODEL_RAW);
         if ($result['total'] > 0) {
-            ZMRuntime::getDatabase()->updateModel('customers_info', $account);
+            \ZMRuntime::getDatabase()->updateModel('customers_info', $account);
         } else {
             $account->setAccountCreateDate($now);
-            $account = ZMRuntime::getDatabase()->createModel('customers_info', $account);
+            $account = \ZMRuntime::getDatabase()->createModel('customers_info', $account);
         }
 
         return $account;
@@ -236,7 +235,7 @@ class Accounts
         $sql = "UPDATE %table.customers%
                 SET customers_password = :password
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'password' => $password), 'customers');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $accountId, 'password' => $password), 'customers');
     }
 
     /**
@@ -250,7 +249,7 @@ class Accounts
         $sql = "SELECT global_product_notifications
                 FROM %table.customers_info%
                 WHERE customers_info_id = :accountId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'customers_info');
+        $result = \ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), 'customers_info');
 
         return (boolean) $result['globalProductSubscriber'];
     }
@@ -267,7 +266,7 @@ class Accounts
                 SET global_product_notifications = :globalProductSubscriber, customers_info_date_account_last_modified = now()
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
-        ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_info');
+        \ZMRuntime::getDatabase()->updateObj($sql, $args, 'customers_info');
     }
 
     /**
@@ -283,7 +282,7 @@ class Accounts
                 WHERE customers_id = :accountId";
         $productIds = array();
 
-        foreach (ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'products_notifications') as $result) {
+        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('accountId' => $accountId), 'products_notifications') as $result) {
             $productIds[] = $result['productId'];
         }
 
@@ -302,7 +301,7 @@ class Accounts
         $sql = "INSERT INTO %table.products_notifications%
                 (products_id, customers_id) VALUES (:productId, :accountId)";
         foreach ($productIds as $id) {
-            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
         }
         $account->addSubscribedProducts($productIds);
 
@@ -321,7 +320,7 @@ class Accounts
         $sql = "DELETE FROM %table.products_notifications%
                 WHERE  customers_id = :accountId
                 AND products_id in (:productId)";
-        ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $productIds), 'products_notifications');
+        \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $productIds), 'products_notifications');
         $account->removeSubscribedProducts($productIds);
 
         return $account;
@@ -354,14 +353,14 @@ class Accounts
             $sql = "DELETE FROM %table.products_notifications%
                     WHERE  customers_id = :accountId
                     AND products_id in (:productId)";
-            ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $remove), 'products_notifications');
+            \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $remove), 'products_notifications');
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO %table.products_notifications%
                     (products_id, customers_id) VALUES (:productId, :accountId)";
             foreach ($add as $id) {
-                ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
+                \ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => $account->getId(), 'productId' => $id), 'products_notifications');
             }
         }
 

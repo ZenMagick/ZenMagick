@@ -19,9 +19,6 @@
  */
 namespace ZenMagick\Http\View;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMException;
 use ZenMagick\Base\ZMObject;
@@ -256,9 +253,9 @@ class ResourceResolver extends ZMObject
         foreach ($locations as $location) {
             $base = $location.'/'.$path;
             if (file_exists($base) && is_dir($base)) {
-                $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($base));
+                $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($base));
                 if (null != $regexp) {
-                    $it = new RegexIterator($it, $regexp, RegexIterator::MATCH);
+                    $it = new \RegexIterator($it, $regexp, \RegexIterator::MATCH);
                 }
                 for ($it->rewind(); $it->valid(); $it->next()) {
                     $name = str_replace(array($base, '\\'), array('', '/'), $it->current()->getPathname());

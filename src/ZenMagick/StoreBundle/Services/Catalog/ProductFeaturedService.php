@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StoreBundle\Services\Catalog;
 
-use DateTime;
 use ZenMagick\Base\ZMObject;
 
 /**
@@ -46,12 +45,12 @@ class ProductFeaturedService extends ZMObject
             $availableDate = $feature->getAvailableDate();
             $expiryDate = $feature->getExpiryDate();
             $active = $feature->getStatus();
-            if (!$active && null != $availableDate && new DateTime() >= $availableDate) {
+            if (!$active && null != $availableDate && new \DateTime() >= $availableDate) {
                 $feature->setStatus(true);
                 \ZMRuntime::getDatabase()->updateModel('featured', $feature);
             }
             // @todo the original code also disabled features tht haven't started yet. is that something we should worry about?
-            if ($feature->getStatus() && null != $expiryDate && new DateTime() >= $expiryDate) {
+            if ($feature->getStatus() && null != $expiryDate && new \DateTime() >= $expiryDate) {
                 $feature->setStatus(false);
                 \ZMRuntime::getDatabase()->updateModel('featured', $feature);
             }

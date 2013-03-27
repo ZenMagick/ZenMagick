@@ -93,7 +93,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements SqlAware
      */
     public function getQueryDetails($method=null, $args=array())
     {
-        return new QueryDetails(ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int) $this->getValue());
+        return new QueryDetails(\ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int) $this->getValue());
     }
 
 }

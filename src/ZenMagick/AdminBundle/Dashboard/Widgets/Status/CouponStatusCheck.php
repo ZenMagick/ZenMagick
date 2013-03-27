@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Dashboard\Widgets\Status;
 
-use DateTime;
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Widgets\StatusCheck;
@@ -48,7 +47,7 @@ class CouponStatusCheck extends ZMObject implements StatusCheck
             if (!empty($value)) {
               if (null != ($coupon = $this->container->get('couponService')->getCouponForId($value, $languageId))) {
                   $expiryDate = $coupon->getExpiryDate();
-                  $diff = $expiryDate->diff(new DateTime(), true);
+                  $diff = $expiryDate->diff(new \DateTime(), true);
                   $interval = (int) $diff->format('%r%a');
                   if ($interval > 0 && $interval < self::NEW_SIGNUP_GV_EXPIRY_THRESHOLD) {
                       $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Welcome Email Discount Coupon expires in %s days.'), $interval));
