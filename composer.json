@@ -18,7 +18,7 @@
         }
     ],
     "support": {
-        "issues": "http://dev.zenmagick.org/projects/zenmagick/issues",
+        "issues": "https://github.com/ZenMagick/ZenMagick/issues",
         "wiki": "http://dev.zenmagick.org/projects/zenmagick/wiki",
         "forum": "http://forum.zenmagick.org",
         "source": "https://github.com/ZenMagick/ZenMagick.git"
