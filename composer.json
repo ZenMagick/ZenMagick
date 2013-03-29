@@ -56,6 +56,9 @@
         "jmikola/insecure-routes-bundle": "3.0.*",
         "nitra/php-min": "0.0.5"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
