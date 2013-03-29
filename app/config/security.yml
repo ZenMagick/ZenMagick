@@ -60,7 +60,6 @@ security:
             logout:
                 path: logout
                 target: login
-                success_handler: zenmagick.logout.success_handler
 
     access_control:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
