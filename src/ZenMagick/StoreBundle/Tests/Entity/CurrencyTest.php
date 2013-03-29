@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Entity;
 
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test currency.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CurrencyTest extends ZenMagickTestCase
+class CurrencyTest extends BaseTestCase
 {
     /**
      * Test currency parsing.

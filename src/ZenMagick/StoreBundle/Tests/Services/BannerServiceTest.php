@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Services;
 
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test <code>Banners</code>.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class BannerServiceTest extends ZenMagickTestCase
+class BannerServiceTest extends BaseTestCase
 {
     /**
      * Test get banner group ids.

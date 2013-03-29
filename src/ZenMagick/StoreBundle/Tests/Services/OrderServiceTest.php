@@ -20,7 +20,7 @@
 namespace ZenMagick\StoreBundle\Tests\Services;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test order service.
@@ -28,7 +28,7 @@ use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
  * @author DerManoMann <mano@zenmagick.org>
  * @todo create custom order and add specific asserts to test explicit data
  */
-class OrderServiceTest extends ZenMagickTestCase
+class OrderServiceTest extends BaseTestCase
 {
     /**
      * Test create product.

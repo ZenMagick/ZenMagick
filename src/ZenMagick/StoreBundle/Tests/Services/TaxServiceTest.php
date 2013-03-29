@@ -20,14 +20,14 @@
 namespace ZenMagick\StoreBundle\Tests\Services;
 
 use ZenMagick\Base\Runtime;
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test tax service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TaxServiceTest extends ZenMagickTestCase
+class TaxServiceTest extends BaseTestCase
 {
     /**
      * Test get tax rate for class id.

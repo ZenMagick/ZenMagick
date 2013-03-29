@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Services;
 
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test country service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CountryServiceTest extends ZenMagickTestCase
+class CountryServiceTest extends BaseTestCase
 {
     /**
      * Test load country.

@@ -21,14 +21,14 @@ namespace ZenMagick\StoreBundle\Tests\Services;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\StoreBundle\Entity\Coupons\Coupon;
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test coupon service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class CouponServiceTest extends ZenMagickTestCase
+class CouponServiceTest extends BaseTestCase
 {
     private $createdCouponIds;
     private $testCouponId;

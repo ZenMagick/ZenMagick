@@ -19,14 +19,14 @@
  */
 namespace ZenMagick\StoreBundle\Tests\Entity;
 
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test product.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ProductTest extends ZenMagickTestCase
+class ProductTest extends BaseTestCase
 {
     /**
      * Test existing manufacturer.

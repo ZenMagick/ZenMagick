@@ -23,14 +23,14 @@ use \DateTime;
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
 use ZenMagick\StoreBundle\Entity\Catalog\Review;
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test reviews service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ReviewServiceTest extends ZenMagickTestCase
+class ReviewServiceTest extends BaseTestCase
 {
     /**
      * Validate the given review as the (single) demo review.

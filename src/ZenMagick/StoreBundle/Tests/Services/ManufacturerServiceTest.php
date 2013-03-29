@@ -20,14 +20,14 @@
 namespace ZenMagick\StoreBundle\Tests\Services;
 
 use ZenMagick\Base\Beans;
-use ZenMagick\ZenMagickBundle\Tests\ZenMagickTestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test manufacturer service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ManufacturerServiceTest extends ZenMagickTestCase
+class ManufacturerServiceTest extends BaseTestCase
 {
     /**
      * Test get for name.
