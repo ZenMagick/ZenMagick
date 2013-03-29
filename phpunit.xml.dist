@@ -11,7 +11,7 @@
     processIsolation            = "false"
     stopOnFailure               = "false"
     syntaxCheck                 = "false"
-    bootstrap                   = "./vendor/autoload.php"
+    bootstrap                   = "app/bootstrap.php.cache"
 >
 
     <testsuites>
@@ -19,4 +19,9 @@
 	    <directory suffix="Test.php">./src/ZenMagick/StoreBundle/Tests/</directory>
         </testsuite>
     </testsuites>
+
+    <php>
+        <server name="KERNEL_DIR" value="./app/" />
+    </php>
+
 </phpunit>

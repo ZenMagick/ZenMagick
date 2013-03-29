@@ -37,7 +37,6 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
     {
         if (!$this->app || $fresh) {
             $appDir = realpath(__DIR__.'/../../../../app');
-            require_once $appDir.'/bootstrap.php.cache';
             require_once $appDir.'/AppKernel.php';
             $this->app = new \AppKernel('test', false, 'storefront');
             $this->app->loadClassCache();
