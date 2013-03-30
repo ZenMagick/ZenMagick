@@ -68,7 +68,7 @@ class Offers extends \ZMOffers
     {
         if (!$this->lookupDone) {
             $this->lookupDone = true;
-            $account = $this->container->get('request')->getAccount();
+            $account = $this->container->get('security.context')->getToken()->getUser();
             if (null == $account) {
                 // no account, no price group
                 $this->productGroupPricing = null;

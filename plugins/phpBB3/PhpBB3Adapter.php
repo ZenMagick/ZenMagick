@@ -111,7 +111,7 @@ class PhpBB3Adapter extends ZMObject
     public function vDuplicateChangedEmail($request, $data)
     {
         // the current account
-        $account = $request->getAccount();
+        $account = $this->container->get('security.context')->getToken()->getUser();
         if ($account->getEmail() != $data['email']) {
             // changed
             return $this->vDuplicateEmail($data);

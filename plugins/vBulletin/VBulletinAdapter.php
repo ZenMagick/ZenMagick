@@ -110,7 +110,7 @@ class VBulletinAdapter extends ZMObject
     public function vDuplicateChangedEmail($request, $data)
     {
         // the current account
-        $account = $this->container->get('request')->getAccount();
+        $account = $this->container->get('security.context')->getToken()->getUser();
         if ($account->getEmail() != $data['email']) {
             // changed
             return $this->vDuplicateEmail($request, $data);
@@ -128,8 +128,7 @@ class VBulletinAdapter extends ZMObject
      */
     public function vDuplicateChangedNickname($request, $data)
     {
-        // the current account
-        $account = $this->container->get('request')->getAccount();
+        $account = $this->container->get('security.context')->getToken()->getUser();
         if ($account->getNickName() != $data['nickName']) {
             // changed
             return $this->vDuplicateNickname($request, $data);

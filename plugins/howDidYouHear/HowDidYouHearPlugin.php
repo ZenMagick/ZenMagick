@@ -124,7 +124,7 @@ class HowDidYouHearPlugin extends Plugin
                     $view->setVariable('howDidYouHearForm', $registration);
                 } elseif (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
                     // if we have an address we should have got the source as well...
-                    $account = $request->getAccount();
+                    $account = $this->container->get('security.context')->getToken()->getUser();
                     $addressList = $this->container->get('addressService')->getAddressesForAccountId($account->getId());
                     if ($this->isEnableOnGuestCheckout() && Account::GUEST == $account->getType() && 0 == count($addressList)) {
                         $view->setVariable('howDidYouHearForm', $shippingAddress);

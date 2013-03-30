@@ -112,7 +112,7 @@ class WhoIsOnlinePlugin extends Plugin
 
         $fullName = 'Guest'; // used for zc admin page
         if (!empty($accountId) && !empty($sessionId)) {
-            $account = $request->getAccount();
+            $account = $this->container->get('security.context')->getToken()->getUser();
             $fullName = $account->getLastName().', '.$account->getFirstName();
         }
 

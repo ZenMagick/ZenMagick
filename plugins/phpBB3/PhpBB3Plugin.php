@@ -55,7 +55,8 @@ class PhpBB3Plugin extends Plugin
     {
         $request = $event->getArgument('request');
         $this->page = $request->getRequestId();
-        $this->prePostAccount = $request->getAccount();
+
+        $this->prePostAccount = $this->container->get('security.context')->getToken()->getUser();
 
         $settingsService = $this->container->get('settingsService');
 
