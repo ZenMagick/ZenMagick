@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test ZMObject.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMObject extends TestCase
+class TestZMObject extends BaseTestCase
 {
     /**
      * Test property names.
@@ -38,9 +37,9 @@ class TestZMObject extends TestCase
         $obj->set('foo', 'bar');
         $obj->set('deng', 'poh');
         // custom only
-        $this->assertEqual(array('foo', 'deng'), $obj->getPropertyNames(true));
+        $this->assertEquals(array('foo', 'deng'), $obj->getPropertyNames(true));
         // all
-        $this->assertEqual(array('foo', 'deng', 'propertyNames', 'properties', 'attachedMethods'), $obj->getPropertyNames(false));
+        $this->assertEquals(array('foo', 'deng', 'propertyNames', 'properties', 'attachedMethods'), $obj->getPropertyNames(false));
     }
 
     /**
@@ -52,7 +51,7 @@ class TestZMObject extends TestCase
         $obj->set('foo', 'bar');
         $obj->set('deng', 'poh');
         // custom only
-        $this->assertEqual(array('foo' => 'bar', 'deng' => 'poh'), $obj->getProperties());
+        $this->assertEquals(array('foo' => 'bar', 'deng' => 'poh'), $obj->getProperties());
     }
 
 }

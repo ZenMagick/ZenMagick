@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test template manager service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestTemplateManager extends TestCase
+class TestTemplateManager extends BaseTestCase
 {
     /**
      * Test field length.
@@ -40,7 +39,7 @@ class TestTemplateManager extends TestCase
         );
 
         foreach ($fields as $field) {
-            $this->assertEqual($field['expected'], $this->container->get('templateManager')->getFieldLength($field['table'], $field['column']));
+            $this->assertEquals($field['expected'], $this->get('templateManager')->getFieldLength($field['table'], $field['column']));
         }
     }
 

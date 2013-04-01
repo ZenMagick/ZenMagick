@@ -18,27 +18,26 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test calculated product prices.
  *
  * <p>This test requires a vanilla demo store database setup.</p>
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductPricing extends TestCase
+class TestProductPricing extends BaseTestCase
 {
     /**
      * Test product base price.
      */
     public function testBasePrice()
     {
-        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
+        foreach ($this->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual(zen_get_products_base_price($product->getId()), $offers->getBasePrice(false), '%s productId='.$product->getId());
+            $this->assertEquals(zen_get_products_base_price($product->getId()), $offers->getBasePrice(false), '%s productId='.$product->getId());
         }
     }
 
@@ -47,10 +46,10 @@ class TestProductPricing extends TestCase
      */
     public function testSpecialPrice()
     {
-        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
+        foreach ($this->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual(zen_get_products_special_price($product->getId(), true), $offers->getSpecialPrice(false), '%s productId='.$product->getId());
+            $this->assertEquals(zen_get_products_special_price($product->getId(), true), $offers->getSpecialPrice(false), '%s productId='.$product->getId());
         }
     }
 
@@ -59,10 +58,10 @@ class TestProductPricing extends TestCase
      */
     public function testSalePrice()
     {
-        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
+        foreach ($this->get('productService')->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
-            $this->assertEqual(zen_get_products_special_price($product->getId(), false), $offers->getSalePrice(false), '%s productId='.$product->getId());
+            $this->assertEquals(zen_get_products_special_price($product->getId(), false), $offers->getSalePrice(false), '%s productId='.$product->getId());
         }
     }
 

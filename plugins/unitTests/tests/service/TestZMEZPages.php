@@ -18,26 +18,25 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test ezpages service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMEZPages extends TestCase
+class TestZMEZPages extends BaseTestCase
 {
     /**
      * Test load.
      */
     public function testLoad()
     {
-        $page = $this->container->get('ezPageService')->getPageForId(8, 1);
+        $page = $this->get('ezPageService')->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
-            $this->assertEqual(8, $page->getId());
+            $this->assertEquals(8, $page->getId());
             $this->assertTrue($page->isSidebox());
-            $this->assertEqual(40, $page->getSideboxSort());
+            $this->assertEquals(40, $page->getSideboxSort());
         }
     }
 
@@ -46,19 +45,19 @@ class TestZMEZPages extends TestCase
      */
     public function testUpdate()
     {
-        $ezPageService = $this->container->get('ezPageService');
+        $ezPageService = $this->get('ezPageService');
 
         $page = $ezPageService->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $page->setHeaderSort(33);
             $status = $ezPageService->updatePage($page);
             $this->assertTrue($status);
-            $this->assertEqual(33, $page->getHeaderSort());
+            $this->assertEquals(33, $page->getHeaderSort());
 
             // load from scratch
             $page = $ezPageService->getPageForId(8, 1);
             if ($this->assertNotNull($page)) {
-                $this->assertEqual(33, $page->getHeaderSort());
+                $this->assertEquals(33, $page->getHeaderSort());
             }
 
             // revert change
@@ -72,7 +71,7 @@ class TestZMEZPages extends TestCase
      */
     public function testCreate()
     {
-        $ezPageService = $this->container->get('ezPageService');
+        $ezPageService = $this->get('ezPageService');
 
         // make copy
         $page = $ezPageService->getPageForId(8, 1);

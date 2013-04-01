@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Http\Request;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test validation rules.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestValidationRules extends TestCase
+class TestValidationRules extends BaseTestCase
 {
     /**
      * Test regexp.

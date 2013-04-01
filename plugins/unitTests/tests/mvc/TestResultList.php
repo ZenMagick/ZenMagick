@@ -20,15 +20,14 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test simple result list handling.
  *
- * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultList extends TestCase
+class TestResultList extends BaseTestCase
 {
     /**
      * Set up.
@@ -82,22 +81,22 @@ class TestResultList extends TestCase
     {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(13));
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(13, $resultList->getNumberOfResults());
-        $this->assertEqual(2, $resultList->getNumberOfPages());
-        $this->assertEqual(10, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(13, $resultList->getNumberOfResults());
+        $this->assertEquals(2, $resultList->getNumberOfPages());
+        $this->assertEquals(10, count($resultList->getResults()));
 
         $resultList->setPageNumber(2);
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(13, $resultList->getNumberOfResults());
-        $this->assertEqual(2, $resultList->getNumberOfPages());
-        $this->assertEqual(3, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(13, $resultList->getNumberOfResults());
+        $this->assertEquals(2, $resultList->getNumberOfPages());
+        $this->assertEquals(3, count($resultList->getResults()));
 
         $resultList->setPageNumber(3);
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(13, $resultList->getNumberOfResults());
-        $this->assertEqual(2, $resultList->getNumberOfPages());
-        $this->assertEqual(3, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(13, $resultList->getNumberOfResults());
+        $this->assertEquals(2, $resultList->getNumberOfPages());
+        $this->assertEquals(3, count($resultList->getResults()));
     }
 
     /**
@@ -107,10 +106,10 @@ class TestResultList extends TestCase
     {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(3));
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(3, $resultList->getNumberOfResults());
-        $this->assertEqual(1, $resultList->getNumberOfPages());
-        $this->assertEqual(3, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(3, $resultList->getNumberOfResults());
+        $this->assertEquals(1, $resultList->getNumberOfPages());
+        $this->assertEquals(3, count($resultList->getResults()));
     }
 
     /**
@@ -120,10 +119,10 @@ class TestResultList extends TestCase
     {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(10));
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(10, $resultList->getNumberOfResults());
-        $this->assertEqual(1, $resultList->getNumberOfPages());
-        $this->assertEqual(10, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(10, $resultList->getNumberOfResults());
+        $this->assertEquals(1, $resultList->getNumberOfPages());
+        $this->assertEquals(10, count($resultList->getResults()));
     }
 
     /**
@@ -134,10 +133,10 @@ class TestResultList extends TestCase
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(30));
         $resultList->setPageNumber(3);
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(30, $resultList->getNumberOfResults());
-        $this->assertEqual(3, $resultList->getNumberOfPages());
-        $this->assertEqual(10, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(30, $resultList->getNumberOfResults());
+        $this->assertEquals(3, $resultList->getNumberOfPages());
+        $this->assertEquals(10, count($resultList->getResults()));
     }
 
     /**
@@ -147,10 +146,10 @@ class TestResultList extends TestCase
     {
         $resultList = new ZMResultList();
         $resultList->setResultSource($this->getResultListSource(0));
-        $this->assertEqual(10, $resultList->getPagination());
-        $this->assertEqual(0, $resultList->getNumberOfResults());
-        $this->assertEqual(0, $resultList->getNumberOfPages());
-        $this->assertEqual(0, count($resultList->getResults()));
+        $this->assertEquals(10, $resultList->getPagination());
+        $this->assertEquals(0, $resultList->getNumberOfResults());
+        $this->assertEquals(0, $resultList->getNumberOfPages());
+        $this->assertEquals(0, count($resultList->getResults()));
     }
 
 }

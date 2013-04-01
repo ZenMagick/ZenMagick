@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test shipping provider service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMShippingProviders extends TestCase
+class TestZMShippingProviders extends BaseTestCase
 {
     /**
      * Test get provider.
@@ -35,7 +34,7 @@ class TestZMShippingProviders extends TestCase
     public function testGetProvider()
     {
         $el = error_reporting(0);
-        $providers = $this->container->get('shippingProviderService')->getShippingProviders(true);
+        $providers = $this->get('shippingProviderService')->getShippingProviders(true);
         $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
         $address->setCountryId(153);
         foreach ($providers as $provider) {

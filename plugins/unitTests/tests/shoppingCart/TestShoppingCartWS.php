@@ -21,7 +21,6 @@
 /**
  * Test shopping cart via wrapper service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
 class TestShoppingCartWS extends ShoppingCartTestCaseBase
@@ -34,7 +33,7 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase
         $referenceCart = $this->getReferenceCart($ids);
 
         // load again from DB
-        $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
+        $serviceShoppingCart = $this->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         // also validate against zencart cart
@@ -42,7 +41,7 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase
         $zenReferenceItems = $zcCart->get_products();
 
         // zencart weight
-        $this->assertEqual($zcCart->show_weight(), $serviceShoppingCart->getWeight());
+        $this->assertEquals($zcCart->show_weight(), $serviceShoppingCart->getWeight());
 
         $itemTotal = 0;
         foreach ($referenceCart->getItems() as $item) {
@@ -50,28 +49,28 @@ class TestShoppingCartWS extends ShoppingCartTestCaseBase
             if ($this->assertTrue(array_key_exists($item->getId(), $itemMap), "%s: productId: ".$item->getId())) {
                 // compare
                 $serviceItem = $itemMap[$item->getId()];
-                $this->assertEqual($item->getQuantity(), $serviceItem->getQuantity(), "%s: productId: ".$item->getId());
+                $this->assertEquals($item->getQuantity(), $serviceItem->getQuantity(), "%s: productId: ".$item->getId());
                 // no tax
-                $this->assertEqual($item->getItemPrice(false), $serviceItem->getItemPrice(false), "%s: productId: ".$item->getId());
-                $this->assertEqual($item->getOneTimeCharge(false), $serviceItem->getOneTimeCharge(false), "%s: productId: ".$item->getId());
+                $this->assertEquals($item->getItemPrice(false), $serviceItem->getItemPrice(false), "%s: productId: ".$item->getId());
+                $this->assertEquals($item->getOneTimeCharge(false), $serviceItem->getOneTimeCharge(false), "%s: productId: ".$item->getId());
 
                 // zencart prices
                 foreach ($zenReferenceItems as $zi) {
                     if ($zi['id'] == $item->getId()) {
-                        $this->assertEqual(round($item->getItemPrice(false), 2), round($zi['final_price'],2), "zc i: %s: productId: ".$item->getId());
-                        $this->assertEqual(round($item->getOneTimeCharge(false), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
+                        $this->assertEquals(round($item->getItemPrice(false), 2), round($zi['final_price'],2), "zc i: %s: productId: ".$item->getId());
+                        $this->assertEquals(round($item->getOneTimeCharge(false), 2), round($zi['onetime_charges'],2), "zc ot: %s: productId: ".$item->getId());
                     }
                 }
 
                 // zencart quantities
                 $itemId = $item->getId();
                 $product = $item->getProduct();
-                $this->assertEqual($zcCart->get_quantity($itemId), $referenceCart->getItemQuantityFor($itemId, false), "zc get_quantity: %s: productId: ".$item->getId());
-                $this->assertEqual($zcCart->in_cart_mixed($itemId), $referenceCart->getItemQuantityFor($itemId, $product->isQtyMixed()), "zc in_cart_mixed: %s: productId: ".$item->getId());
+                $this->assertEquals($zcCart->get_quantity($itemId), $referenceCart->getItemQuantityFor($itemId, false), "zc get_quantity: %s: productId: ".$item->getId());
+                $this->assertEquals($zcCart->in_cart_mixed($itemId), $referenceCart->getItemQuantityFor($itemId, $product->isQtyMixed()), "zc in_cart_mixed: %s: productId: ".$item->getId());
             }
         }
 
-        $this->assertEqual($zcCart->count_contents($itemId), $itemTotals);
+        $this->assertEquals($zcCart->count_contents($itemId), $itemTotals);
     }
 
     /**

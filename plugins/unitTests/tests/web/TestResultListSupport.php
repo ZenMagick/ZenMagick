@@ -20,15 +20,14 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\Runtime;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test result list related code.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultListSupport extends TestCase
+class TestResultListSupport extends BaseTestCase
 {
     /**
      * Set up.
@@ -59,13 +58,13 @@ class TestResultListSupport extends TestCase
 
         $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17); //, 6, 4, 19, 10, 9, 7, 8);
 
-        $this->assertEqual(17, $source->getTotalNumberOfResults());
+        $this->assertEquals(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
         }
 
-        $this->assertEqual($expectedIds, $resultIds);
+        $this->assertEquals($expectedIds, $resultIds);
     }
 
     /**
@@ -88,13 +87,13 @@ class TestResultListSupport extends TestCase
 
         $expectedIds = array(20, 5, 16, 12, 11, 15, 13, 14, 18, 17); //, 6, 4, 19, 10, 9, 7, 8);
 
-        $this->assertEqual(17, $source->getTotalNumberOfResults());
+        $this->assertEquals(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
         }
 
-        $this->assertEqual($expectedIds, $resultIds);
+        $this->assertEquals($expectedIds, $resultIds);
     }
 
     /**
@@ -121,13 +120,13 @@ class TestResultListSupport extends TestCase
 
         $expectedIds = array(7, 9, 10, 19, 4, 6, 17, 18, 14, 13);
 
-        $this->assertEqual(17, $source->getTotalNumberOfResults());
+        $this->assertEquals(17, $source->getTotalNumberOfResults());
         $resultIds = array();
         foreach ($results as $product) {
             $resultIds[] = $product->getId();
         }
 
-        $this->assertEqual($expectedIds, $resultIds);
+        $this->assertEquals($expectedIds, $resultIds);
     }
 
 }

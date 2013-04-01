@@ -21,7 +21,6 @@
 /**
  * Test shopping cart via service order.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
 class TestShoppingCartSO extends ShoppingCartTestCaseBase
@@ -34,7 +33,7 @@ class TestShoppingCartSO extends ShoppingCartTestCaseBase
         $referenceCart = $this->getReferenceCart($ids);
 
         // load again from DB
-        $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
+        $serviceShoppingCart = $this->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         // get product data from order
@@ -44,9 +43,9 @@ class TestShoppingCartSO extends ShoppingCartTestCaseBase
             if ($this->assertTrue(array_key_exists($product['id'], $itemMap), "%s: productId: ".$product['id'])) {
                 // compare
                 $item = $itemMap[$product['id']];
-                $this->assertEqual($product['qty'], $item->getQuantity(), "%s: productId: ".$product['id']);
+                $this->assertEquals($product['qty'], $item->getQuantity(), "%s: productId: ".$product['id']);
                 // no tax
-                $this->assertEqual($product['final_price'], $item->getItemPrice(false), "%s: productId: ".$product['id']);
+                $this->assertEquals($product['final_price'], $item->getItemPrice(false), "%s: productId: ".$product['id']);
             }
         }
         error_reporting($er);

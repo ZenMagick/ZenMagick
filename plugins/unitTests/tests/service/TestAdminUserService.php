@@ -18,34 +18,33 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test <code>AdminUserService</code>.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserService extends TestCase
+class TestAdminUserService extends BaseTestCase
 {
     /**
      * Test change roles.
      */
     public function testChangeRoles()
     {
-        $adminUserService = $this->container->get('adminUserService');
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserService = $this->get('adminUserService');
+        $adminUserRoleService = $this->get('adminUserRoleService');
         $adminUserRoleService->addRole('helpdesk');
         $user = $adminUserService->getUserForId(1);
         if ($this->assertNotNull($user)) {
             $user->addRole('helpdesk');
             $adminUserService->updateUser($user);
             $user = $adminUserService->getUserForId(1);
-            $this->assertEqual(array('admin', 'helpdesk'), $user->getRoles());
+            $this->assertEquals(array('admin', 'helpdesk'), $user->getRoles());
             $user->setRoles(array('admin'));
             $adminUserService->updateUser($user);
             $user = $adminUserService->getUserForId(1);
-            $this->assertEqual(array('admin'), $user->getRoles());
+            $this->assertEquals(array('admin'), $user->getRoles());
         }
         $adminUserRoleService->deleteRole('helpdesk');
     }

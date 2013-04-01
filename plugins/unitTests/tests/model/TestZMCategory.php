@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test category.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategory extends TestCase
+class TestZMCategory extends BaseTestCase
 {
     /**
      * Test childIds
@@ -34,9 +33,9 @@ class TestZMCategory extends TestCase
     public function testChildIds()
     {
         $expect = array(3, 10, 13, 12, 15, 11, 14);
-        $category = $this->container->get('categoryService')->getCategoryForId(3, 1);
+        $category = $this->get('categoryService')->getCategoryForId(3, 1);
         $ids = $category->getDecendantIds();
-        $this->assertEqual(count($expect), count($ids));
+        $this->assertEquals(count($expect), count($ids));
         foreach ($expect as $id) {
             $this->assertTrue(in_array($id, $ids));
         }
@@ -48,9 +47,9 @@ class TestZMCategory extends TestCase
     public function testChildIdsExclude()
     {
         $expect = array(10, 13, 12, 15, 11, 14);
-        $category = $this->container->get('categoryService')->getCategoryForId(3, 1);
+        $category = $this->get('categoryService')->getCategoryForId(3, 1);
         $ids = $category->getDecendantIds(false);
-        $this->assertEqual(count($expect), count($ids));
+        $this->assertEquals(count($expect), count($ids));
         foreach ($expect as $id) {
             $this->assertTrue(in_array($id, $ids));
         }
@@ -68,9 +67,9 @@ class TestZMCategory extends TestCase
         );
 
         foreach ($tests as $test) {
-            $category = $this->container->get('categoryService')->getCategoryForId($test['categoryId'], 1);
+            $category = $this->get('categoryService')->getCategoryForId($test['categoryId'], 1);
             if ($this->assertNotNull($category, '%s; categoryId '.$test['categoryId'])) {
-                $this->assertEqual($test['expected'], $category->getProductTypeIds());
+                $this->assertEquals($test['expected'], $category->getProductTypeIds());
             }
         }
     }

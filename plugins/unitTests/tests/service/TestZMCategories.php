@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test category service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategories extends TestCase
+class TestZMCategories extends BaseTestCase
 {
     /**
      * Test product type id loading.
@@ -41,9 +40,9 @@ class TestZMCategories extends TestCase
         );
 
         foreach ($tests as $test) {
-            $ids = $this->container->get('categoryService')->getProductTypeIds($test['categoryId']);
+            $ids = $this->get('categoryService')->getProductTypeIds($test['categoryId']);
             if ($this->assertTrue(is_array($ids), '%s; categoryId '.$test['categoryId'])) {
-                $this->assertEqual($test['expected'], $ids);
+                $this->assertEquals($test['expected'], $ids);
             }
         }
     }
@@ -53,7 +52,7 @@ class TestZMCategories extends TestCase
      */
     public function testCreateDelete()
     {
-        $categoryService = $this->container->get('categoryService');
+        $categoryService = $this->get('categoryService');
 
         $newCategory = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Category');
         $newCategory->setLanguageId(1);
@@ -64,7 +63,7 @@ class TestZMCategories extends TestCase
         $this->assertTrue(0 != $newCategory->getId());
         $reloadedCategory = $categoryService->getCategoryForId($newCategory->getId(), 1);
         $this->assertNotNull($reloadedCategory);
-        $this->assertEqual($newCategory, $reloadedCategory);
+        $this->assertEquals($newCategory, $reloadedCategory);
         // delete again
         $categoryService->deleteCategory($newCategory);
         $invalidCategory = $categoryService->getCategoryForId($newCategory->getId(), 1);
@@ -76,19 +75,19 @@ class TestZMCategories extends TestCase
      */
     public function testUpdate()
     {
-        $categoryService = $this->container->get('categoryService');
+        $categoryService = $this->get('categoryService');
 
         $category = $categoryService->getCategoryForId(35, 1);
         $category->addChild(2);
         $categoryService->updateCategory($category);
         $reloadedCategory = $categoryService->getCategoryForId($category->getId(), 1);
         $this->assertNotNull($reloadedCategory);
-        $this->assertEqual($category, $reloadedCategory);
+        $this->assertEquals($category, $reloadedCategory);
         $category->removeChild(2);
         $categoryService->updateCategory($category);
         $reloadedCategory = $categoryService->getCategoryForId($category->getId(), 1);
         $this->assertNotNull($reloadedCategory);
-        $this->assertEqual($category, $reloadedCategory);
+        $this->assertEquals($category, $reloadedCategory);
     }
 
 }

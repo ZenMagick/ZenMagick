@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test cart service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartService extends TestCase
+class TestShoppingCartService extends BaseTestCase
 {
     /**
      * {@inheritDoc}
@@ -35,7 +34,7 @@ class TestShoppingCartService extends TestCase
     {
         $account = $this->getRequest()->getAccount();
         if (null == $account) {
-            $account = $this->container->get('accountService')->getAccountForId(1);
+            $account = $this->get('accountService')->getAccountForId(1);
             $this->getRequest()->getSession()->setAccount($account);
         }
     }
@@ -57,10 +56,10 @@ class TestShoppingCartService extends TestCase
      */
     public function testLoadCart()
     {
-        $contents = $this->container->get('shoppingCartService')->getContentsForAccountId($this->getAccountId());
+        $contents = $this->get('shoppingCartService')->getContentsForAccountId($this->getAccountId());
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();
-        $this->assertEqual($_SESSION['cart']->contents(), $contents);
+        $this->assertEquals($_SESSION['cart']->contents(), $contents);
     }
 
 }

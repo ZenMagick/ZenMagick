@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\Locales\LocaleScanner;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test LocaleScanner.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestLocaleScanner extends TestCase
+class TestLocaleScanner extends BaseTestCase
 {
     protected static $DATA_DIR;
 
@@ -46,7 +45,7 @@ class TestLocaleScanner extends TestCase
     protected function getScanner()
     {
         $scanner = new LocaleScanner();
-        $scanner->setFilesystem($this->container->get('filesystem'));
+        $scanner->setFilesystem($this->get('filesystem'));
 
         return $scanner;
     }
@@ -57,8 +56,8 @@ class TestLocaleScanner extends TestCase
     public function testSimple()
     {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-simple', '.phpx');
-        if ($this->assertEqual(1, count($map))) {
-            $this->assertEqual(array('Yooo' => array('msg' => 'Yooo', 'plural' => null, 'context' => null, 'filename' => 'l10n-simple\l10n-test1.phpx', 'line' => 3)), array_pop($map));
+        if ($this->assertEquals(1, count($map))) {
+            $this->assertEquals(array('Yooo' => array('msg' => 'Yooo', 'plural' => null, 'context' => null, 'filename' => 'l10n-simple\l10n-test1.phpx', 'line' => 3)), array_pop($map));
         }
     }
 
@@ -68,8 +67,8 @@ class TestLocaleScanner extends TestCase
     public function testOther()
     {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-other', '.txt');
-        if ($this->assertEqual(1, count($map))) {
-            $this->assertEqual(array('+ view size chart' => array('msg' => '+ view size chart', 'plural' => null, 'context' => null, 'filename' => 'l10n-other\l10n-other.txt', 'line' => 1)), array_pop($map));
+        if ($this->assertEquals(1, count($map))) {
+            $this->assertEquals(array('+ view size chart' => array('msg' => '+ view size chart', 'plural' => null, 'context' => null, 'filename' => 'l10n-other\l10n-other.txt', 'line' => 1)), array_pop($map));
         }
     }
 
@@ -79,13 +78,13 @@ class TestLocaleScanner extends TestCase
     public function testMixed()
     {
         $map = $this->getScanner()->buildL10nMap(self::$DATA_DIR.'/l10n-mixed', '.phpx');
-        if ($this->assertEqual(1, count($map))) {
+        if ($this->assertEquals(1, count($map))) {
             $expected = array(
               'Yooo' => array('msg' => 'Yooo', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 5),
               'Foo %s Deng' =>  array('msg' => 'Foo %s Deng', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 8),
               'Hey %s, nice to see you again. <br /><br />Welcome back.' =>  array('msg' => 'Hey %s, nice to see you again. <br /><br />Welcome back.', 'plural' => null, 'context' => null, 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 15)
             );
-            $this->assertEqual($expected, array_pop($map));
+            $this->assertEquals($expected, array_pop($map));
         }
     }
 
@@ -96,7 +95,7 @@ class TestLocaleScanner extends TestCase
     {
         $s = 'Last %bOrders%% %1bfoo%%';
         $result = _zmsprintf($s, '<a href="">%%block%%</a>', '%%block%%-bar');
-        $this->assertEqual('Last <a href="">Orders</a> foo-bar', $result);
+        $this->assertEquals('Last <a href="">Orders</a> foo-bar', $result);
     }
 
     /**
@@ -112,7 +111,7 @@ class TestLocaleScanner extends TestCase
               'dong' => array('msg' => 'dong', 'plural' => null, 'context' => 'peng', 'filename' => 'l10n-context\l10n-testx.phpx', 'line' => 7),
               '%s puh' => array('msg' => '%s puh', 'plural' => 'yap', 'context' => null, 'filename' => 'l10n-context\l10n-testx.phpx', 'line' => 8)
             );
-            $this->assertEqual($expected, array_pop($map));
+            $this->assertEquals($expected, array_pop($map));
         }
     }
 

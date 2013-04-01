@@ -19,16 +19,15 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 use ZenMagick\StoreBundle\Entity\Account;
 
 /**
  * Test accounts service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMAccounts extends TestCase
+class TestZMAccounts extends BaseTestCase
 {
     // test account data
     protected $accountData1 = array(
@@ -99,13 +98,13 @@ class TestZMAccounts extends TestCase
     public function testCreateAccount()
     {
         $account = $this->createAccount($this->accountData1);
-        $accountService = $this->container->get('accountService');
+        $accountService = $this->get('accountService');
         $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
         $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.ucwords($key);
-            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
+            $this->assertEquals($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
@@ -115,14 +114,14 @@ class TestZMAccounts extends TestCase
     public function testCreateAccountNoDOB()
     {
         $account = $this->createAccount($this->accountData1);
-        $accountService = $this->container->get('accountService');
+        $accountService = $this->get('accountService');
         $account->setDob(null);
         $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
         $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.ucwords($key);
-            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
+            $this->assertEquals($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
@@ -132,7 +131,7 @@ class TestZMAccounts extends TestCase
     public function testUpdateAccount()
     {
         $account = $this->createAccount($this->accountData1);
-        $accountService = $this->container->get('accountService');
+        $accountService = $this->get('accountService');
         $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
         $account->setFirstName('foo');
@@ -140,7 +139,7 @@ class TestZMAccounts extends TestCase
         $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.ucwords($key);
-            $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
+            $this->assertEquals($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
 
@@ -149,7 +148,7 @@ class TestZMAccounts extends TestCase
      */
     public function testGetAccountsForEmail()
     {
-        $accountService = $this->container->get('accountService');
+        $accountService = $this->get('accountService');
         // gets us at least two guest accounts
         $account1 = $this->createAccount($this->accountData1);
         $account1->setType(Account::GUEST);
@@ -159,7 +158,7 @@ class TestZMAccounts extends TestCase
         $account2 = $accountService->createAccount($account2);
 
         $accounts = $accountService->getAccountsForEmailAddress($account2->getEmail());
-        $this->assertEqual(2, count($accounts));
+        $this->assertEquals(2, count($accounts));
     }
 
     /**
@@ -180,7 +179,7 @@ class TestZMAccounts extends TestCase
             ZMRuntime::getDatabase()->updateObj($sql, array('accountId' => 2, 'productId' => $id), 'products_notifications');
         }
 
-        $subscribedProductIds = $this->container->get('accountService')->getSubscribedProductIds(2);
+        $subscribedProductIds = $this->get('accountService')->getSubscribedProductIds(2);
         foreach ($testProductIds as $id) {
             $this->assertTrue(in_array($id, $subscribedProductIds));
         }

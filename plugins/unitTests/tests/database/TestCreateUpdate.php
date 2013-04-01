@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\ZMObject;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test create / update methods.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCreateUpdate extends TestCase
+class TestCreateUpdate extends BaseTestCase
 {
     /**
      * {@inheritDoc}

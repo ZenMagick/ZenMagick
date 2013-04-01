@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test image info.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMImageInfo extends TestCase
+class TestZMImageInfo extends BaseTestCase
 {
     /**
      * Test split image name.
@@ -35,10 +34,10 @@ class TestZMImageInfo extends TestCase
     {
         $info = ZMImageInfo::splitImageName('/foo/bar/image.png');
         if ($this->assertTrue(is_array($info))) {
-            if ($this->assertEqual(3, count($info))) {
-                $this->assertEqual('/foo/bar/', $info[0]);
-                $this->assertEqual('.png', $info[1]);
-                $this->assertEqual('/foo/bar/image', $info[2]);
+            if ($this->assertEquals(3, count($info))) {
+                $this->assertEquals('/foo/bar/', $info[0]);
+                $this->assertEquals('.png', $info[1]);
+                $this->assertEquals('/foo/bar/image', $info[2]);
             }
         }
     }

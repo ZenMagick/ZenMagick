@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test <code>AdminUserRoleService</code>.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserRoleService extends TestCase
+class TestAdminUserRoleService extends BaseTestCase
 {
     /**
      * Set up.
@@ -34,7 +33,7 @@ class TestAdminUserRoleService extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService = $this->get('adminUserRoleService');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admins_to_roles%');
         $adminUserRoleService->addRole('admin');
@@ -49,7 +48,7 @@ class TestAdminUserRoleService extends TestCase
     public function tearDown()
     {
         parent::tearDown();
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService = $this->get('adminUserRoleService');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admin_roles%');
         ZMRuntime::getDatabase()->executeUpdate('TRUNCATE TABLE %table.admins_to_roles%');
         $adminUserRoleService->addRole('admin');
@@ -63,8 +62,8 @@ class TestAdminUserRoleService extends TestCase
     public function testGetAllRoles()
     {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = $this->container->get('adminUserRoleService')->getAllRoles();
-        $this->assertEqual($expected, $roles);
+        $roles = $this->get('adminUserRoleService')->getAllRoles();
+        $this->assertEquals($expected, $roles);
     }
 
     /**
@@ -73,8 +72,8 @@ class TestAdminUserRoleService extends TestCase
     public function testGetRolesForId()
     {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = $this->container->get('adminUserRoleService')->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
+        $roles = $this->get('adminUserRoleService')->getRolesForId(1);
+        $this->assertEquals($expected, $roles);
     }
 
     /**
@@ -82,7 +81,7 @@ class TestAdminUserRoleService extends TestCase
      */
     public function testAddRole()
     {
-        $id = $this->container->get('adminUserRoleService')->addRole('customerservice');
+        $id = $this->get('adminUserRoleService')->addRole('customerservice');
         $this->assertTrue(0 < $id);
     }
 
@@ -91,15 +90,15 @@ class TestAdminUserRoleService extends TestCase
      */
     public function testDeleteRole()
     {
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService = $this->get('adminUserRoleService');
         $adminUserRoleService->addRole('customerservice');
         $expected = array(1 => 'admin', 2 => 'helpdesk', 3 => 'customerservice');
         $roles = $adminUserRoleService->getAllRoles();
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
         $adminUserRoleService->deleteRole('customerservice');
         $expected = array(1 => 'admin', 2 => 'helpdesk');
         $roles = $adminUserRoleService->getAllRoles();
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
     }
 
     /**
@@ -107,26 +106,26 @@ class TestAdminUserRoleService extends TestCase
      */
     public function testSetRolesForId()
     {
-        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService = $this->get('adminUserRoleService');
         $adminUserRoleService->setRolesForId(1, array('admin'));
         $expected = array(1 => 'admin');
         $roles = $adminUserRoleService->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
 
         $adminUserRoleService->setRolesForId(1, array('helpdesk'));
         $expected = array(2 => 'helpdesk');
         $roles = $adminUserRoleService->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
 
         $adminUserRoleService->setRolesForId(1, array('admin', 'helpdesk'));
         $expected = array(1 => 'admin', 2 => 'helpdesk');
         $roles = $adminUserRoleService->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
 
         $adminUserRoleService->setRolesForId(1, array('admin'));
         $expected = array(1 => 'admin');
         $roles = $adminUserRoleService->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
+        $this->assertEquals($expected, $roles);
     }
 
 }

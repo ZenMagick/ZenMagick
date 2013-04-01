@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test offers.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOffers extends TestCase
+class TestZMOffers extends BaseTestCase
 {
     /**
      * Set up.
@@ -41,19 +40,19 @@ class TestZMOffers extends TestCase
      */
     public function testQtyDiscounts()
     {
-        $product = $this->container->get('productService')->getProductForId(176, 1);
+        $product = $this->get('productService')->getProductForId(176, 1);
         if ($this->assertNotNull($product)) {
             $offers = $product->getOffers();
             if ($this->assertNotNull($offers)) {
                 $discounts = $offers->getQuantityDiscounts(false);
                 $this->assertTrue(is_array($discounts));
-                if ($this->assertEqual(5, count($discounts))) {
+                if ($this->assertEquals(5, count($discounts))) {
                     // grab one and check details
                     $discount = $discounts[3];
-                    $this->assertEqual(176, $discount->getProductId());
-                    $this->assertEqual(48, $discount->getQuantity());
-                    $this->assertEqual(30.00, $discount->getValue());
-                    $this->assertEqual(70.00, $discount->getPrice());
+                    $this->assertEquals(176, $discount->getProductId());
+                    $this->assertEquals(48, $discount->getQuantity());
+                    $this->assertEquals(30.00, $discount->getValue());
+                    $this->assertEquals(70.00, $discount->getPrice());
                 }
             }
 
@@ -124,9 +123,9 @@ class TestZMOffers extends TestCase
         );
 
         foreach ($tests as $productId => $expected) {
-            $product = $this->container->get('productService')->getProductForId($productId, 1);
-            $details = $this->container->get('macroTool')->buildQuantityDiscounts($product, false);
-            if (!$this->assertEqual($expected, $details, '%s: productId: '.$productId))
+            $product = $this->get('productService')->getProductForId($productId, 1);
+            $details = $this->get('macroTool')->buildQuantityDiscounts($product, false);
+            if (!$this->assertEquals($expected, $details, '%s: productId: '.$productId))
                 var_dump($details);
         }
     }

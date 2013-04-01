@@ -18,31 +18,30 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test <code>ProductAssociationService</code>.
  *
- * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductAssociationService extends TestCase
+class TestProductAssociationService extends BaseTestCase
 {
     /**
      * Test simple handler.
      */
     public function testSimpleHandler()
     {
-        $productAssociationService = $this->container->get('productAssociationService');
+        $productAssociationService = $this->get('productAssociationService');
 
         $assoc = $productAssociationService->getProductAssociationsForProductId(12, 'simple');
-        $this->assertEqual(array(), $assoc);
+        $this->assertEquals(array(), $assoc);
 
         $assoc = $productAssociationService->getProductAssociationsForProductId(13, 'foo');
-        $this->assertEqual(array(), $assoc);
+        $this->assertEquals(array(), $assoc);
 
         $assoc = $productAssociationService->getProductAssociationsForProductId(13, 'simple');
-        $this->assertEqual(1, count($assoc));
+        $this->assertEquals(1, count($assoc));
     }
 
 }

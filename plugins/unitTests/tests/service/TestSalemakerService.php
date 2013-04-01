@@ -18,29 +18,28 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test salemaker service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSalemakerService extends TestCase
+class TestSalemakerService extends BaseTestCase
 {
     /**
      * Test getSaleDiscountTypeInfo.
      */
     public function testGetSaleDiscountTypeInfo()
     {
-        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
+        foreach ($this->get('productService')->getAllProducts(false, 1) as $product) {
             $productId = $product->getId();
-            $info = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($productId);
+            $info = $this->get('salemakerService')->getSaleDiscountTypeInfo($productId);
             $er = error_reporting(0);
             $type = zen_get_products_sale_discount_type($productId);
             $amount = zen_get_products_sale_discount_type($productId, false, 'amount');
             error_reporting($er);
-            if (!$this->assertEqual(array('type'=>$type, 'amount'=>$amount), $info)) {
+            if (!$this->assertEquals(array('type'=>$type, 'amount'=>$amount), $info)) {
                 echo $productId . $product->getName();
                 break;
             }

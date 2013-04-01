@@ -21,15 +21,14 @@
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Model\Checkout\ShoppingCart;
 use ZenMagick\StoreBundle\Utils\CheckoutHelper;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test shopping cart base class.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ShoppingCartTestCaseBase extends TestCase
+class ShoppingCartTestCaseBase extends BaseTestCase
 {
     /**
      * {@inheritDoc}
@@ -48,13 +47,13 @@ class ShoppingCartTestCaseBase extends TestCase
         $GLOBALS['moneyorder']->code = 'moneyorder';
 
         // cart checks for user...
-        $account = $this->container->get('accountService')->getAccountForId(1);
+        $account = $this->get('accountService')->getAccountForId(1);
         $this->getRequest()->getSession()->setAccount($account);
 
         // clear session and database
         $_SESSION['cart']->reset(true);
         $_SESSION['cart']->restore_contents();
-        $this->container->get('settingsService')->set('apps.store.assertZencart', false);
+        $this->get('settingsService')->set('apps.store.assertZencart', false);
     }
 
     /**
@@ -107,8 +106,8 @@ class ShoppingCartTestCaseBase extends TestCase
     {
         // use to add products
         $referenceCart = $this->getShoppingCart();
-        $textOptionPrefix = $this->container->get('settingsService')->get('textOptionPrefix');
-        $productService = $this->container->get('productService');
+        $textOptionPrefix = $this->get('settingsService')->get('textOptionPrefix');
+        $productService = $this->get('productService');
         $qty = 5;
         for ($ii=0; $ii<2; ++$ii) {
             foreach ($ids as $id) {

@@ -21,7 +21,6 @@
 /**
  * Test shopping cart.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
 class TestShoppingCart extends ShoppingCartTestCaseBase
@@ -35,19 +34,19 @@ class TestShoppingCart extends ShoppingCartTestCaseBase
         $shoppingCart->addProduct(12, 3);
 
         $items = $shoppingCart->getItems();
-        $this->assertEqual(1, count($items));
+        $this->assertEquals(1, count($items));
 
         $item = array_pop($items);
-        $this->assertEqual(3, $item->getQuantity());
+        $this->assertEquals(3, $item->getQuantity());
 
         // add again
         $shoppingCart->addProduct(12, 1);
 
         $items = $shoppingCart->getItems();
-        $this->assertEqual(1, count($items));
+        $this->assertEquals(1, count($items));
 
         $item = array_pop($items);
-        $this->assertEqual(4, $item->getQuantity());
+        $this->assertEquals(4, $item->getQuantity());
     }
 
     /**
@@ -69,7 +68,7 @@ class TestShoppingCart extends ShoppingCartTestCaseBase
         $shoppingCart = $this->getShoppingCart();
 
         foreach ($products as $productId => $attributes) {
-            $this->assertEqual(zen_get_uprid($productId, $attributes), $shoppingCart::mkItemId($productId, $attributes), sprintf('Failed for productId: %s', $productId));
+            $this->assertEquals(zen_get_uprid($productId, $attributes), $shoppingCart::mkItemId($productId, $attributes), sprintf('Failed for productId: %s', $productId));
         }
     }
 

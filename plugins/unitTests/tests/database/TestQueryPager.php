@@ -20,15 +20,14 @@
 
 use ZenMagick\Base\Database\QueryPager;
 use ZenMagick\Base\Database\QueryDetails;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test query pager.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestQueryPager extends TestCase
+class TestQueryPager extends BaseTestCase
 {
     /**
      * Test simple.
@@ -60,7 +59,7 @@ class TestQueryPager extends TestCase
             $orders = $resultList->getResults();
             echo 'is final source: ' . $resultSource->isFinal()."<BR>";
             echo "# of pages: " . $resultList->getNumberOfPages()."<BR>";
-            $locale = $this->container->get('localeService');
+            $locale = $this->get('localeService');
             foreach ($orders as $order) {
                 echo $order->getId() . ' ' . $locale->longDate($order->getOrderDate())."<BR>";
             }

@@ -20,15 +20,14 @@
 
 use ZenMagick\Base\Settings;
 use ZenMagick\Base\Toolbox;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test settings
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestSettings extends TestCase
+class TestSettings extends BaseTestCase
 {
     /**
      * Test append.
@@ -40,15 +39,15 @@ class TestSettings extends TestCase
         $value = 'doh';
         $oldValue = $settings->append($key, $value);
         $this->assertNull($oldValue);
-        $this->assertEqual($value, $settings->get($key));
+        $this->assertEquals($value, $settings->get($key));
 
         // and with delim
         $key = 'b.c.n@@@';
         $delim = '!';
         $old = null;
         $oldValue = $settings->append($key, $value, $delim);
-        $this->assertEqual($old, $oldValue);
-        $this->assertEqual($value, $settings->get($key));
+        $this->assertEquals($old, $oldValue);
+        $this->assertEquals($value, $settings->get($key));
     }
 
     /**
@@ -61,16 +60,16 @@ class TestSettings extends TestCase
         $old = null;
 
         $oldValue = $settings->append($key, 'yo', ',');
-        $this->assertEqual(null, $oldValue);
-        $this->assertEqual('yo', $settings->get($key));
+        $this->assertEquals(null, $oldValue);
+        $this->assertEquals('yo', $settings->get($key));
 
         $oldValue = $settings->append($key, 'yo', ',');
-        $this->assertEqual('yo', $oldValue);
-        $this->assertEqual('yo,yo', $settings->get($key));
+        $this->assertEquals('yo', $oldValue);
+        $this->assertEquals('yo,yo', $settings->get($key));
 
         $oldValue = $settings->append($key, 'yo', ',');
-        $this->assertEqual('yo,yo', $oldValue);
-        $this->assertEqual('yo,yo,yo', $settings->get($key));
+        $this->assertEquals('yo,yo', $oldValue);
+        $this->assertEquals('yo,yo,yo', $settings->get($key));
     }
 
     /**
@@ -85,7 +84,7 @@ class TestSettings extends TestCase
         $this->assertFalse($settings->exists($key));
         $oldValue = $settings->add($key, $value);
         $this->assertNull($oldValue);
-        $this->assertEqual(array($value), $settings->get($key));
+        $this->assertEquals(array($value), $settings->get($key));
     }
 
     /**
@@ -100,11 +99,11 @@ class TestSettings extends TestCase
 
         // set first value
         $settings->set($key, $value);
-        $this->assertEqual($value, $settings->get($key));
+        $this->assertEquals($value, $settings->get($key));
 
         $oldValue = $settings->add($key, $nextValue);
-        $this->assertEqual($value, $oldValue);
-        $this->assertEqual(array($value, $nextValue), $settings->get($key));
+        $this->assertEquals($value, $oldValue);
+        $this->assertEquals(array($value, $nextValue), $settings->get($key));
     }
 
     /**
@@ -120,8 +119,8 @@ class TestSettings extends TestCase
         $this->assertFalse($settings->exists($key));
         $oldValue = $settings->set($key, $value);
         $this->assertNull($oldValue);
-        $this->assertEqual($value, $settings->get($key));
-        $this->assertEqual(array('n@@' => $value), $settings->get($pkey));
+        $this->assertEquals($value, $settings->get($key));
+        $this->assertEquals(array('n@@' => $value), $settings->get($pkey));
     }
 
     /**
@@ -135,10 +134,10 @@ class TestSettings extends TestCase
         $newValue = 'deng';
 
         $settings->set($key, $value);
-        $this->assertEqual($value, $settings->get($key));
+        $this->assertEquals($value, $settings->get($key));
         $oldValue = $settings->set($key, $newValue);
-        $this->assertEqual($value, $oldValue);
-        $this->assertEqual($newValue, $settings->get($key));
+        $this->assertEquals($value, $oldValue);
+        $this->assertEquals($newValue, $settings->get($key));
     }
 
     /**
@@ -153,12 +152,12 @@ class TestSettings extends TestCase
         $newValue = 'deng';
 
         $settings->set($dkey, $value);
-        $this->assertEqual($value, $settings->get($dkey));
-        $this->assertEqual($value, $settings->get($skey));
+        $this->assertEquals($value, $settings->get($dkey));
+        $this->assertEquals($value, $settings->get($skey));
         $oldValue = $settings->set($skey, $newValue);
-        $this->assertEqual($value, $oldValue);
-        $this->assertEqual($newValue, $settings->get($dkey));
-        $this->assertEqual($newValue, $settings->get($skey));
+        $this->assertEquals($value, $oldValue);
+        $this->assertEquals($newValue, $settings->get($dkey));
+        $this->assertEquals($newValue, $settings->get($skey));
     }
 
     /**
@@ -169,7 +168,7 @@ class TestSettings extends TestCase
     {
         $path = 'a.b.c.d.e';
         $explodeElements = explode('.', $path);
-        $this->assertEqual($explodeElements, Toolbox::mexplode('./', $path));
+        $this->assertEquals($explodeElements, Toolbox::mexplode('./', $path));
     }
 
 }

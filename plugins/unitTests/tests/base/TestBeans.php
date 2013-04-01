@@ -20,15 +20,14 @@
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test Beans.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBeans extends TestCase
+class TestBeans extends BaseTestCase
 {
     /**
      * Test obj2map.
@@ -41,17 +40,17 @@ class TestBeans extends TestCase
         $obj->set('foo', 'bar');
         $obj->set('doh', 'nut');
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expectAll, $map);
+        $this->assertEquals($expectAll, $map);
 
         // get subset of properties
         $expectSpecific = array('foo' => 'bar', 'doh' => 'nut');
         $map = Beans::obj2map($obj, array_keys($expectSpecific));
-        $this->assertEqual($expectSpecific, $map);
+        $this->assertEquals($expectSpecific, $map);
 
         // get subset of array
         $arr = array_merge($expectSpecific, array('some' => 'other'));
         $map = Beans::obj2map($arr, array_keys($expectSpecific));
-        $this->assertEqual($expectSpecific, $map);
+        $this->assertEquals($expectSpecific, $map);
     }
 
     /**
@@ -65,17 +64,17 @@ class TestBeans extends TestCase
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
         $obj = new ZMObject();
         $obj = Beans::setAll($obj, $data);
-        $this->assertEqual('bar',$obj->getFoo());
+        $this->assertEquals('bar',$obj->getFoo());
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expectAll, $map);
+        $this->assertEquals($expectAll, $map);
 
         // set some
         $expectSome = array('foo' => 'bar', 'properties' => array('foo' => 'bar'), 'propertyNames' => array('foo'), 'attachedMethods' => array());
         $obj = new ZMObject();
         $obj = Beans::setAll($obj, $data, array('foo'));
-        $this->assertEqual('bar',$obj->getFoo());
+        $this->assertEquals('bar',$obj->getFoo());
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expectSome, $map);
+        $this->assertEquals($expectSome, $map);
     }
 
     /**
@@ -87,7 +86,7 @@ class TestBeans extends TestCase
         $map = array('foo' => 'bar', 'doh' => 'nut');
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'deng' => 'foo');
         $map = Beans::setAll($map, array('deng' => 'foo'));
-        $this->assertEqual($expectAll, $map);
+        $this->assertEquals($expectAll, $map);
     }
 
     /**
@@ -101,14 +100,14 @@ class TestBeans extends TestCase
         $expectAll = array('foo' => 'bar', 'doh' => 'nut', 'properties' => array('foo' => 'bar', 'doh' => 'nut'), 'propertyNames' => array('foo', 'doh'), 'attachedMethods' => array());
         $obj = Beans::map2obj('ZenMagick\Base\ZMObject', $data);
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expectAll, $map);
+        $this->assertEquals($expectAll, $map);
         $this->assertTrue($obj instanceof ZMObject);
 
         // test some
         $expectSome = array('foo' => 'bar', 'properties' => array('foo' => 'bar'), 'propertyNames' => array('foo'), 'attachedMethods' => array());
         $obj = Beans::map2obj('ZenMagick\Base\ZMObject', $data, array('foo'));
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expectSome, $map);
+        $this->assertEquals($expectSome, $map);
         $this->assertTrue($obj instanceof ZMObject);
     }
 
@@ -121,7 +120,7 @@ class TestBeans extends TestCase
         $definition = 'ZenMagick\Base\ZMObject#foo=bar&doh=nut';
         $obj = Beans::getBean($definition);
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expect, $map);
+        $this->assertEquals($expect, $map);
         $this->assertTrue($obj instanceof ZMObject);
 
         // test empty properties
@@ -129,7 +128,7 @@ class TestBeans extends TestCase
         $definition = 'ZenMagick\Base\ZMObject';
         $obj = Beans::getBean($definition);
         $map = Beans::obj2map($obj);
-        $this->assertEqual($expect, $map);
+        $this->assertEquals($expect, $map);
         $this->assertTrue($obj instanceof ZMObject);
     }
 
@@ -139,7 +138,7 @@ class TestBeans extends TestCase
     public function testMagicBean()
     {
         // test null bean
-        $this->assertEqual(null, Beans::getBean('bean::null'));
+        $this->assertEquals(null, Beans::getBean('bean::null'));
 
         // test property bean
         $bean = Beans::getBean('ZenMagick\Base\ZMObject#someBean=bean::ZenMagick\StoreBundle\Entity\Address');
@@ -160,8 +159,8 @@ class TestBeans extends TestCase
         if ($this->assertNotNull($ref)) {
             $this->assertTrue($ref instanceof ZenMagick\StoreBundle\Services\Products);
             // now test that we actually got the singleton
-            $foo = $this->container->get('productService')->getFoo();
-            $this->assertEqual('bar', $foo);
+            $foo = $this->get('productService')->getFoo();
+            $this->assertEquals('bar', $foo);
         }
     }
 
@@ -175,7 +174,7 @@ class TestBeans extends TestCase
             $handler = $bean->getHandler();
             if ($this->assertNotNull($handler)) {
                 if ($this->assertTrue($handler instanceof ZenMagick\StoreBundle\Entity\Catalog\Product)) {
-                    $this->assertEqual('foo', $handler->getName());
+                    $this->assertEquals('foo', $handler->getName());
                 }
             }
         }

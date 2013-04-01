@@ -18,15 +18,14 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test product service.
  *
- * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProducts extends TestCase
+class TestZMProducts extends BaseTestCase
 {
     /**
      * Test create product.
@@ -41,7 +40,7 @@ class TestZMProducts extends TestCase
      */
     public function testUpdateProduct()
     {
-        $productService = $this->container->get('productService');
+        $productService = $this->get('productService');
         $product = $productService->getProductForId(2, 1);
         $this->assertNotNull($product);
         $product->setName($product->getName().'@@@');
@@ -53,13 +52,13 @@ class TestZMProducts extends TestCase
             foreach ($prefixList as $prefix) {
                 $getter = $prefix . ucwords($key);
                 if (method_exists($product, $getter)) {
-                    $this->assertEqual($product->$getter(), $reloaded->$getter(), '%s getter='.$getter);
+                    $this->assertEquals($product->$getter(), $reloaded->$getter(), '%s getter='.$getter);
                     $done = true;
                     break;
                 }
             }
             if (!$done) {
-                $this->assertEqual($product->get($key), $reloaded->get($key), '%s key='.$key);
+                $this->assertEquals($product->get($key), $reloaded->get($key), '%s key='.$key);
             }
         }
         // revert name change
@@ -76,9 +75,9 @@ class TestZMProducts extends TestCase
             'starting_at' => true,
             'reviews' => true,
         );
-        $product = $this->container->get('productService')->getProductForId(2, 1);
+        $product = $this->get('productService')->getProductForId(2, 1);
         foreach ($fieldData as $field => $value) {
-            $this->assertEqual($value, $product->getTypeSetting($field), '%s field='.$field);
+            $this->assertEquals($value, $product->getTypeSetting($field), '%s field='.$field);
         }
     }
 
@@ -88,8 +87,8 @@ class TestZMProducts extends TestCase
     public function testFeaturedProductsHome()
     {
         $featuredIds = array(34, 40, 12, 27, 26, 168, 169, 171, 172);
-        $products = $this->container->get('productService')->getFeaturedProducts();
-        $this->assertEqual(9, count($products));
+        $products = $this->get('productService')->getFeaturedProducts();
+        $this->assertEquals(9, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
@@ -101,8 +100,8 @@ class TestZMProducts extends TestCase
     public function testFeaturedProductsCategory()
     {
         $featuredIds = array(12);
-        $products = $this->container->get('productService')->getFeaturedProducts(3, 4, true);
-        $this->assertEqual(1, count($products));
+        $products = $this->get('productService')->getFeaturedProducts(3, 4, true);
+        $this->assertEquals(1, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
@@ -116,8 +115,8 @@ class TestZMProducts extends TestCase
         $sql = "UPDATE %table.products% SET products_date_added = :dateAdded";
         ZMRuntime::getDatabase()->updateObj($sql, array('dateAdded' => new \DateTime()), 'products');
 
-        $products = $this->container->get('productService')->getNewProducts();
-        $this->assertEqual(50, count($products));
+        $products = $this->get('productService')->getNewProducts();
+        $this->assertEquals(50, count($products));
 
         ZMRuntime::getDatabase()->updateObj($sql, array('dateAdded' => '2003-11-03 12:32:17'), 'products');
     }
@@ -128,8 +127,8 @@ class TestZMProducts extends TestCase
     public function testNewProductsCategory()
     {
         $featuredIds = array(1, 2);
-        $products = $this->container->get('productService')->getNewProducts(4, 0, '0');
-        $this->assertEqual(2, count($products));
+        $products = $this->get('productService')->getNewProducts(4, 0, '0');
+        $this->assertEquals(2, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
@@ -140,8 +139,8 @@ class TestZMProducts extends TestCase
      */
     public function testBestsellerProductsHome()
     {
-        $products = $this->container->get('productService')->getBestSellers(null, 999);
-        $this->assertEqual(51, count($products));
+        $products = $this->get('productService')->getBestSellers(null, 999);
+        $this->assertEquals(51, count($products));
     }
 
     /**
@@ -150,8 +149,8 @@ class TestZMProducts extends TestCase
     public function testBestsellerProductsCategory()
     {
         $featuredIds = array(1, 2);
-        $products = $this->container->get('productService')->getBestSellers(4, 999);
-        $this->assertEqual(2, count($products));
+        $products = $this->get('productService')->getBestSellers(4, 999);
+        $this->assertEquals(2, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
         }
@@ -162,10 +161,10 @@ class TestZMProducts extends TestCase
      */
     public function testGetProductForModel()
     {
-        $product = $this->container->get('productService')->getProductForModel('MG200MMS', 1);
+        $product = $this->get('productService')->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
             $this->assertTrue($product instanceof ZenMagick\StoreBundle\Entity\Catalog\Product);
-            $this->assertEqual(1, $product->getId());
+            $this->assertEquals(1, $product->getId());
         }
     }
 
@@ -174,10 +173,10 @@ class TestZMProducts extends TestCase
      */
     public function testGetProductIdsForCategoryId()
     {
-        $productIdList = $this->container->get('productService')->getProductIdsForCategoryId(10, 1, true, false);
+        $productIdList = $this->get('productService')->getProductIdsForCategoryId(10, 1, true, false);
         $this->assertNotNull($productIdList);
         $expect = array(12, 11, 13, 18, 17, 6, 4, 10, 9);
-        $this->assertEqual($expect, $productIdList);
+        $this->assertEquals($expect, $productIdList);
     }
 
     /**
@@ -185,9 +184,9 @@ class TestZMProducts extends TestCase
      */
     public function testGetProductsForCategoryId()
     {
-        $productList = $this->container->get('productService')->getProductsForCategoryId(10, true, 1);
+        $productList = $this->get('productService')->getProductsForCategoryId(10, true, 1);
         $this->assertNotNull($productList);
-        $this->assertEqual(9, count($productList));
+        $this->assertEquals(9, count($productList));
     }
 
 }

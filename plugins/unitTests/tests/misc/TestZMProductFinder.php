@@ -19,15 +19,14 @@
  */
 
 use ZenMagick\Base\Beans;
-use ZenMagick\plugins\unitTests\simpletest\TestCase;
+use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
  * Test the product finder.
  *
- * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProductFinder extends TestCase
+class TestZMProductFinder extends BaseTestCase
 {
     /**
      * Test.
@@ -64,7 +63,7 @@ class TestZMProductFinder extends TestCase
             $productIds[] = $result['productId'];
         }
         $expected = array(7, 9, 10, 19, 4, 6, 17, 18, 14, 13, 15, 11, 12, 16, 5, 20, 8);
-        $this->assertEqual($expected, $productIds);
+        $this->assertEquals($expected, $productIds);
     }
 
 }
