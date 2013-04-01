@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestCreateUpdate extends BaseTestCase
+class CreateUpdateTest extends BaseTestCase
 {
     /**
      * {@inheritDoc}

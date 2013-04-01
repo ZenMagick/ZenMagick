@@ -23,7 +23,7 @@
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCart extends ShoppingCartTestCaseBase
+class ShoppingCartTest extends ShoppingCartTestCaseBase
 {
     /**
      * Test change quantity.

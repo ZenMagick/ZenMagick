@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMShippingProviders extends BaseTestCase
+class ZMShippingProvidersTest extends BaseTestCase
 {
     /**
      * Test get provider.

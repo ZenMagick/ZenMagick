@@ -27,7 +27,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestQueryPager extends BaseTestCase
+class QueryPagerTest extends BaseTestCase
 {
     /**
      * Test simple.

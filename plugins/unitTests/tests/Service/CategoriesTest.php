@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategories extends BaseTestCase
+class CategoriesTest extends BaseTestCase
 {
     /**
      * Test product type id loading.

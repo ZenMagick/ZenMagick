@@ -25,7 +25,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMCategory extends BaseTestCase
+class CategoryTest extends BaseTestCase
 {
     /**
      * Test childIds

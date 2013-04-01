@@ -23,7 +23,7 @@
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartWS extends ShoppingCartTestCaseBase
+class ShoppingCartWSTest extends ShoppingCartTestCaseBase
 {
     /**
      * Compare values for the given productIds using the wrapper and service.

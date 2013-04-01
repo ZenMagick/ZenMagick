@@ -25,7 +25,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMOffers extends BaseTestCase
+class ZMOffersTest extends BaseTestCase
 {
     /**
      * Set up.

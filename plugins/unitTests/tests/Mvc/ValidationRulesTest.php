@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestValidationRules extends BaseTestCase
+class ValidationRulesTest extends BaseTestCase
 {
     /**
      * Test regexp.

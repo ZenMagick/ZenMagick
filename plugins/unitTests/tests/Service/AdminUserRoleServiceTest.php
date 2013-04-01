@@ -25,7 +25,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserRoleService extends BaseTestCase
+class AdminUserRoleServiceTest extends BaseTestCase
 {
     /**
      * Set up.

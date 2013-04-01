@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMProductFinder extends BaseTestCase
+class ZMProductFinderTest extends BaseTestCase
 {
     /**
      * Test.

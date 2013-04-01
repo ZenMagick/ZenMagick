@@ -27,7 +27,7 @@ use ZenMagick\StoreBundle\Entity\Account;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMAccounts extends BaseTestCase
+class AccountsTest extends BaseTestCase
 {
     // test account data
     protected $accountData1 = array(

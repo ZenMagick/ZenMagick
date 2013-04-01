@@ -21,45 +21,25 @@
 use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
- * Test cart service.
+ * Test image info.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartService extends BaseTestCase
+class ZMImageInfoTest extends BaseTestCase
 {
     /**
-     * {@inheritDoc}
+     * Test split image name.
      */
-    public function skip()
+    public function testSplitImagename()
     {
-        $account = $this->getRequest()->getAccount();
-        if (null == $account) {
-            $account = $this->get('accountService')->getAccountForId(1);
-            $this->getRequest()->getSession()->setAccount($account);
+        $info = ZMImageInfo::splitImageName('/foo/bar/image.png');
+        if ($this->assertTrue(is_array($info))) {
+            if ($this->assertEquals(3, count($info))) {
+                $this->assertEquals('/foo/bar/', $info[0]);
+                $this->assertEquals('.png', $info[1]);
+                $this->assertEquals('/foo/bar/image', $info[2]);
+            }
         }
-    }
-
-    /**
-     * Get the account id to test.
-     *
-     * @return int An account id.
-     */
-    protected function getAccountId()
-    {
-        $account = $this->getRequest()->getAccount();
-
-        return $account ? $account->getId() : 0;
-    }
-
-    /**
-     * Test load cart.
-     */
-    public function testLoadCart()
-    {
-        $contents = $this->get('shoppingCartService')->getContentsForAccountId($this->getAccountId());
-        $_SESSION['cart']->reset(false);
-        $_SESSION['cart']->restore_contents();
-        $this->assertEquals($_SESSION['cart']->contents(), $contents);
     }
 
 }

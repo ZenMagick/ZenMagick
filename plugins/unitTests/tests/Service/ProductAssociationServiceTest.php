@@ -25,7 +25,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductAssociationService extends BaseTestCase
+class ProductAssociationServiceTest extends BaseTestCase
 {
     /**
      * Test simple handler.

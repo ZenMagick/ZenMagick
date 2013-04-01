@@ -25,7 +25,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMEZPages extends BaseTestCase
+class EZPagesTest extends BaseTestCase
 {
     /**
      * Test load.

@@ -23,7 +23,7 @@
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestShoppingCartSO extends ShoppingCartTestCaseBase
+class ShoppingCartSOTest extends ShoppingCartTestCaseBase
 {
     /**
      * Compare values for the given productIds using the service and order class data.

@@ -27,7 +27,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestBeans extends BaseTestCase
+class BeansTest extends BaseTestCase
 {
     /**
      * Test obj2map.

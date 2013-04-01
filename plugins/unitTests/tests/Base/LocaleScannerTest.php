@@ -26,7 +26,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestLocaleScanner extends BaseTestCase
+class LocaleScannerTest extends BaseTestCase
 {
     protected static $DATA_DIR;
 

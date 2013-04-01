@@ -27,7 +27,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestResultListSupport extends BaseTestCase
+class ResultListSupportTest extends BaseTestCase
 {
     /**
      * Set up.

@@ -27,7 +27,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAttributePricing extends BaseTestCase
+class AttributePricingTest extends BaseTestCase
 {
     /**
      * Test attribute price.

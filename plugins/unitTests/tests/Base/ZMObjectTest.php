@@ -18,35 +18,40 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+use ZenMagick\Base\ZMObject;
 use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
- * Test <code>AdminUserService</code>.
+ * Test ZMObject.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestAdminUserService extends BaseTestCase
+class ZMObjectTest extends BaseTestCase
 {
     /**
-     * Test change roles.
+     * Test property names.
      */
-    public function testChangeRoles()
+    public function testPropertyNames()
     {
-        $adminUserService = $this->get('adminUserService');
-        $adminUserRoleService = $this->get('adminUserRoleService');
-        $adminUserRoleService->addRole('helpdesk');
-        $user = $adminUserService->getUserForId(1);
-        if ($this->assertNotNull($user)) {
-            $user->addRole('helpdesk');
-            $adminUserService->updateUser($user);
-            $user = $adminUserService->getUserForId(1);
-            $this->assertEquals(array('admin', 'helpdesk'), $user->getRoles());
-            $user->setRoles(array('admin'));
-            $adminUserService->updateUser($user);
-            $user = $adminUserService->getUserForId(1);
-            $this->assertEquals(array('admin'), $user->getRoles());
-        }
-        $adminUserRoleService->deleteRole('helpdesk');
+        $obj = new ZMObject();
+        $obj->set('foo', 'bar');
+        $obj->set('deng', 'poh');
+        // custom only
+        $this->assertEquals(array('foo', 'deng'), $obj->getPropertyNames(true));
+        // all
+        $this->assertEquals(array('foo', 'deng', 'propertyNames', 'properties', 'attachedMethods'), $obj->getPropertyNames(false));
+    }
+
+    /**
+     * Test properties.
+     */
+    public function testProperties()
+    {
+        $obj = new ZMObject();
+        $obj->set('foo', 'bar');
+        $obj->set('deng', 'poh');
+        // custom only
+        $this->assertEquals(array('foo' => 'bar', 'deng' => 'poh'), $obj->getProperties());
     }
 
 }

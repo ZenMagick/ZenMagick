@@ -21,25 +21,28 @@
 use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
 
 /**
- * Test template manager service.
+ * Test salemaker service.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestTemplateManager extends BaseTestCase
+class SalemakerServiceTest extends BaseTestCase
 {
     /**
-     * Test field length.
+     * Test getSaleDiscountTypeInfo.
      */
-    public function testFieldLength()
+    public function testGetSaleDiscountTypeInfo()
     {
-        $fields = array(
-            // table, column, expected value
-            array('table' => 'customers', 'column' => 'customers_email_address', 'expected' => 96),
-            array('table' => 'address_book', 'column' => 'entry_street_address', 'expected' => 64)
-        );
-
-        foreach ($fields as $field) {
-            $this->assertEquals($field['expected'], $this->get('templateManager')->getFieldLength($field['table'], $field['column']));
+        foreach ($this->get('productService')->getAllProducts(false, 1) as $product) {
+            $productId = $product->getId();
+            $info = $this->get('salemakerService')->getSaleDiscountTypeInfo($productId);
+            $er = error_reporting(0);
+            $type = zen_get_products_sale_discount_type($productId);
+            $amount = zen_get_products_sale_discount_type($productId, false, 'amount');
+            error_reporting($er);
+            if (!$this->assertEquals(array('type'=>$type, 'amount'=>$amount), $info)) {
+                echo $productId . $product->getName();
+                break;
+            }
         }
     }
 

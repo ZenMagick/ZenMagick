@@ -27,7 +27,7 @@ use ZenMagick\ZenMagickBundle\Test\BaseTestCase;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestProductPricing extends BaseTestCase
+class ProductPricingTest extends BaseTestCase
 {
     /**
      * Test product base price.
