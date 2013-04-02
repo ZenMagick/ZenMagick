@@ -128,10 +128,9 @@ class Category extends ZMObject
         $this->name = null;
         $this->active = false;
         $this->childrenIds = array();
-        $this->image = null;
+        $this->image = '';
         $this->languageId = 1;
-        $this->setDateAdded(null);
-        $this->setLastModified(null);
+        $this->setDateAdded(new \DateTime());
     }
 
     /**
@@ -205,6 +204,26 @@ class Category extends ZMObject
     }
 
     /**
+     * Get the date the category was added.
+     *
+     * @return DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
+    }
+
+    /**
+     * Get the date the category was modified.
+     *
+     * @return DateTime
+     */
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    /**
      * Set the active flag.
      *
      * @param boolean active <code>true</code> if this category is active, <code>false</code> if not.
@@ -212,6 +231,27 @@ class Category extends ZMObject
     public function setActive($active)
     {
         $this->active = $active;
+    }
+
+    /**
+     * Set the date the category was added.
+     *
+     * @param DateTime $dateAdded
+     */
+    public function setDateAdded(\DateTime $dateAdded = null)
+    {
+
+        $this->dateAdded = $dateAdded;
+    }
+
+    /**
+     * Set the date the category was modified.
+     *
+     * @param DateTime $lastModified
+     */
+    public function setLastModified(\DateTime $lastModified = null)
+    {
+        $this->lastModified = $lastModified;
     }
 
     /**
