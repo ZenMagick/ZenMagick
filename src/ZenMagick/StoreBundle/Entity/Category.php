@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\StoreBundle\Entity\Catalog;
+namespace ZenMagick\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -156,7 +156,7 @@ class Category extends ZMObject
     /**
      * Get the parent category (if any).
      *
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Category The parent category or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Category The parent category or <code>null</code>.
      */
     public function getParent()
     {
@@ -267,7 +267,7 @@ class Category extends ZMObject
     /**
      * Get the child categories of this category.
      *
-     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Catalog\Category</code> instances.
+     * @return array A list of <code>ZenMagick\StoreBundle\Entity\Category</code> instances.
      */
     public function getChildren()
     {

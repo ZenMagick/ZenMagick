@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\StoreBundle\Entity\Catalog;
+namespace ZenMagick\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,7 +34,7 @@ class CategoryDescriptions
     /**
      * @var object $category
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="ZenMagick\StoreBundle\Entity\Catalog\Category", inversedBy="descriptions")
+     * @ORM\ManyToOne(targetEntity="ZenMagick\StoreBundle\Entity\Category", inversedBy="descriptions")
      * @ORM\JoinColumn(name="categories_id", referencedColumnName="categories_id", onDelete="CASCADE")
      */
     private $category;
@@ -134,7 +134,7 @@ class CategoryDescriptions
     /**
      * Set category
      *
-     * @param  ZenMagick\StoreBundle\Entity\Catalog\Category $category
+     * @param  ZenMagick\StoreBundle\Entity\Category $category
      * @return CategoryDescriptions
      */
     public function setCategory(Category $category)
@@ -147,7 +147,7 @@ class CategoryDescriptions
     /**
      * Get category
      *
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Category
+     * @return ZenMagick\StoreBundle\Entity\Category
      */
     public function getCategory()
     {

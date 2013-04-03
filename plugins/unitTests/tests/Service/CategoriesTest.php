@@ -54,7 +54,7 @@ class CategoriesTest extends BaseTestCase
     {
         $categoryService = $this->get('categoryService');
 
-        $newCategory = Beans::getBean('ZenMagick\StoreBundle\Entity\Catalog\Category');
+        $newCategory = Beans::getBean('ZenMagick\StoreBundle\Entity\Category');
         $newCategory->setLanguageId(1);
         $newCategory->setName('Foo');
         $newCategory->setDescription('A foo category');
