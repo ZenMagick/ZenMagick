@@ -314,7 +314,7 @@ class Theme extends ZMObject
     {
         if (Runtime::getSettings()->get('apps.store.staticContent', false)) {
             if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
-                return $ezPage->getHtmlText();
+                return $ezPage->getContent();
             }
 
             return null;

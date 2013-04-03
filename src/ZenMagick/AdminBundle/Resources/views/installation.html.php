@@ -81,14 +81,14 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
                         $contents = utf8_encode($contents);
                         // check if already exists
                         if (null != ($ezPage = $ezPageService->getPageForName($staticPage, $subLangId))) {
-                            $ezPage->setHtmlText($contents);
+                            $ezPage->setContent($contents);
                             $ezPage->setStatic(true);
                             $ezPage = $ezPageService->updatePage($ezPage);
                         } else {
                             $ezPage = Beans::getBean('ZenMagick\StoreBundle\Entity\EZPage');
                             $ezPage->setStatic(true);
                             $ezPage->setTitle($staticPage);
-                            $ezPage->setHtmlText($contents);
+                            $ezPage->setContent($contents);
                             $ezPage->setLanguageId($subLangId);
                             $ezPageService->createPage($ezPage);
                         }

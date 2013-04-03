@@ -99,7 +99,7 @@ use ZenMagick\Base\Beans;
       $editor->setName('htmlText');
       $editor->setRows(30);
       $editor->setCols(100);
-      $editor->setValue($ezPage->getHtmlText(false));
+      $editor->setValue($ezPage->getContent(false));
       echo $editor->render($app->getRequest(), $templateView);
      ?>
   </fieldset>

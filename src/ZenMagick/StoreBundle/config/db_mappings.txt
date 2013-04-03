@@ -260,7 +260,7 @@ array(
         'title' => array('column' => 'pages_title', 'type' => 'string'),
         'altUrl' => array('column' => 'alt_url', 'type' => 'string'),
         'altUrlExternal' => array('column' => 'alt_url_external', 'type' => 'string'),
-        'htmlText' => array('column' => 'pages_html_text', 'type' => 'text'),
+        'content' => array('column' => 'pages_html_text', 'type' => 'text'),
         'header' => array('column' => 'status_header', 'type' => 'boolean'),
         'sidebox' => array('column' => 'status_sidebox', 'type' => 'boolean'),
         'footer' => array('column' => 'status_footer', 'type' => 'boolean'),

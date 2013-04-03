@@ -79,11 +79,11 @@ class EZPage extends ZMObject
     private $altUrlExternal;
 
     /**
-     * @var text $htmlText
+     * @var text $content
      *
      * @ORM\Column(name="pages_html_text", type="text", nullable=true)
      */
-    private $htmlText;
+    private $content;
 
     /**
      * @var boolean $header
@@ -177,7 +177,7 @@ class EZPage extends ZMObject
         $this->title = $title;
         $this->altUrl = '';
         $this->altUrlExternal = '';
-        $this->htmlText = '';
+        $this->content = '';
         $this->header = false;
         $this->sidebox = false;
         $this->footer = false;
@@ -222,9 +222,9 @@ class EZPage extends ZMObject
      * @param boolean php Optional flag to allow/disable PHP exection in the contents; default is <code>true</code>.
      * @return string The page contents.
      */
-    public function getHtmlText($php=false)
+    public function getContent($php=false)
     {
-        $text = $this->htmlText;
+        $text = $this->content;
         if ($php) {
             ob_start();
             eval('?>'.$text);
@@ -348,9 +348,9 @@ class EZPage extends ZMObject
         $this->altUrlExternal = $url;
     }
 
-    public function setHtmlText($text)
+    public function setContent($content)
     {
-        $this->htmlText = $text;
+        $this->content = $content;
     }
 
     public function setHeader($value)
