@@ -332,84 +332,118 @@ class EZPage extends ZMObject
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
+
+        return $this;
     }
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     public function setAltUrl($url)
     {
         $this->altUrl = $url;
+
+        return $this;
     }
 
     public function setAltUrlExternal($url)
     {
         $this->altUrlExternal = $url;
+
+        return $this;
     }
 
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
     public function setHeader($value)
     {
         $this->header = Toolbox::asBoolean($value);
+
+        return $this;
     }
 
     public function setSidebox($value)
     {
         $this->sidebox = Toolbox::asBoolean($value);
+
+        return $this;
     }
 
     public function setFooter($value)
     {
         $this->footer = Toolbox::asBoolean($value);
+
+        return $this;
     }
 
     public function setToc($value)
     {
         $this->toc = (int) $value;
+
+        return $this;
     }
 
     public function setStatic($value)
     {
         $this->toc = $value ? 2: 0;
+
+        return $this;
     }
 
     public function setHeaderSort($sortOrder)
     {
         $this->headerSort = $sortOrder;
+
+        return $this;
     }
 
     public function setSideboxSort($sortOrder)
     {
         $this->sideboxSort = $sortOrder;
+
+        return $this;
     }
 
     public function setFooterSort($sortOrder)
     {
         $this->footerSort = $sortOrder;
+
+        return $this;
     }
 
     public function setTocSort($value)
     {
         $this->tocSort = $value;
+
+        return $this;
     }
 
     public function setNewWin($value)
     {
         $this->newWin = Toolbox::asBoolean($value);
+
+        return $this;
     }
 
     public function setSsl($value)
     {
         $this->ssl = Toolbox::asBoolean($value);
+
+        return $this;
     }
 
     public function setTocChapter($chapter)
     {
         $this->tocChapter = $chapter;
+
+        return $this;
     }
 }
