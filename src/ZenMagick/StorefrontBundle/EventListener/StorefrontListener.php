@@ -274,7 +274,10 @@ class StorefrontListener extends ZMObject
      */
     protected function checkAuthorization($request)
     {
-        $account = $request->getAccount();
+        $token = $this->container->get('security.context')->getToken();
+        if (null != $token) {
+            $account = is_object($token->getUser()) ? $token->getUser() : null;
+        }
         if (null != $account && Accounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
             // @todo shouldn't use a hardcoded list.
             $unrestrictedPaged = array('conditions', 'cookie_usage', 'down_for_maintenance', 'contact_us',

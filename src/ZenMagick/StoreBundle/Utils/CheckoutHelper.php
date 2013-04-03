@@ -411,8 +411,10 @@ class CheckoutHelper extends ZMObject
     {
         // validate addresses
         $session = $request->getSession();
-        $account = $request->getAccount();
-        if (!$session->isAnonymous() && !$this->shoppingCart->hasShippingAddress() && !$this->shoppingCart->isVirtual()) {
+        $isAnonymous = !$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY');
+
+        if (!$isAnonymous && !$this->shoppingCart->hasShippingAddress() && !$this->shoppingCart->isVirtual()) {
+            $account = $this->container->get('security.context')->getToken()->getUser();
             if (0 < $account->getDefaultAddressId()) {
                 $this->shoppingCart->setShippingAddressId($account->getDefaultAddressId());
                 // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)

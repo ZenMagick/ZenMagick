@@ -58,7 +58,7 @@ class ZMGVAmountRule extends ZMRule
 
         $amount = $data[$this->getName()];
 
-        $account = $request->getAccount();
+        $account = $this->container->get('security.context')->getToken()->getUser();
         $balance = $account->getVoucherBalance();
 
         $currentCurrencyCode = $request->getSession()->get('currency');
