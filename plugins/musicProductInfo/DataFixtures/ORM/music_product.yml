@@ -1,4 +1,4 @@
-ZenMagick\StoreBundle\Entity\Catalog\ProductType:
+ZenMagick\StoreBundle\Entity\ProductType:
     -
         id: 2
         name: "Product - Music"

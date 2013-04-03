@@ -25,7 +25,7 @@ ZenMagick\StoreBundle\Entity\Catalog\ProductOptionValue:
         name: "TEXT"
         sortOrder: 0
 
-ZenMagick\StoreBundle\Entity\Catalog\ProductType:
+ZenMagick\StoreBundle\Entity\ProductType:
     -
         id: 1
         name: "Product - General"
