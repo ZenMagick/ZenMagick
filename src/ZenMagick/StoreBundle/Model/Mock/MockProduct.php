@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Model\Mock;
 
-use ZenMagick\StoreBundle\Entity\Catalog\Product;
+use ZenMagick\StoreBundle\Entity\Product;
 
 /**
  * Mock product.

@@ -263,7 +263,7 @@ class ToolboxMacro extends ToolboxTool
      *  &lt;?php } ?&gt;
      * </pre></code>
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product A <code>Product</code> instance.
+     * @param ZenMagick\StoreBundle\Entity\Product product A <code>Product</code> instance.
      * @return array An array containing HTML formatted attributes.
      */
     public function productAttributes($product)
@@ -305,7 +305,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>RADIO</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -333,7 +333,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>CHECKBOX</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -361,7 +361,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>TEXT</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -389,7 +389,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>FILE</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -419,7 +419,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>READONLY</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -441,7 +441,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Generate HTML for a <em>SELECT</em> attribute.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZenMagick\StoreBundle\Entity\Catalog\Attribute attribute The attribute.
      * @return array Attribute info plus HTML to render this attribute.
      */
@@ -467,7 +467,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Format an attribute value label.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param ZMAttributeValue value The attribute value.
      * @param boolean enableImage Optional flag to enable/disable images; default is <code>true</code>.
      * @return string A fully HTML formatted attribute value label.
@@ -498,7 +498,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Format the product price incl. offer, special and other stuff.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
      * @return string The fully HTML formatted price.
      */
@@ -536,7 +536,7 @@ class ToolboxMacro extends ToolboxTool
     /**
      * Build quantity discounts details.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
      * @return array Discount details.
      * @todo The applied price logic should not be in here!

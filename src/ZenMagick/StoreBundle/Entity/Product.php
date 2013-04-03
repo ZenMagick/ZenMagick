@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-namespace ZenMagick\StoreBundle\Entity\Catalog;
+namespace ZenMagick\StoreBundle\Entity;
 
 use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
@@ -1574,10 +1574,10 @@ class Product extends ZMObject
     /**
      * Add descriptions
      *
-     * @param  ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
+     * @param  ZenMagick\StoreBundle\Entity\ProductDescription $descriptions
      * @return Product
      */
-    public function addDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions)
+    public function addDescription(\ZenMagick\StoreBundle\Entity\ProductDescription $descriptions)
     {
         $this->descriptions[] = $descriptions;
 
@@ -1587,9 +1587,9 @@ class Product extends ZMObject
     /**
      * Remove descriptions
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions
+     * @param ZenMagick\StoreBundle\Entity\ProductDescription $descriptions
      */
-    public function removeDescription(\ZenMagick\StoreBundle\Entity\Catalog\ProductDescription $descriptions)
+    public function removeDescription(\ZenMagick\StoreBundle\Entity\ProductDescription $descriptions)
     {
         $this->descriptions->removeElement($descriptions);
     }

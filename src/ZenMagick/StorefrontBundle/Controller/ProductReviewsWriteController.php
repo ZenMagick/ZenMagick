@@ -96,7 +96,7 @@ class ProductReviewsWriteController extends DefaultController
      * Get the product.
      *
      * @param ZenMagick\Http\Request request The current request.
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product or <code>null</code>.
+     * @return ZenMagick\StoreBundle\Entity\Product The product or <code>null</code>.
      */
     protected function getProduct($request)
     {

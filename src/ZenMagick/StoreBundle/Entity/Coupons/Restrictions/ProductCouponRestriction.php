@@ -60,7 +60,7 @@ class ProductCouponRestriction extends ZMObject
      * Returns the product.
      *
      * @param int languageId Language id.
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Product A <code>Product</code> instance.
+     * @return ZenMagick\StoreBundle\Entity\Product A <code>Product</code> instance.
      */
     public function getProduct($languageId)
     {

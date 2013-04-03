@@ -226,7 +226,7 @@ class ToolboxHtml extends ToolboxTool
      *
      * <p>This one will return a fully encoded HTML <code>&lt;img&gt;</code> tag.</p>
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product A product.
+     * @param ZenMagick\StoreBundle\Entity\Product product A product.
      * @param int categoryId Optional category id.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @param string format Can be either of <code>Products::IMAGE_SMALL</code>, <code>Products::IMAGE_MEDIUM</code>

@@ -42,7 +42,7 @@ class ResultListTest extends BaseTestCase
     /**
      * Callback to *create* results.
      *
-     * @param string resultClass The class of the results; default is <em>ZenMagick\StoreBundle\Entity\Catalog\Product</em>.
+     * @param string resultClass The class of the results; default is <em>ZenMagick\StoreBundle\Entity\Product</em>.
      * @param int size The number of results to be returned by the source.
      * @return array List of objects of class <em>resultClass</em>.
      */
@@ -65,10 +65,10 @@ class ResultListTest extends BaseTestCase
      * Get a source with the given number of elements.
      *
      * @param int size The number of results to be returned by the source.
-     * @param string resultClass The class of the results; default is <em>ZenMagick\StoreBundle\Entity\Catalog\Product</em>.
+     * @param string resultClass The class of the results; default is <em>ZenMagick\StoreBundle\Entity\Product</em>.
      * @return ZMResultListSource A result list source.
      */
-    protected function getResultListSource($size, $resultClass='ZenMagick\StoreBundle\Entity\Catalog\Product')
+    protected function getResultListSource($size, $resultClass='ZenMagick\StoreBundle\Entity\Product')
     {
         // use this::getResults to lookup results
         return new ZMObjectResultSource($resultClass, $this, 'getResults', array($resultClass, $size));

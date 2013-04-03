@@ -34,7 +34,7 @@ class ProductsNewController extends DefaultController
      */
     public function processGet($request)
     {
-        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getNewProducts");
+        $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Product', 'productService', "getNewProducts");
         $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $settingsService = $this->container->get('settingsService');

@@ -34,7 +34,7 @@ class QueryPagerTest extends BaseTestCase
      */
     public function testSimple()
     {
-        $queryPager = new QueryPager(new QueryDetails(ZMRuntime::getDatabase(), 'select * from %table.products%', array(), 'products', 'ZenMagick\StoreBundle\Entity\Catalog\Product'));
+        $queryPager = new QueryPager(new QueryDetails(ZMRuntime::getDatabase(), 'select * from %table.products%', array(), 'products', 'ZenMagick\StoreBundle\Entity\Product'));
         $queryPager->getResults(2, 13);
     }
 

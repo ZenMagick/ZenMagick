@@ -163,7 +163,7 @@ class ProductsTest extends BaseTestCase
     {
         $product = $this->get('productService')->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
-            $this->assertTrue($product instanceof ZenMagick\StoreBundle\Entity\Catalog\Product);
+            $this->assertTrue($product instanceof ZenMagick\StoreBundle\Entity\Product);
             $this->assertEquals(1, $product->getId());
         }
     }

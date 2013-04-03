@@ -180,7 +180,7 @@ class OrderItem extends ZMObject
     /**
      * Get the product this item is associated to.
      *
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Product The product.
+     * @return ZenMagick\StoreBundle\Entity\Product The product.
      */
     public function getProduct()
     {

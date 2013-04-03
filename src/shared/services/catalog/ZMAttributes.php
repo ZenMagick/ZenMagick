@@ -34,7 +34,7 @@ class ZMAttributes extends ZMObject
     /**
      * Load attributes for the given product.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */
     public function getAttributesForProduct($product)

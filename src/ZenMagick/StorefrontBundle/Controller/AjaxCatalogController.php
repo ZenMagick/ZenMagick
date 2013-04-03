@@ -97,7 +97,7 @@ class AjaxCatalogController extends AjaxController
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly, $languageId);
-            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForCategoryId", $args);
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Product', 'productService', "getProductsForCategoryId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
@@ -139,7 +139,7 @@ class AjaxCatalogController extends AjaxController
         } else {
             // use result list to paginate
             $args = array($manufacturerId, $activeOnly, $languageId);
-            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', "getProductsForManufacturerId", $args);
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Product', 'productService', "getProductsForManufacturerId", $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);

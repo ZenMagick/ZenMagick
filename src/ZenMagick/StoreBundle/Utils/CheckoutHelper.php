@@ -21,7 +21,7 @@ namespace ZenMagick\StoreBundle\Utils;
 
 use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
-use ZenMagick\StoreBundle\Entity\Catalog\Product;
+use ZenMagick\StoreBundle\Entity\Product;
 use ZenMagick\ZenCartBundle\Mock\ZenCartMock;
 
 /**

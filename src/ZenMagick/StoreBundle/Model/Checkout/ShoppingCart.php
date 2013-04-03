@@ -770,7 +770,7 @@ class ShoppingCart extends ZMObject
      * Extract attributes values from attribute data.
      *
      * @param array attributes All attribute data.
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @return array Attributes values.
      */
     protected function splitAttributes($attributeData, $product)
@@ -947,7 +947,7 @@ class ShoppingCart extends ZMObject
     /**
      * Sanitize the given attributes and add default values if attributes/values invalid/missing.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      * @param array attributes The given attributes.
      * @return array A set of valid attribute values for the given product.
      * @todo return note of changes made

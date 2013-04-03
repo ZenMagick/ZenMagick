@@ -54,7 +54,7 @@ class ManufacturerController extends DefaultController
         $settingsService = $this->container->get('settingsService');
         $resultList = null;
         if (null !== $method) {
-            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Catalog\Product', 'productService', $method, $args);
+            $resultSource = new \ZMObjectResultSource('ZenMagick\StoreBundle\Entity\Product', 'productService', $method, $args);
             $resultList = Beans::getBean('ZMResultList');
             $resultList->setResultSource($resultSource);
             foreach (explode(',', $settingsService->get('resultListProductFilter')) as $filter) {

@@ -169,11 +169,11 @@ class BeansTest extends BaseTestCase
      */
     public function testMagicValue()
     {
-        $bean = Beans::getBean('ZenMagick\Base\ZMObject#handler='.urlencode('bean::ZenMagick\StoreBundle\Entity\Catalog\Product#name=foo'));
+        $bean = Beans::getBean('ZenMagick\Base\ZMObject#handler='.urlencode('bean::ZenMagick\StoreBundle\Entity\Product#name=foo'));
         if ($this->assertNotNull($bean)) {
             $handler = $bean->getHandler();
             if ($this->assertNotNull($handler)) {
-                if ($this->assertTrue($handler instanceof ZenMagick\StoreBundle\Entity\Catalog\Product)) {
+                if ($this->assertTrue($handler instanceof ZenMagick\StoreBundle\Entity\Product)) {
                     $this->assertEquals('foo', $handler->getName());
                 }
             }

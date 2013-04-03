@@ -19,12 +19,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-namespace ZenMagick\StoreBundle\Entity\Catalog;
+namespace ZenMagick\StoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZenMagick\StoreBundle\Entity\Catalog\ProductDescription
+ * ZenMagick\StoreBundle\Entity\ProductDescription
  *
  * @ORM\Table(name="products_description",
  *   indexes={
@@ -220,10 +220,10 @@ class ProductDescription
     /**
      * Set product
      *
-     * @param  ZenMagick\StoreBundle\Entity\Catalog\Product $product
+     * @param  ZenMagick\StoreBundle\Entity\Product $product
      * @return ProductDescription
      */
-    public function setProduct(\ZenMagick\StoreBundle\Entity\Catalog\Product $product)
+    public function setProduct(\ZenMagick\StoreBundle\Entity\Product $product)
     {
         $this->product = $product;
 
@@ -233,7 +233,7 @@ class ProductDescription
     /**
      * Get product
      *
-     * @return ZenMagick\StoreBundle\Entity\Catalog\Product
+     * @return ZenMagick\StoreBundle\Entity\Product
      */
     public function getProduct()
     {

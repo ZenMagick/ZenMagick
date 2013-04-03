@@ -33,7 +33,7 @@ class Offers extends \ZMOffers
     /**
      * Create new offers instance for the given product.
      *
-     * @param ZenMagick\StoreBundle\Entity\Catalog\Product product The product.
+     * @param ZenMagick\StoreBundle\Entity\Product product The product.
      */
     public function __construct($product)
     {
