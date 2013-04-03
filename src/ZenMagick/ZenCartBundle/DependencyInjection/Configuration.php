@@ -41,12 +41,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('storefront')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('enable_counter')->defaultFalse()->end()
-                    ->end()
-                ->end()
         ->end();
 
         return $treeBuilder;

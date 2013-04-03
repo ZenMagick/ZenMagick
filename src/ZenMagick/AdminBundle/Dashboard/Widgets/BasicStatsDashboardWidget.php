@@ -46,13 +46,6 @@ class BasicStatsDashboardWidget extends DashboardWidget
         $data = array();
         $database = \ZMRuntime::getDatabase();
         $router = $this->container->get('router');
-        // counter
-        $result = $database->querySingle("SELECT startdate, counter FROM %table.counter%");
-        $counter_startdate = $result['startdate'];
-        $counter_startdate_formatted = strftime('%m/%d/%Y', mktime(0, 0, 0, substr($counter_startdate, 4, 2), substr($counter_startdate, -2), substr($counter_startdate, 0, 4)));
-        $data[_zm('Hit Counter Started')] = $counter_startdate_formatted;
-        $data[_zm('Hit Counter')] = $result['counter'];
-
         // customers
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.customers%");
         $data[_zm('Customers')] = $result['count'];

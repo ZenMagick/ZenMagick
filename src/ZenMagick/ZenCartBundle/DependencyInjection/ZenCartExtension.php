@@ -52,7 +52,6 @@ class ZenCartExtension extends Extension
         $container->setParameter('zencart.admin_dir', $config['admin_dir']);
 
         $admin = $config['admin'];
-        $store = $config['storefront'];
 
         $container->setParameter('zencart.admin.hide_layout', $admin['hide_layout']);
 
@@ -63,10 +62,6 @@ class ZenCartExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         $loader->load('services.xml');
-
-        if ($store['enable_counter']) {
-            $loader->load('counter.xml');
-        }
     }
 
     /**
