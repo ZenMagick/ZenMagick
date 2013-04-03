@@ -151,6 +151,18 @@ class LayoutBox
     }
 
     /**
+     * Get actual name
+     *
+     * Return the name without the file extension.
+     *
+     * @return string
+     */
+    public function getActualName()
+    {
+        return str_replace('.php', '', $this->name);
+    }
+
+    /**
      * Set status
      *
      * @param  boolean   $status
