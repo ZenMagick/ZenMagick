@@ -31,34 +31,6 @@ use ZenMagick\Http\Toolbox\ToolboxTool;
 class ToolboxNet extends ToolboxTool
 {
     /**
-     * Encode a given URL to valid HTML.
-     *
-     * @param string url The url to encode.
-     * @return string The URL encoded in valid HTM.
-     */
-    public function encode($url)
-    {
-        $url = htmlentities($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
-        $url = str_replace(' ', '%20', $url);
-
-        return $url;
-    }
-
-    /**
-     * Decode a HTML encoded URL.
-     *
-     * @param string url The url to decode.
-     * @return string The decoded URL.
-     */
-    public function decode($url)
-    {
-        $s = html_entity_decode($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.http.html.charset'));
-        $s = str_replace('%20', ' ', $s);
-
-        return $s;
-    }
-
-    /**
      * Convenience function to build a product URL.
      *
      * <p>Please note that in <em>ZenMagick</em> all product URLs use the same

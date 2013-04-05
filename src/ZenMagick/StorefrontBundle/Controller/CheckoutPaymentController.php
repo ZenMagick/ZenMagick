@@ -45,12 +45,13 @@ class CheckoutPaymentController extends DefaultController
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
-        $net = $this->get('netTool');
         // messages from various payment methods.
         $messageParams = array('credit_class_error', 'error', 'error_message', 'payment_error');
         foreach ($messageParams as $messageParam) {
             if (null != ($error = $request->query->get($messageParam))) {
-                $this->get('session.flash_bag')->error($net->encode(urldecode($error)));
+                $charset = $this->get('kernel')->getCharset();
+                $error = htmlentities(urldecode($error), ENT_QUOTES, $charset);
+                $this->get('session.flash_bag')->error($error);
             }
         }
 
