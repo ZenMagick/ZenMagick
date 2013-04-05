@@ -164,26 +164,6 @@ class ToolboxNet extends ToolboxTool
     }
 
     /**
-     * Build a RSS feed URL.
-     *
-     * @param string channel The channel.
-     * @param string key Optional key; for example, 'new' for the product channel.
-     * @return string A complete URL.
-     */
-    public function rssFeed($channel, $key=null)
-    {
-        $params = array('channel' => $channel);
-        if (null !== $key) {
-            $params['key'] = $key;
-        }
-
-        $router = $this->container->get('router');
-        $url = $router->generate('rss', $params);
-
-        return $url;
-    }
-
-    /**
      * Build a result list URL pointing to the previous page.
      *
      * @param ZMResultList resultList The current result list.
