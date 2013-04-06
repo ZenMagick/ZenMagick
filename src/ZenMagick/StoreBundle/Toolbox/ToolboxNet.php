@@ -217,25 +217,4 @@ class ToolboxNet extends ToolboxTool
         return $url;
     }
 
-    /**
-     * Convert a given relative URL into an absolute one.
-     *
-     * @param string url The (relative) URL to convert.
-     * @param boolean full Set to true to create a full URL incl. the protocol, hostname, port, etc.; default is <code>false</code>.
-     * @param boolean secure Set to true to force a secure URL; default is <code>false</code>.
-     * @return string The absolute URL.
-     * @todo probably replace with methods specifically for assets
-     */
-    public function absoluteUrl($url, $full=false, $secure=false)
-    {
-        $url = (!empty($url) && ('/' == $url[0] || false !== strpos($url, '://'))) ? $url : $this->getBaseUrl().'/'.$url;
-        if ($full || ($secure && !$this->isSecure())) {
-            // full requested or we need a full URL to ensure it will be secure
-            $isSecure = ($this->isSecure() || $secure);
-            $scheme = ($this->isSecure() || $secure) ? 'https://' : 'http://';
-            $url = $scheme.$this->getHttpHost().$url;
-        }
-
-        return $url;
-    }
 }
