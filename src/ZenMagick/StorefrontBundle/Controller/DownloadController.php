@@ -98,9 +98,10 @@ class DownloadController extends DefaultController
             $pubLocalDir = '.'.Toolbox::random(32);
             umask(0000);
             mkdir($pubDir.'/'.$pubLocalDir, 0777, true);
-            $link = @symlink($filePath, $pubDir.'/'.$pubLocalDir.'/'.$outputFileName);
+            $target = $pubDir.'/'.$pubLocalDir.'/'.$outputFileName;
+            $link = @symlink($filePath, $target);
             if ($link) {
-                $url = $this->get('netTool')->absoluteUrl('pub/'.$pubLocalDir.'/'.$outputFileName, true);
+                $url = $this->getRequest()->getUriForPath($target);
                 return new RedirectRedirect($url, 303);
             }
         }

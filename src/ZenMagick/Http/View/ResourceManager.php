@@ -214,7 +214,7 @@ class ResourceManager extends ZMObject
             $type = $this->resourcesAsTemplates ? View::TEMPLATE : View::RESOURCE;
             if (null != ($path = $this->view->getResourceResolver()->findResource($resource, $type))) {
                 if (null != ($uri= $this->file2uri($path))) {
-                    $url = $this->container->get('netTool')->absoluteUrl($uri);
+                    $url = $this->container->get('request')->getUriForPath($uri);
                     $this->container->get('logger')->debug(sprintf('resolved file "%s" as url: %s; path=%s', $resource, $url, $path));
 
                     return $url;
