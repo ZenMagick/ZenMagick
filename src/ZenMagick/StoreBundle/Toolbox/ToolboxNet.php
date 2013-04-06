@@ -72,10 +72,12 @@ class ToolboxNet extends ToolboxTool
      * Build an ez-page URL.
      *
      * @param ZenMagick\StoreBundle\Entity\EZPage an EZPage instance
+     * @param bool absolute generate absolute url
      * @return string A complete URL for the given ez-page.
      * @todo create ezpage router loader for SSL links.
+     * @todo remove absolute param
      */
-    public function ezPage($page)
+    public function ezPage($page, $absolute = false)
     {
         if (null === $page) {
             $href = _zm('ezpage not found');
@@ -89,14 +91,15 @@ class ToolboxNet extends ToolboxTool
         }
 
         // We are abusing the 3rd generate param to hack up SSL links
+        $absolute = $absolute || $page->isSsl();
         $router = $this->container->get('router');
-        $href = $router->generate('page', $params, $page->isSsl());
+        $href = $router->generate('page', $params, $absolute);
         if (!Toolbox::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
             $view = $query['main_page'];
             unset($query['main_page']);
-            $href = $router->generate($view, $query, $page->isSsl());
+            $href = $router->generate($view, $query, $absolute);
         } elseif (!Toolbox::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
