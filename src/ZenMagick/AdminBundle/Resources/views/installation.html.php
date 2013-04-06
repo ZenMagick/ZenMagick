@@ -121,10 +121,6 @@ if (null != $view['request']->getParameter('optimizeDb')) {
 function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
     $installer = new ZenMagick\AdminBundle\Installation\InstallationPatcher();
     foreach ($installer->getPatches($groupId) as $id => $patch) {
-        if ('sqlFulltext' == $patch->getId()) {
-            continue;
-        }
-
         // check dependencies
         $unfulfilled = array();
         foreach ($patch->dependsOn() as $dId) {
