@@ -131,7 +131,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         foreach ($toc as $page) {
             $item = new RssItem();
             $item->setTitle($page->getTitle());
-            $item->setLink($net->absoluteUrl($net->ezPage($page), true));
+            $item->setLink($net->ezPage($page, true));
             $item->setDescription($page->getTitle());
             $items[] = $item;
         }
