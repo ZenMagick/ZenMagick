@@ -80,6 +80,7 @@ class TableMapper extends ZMObject
         $this->tableMap = array();
         $this->tablePrefix = '';
         // load from file
+        $mappings = array();
         eval('$mappings = '.file_get_contents(Runtime::getInstallationPath().'/src/ZenMagick/StoreBundle/config/db_mappings.txt'));
         foreach ($mappings as $table => $mapping) {
             $this->setMappingForTable($table, $mapping);
@@ -90,6 +91,55 @@ class TableMapper extends ZMObject
     public function setTablePrefix($tablePrefix = '')
     {
         $this->tablePrefix = $tablePrefix;
+    }
+
+    /**
+     * Get meta data.
+     *
+     * <p>Meta data is available for an individual table.</p>
+     *
+     * <p>The following table information will be returned:</p>
+     * <dl>
+     *  <dt>type</dt>
+     *  <dd>The data type. This will be a data type as supported by the <code>Doctrine\DBAL\Types</code> API.</dd>
+     *  <dt>name</dt>
+     *  <dd>The (case sensitive) column name.</dd>
+     *  <dt>key</dt>
+     *  <dd>A boolean indicating a primary key</dd>
+     *  <dt>auto</dt>
+     *  <dd>A boolean flag indication an auto increment column</dd>
+     *  <dt>length</dt>
+     *  <dd>The max. field length; this value is context specific.</dd>
+     * </dl>
+     *
+     * @param string table table to get metadata from
+     * @return array Context dependent meta data.
+     */
+    private function getMetadata($table)
+    {
+        $conn = \ZMRuntime::getDatabase();
+        $table = $conn->resolveTable($table);
+        $sm = $conn->getSchemaManager();
+
+        $meta = array();
+        $tableDetails = $sm->listTableDetails($table);
+
+        // TODO: yes we have a table without a primary key :(
+        $primaryKey = $tableDetails->getPrimaryKey();
+        $keys = is_object($primaryKey) ? $primaryKey->getColumns() : array();
+
+            foreach ($tableDetails->getColumns() as $column) {
+                $meta[$column->getName()] = array(
+                'column' => $column->getName(),
+                'type' => $column->getType()->getName(),
+                'key' => in_array($column->getName(), $keys),
+                'auto' => $column->getAutoincrement(),
+                'length' => $column->getLength(),/* TODO doesn't work for integers*/
+                'default' => $column->getDefault()
+             );
+        }
+
+        return $meta;
     }
 
     /**
@@ -106,7 +156,7 @@ class TableMapper extends ZMObject
             if (empty($table)) continue;
 
             if (!array_key_exists($table, $this->tableMap)) {
-                $this->setMappingForTable($table, \ZMRuntime::getDatabase()->getMetaData($table));
+                $this->setMappingForTable($table, $this->getMetadata($table));
             }
 
             $mappings = array_merge($mappings, $this->tableMap[$table]);
