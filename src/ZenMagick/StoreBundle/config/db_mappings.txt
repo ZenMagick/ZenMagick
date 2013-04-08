@@ -654,13 +654,6 @@ array(
         'languageId' => array('column' => 'template_language', 'type' => 'integer'),
         'variationId' => array('column' => 'variation_dir', 'type' => 'string')
     ),
-    'token' => array(
-        'hashId' => array('column' => 'hash_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'hash' => array('column' => 'hash', 'type' => 'text'),
-        'resource' => array('column' => 'resource', 'type' => 'string'),
-        'issued' => array('column' => 'issued', 'type' => 'datetime'),
-        'expires' => array('column' => 'expires', 'type' => 'datetime')
-    ),
     'zones' => array(
         'zoneId' => array('column' => 'zone_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'countryId' => array('column' => 'zone_country_id', 'type' => 'integer'),
