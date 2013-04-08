@@ -297,16 +297,6 @@ array(
         'lastModified' => array('column' => 'last_modified', 'type' => 'datetime'),
         'dateAdded' => array('column' => 'date_added', 'type' => 'datetime')
     ),
-    'layout_boxes' => array(
-        'id' => array('column' => 'layout_id', 'type' => 'integer', 'key' => true, 'auto' => true),
-        'themeId' => array('column' => 'layout_template', 'type' => 'string'),
-        'name' => array('column' => 'layout_box_name', 'type' => 'string'),
-        'status' => array('column' => 'layout_box_status', 'type' => 'boolean'),
-        'location' => array('column' => 'layout_box_location', 'type' => 'integer'),
-        'sortOrder' => array('column' => 'layout_box_sort_order', 'type' => 'integer'),
-        'singleSortOrder' => array('column' => 'layout_box_sort_order_single', 'type' => 'integer'),
-        'singleStatus' => array('column' => 'layout_box_status_single', 'type' => 'boolean')
-    ),
     'manufacturers' => array(
         'manufacturerId' => array('column' => 'manufacturers_id', 'type' => 'integer', 'key' => true, 'auto' => true),
         'name' => array('column' => 'manufacturers_name', 'type' => 'string'),

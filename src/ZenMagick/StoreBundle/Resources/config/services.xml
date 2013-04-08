@@ -178,9 +178,8 @@
         <service id="ezPageService" class="ZenMagick\StoreBundle\Services\EZPages" />
 
         <service id="templateManager" class="ZenMagick\StoreBundle\Themes\TemplateManager">
-           <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="themeService" />
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 

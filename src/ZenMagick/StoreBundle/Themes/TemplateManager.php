@@ -19,7 +19,7 @@
  */
 namespace ZenMagick\StoreBundle\Themes;
 
-use ZenMagick\Base\ZMObject;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Template stuff.
@@ -28,24 +28,27 @@ use ZenMagick\Base\ZMObject;
  *
  * @author DerManoMann
  */
-class TemplateManager extends ZMObject
+class TemplateManager
 {
     const PAGE_TOP = 'top';
     const PAGE_BOTTOM = 'bottom';
     const PAGE_NOW = 'now';
 
+    private $em;
     private $leftColEnabled;
     private $rightColEnabled;
     private $leftColBoxes;
     private $rightColBoxes;
     private $tableMeta;
+    private $themeService;
 
     /**
      * Create new instance.
      */
-    public function __construct()
+    public function __construct(EntityManager $em, ThemeService $themeService)
     {
-        parent::__construct();
+        $this->em = $em;
+        $this->themeService = $themeService;
         $this->leftColEnabled = true;
         $this->rightColEnabled = true;
         $this->leftColBoxes = null;
@@ -122,6 +125,28 @@ class TemplateManager extends ZMObject
     }
 
     /**
+     * Get enabled box names by position.
+     *
+     * @param int $position 0 or 1 for left or right respectively
+     * @todo move to repository
+     */
+    protected function getActiveBoxNames($position)
+    {
+        $repository = $this->em->getRepository('StoreBundle:LayoutBox');
+        $themeId = $this->themeService->getActiveTheme()->getId();
+
+        $args = array('location' => $position, 'status' => 1, 'themeId' =>  $themeId);
+        $boxes = $repository->findBy($args, array('sortOrder' => 'ASC'));
+
+        $names = array();
+        foreach ($boxes as $box) {
+            $names[] = $box->getActualName();
+        }
+
+        return $names;
+    }
+
+    /**
      * Get the box names for the left column.
      *
      * @return array Name of all boxes to be displayed.
@@ -131,20 +156,7 @@ class TemplateManager extends ZMObject
         if (null != $this->leftColBoxes) {
             return $this->leftColBoxes;
         }
-
-        $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
-                WHERE layout_box_location = 0
-                  AND layout_box_status = '1'
-                  AND layout_template = :themeId
-                ORDER BY layout_box_sort_order";
-        $boxes = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getId()), 'layout_boxes') as $boxInfo) {
-            // boxes use .php
-            $box = str_replace('.php', '', $boxInfo['name']);
-            $boxes[] = $box;
-        }
-
-        return $boxes;
+        return $this->getActiveBoxNames(0);
     }
 
     /**
@@ -158,19 +170,7 @@ class TemplateManager extends ZMObject
             return $this->rightColBoxes;
         }
 
-        $sql = "SELECT DISTINCT layout_box_name from %table.layout_boxes%
-                WHERE layout_box_location = 1
-                  AND layout_box_status = '1'
-                  AND layout_template = :themeId
-                ORDER BY layout_box_sort_order";
-        $boxes = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getId()), 'layout_boxes') as $boxInfo) {
-            // boxes use .php
-            $box = str_replace('.php', '', $boxInfo['name']);
-            $boxes[] = $box;
-        }
-
-        return $boxes;
+        return $this->getActiveBoxNames(1);
     }
 
     /**
