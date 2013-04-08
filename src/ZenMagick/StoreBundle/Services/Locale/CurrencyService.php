@@ -19,23 +19,24 @@
  */
 namespace ZenMagick\StoreBundle\Services\Locale;
 
-use ZenMagick\Base\ZMObject;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Currency service.
  *
  * @author DerManoMann
  */
-class CurrencyService extends ZMObject
+class CurrencyService
 {
     private $currencies;
+    private $repository;
 
     /**
      * Create new instance.
      */
-    public function __construct()
+    public function __construct(EntityRepository $repository)
     {
-        parent::__construct();
+        $this->repository = $repository;
         $this->load();
     }
 
@@ -44,9 +45,8 @@ class CurrencyService extends ZMObject
      */
     private function load()
     {
-        $sql = "SELECT * FROM %table.currencies%";
         $this->currencies = array();
-        foreach (\ZMRuntime::getDatabase()->fetchAll($sql, array(), 'currencies', 'ZenMagick\StoreBundle\Entity\Currency') as $currency) {
+        foreach ($this->repository->findAll() as $currency) {
             $this->currencies[$currency->getCode()] = $currency;
         }
     }

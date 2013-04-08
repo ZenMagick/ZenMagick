@@ -183,7 +183,15 @@
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
-        <service id="currencyService" class="ZenMagick\StoreBundle\Services\Locale\CurrencyService" />
+        <service id="currencyService" class="ZenMagick\StoreBundle\Services\Locale\CurrencyService">
+            <argument type="service">
+                <service class="Doctrine\ORM\EntityRepository"
+                    factory-service="doctrine.orm.entity_manager"
+                    factory-method="getRepository">
+                    <argument>StoreBundle:Currency</argument>
+                </service>
+            </argument>
+        </service>
 
         <service id="languageService" class="ZenMagick\StoreBundle\Services\Locale\LanguageService">
             <argument type="service">
