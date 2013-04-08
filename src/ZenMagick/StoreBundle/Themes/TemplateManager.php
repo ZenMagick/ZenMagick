@@ -183,10 +183,15 @@ class TemplateManager
     public function getFieldLength($table, $field)
     {
         if (!isset($this->tableMeta[$table])) {
-            $this->tableMeta[$table] = \ZMRuntime::getDatabase()->getMetaData($table);
+            $sm = $this->em->getConnection()->getSchemaManager();
+            $tableDetails = $sm->listTableDetails($table);
+            foreach ($tableDetails->getColumns() as $column) {
+                $length = $column->getLength() ?: 3;
+                $this->tableMeta[$table][$column->getName()] = $length;
+            }
         }
 
-        return $this->tableMeta[$table][$field]['length'];
+        return $this->tableMeta[$table][$field];
     }
 
     /**
