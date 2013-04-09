@@ -276,7 +276,7 @@ class ConfigValue extends ZMObject
      */
     public function setKey($key)
     {
-        $this->key = $key;
+        $this->key = strtoupper($key);
     }
 
     /**
