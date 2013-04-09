@@ -57,7 +57,7 @@ class Currencies extends Base
     protected function toArray(Currency $currency)
     {
         return array(
-                'title' => $currency->getTitle(),
+                'title' => $currency->getName(),
                 'symbol_left' => $currency->getSymbolLeft(),
                 'symbol_right' => $currency->getSymbolRight(),
                 'decimal_point' => $currency->getDecimalPoint(),
