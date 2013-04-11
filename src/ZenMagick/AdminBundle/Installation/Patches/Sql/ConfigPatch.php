@@ -88,25 +88,6 @@ class ConfigPatch extends SQLPatch
             $configService->createConfigValue('ZenMagick Plugins Group Id', 'ZENMAGICK_PLUGIN_GROUP_ID', $pluginGroupId, $groupId);
         }
 
-        $sessionGroupId = $configService->getConfigGroupForName('Sessions')->getId();
-
-        if (null == $configService->getConfigValue('SESSION_USE_ROOT_COOKIE_PATH')) {
-            $title = 'Use web root path for cookie path';
-            $description = 'This setting allows you to set the cookie path to the web root of the domain
-            rather than the store directory. It should only be used if you have problems with sessions.<br>
-            <strong>You must clear your cookies after changing this setting.</strong>';
-            $setFunction = "zen_cfg_select_option(array('True', 'False'),";
-            $configService->createConfigValue($title, 'SESSION_USE_ROOT_COOKIE_PATH', 'False', $sessionGroupId, $description, 0, $setFunction);
-        }
-
-        if (null == $configService->getConfigValue('SESSION_ADD_PERIOD_PREFIX')) {
-            $title = 'Add period prefix to cookie domain';
-            $description = 'Normally a period will be added to the cookie domain, (<strong>.www.mydomain.com</strong>).
-                This sometimes causes problems with some server configurations. Try setting this to False if you have having session problems.';
-            $setFunction = "zen_cfg_select_option(array('True', 'False'),";
-            $configService->createConfigValue($title, 'SESSION_ADD_PERIOD_PREFIX', 'True', $sessionGroupId, $description, 0, $setFunction);
-        }
-
         $modulesGroup = $configService->getConfigGroupForName('Module Options')->getId();
 
         if (null == $configService->getConfigValue('PRODUCTS_OPTIONS_TYPE_SELECT')) {
