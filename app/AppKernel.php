@@ -30,9 +30,12 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 class AppKernel extends Kernel
 {
-    protected $context;
-
     const APP_VERSION = '0.9.13';
+    const EXTERNAL_CACHE_BASE_TOGGLE = 'SYMFONY__ZM_USE_EXTERNAL_CACHE';
+    const EXTERNAL_USER_DIR_KEY = 'SYMFONY__ZM_USER';
+    const EXTERNAL_HOST_DIR_KEY = 'SYMFONY__ZM_HOST';
+
+    protected $context;
 
     /**
      * Create new application
@@ -157,5 +160,42 @@ class AppKernel extends Kernel
         // @todo temporary helper parameter until context is gone.
 
         return $parameters;
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * contains some experimental code for custom cache directories
+     * for multiple sites.
+     * @todo find something that works for both console and web
+     * @todo don't cache non site specific resources.
+     */
+    public function getCacheDir()
+    {
+        if (isset($_SERVER[self::EXTERNAL_CACHE_BASE_TOGGLE])) {
+            return sprintf('/var/zenmagick/%s/%s/cache/%s',
+                $_SERVER[self::EXTERNAL_USER_DIR_KEY],
+                $_SERVER[self::EXTERNAL_HOST_DIR_KEY],
+                $this->environment);
+        }
+        return parent::getCacheDir();
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * contains some experimental code for custom log directories
+     * for multiple sites.
+     *
+     * @todo find something that works for both console and web
+     */
+    public function getLogDir()
+    {
+        if (isset($_SERVER[self::EXTERNAL_CACHE_BASE_TOGGLE])) {
+            return sprintf('/var/zenmagick/%s/%s/logs',
+                $_SERVER[self::EXTERNAL_USER_DIR_KEY],
+                $_SERVER[self::EXTERNAL_HOST_DIR_KEY]);
+        }
+        return parent::getLogDir();
     }
 }
