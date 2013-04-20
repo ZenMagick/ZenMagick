@@ -99,9 +99,9 @@ class Connection extends DbalConnection
     /**
      * {@inheritDoc}
      */
-    public function delete($tableName, array $identifier = array())
+    public function delete($tableName, array $identifier = array(),  array $types = array())
     {
-        return parent::delete($this->resolveTable($tableName), $identifier);
+        return parent::delete($this->resolveTable($tableName), $identifier, $types);
     }
 
     /**
