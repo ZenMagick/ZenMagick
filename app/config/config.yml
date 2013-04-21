@@ -16,7 +16,8 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
-    #fragments: { path: /_fragment }
+    fragments:
+        path: /_fragment
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
