@@ -246,23 +246,23 @@
 
         <service id="productGroupPricingService" class="ZMProductGroupPricings" />
 
-        <service id="formTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxForm" scope="prototype">
+        <service id="formTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxForm">
             <tag name="zenmagick.http.toolbox.tool" key="form" />
         </service>
 
-        <service id="htmlTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxHtml" scope="prototype">
+        <service id="htmlTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxHtml">
             <tag name="zenmagick.http.toolbox.tool" key="html" />
         </service>
 
-        <service id="macroTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxMacro" scope="prototype">
+        <service id="macroTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxMacro">
             <tag name="zenmagick.http.toolbox.tool" key="macro" />
         </service>
 
-        <service id="netTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxNet" scope="prototype">
+        <service id="netTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxNet">
             <tag name="zenmagick.http.toolbox.tool" key="net" />
         </service>
 
-        <service id="utilsTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxUtils" scope="prototype">
+        <service id="utilsTool" class="ZenMagick\StoreBundle\Toolbox\ToolboxUtils">
             <tag name="zenmagick.http.toolbox.tool" key="utils" />
         </service>
 

@@ -9,11 +9,11 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="storeTemplateView" />
 
-        <service id="crumbtrailTool" class="ZenMagick\StorefrontBundle\Http\Tools\ToolboxCrumbtrail" scope="prototype">
+        <service id="crumbtrailTool" class="ZenMagick\StorefrontBundle\Http\Tools\ToolboxCrumbtrail">
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
 
-        <service id="metaTagsTool" class="ZenMagick\StorefrontBundle\Http\Tools\ToolboxMetaTags" scope="prototype">
+        <service id="metaTagsTool" class="ZenMagick\StorefrontBundle\Http\Tools\ToolboxMetaTags">
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
     </services>

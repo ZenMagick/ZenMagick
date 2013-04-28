@@ -42,7 +42,7 @@
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="adminTool" class="ZenMagick\AdminBundle\Http\Tools\ToolboxAdmin" scope="prototype">
+        <service id="adminTool" class="ZenMagick\AdminBundle\Http\Tools\ToolboxAdmin">
             <tag name="zenmagick.http.toolbox.tool" key="admin" />
         </service>
     </services>
