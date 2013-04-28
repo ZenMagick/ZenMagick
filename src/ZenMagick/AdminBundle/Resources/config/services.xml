@@ -45,7 +45,5 @@
         <service id="adminTool" class="ZenMagick\AdminBundle\Http\Tools\ToolboxAdmin" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="admin" />
         </service>
-
-        <service id="themeBuilder" class="ZenMagick\AdminBundle\Utils\ThemeBuilder" scope="prototype" />
     </services>
 </container>

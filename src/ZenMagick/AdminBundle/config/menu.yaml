@@ -88,9 +88,6 @@ children:
                     l10n:
                         route: l10n
                         label: 'Translation Helper'
-                    theme-builder:
-                        route: theme_builder
-                        label: 'Theme Builder'
             configuration-legacy:
                 label: 'Zen-Cart Config'
             configuration-help:

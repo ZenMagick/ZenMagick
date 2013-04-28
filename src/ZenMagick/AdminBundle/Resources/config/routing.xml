@@ -110,10 +110,6 @@
         <default key="_controller">AdminBundle:Themes:process</default>
     </route>
 
-    <route id="theme_builder" pattern="/theme-builder">
-        <default key="_controller">AdminBundle:ThemeBuilder:process</default>
-    </route>
-
     <route id="block_groups" pattern="/block-groups">
         <default key="_controller">AdminBundle:BlockGroups:process</default>
     </route>
