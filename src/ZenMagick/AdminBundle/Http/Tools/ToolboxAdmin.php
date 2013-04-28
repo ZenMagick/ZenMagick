@@ -85,25 +85,6 @@ class ToolboxAdmin extends ToolboxTool
     }
 
     /**
-     * Create an Ajax URL for the given controller and method.
-     *
-     * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
-     *
-     * @param string controller The controller name without the leading <em>ajax_</em>.
-     * @param string method The name of the method to call.
-     * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @return string A complete Ajax URL.
-     */
-    public function ajax($controller, $method, $params=array())
-    {
-        $controller = 'ajax_'.$controller;
-        $param['methods'] = $method;
-        $url = str_replace('&amp;', '&', $this->container->get('router')->generate($controller, $params));
-
-        return $url;
-    }
-
-    /**
      * Set the page title and create the side nav.
      *
      * <p><strong>NOTE: This method will return the derived page title to be used in a <em>h1</em>.</strong></p>
