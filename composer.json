@@ -54,6 +54,7 @@
         "friendsofsymfony/user-bundle": "*",
         "zenmagick/zencart": "dev-master",
         "jmikola/insecure-routes-bundle": "3.0.*",
+        "instaclick/base-test-bundle": "dev-master",
         "nitra/php-min": "0.0.5"
     },
     "require-dev": {
