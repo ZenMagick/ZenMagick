@@ -111,42 +111,4 @@ class ToolboxAdmin extends ToolboxTool
         return $title;
     }
 
-    /**
-     * Build category tree as simple unordered list.
-     *
-     * @param ZenMagick\Http\Request request The current request.
-     * @param array categories List of root categories; default is <code>null</code>.
-     * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
-     * @return string The created HTML.
-     */
-    public function categoryTree($categories = null, $start = true)
-    {
-        $router = $this->container->get('router');
-        $html = $this->getToolbox()->html;
-        $path = (array) $this->getRequest()->attributes->get('categoryIds');
-        if ($start) {
-            ob_start();
-            if (null === $categories) {
-                $languageId = $this->getRequest()->getSelectedLanguage()->getId();
-                $categories = $this->container->get('categoryService')->getCategoryTree($languageId);
-            }
-        }
-        echo '<ul>';
-        foreach ($categories as $category) {
-            $active = in_array($category->getId(), $path);
-            echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="'.$router->generate('catalog', array('cPath' => implode('_', $category->getPath()))).'">'.$html->encode($category->getName()).'</a>';
-            if ($category->hasChildren()) {
-                $this->categoryTree($category->getChildren(), false);
-            }
-            echo '</li>';
-        }
-        echo '</ul>';
-
-        if ($start) {
-            return ob_get_clean();
-        }
-
-        return '';
-    }
 }
