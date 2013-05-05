@@ -309,18 +309,6 @@ class Session extends BaseSession implements ContainerAwareInterface
     }
 
     /**
-     * Returns <code>true</code> if the user is not logged in at all.
-     *
-     * <p>This is the lowest level of identity.</p>
-     *
-     * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
-     */
-    public function isAnonymous()
-    {
-        return !$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY');
-    }
-
-    /**
      * Returns <code>true</code> if the user is a registered user.
      *
      * <p>This is the highest status level.</p>
