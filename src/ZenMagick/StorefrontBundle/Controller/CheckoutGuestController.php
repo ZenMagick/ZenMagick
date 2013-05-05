@@ -46,7 +46,8 @@ class CheckoutGuestController extends DefaultController
         // our session
         $session = $request->getSession();
 
-        if (!$session->isAnonymous()) {
+        $isAnonymous = !$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY');
+        if (!$isAnonymous) {
             // already logged in either way
             return $this->findView('success');
         }
