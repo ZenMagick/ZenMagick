@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $view->extend('AdminBundle::default_layout.html.twig'); ?>
 <?php $admin->title(_zm('Manage Roles')) ?>
 <form action="<?php echo $view['router']->generate('manage_roles') ?>" method="POST" id="manage-roles-form">
   <fieldset>

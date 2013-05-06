@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $view->extend('StorefrontBundle::default_layout.html.twig'); ?>
 <form id="ajax-form" action="<?php echo $view['router']->generate('plugins') ?>" method="POST">
   <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
   <input type="hidden" name="action" value="update">

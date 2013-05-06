@@ -12,8 +12,8 @@ zenmagick:
   mvc:
     ## request
     request:
-      index: index.html.php
-      missingPage: error.html.php
+      index: index.html.twig
+      missingPage: error.html.twig
 
 ## app settings
 apps:

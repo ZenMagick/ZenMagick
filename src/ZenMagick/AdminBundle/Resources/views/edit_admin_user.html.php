@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $view->extend('AdminBundle::default_layout.html.twig'); ?>
 <?php $admin->title(_zm('Edit User Details')) ?>
 
 <form action="<?php echo $view['router']->generate('edit_admin_user') ?>" method="POST">

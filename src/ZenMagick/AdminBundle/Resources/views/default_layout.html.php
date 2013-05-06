@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('::base.html.php'); ?>
+<?php $view->extend('::base.html.twig'); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -52,13 +52,13 @@
   </head>
   <body id="p-<?php echo $view['request']->getRouteId() ?>">
     <div id="main">
-      <?php echo $this->render('AdminBundle::header.html.php'); ?>
+      <?php echo $this->render('AdminBundle::header.html.twig'); ?>
       <div id="content">
-          <?php echo $this->render('AdminBundle::messages.html.php'); ?>
+          <?php echo $this->render('AdminBundle::messages.html.twig'); ?>
         <?php $view['slots']->output('_content'); ?>
         </div><!-- view-container -->
       </div><!-- content -->
-      <?php echo $this->render('AdminBundle::footer.html.php'); ?>
+      <?php echo $this->render('AdminBundle::footer.html.twig'); ?>
     </div>
     <script type="text/javascript">
       $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $view->extend('AdminBundle::default_layout.html.twig'); ?>
 <?php
 use ZenMagick\Base\Toolbox;
 
@@ -65,7 +65,7 @@ use ZenMagick\Base\Toolbox;
 
 ?>
 
-<?php echo $this->render('AdminBundle::messages.html.php'); ?>
+<?php echo $this->render('AdminBundle::messages.html.twig'); ?>
 <?php $admin->title(_zm('Edit Define Pages')) ?></h1>
 <form action="<?php echo $view['router']->generate('static_page_editor') ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">

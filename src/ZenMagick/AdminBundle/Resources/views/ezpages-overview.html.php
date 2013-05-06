@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $view->extend('AdminBundle::default_layout.html.twig'); ?>
 <?php
 $selectedLanguageId = $currentLanguage->getId(); ?>
 <script type="text/javascript">
@@ -109,4 +109,4 @@ $selectedLanguageId = $currentLanguage->getId(); ?>
     </tr>
   <?php } ?>
 </table>
-<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)); ?>
+<?php echo $view->render('AdminBundle::pagination.html.twig', array('resultList' => $resultList)); ?>
