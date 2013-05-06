@@ -110,7 +110,8 @@ class RouteResolver extends ZMObject
             }
         }
         if (!$view) { // use conventions and defaults
-            $templateName = sprintf('%s%s%s', $base, $request->getRequestId(), '.html.php');
+            $ext = $settingsService->get('zenmagick.http.templates.ext');
+            $templateName = sprintf('%s%s%s', $base, $request->getRequestId(), $ext);
             $view = Beans::getBean('defaultView');
             $view->setTemplate($templateName);
             //$view->setLayout($layoutName);

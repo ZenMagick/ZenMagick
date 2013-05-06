@@ -4,6 +4,11 @@
 
 ## general settings
 zenmagick:
+  http:
+    view:
+      defaultLayout: default_layout.html.twig
+    templates:
+      ext: .html.twig
   mvc:
     ## request
     request:
