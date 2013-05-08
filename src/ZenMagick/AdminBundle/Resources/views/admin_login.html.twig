@@ -1,0 +1,20 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% set page_title = 'Login'|trans %}
+{% block body %}
+    {{ form.open('admin_login_check', '', true, {'id' : 'login'})|raw }}
+        <p>
+            <label for="username">{{ 'User Name'|trans }}</label>
+            <br>
+            <input type="text" name="username" id="username" value="{{ lastUsername }}" />
+        </p>
+        <p
+            <label for="password">{{ 'Password'|trans }}</label>
+            <br>
+            <input type="password" name="password" id="password" value="" />
+        </p>
+        <p>
+            <input class="{{ buttonClasses }}" type="submit" value="{{ 'Login'|trans }}" />
+            <a class="{{ buttonClasses }}" href="{{ path('admin_reset_password') }}">{{ 'Reset Password'|trans }} </a>
+        </p>
+    </form>
+{% endblock %}

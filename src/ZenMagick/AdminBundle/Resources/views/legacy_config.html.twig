@@ -1,0 +1,38 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% set page_title = group.name %}
+{% block body %}
+    <form method="POST" action="{{ path('legacy_config_process') }}">
+        <fieldset>
+            <legend>{{ 'Config: %group%'|trans({'%group%' : group.name}) }}</legend>
+            <table class="grid" width="80%">
+                {% for value in groupValues %}
+                    {# @todo: this should not be stored in an attribute #}
+                    {% set value_description =  value.description|e('html_attr')|replace({'"' : '&#34;'})|raw %}
+                    <tr>
+                        {# @todo: move instanceof check into the controller #}
+                        {% if value is aninstanceof('\\ZenMagick\\StoreBundle\\Entity\\ConfigValue') %}
+                            <td>
+                                <span class="tt" title="{{ value.name|e('html_attr') }}|{{ value_description }}">
+                                    {{  value.name }}
+                                </span>
+                            </td>
+                            <td><strong>Function not supported: {{ value.getSetFunction }}</strong></td>
+                        {% else %}
+                            <td><label for="{{ value.name }}">{{ value.title }}</label></td>
+                            <td>
+                                {# tooltips #}
+                                <span class="tt" title="{{ value.title|e('html_attr') }}|{{ value_description }}">
+                                    {{ value.render(app.request, templateView)|raw }}
+                                </span>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <p>
+                <input type="hidden" name="groupId" value="{{ group.id }}">
+                <input type="submit" class="{{ buttonClasses }}" value="{{ 'Update'|trans }}">
+            </p>
+        </fieldset>
+    </form>
+{% endblock %}

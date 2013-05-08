@@ -1,0 +1,17 @@
+{% if app.session.flashbag.hasMessages %}
+    {# @todo move messageClass definition out of the template #}
+    {% set messageClass = {
+        (constant('\\ZenMagick\\Http\\Session\\FlashBag::T_SUCCESS')): ['ui-state-default', 'ui-icon ui-icon-check'],
+        (constant('\\ZenMagick\\Http\\Session\\FlashBag::T_MESSAGE')): ['ui-state-default', 'ui-icon ui-icon-info'],
+        (constant('\\ZenMagick\\Http\\Session\\FlashBag::T_WARN')):    ['ui-state-highlight', 'ui-icon ui-icon-alert'],
+        (constant('\\ZenMagick\\Http\\Session\\FlashBag::T_ERROR')):   ['ui-state-error', 'ui-icon ui-icon-alert'],
+    } %}
+    <ul id="messages" class="ui-widget">
+        {% for message in app.session.flashbag.messages %}
+            <li class="ui-corner-all {{ messageClass[message.type][0] }}">
+                <span class="{{ messageClass[message.type][1] }}" style="float:left;margin-right:0.3em;"></span>
+                {{ message.text }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

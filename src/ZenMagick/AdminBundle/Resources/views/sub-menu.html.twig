@@ -1,0 +1,38 @@
+{# @todo: fold this into the menu builder or provider. #}
+{% if app.user %}
+    <div id="sub-menu">
+        {% set sub_menu = knp_menu_get('admin_sub') %}
+        {{ knp_menu_render(sub_menu) }}
+    </div>
+    <script>
+        {% autoescape 'js' %}
+        // hint for navigation matching
+        var alias = null;
+
+        {# @todo fix alias detection
+            if (false && null != ($current = $adminMenu->getItemForRequestId($view['request']->getRouteId()))) {
+              foreach ($current->getAlias() as $alias) {
+                if ($view['request']->getRouteId() == $alias) {
+                  echo "alias = '".$view['router']->generate($current->getRoute(), true?'':$current->getRouteParameters())."'";
+                }
+              }
+            }
+        #}
+
+        $(function() {
+            $("#sub-common").accordion({
+                header: 'li span',
+                autoHeight: false,
+                collapsible: true,
+                navigation: true,
+                navigationFilter: function() {
+                    if (alias) {
+                        return -1 < this.href.indexOf(alias);
+                    }
+                    return this.href == location.href;
+                }
+            });
+        });
+        {% endautoescape %}
+    </script>
+{% endif %}

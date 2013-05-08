@@ -1,0 +1,24 @@
+<div id="header">
+    <div id="logo">
+        <a href="{{ path('admin_index') }}">
+            <img src="{{ asset('bundles/admin/images/logo-small.png') }}" alt="ZenMagick" title="ZenMagick">
+        </a>
+    </div>
+    {% if app.user %}
+        <div id="header-box">
+            <p id="header-state">
+                {% set userLink = '<a href="' ~ path('update_user')
+                    ~ '" onclick="ZenMagick.ajaxFormDialog(this.href, {title: \''
+                    ~ 'User Profile: %user%'|trans({'%user%' :app.user.username})
+                    ~ '\', formId:\'updateUser\'}); return false;">' ~ app.user.username ~ '</a>'
+                %}
+                {{ "Logged in as %user%"|trans({'%user%': userLink})|raw }}
+                | <a href="{{ path('index') }}" target="_blank">{{ 'Storefront'|trans }}</a>
+                | {{ 'now'|date('l, F d, Y') }}
+                | <a href="{{ path('admin_logout') }}">{{ 'Log Out'|trans }} </a>
+            </p>
+            <!-- <a href="http://forum.zenmagick.org/" target="_blank">{{ 'Get Help'|trans }}</a> -->
+        </div>
+        {{ knp_menu_render('admin_main', {'depth': 1}) }}
+    {% endif %}
+</div>

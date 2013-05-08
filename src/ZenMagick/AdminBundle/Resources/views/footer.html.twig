@@ -1,0 +1,11 @@
+<div id="footer">
+    <a href="{{ path('admin_index') }}">
+        <img src="{{ asset('bundles/admin/images/logo-small.png') }}" alt="ZenMagick" title="ZenMagick">
+    </a>
+    <p>
+        {{ 'Copyright &copy; 2006-%year%'|trans({'%year%' : 'now'|date('Y')}) }}
+        <a target="_blank" href="http://www.zenmagick.org/">ZenMagick</a>
+        <br>
+        {{ 'Design By <a target="_blank" href="http://www.rubikintegration.com">Rubik Integration</a>'|trans|raw }}
+    </p>
+</div>
