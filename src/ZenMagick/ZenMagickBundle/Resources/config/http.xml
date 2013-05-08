@@ -63,12 +63,12 @@
             </call>
         </service>
 
-        <service id="templateView" class="ZenMagick\Http\View\TemplateView" scope="prototype">
+        <service id="templateView" class="ZenMagick\Http\View\TemplateView">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
             <call method="setResourceManager">
-                <argument type="service" id="resourceManager" />
+                <argument type="service" id="resourceManager" strict="false" />
             </call>
             <call method="setResourceResolver">
                 <argument type="service" id="resourceResolver" />
