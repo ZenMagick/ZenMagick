@@ -1,0 +1,28 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <table class="grid">
+        <tr>
+            <th>{{ 'ID'|trans }}</th>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'Created'|trans }}</th>
+            <th>{{ 'Authorization'|trans }}</th>
+        </tr>
+        {% for account in resultList.results %}
+            <tr>
+                <td>{{ account.id }}</td>
+                <td>
+                    <a href="{{  path('account_show', {'accountId' : account.id}) }}">
+                        {% if account.type is constant('\\ZenMagick\\StoreBundle\\Entity\\Account::REGISTERED') %}
+                            {{ account.fullname }}
+                        {% else %}
+                            {{ '** Guest **'|trans }}
+                        {% endif %}
+                    </a>
+                </td>
+                <td>{{ account.getAccountCreateDate|localizeddate('short', 'short') }}</td>
+                <td>{{ account.authorization ? 'Pending'|trans : 'Approved'|trans }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}
