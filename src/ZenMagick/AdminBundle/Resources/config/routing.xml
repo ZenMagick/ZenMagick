@@ -17,7 +17,7 @@
 <import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/profile" />
 -->
     <route id="about" pattern="/about">
-        <default key="_controller">ZenMagickBundle:Default:process</default>
+        <default key="_controller">AdminBundle:About:show</default>
     </route>
     <route id="catalog" pattern="/catalog">
         <default key="_controller">AdminBundle:Catalog:process</default>
