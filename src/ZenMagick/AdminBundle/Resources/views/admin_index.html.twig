@@ -1,0 +1,63 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <script>
+        {% autoescape 'js' %}
+        function _db_open_options() {
+            $('#widget-box').dialog({
+                width:500,
+                position:['center', 20],
+                title:'{{ 'Dashboard Options'|trans|raw }}'
+            }).parents('.ui-dialog').css('overflow', 'visible');
+            return false;
+        }
+        {% endautoescape %}
+    </script>
+
+    <h1 id="dashboard-header">
+        {{ 'Dashboard'|trans }}
+        <a href="#" title="{{ 'Customize Dashboard'|trans }}" onclick="return _db_open_options();">
+            <span class="ui-icon ui-corner-all ui-icon-wrench"></span>
+        </a>
+    </h1>
+    <div id="dashboard" class="{{ dashboard.layout(app.user.id) }}">
+        {% for column in range(0, dashboard.columns(app.user.id) - 1) %}
+            <div id="db-column-{{ loop.index0 }}" class="db-column">
+                {% for widget in dashboard.widgetsForColumn(app.user.id, loop.index0) %}
+                    {{ widget.render(app.request, templateView)|raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="widget-box">
+        <div id="grid-list" class="ui-corner-all">
+            <a href="#" class="db-grid-selector" id="col2">
+                <img src="{{ asset('bundles/admin/images/icons/col2.png') }}" alt="{{ 'two column'|trans }}" title="{{ 'two column'| trans }}">
+            </a>
+            <a href="#" class="db-grid-selector" id="col2l">
+                <img src="{{ asset('bundles/admin/images/icons/col2l.png') }}" alt="{{ 'two column - large right'|trans }}" title="{{ 'two column - large right'|trans }}">
+            </a>
+            <a href="#" class="db-grid-selector" id="col2r">
+                <img src="{{ asset('bundles/admin/images/icons/col2r.png') }}" alt="{{ 'two column - large left'|trans }}" title="{{ 'two column - large left'|trans }}">
+            </a>
+            <a href="#" class="db-grid-selector" id="col3">
+                <img src="{{ asset('bundles/admin/images/icons/col3.png') }}" alt="{{ 'three column'|trans }}" title="{{ 'three column'|trans }}">
+            </a>
+        </div>
+
+        <div id="widget-list" class="ui-corner-all">
+            <div id="widget-box-cols" class="ui-corner-all">
+                {% for column in range(0, dashboard.columns(app.user.id) - 1) %}
+                    <div id="widget-box-col-{{ loop.index0 }}" class="widget-box-col">
+                        {# @todo: sorted by column? #}
+                        {% for widget in dashboard.widgetsForColumn(app.user.id, loop.index0) %}
+                            {% set open = widget.setOpen(false) %}
+                            {{ widget.render(app.request, templateView)|raw }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br clear="left">
+         </div>
+    </div>
+{% endblock %}

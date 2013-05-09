@@ -2,7 +2,7 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2012 zenmagick.org
  *
- * Portions Copyright (c) 2002-2003 Geir Landrö
+ * Portions Copyright (c) 2002-2003 Geir Landrï¿½
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,8 +49,8 @@
 #grid-list, #widget-list {border:1px solid #777;padding:3px;margin-bottom:5px;text-align:left;}
 #widget-list {min-height:140px;}
 
-#dashboard h1 {position:relative;}
-#dashboard h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
+#dashboard-header {position:relative;}
+#dashboard-header .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
 #widget-box {width:500px;display:none;background-color:#eee;padding:.4em;}
 /*.ui-dialog {overflow:visible;} - makes the portlets visible when dragging out of widget box */
 #dashboard .widget-box-col {width:49%;float:left;padding:3px 0;}

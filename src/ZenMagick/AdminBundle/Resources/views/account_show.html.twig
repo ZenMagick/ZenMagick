@@ -1,0 +1,94 @@
+{% extends '@Admin/default_layout.html.twig' %}
+
+{#
+  customers_default_address_id int(11)
+  customers_password           varchar(40)
+  customers_authorization      int(1)
+
+  TODO:
+  - above
+  - edit address
+  - custom customer, customer_info fields
+#}
+{% block body %}
+    <form action="" method="POST">
+        <fieldset>
+            <legend>{{ 'Account: %name%'|trans({'%name%' : account.fullname}) }}</legend>
+            <table>
+                <tr>
+                    <td>{{ 'Title'|trans }}</td>
+                    <td>
+                        <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', account.gender)|raw }}>
+                        <label for="male">{{ 'Mr.'|trans }}</label>
+                        <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', account.gender)|raw }}>
+                        <label for="female">{{ 'Ms.'|trans }}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'First Name'|trans }}</td>
+                    <td><input type="text" name="firstName" value="{{ account.firstName }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'Last Name'|trans }}</td>
+                    <td><input type="text" name="lastName" value="{{ account.lastName }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'Date of Birth'|trans }}</td>
+                    <td>
+                        <input type="text" name="dob" value="{{ account.dob|localizeddate('short', 'none') }}" />
+                        {{ 'Format: %format% (e.g: %example%)'|trans({'%format%': locale.format('date', 'short-ui-format'), '%example%': locale.format('date', 'short-ui-example')}) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'E-Mail Address'|trans }}</td>
+                    <td><input type="text" name="email" value="{{ account.email }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'Nickname'|trans }}</td>
+                    <td><input type="text" name="nickName" value="{{ account.nickName }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'Telephone Number'|trans }}</td>
+                    <td><input type="text" name="phone" value="{{ account.phone }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'Fax Number'|trans }}</td>
+                    <td><input type="text" name="fax" value="{{ account.fax }}"></td>
+                </tr>
+                 <tr>
+                    <td>{{ 'E-Mail Format'|trans }}</td>
+                    <td>
+                        <input type="radio" id="html" name="emailFormat" value="HTML" {{ form.checked('HTML', account.emailFormat, 'HTML')|raw }}>
+                        <label for="html">{{ 'HTML'|trans }}</label>
+                        <input type="radio" id="text" name="emailFormat" value="TEXT" {{ form.checked('TEXT', account.emailFormat, 'TEXT', true)|raw }}>
+                        <label for="text">{{ 'Text'|trans }}</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ 'Newsletter'|trans }}</td>
+                    <td><input type="checkbox" name="newsletterSubscriber" value="true" {{ form.checked(true, account.isNewsletterSubscriber)|raw }} /></td>
+                </tr>
+
+                <tr>
+                    <td>{{ 'Price Group'|trans }}</td>
+                    <td>{{ form.idpSelect('priceGroupId', priceGroups, account.priceGroupId, {'size' : 1})|raw }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ 'Referral'|trans }}</td>
+                    <td><input type="text" name="fax" value="{{ account.referral }}"></td>
+                </tr>
+
+                <tr>
+                    <td>{{ 'PayPal Payer Id'|trans }}</td>
+                    <td><input type="text" name="payPalPayerId" value="{{ account.payPalPayerId }}"></td>
+                </tr>
+                <tr>
+                    <td>{{ 'PayPal Express Checkout'|trans }}</td>
+                    <td><input type="checkbox" name="payPalEc" value="true" {{ form.checked(true, account.isPayPalEc)|raw }} /></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+{% endblock %}
