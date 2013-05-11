@@ -20,6 +20,7 @@
 namespace ZenMagick\AdminBundle\Controller;
 
 use ZenMagick\ZenMagickBundle\Controller\DefaultController;
+use ZenMagick\StoreBundle\Entity\Blocks\BlockGroup;
 
 /**
  * Admin controller for block groups.

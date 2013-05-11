@@ -64,7 +64,7 @@ class BlockManager extends ZMObject
      * @param array args Optional parameter; default is an empty array.
      * @return array List of <code>BlockWidget</code> instances.
      */
-    public function getBlocksForId($request, $groupId, $args)
+    public function getBlocksForId($request, $groupId, $args = array())
     {
         if (array_key_exists($groupId, $this->mappings)) {
             // ensure bean definitions are resolved first...

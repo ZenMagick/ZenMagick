@@ -59,7 +59,7 @@ class Blocks extends ZMObject
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
         $conn = \ZMRuntime::getDatabase();
         $conn->updateObj($sql, $args, 'block_groups');
-        $blockGroup->setId($conn->getResource()->lastInsertId());
+        $blockGroup->setId($conn->lastInsertId());
 
         return $blockGroup;
         //return \ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);

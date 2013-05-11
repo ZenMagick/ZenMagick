@@ -54,6 +54,14 @@ class BlockGroup extends ZMObject
     private $description;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->description = '';
+    }
+
+    /**
      * Get the group id.
      *
      * @return int The group id.
