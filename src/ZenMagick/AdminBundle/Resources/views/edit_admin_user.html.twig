@@ -1,0 +1,45 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <form action="{{ path('edit_admin_user') }}" method="POST">
+        <input type="hidden" name="adminUserId" value="{{ adminUser.getAdminUserId }}">
+        <table>
+            <tr>
+                <td><label for=username">{{ 'Name'|trans }}</label></td>
+                <td><input type="text" id="username" name="username" value="{{ adminUser.getUsername }}"></td>
+            </tr>
+            <tr>
+                <td><label for="email">{{ 'Email'|trans }}</label></td>
+                <td><input type="text" id="email" name="email" value="{{ adminUser.getEmail }}"></td>
+            </tr>
+            <tr>
+                <td><label for="roles">{{ 'Roles'|trans }}</label></td>
+                <td>
+                    {% for role in roles %}
+                        <input type="checkbox" name="roles[]" id="role_{{ role }}" value="{{ role }}"
+                        {{ role in adminUser.getRoles ? 'checked' }}>
+                    <label for="role_{{ role }}">{{ role|title }}</label>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Live Flag'|trans }}</td>
+                <td>
+                    <input type="checkbox" name="live" id="live" value="true"< {{ adminUser.isLive ? 'checked' }}>
+                    <label for="live">{{ 'Live User'|trans }}</label>
+                </td>
+            <tr>
+            <tr>
+                <td><label for="password">{{ 'Password'|trans }}</label></td>
+                <td><input type="password" id="password" name="password"></td>
+            <tr>
+            <tr>
+                <td><label for="confirmPassword">{{ 'Confirm password'|trans }}</label></td>
+                <td><input type="password" id="confirmPassword" name="confirmPassword"></td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" class="{{ buttonClasses }}" value="{{  (0 < adminUser.getAdminUserId) ? 'Update'|trans : 'Create'|trans }}">
+            <a class="{{ buttonClasses }}" href="{{ path('admin_users') }}">{{ 'Cancel'|trans }}</a>
+        </p>
+    </form>
+{% endblock %}

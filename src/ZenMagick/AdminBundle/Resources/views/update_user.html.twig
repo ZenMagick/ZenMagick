@@ -1,0 +1,40 @@
+{% block body %}
+    <p>Groups: {{ app.user.roles|join(',') }}</p>
+    <form action="{{ path('update_user') }}" method="POST" id="updateUser">
+        <fieldset>
+            <legend>{{ 'Account'|trans }}</legend>
+            <p>
+                <label for="username">{{ 'Name'|trans }}</label>
+                <input type="text" id="username" name="username" value="{{ updateUser.getUsername }}">
+            </p>
+            <p>
+                <label for="email">{{ 'Email'|trans }}</label>
+                <input type="text" id="email" name="email" value="{{ updateUser.getEmail }}">
+            </p>
+            <p>
+                <label for="currentPassword">{{ 'Current password'|trans }}<span>*</span></label>
+                <input type="password" id="currentPassword" name="currentPassword">
+            </p>
+            <p>
+                <label for="newPassword">{{ 'New password'|trans }}</label>
+                <input type="password" id="newPassword" name="newPassword">
+            </p>
+            <p>
+                <label for="confirmPassword">{{ 'Confirm password'|trans }}</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>{{ 'Preferences'|trans }}</legend>
+            {% for widget in widgets %}
+                <p>
+                    <label for="{{ widget.getId }}">{{ widget.title }}</label>
+                    {{ widget.render(app.request, templateView)|raw }}
+                </p>
+            {% endfor %}
+        </fieldset>
+        <p>
+            <input class="{{ buttonClasses }}" type="submit" value="{{ 'Update'|trans }}">
+        </p>
+    </form>
+{% endblock %}

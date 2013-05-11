@@ -1,0 +1,126 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <div class="col3">
+        <h2>Blocks</h2>
+        <ul id="blockList" class="ui-sortable">
+            {% for def, title in allBlocks %}
+                <li data-block-def="{{ def }}">
+                    <span class="clean">{{ title }}</span>
+                    <div class="icons"></div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="col3">
+        <h2>Block Group Setup: {{ groupName }}</h2>
+        <ul id="groupBlockList" class="sortable">
+            {% for block in blocks %}
+                <li data-block-def="{{ block.blockId ~ '@' ~ block.definition|e('html_attr') }}">
+                    <span>{{ block.name }}</span>
+                    <div class="icons">
+                        <!-- TODO: icons -->
+                        <span class="ui-icon ui-icon-circle-close"></span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        {% autoescape 'js' %}
+        $(function () {
+            $("#groupBlockList").sortable({
+                // TODO: do not sort when receive
+                xupdate: function (evt, ui) {
+                    // data
+                    var groupName = '{{ groupName }}';
+                    var blocks = new Array();
+                    $('#groupBlockList li').each(function (index) {
+                        blocks.push($(this).attr('data-block-def'));
+                    });
+                    var groupBlockList = '["' + blocks.join('","') + '"]';
+
+                    // TODO: flag progress
+                    var data = '{"groupName":"' + groupName + '", "groupBlockList":' + groupBlockList + '}';
+                    ZenMagick.rpc('block_group_admin', 'reorderBlockGroup', data, {
+                        success: function (result) {
+                            // TODO: flag saved
+                        }
+                    });
+                },
+                receive: function (evt, ui) {
+                    var span = $('#groupBlockList span.clean');
+                    var iconContainer = $('#groupBlockList span.clean + div.icons');
+
+                    var throbber = '<span class="throbber"></span>';
+                    iconContainer.html(throbber);
+                    span.removeClass('clean');
+
+                    // data
+                    var groupName = '{{ groupName }}';
+                    var blocks = new Array();
+                    $('#groupBlockList li').each(function (index) {
+                        blocks.push($(this).attr('data-block-def'));
+                    });
+                    var groupBlockList = '["' + blocks.join('","') + '"]';
+
+                    var data = '{"groupName":"' + groupName + '", "groupBlockList":' + groupBlockList + '}';
+                    ZenMagick.rpc('block_group_admin', 'addBlockToGroup', data, {
+                        success: function (result) {
+                            // grab from the receiving list
+                            var blockId = result.data['blockId'];
+                            var hasOptions = result.data['options'];
+
+                            // update id
+                            var def = $(span).parent().attr('data-block-def');
+                            $(span).parent().attr('data-block-def', blockId + '@' + def);
+
+                            var icons = '';
+                            if (hasOptions) {
+                                icons += '<span class="ui-icon ui-icon-wrench"></span>';
+                            }
+                            icons += '<span class="ui-icon ui-icon-circle-close"></span>';
+                            iconContainer.html(icons);
+
+                            $('span.ui-icon-wrench', span.parentNode).click(function () {
+                                // TODO: do something useful
+                                alert('configure not implemented yet...');
+                            });
+
+                            // add close handler
+                            $('span.ui-icon-circle-close', span.parentNode).click(remove_block);
+                        }
+                    });
+                }
+            });
+            $("#blockList li").draggable({
+                connectToSortable: "#groupBlockList",
+                helper: "clone",
+                cursor: "move",
+                snap: true,
+                revert: "invalid"
+            });
+        });
+
+        // remove block
+        function remove_block() {
+            var li = $(this).parent().parent();
+            var block = li.attr('data-block-def');
+            var data = '{"groupName":"{{ groupName }}", "block":"' + block + '"}';
+            var iconContainer = $('div.icons', li);
+            var throbber = '<span class="throbber"></span>';
+            iconContainer.html(throbber);
+
+            ZenMagick.rpc('block_group_admin', 'removeBlockFromGroup', data, {
+                success: function (result) {
+                    li.remove();
+                }
+            });
+        }
+
+        // add close handler
+        $('span.ui-icon-circle-close').click(remove_block);
+        {% endautoescape %}
+    </script>
+{% endblock %}

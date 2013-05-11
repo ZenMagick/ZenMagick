@@ -1,0 +1,124 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <script type="text/javascript">
+        {% autoescape 'js' %}
+        // select/unselect all
+        function sync_all(box, name) {
+            var boxes = document.getElementsByTagName('input');
+            for (var ii = 0; ii < boxes.length; ++ii) {
+                if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled) {
+                    boxes[ii].checked = box.checked;
+                }
+            }
+        }
+        // update submit form with all checked plugin ids
+        function collectIds(form, name) {
+            var multiPluginId = '';
+            var boxes = document.getElementsByTagName('input');
+            for (var ii = 0; ii < boxes.length; ++ii) {
+                if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled && boxes[ii].checked) {
+                    multiPluginId += boxes[ii].value + ',';
+                }
+            }
+            if (0 == multiPluginId.length) {
+                return false;
+            }
+            form.multiPluginId.value = multiPluginId;
+            return true;
+        }
+        {% endautoescape %}
+    </script>
+
+    <table class="grid">
+        <tr>
+            <th colspan="5">{{ 'Plugins'|trans }}</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'Description'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Options'|trans }}</th>
+        </tr>
+        {% for plugin in pluginList %}
+            <tr>
+                <td><input type="checkbox" name="multiUpdate[]" value="{{ plugin.id }}"></td>
+                <td><a name="{{ plugin.id }}"></a>{{ plugin.name }}</td>
+                <td>{{ plugin.description }}</td>
+                <td>
+                    {% if plugin.installed %}
+                        <span id="plugin-{{ plugin.id }}" class="plugin-status ui-icon ui-icon-circle-{{ plugin.enabled ? 'check enabled' : 'close disabled'  }}>"></span>
+                    {% else %}
+                        {{ 'N/A'|trans }}
+                    {% endif %}
+                </td>
+                <td class="pactions">
+                    {# TODO: install/remove via ajax #}
+                    {% set msg = (plugin.installed ? 'Remove' : 'Install') ~ ' plugin: ' ~ plugin.name|raw %}
+                    {% if not plugin.installed %}
+                        <form action="{{ path('plugins') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ msg }}', this);">
+                            <input type="hidden" name="pluginId" value="{{ plugin.id }}">
+                            <input type="hidden" name="action" value="install">
+                            <button class="{{ buttonClasses }}" type="submit">{{ 'Install'|trans }}</button>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('plugins') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ msg }}', this);">
+                            <input type="hidden" name="pluginId" value="{{ plugin.id }}">
+                            <input type="hidden" name="action" value="uninstall">
+                            <input type="checkbox" id="keepSettings-{{ plugin.id }}" name="keepSettings" value="true" checked>
+                            <label for="keepSettings-{{ plugin.id }}">{{ 'Keep plugin options'|trans }}</label>
+                            <button class="{{ buttonClasses }}" type="submit">{{ 'Uninstall'|trans }}</button>
+                        </form>
+                        {% set msg = 'Upgrade Plugin: %plugin%'|trans({ 'plugin' : plugin.name}) %}
+                        <form action="{{ path('plugins') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ msg }}', this);">
+                            <input type="hidden" name="pluginId" value="{{ plugin.id }}">
+                            <input type="hidden" name="action" value="upgrade">
+                           <button class="{{ buttonClasses }}" type="submit">{{ 'Upgrade'|trans }}</button>
+                        </form>
+                        {% if plugin.hasOptions %}
+                            {# enabled/disabled and sort order are handled by this page #}
+                            {% set msg = 'Edit Plugin Options: %plugin%'|trans({'%plugin%' : plugin.name}) %}
+                            <a class="{{ buttonClasses }}" href="{{ path('plugins', {'ajax' : 'false', 'action' : 'edit', 'pluginId' : plugin.id}) }}#{{ plugin.id }}" onclick="return ZenMagick.ajaxFormDialog(this.href, {title:'{{ msg }}', formId: 'ajax-form'});">
+                                {{ 'Edit'|trans }}
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><input type="checkbox" name="multi-update-toggle" value="" onclick="sync_all(this, 'multiUpdate[]')"></td>
+            <td colspan="4">
+                <form action="{{ path('plugins') }}" method="POST" onsubmit="return collectIds(this, 'multiUpdate[]');">
+                    <input type="hidden" name="multiPluginId" value="">
+                     {{ 'With selected:'|trans }}
+                    <select name="multiAction">
+                        <option value="">{{ ' -- Select -- '|trans }}</option>
+                        <option value="install">{{ 'Install'|trans }}</option>
+                        <option value="uninstall">{{ 'Uninstall'|trans }}</option>
+                        <option value="upgrade">{{ 'Upgrade'|trans }}</option>
+                        <option value="enable">{{ 'Enable'|trans }}</option>
+                        <option value="disable">{{ 'Disable'|trans }}</option>
+                    </select>
+                    <input type="submit" class="{{ buttonClasses }}" value="{{ 'Go'|trans }}">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <script>
+        {% autoescape 'js' %}
+        $('.plugin-status').click(function () {
+            var icon = this;
+            var pluginStatus = $(this).hasClass('disabled');
+            var pluginId = $(this).attr('id').split('-')[1];
+            var data = '{"pluginId":"' + pluginId + '","status":' + pluginStatus + '}';
+            ZenMagick.rpc('plugin_admin', 'setPluginStatus', data, {
+                success: function (result) {
+                    $(icon).toggleClass('ui-icon-circle-check').toggleClass('ui-icon-circle-close')
+                            .toggleClass('enabled').toggleClass('disabled');
+                }
+            });
+        });
+        {% endautoescape %}
+    </script>
+{% endblock %}

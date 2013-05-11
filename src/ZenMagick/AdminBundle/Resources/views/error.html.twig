@@ -1,0 +1,22 @@
+
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <h1>{{ 'Oops'|trans }}</h1>
+
+    <p>{{ 'Something went wrong.'|trans }}</p>
+    {# TODO: need to create conventions for messages, etc#}
+    {% if message is defined %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+    {% if 'dev' == app.environment %}
+        <pre>
+            {% if exception is defined %}
+                <h2>{{ exception.message }}</h2>
+                {{ exception.traceAsString }}
+            {% else %}
+                debug_print_backtrace();
+            {% endif %}
+        </pre>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% set page_title = 'Order: %id%'|trans({'%id%' : order.id}) %}
+{% block body %}
+    <h3>{{ 'Item Details'|trans }}</h3>
+    <table class="grid">
+        <tbody>
+        {% for orderItem in order.orderItems %}
+            <tr>
+                <td class="qty">{{ orderItem.quantity }} x</td>
+                <td class="itm">
+                    {{ orderItem.name }}
+                    {% if orderItem.hasAttributes %}
+                        <br />
+                        {% for attribute in orderItem.attributes %}
+                            <p>
+                                <span class="attr">{{ attribute.name }}:</span>
+                                {% for attributeValue in attribute.values %}
+                                    {{ loop.first ? ',' }}
+                                    <span class="atval">{{ attributeValue.name }}</span>
+                                {% endfor %}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td class="price">{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
+
+            </tr>
+        {% endfor %}
+        {% for orderTotalLine in order.orderTotalLines %}
+            <tr>
+                <td colspan="2" class="total">{{ orderTotalLine.name }}</td>
+                <td class="price">{{ orderTotalLine.value }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>{{ 'Order History'|trans }}</h3>
+    <table cellpadding="0" cellspacing="0">
+        <tbody>
+            {% for orderStatus in order.orderStatusHistory(app.session.get('languages_id')) %}
+                <tr>
+                    <td>{{ orderStatus.dateAdded|localizedDate('short', 'short') }}</td>
+                    <td>{{ orderStatus.name }}</td>
+                    <td class="cmt">{{ orderStatus.comment }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>{{ 'Address Details'|trans }}</h3>
+    <div id="addr">
+        <div id="daddr">
+            <h4>{{ 'Shipping Address'|trans }}</h4>
+            {% if not order.hasShippingAddress %}
+                {{ 'N/A'|trans }}
+            {% else %}
+                {{ macro.formatAddress(order.shippingAddress)|raw }}
+            {% endif %}
+        </div>
+        <div id="baddr">
+            <h4>{{ 'Billing Address'|trans }}</h4>
+            {{ macro.formatAddress(order.billingAddress)|raw }}
+        </div>
+    </div>
+{% endblock %}

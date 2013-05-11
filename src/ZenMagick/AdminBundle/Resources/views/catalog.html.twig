@@ -1,0 +1,32 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <div id="catalog-tabs">
+        <ul>
+            {% set tabIndex = 0 %}
+            {% for controller in controllers %}
+                {% if catalogRequestId == controller.catalogRequestId %}
+                    {% set tabIndex = loop.index0 %}
+                    {% set url = '#' ~ catalogRequestId %}
+                {% else %}
+                    {% set url = admin.catalogTab(controller) %}
+                {% endif %}
+                <li><a href="{{ url }}">{{ controller.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <div id="{{ catalogRequestId }}">
+            {{ (catalogViewContent ?: '')|raw }}
+        </div>
+    </div>
+    <script type="text/javascript">
+        {% autoescape 'js' %}
+        $(function () {
+            $("#catalog-tabs").tabs({
+                cache: true,
+                selected: {{ tabIndex }}
+            });
+            //.css("float", "left").css('width', '80%');
+        })
+        ;
+        {% endautoescape %}
+    </script>
+{% endblock %}

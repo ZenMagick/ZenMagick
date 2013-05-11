@@ -1,0 +1,43 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <h2>{{ 'Manage Themes'|trans }}</h2>
+    <form action="{{ path('themes') }}" method="POST">
+        <table class="grid">
+            <tr>
+                <th>{{ 'Theme'|trans }}</th>
+                <th>{{ 'Variation'|trans }}</th>
+                <th>{{ 'Options'|trans }}</th>
+            </tr>
+            {% for config in themeConfigList %}
+                <tr>
+                    <td>
+                        <select name="themeId">
+                            <option value=""> - </option>
+                            {% for theme in themes %}
+                                <option value="{{ theme.id }}" {{ (config.themeId == theme.id) ? 'selected' }}>
+                                    {{ theme.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="variationId">
+                            <option value=""> - </option>
+                            {% for theme in themes %}
+                                <option value="{{ theme.id }}" {{ (config.variationId == theme.id) ? 'selected' }}>
+                                    {{ theme.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        {% if themeConfigList|length > 0 %}
+                            <input type="submit" class="{{ buttonClasses }}" name="delete" value="{{ 'Delete'|trans }}">
+                        {% endif %}
+                        <input type="submit" class="{{ buttonClasses }}" name="update" value="{{ 'Update'|trans }}">
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}

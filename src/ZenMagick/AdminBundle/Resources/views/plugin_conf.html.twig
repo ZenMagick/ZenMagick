@@ -1,0 +1,14 @@
+{% block body %}
+    <form id="ajax-form" action="{{ path('plugins') }}" method="POST">
+        <input type="hidden" name="pluginId" value="{{ plugin.id }}">
+        <input type="hidden" name="action" value="update">
+        {% for widget in widgets %}
+            <fieldset style="width:94%;">
+                <legend>{{ widget.title }}</legend>
+                <p>{{ widget.description }}</p>
+                <p>{{ widget.render(app.request, templateView)|raw }}</p>
+            </fieldset>
+        {% endfor %}
+        <input class="{{ buttonClasses }}" type="submit" value="{{ 'Update Settings'|trans }}">
+    </form>
+{% endblock %}

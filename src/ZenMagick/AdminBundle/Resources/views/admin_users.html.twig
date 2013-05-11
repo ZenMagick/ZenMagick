@@ -1,0 +1,30 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <table class="grid">
+        <tr>
+            <th>{{ 'ID'|trans }}</th>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'Email'|trans }}</th>
+            <th>{{ 'Options'|trans }}</th>
+        </tr>
+        {% for user in resultList.results %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>
+                    <a href="{{ path('edit_admin_user', {'adminUserId' : user.id}) }}">
+                        {{ user.username }}
+                    </a>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <form action="{{ path('edit_admin_user') }}" method="post">
+                        <input type="hidden" name="deleteUserId" value="{{ user.id }}">
+                        <input class="{{ buttonClasses }}" type="submit" value="{{ 'Delete'|trans }}">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p><a class="{{ buttonClasses }}" href="{{ path('edit_admin_user') }}">{{ 'Add User'|trans }}</a></p>
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}

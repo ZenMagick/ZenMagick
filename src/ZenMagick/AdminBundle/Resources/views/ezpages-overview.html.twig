@@ -1,0 +1,110 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <script type="text/javascript">
+        {% autoescape 'js' %}
+        var on = 'ui-icon-circle-check';
+        var off = 'ui-icon-circle-close';
+
+        function toggle_status(link) {
+            var currentStatus = link.className.split('-')[2];
+            var pageId = link.id.split('-')[0];
+            var property = link.id.split('-')[1];
+            var languageId = $('#languageId option:selected')[0].value;
+
+            var data = '{"pageId":' + pageId + ',"languageId":' + languageId + ',"property":"' + property + '","value":' + ('on' == currentStatus ? 'false' : 'true') + '}';
+            ZenMagick.rpc('EZPages_admin', 'setEZPageProperty', data, {
+                success: function (result) {
+                    if ('on' == currentStatus) {
+                        $('#' + link.id + ' span').addClass(off).removeClass(on);
+                    } else {
+                        $('#' + link.id + ' span').addClass(on).removeClass(off);
+                    }
+                    link.className = 'ezpage-status-' + ('on' == currentStatus ? 'off' : 'on');
+                }
+            });
+        }
+        {% endautoescape %}
+    </script>
+
+    <form action="{{ path('ezpages') }}" method="GET">
+        <h2>{{ 'EZPage Manager'|trans }} (
+            <select id="languageId" name="languageId" onchange="this.form.submit();">
+                {% for lang in languages.getLanguages %}
+                    <option value="{{ lang.id }}" {{ (currentLanguage.id ==  lang.id) ? ' selected' }}>
+                        {{ lang.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            )
+            <a href="{{ path('ezpages_new') }}">Create new</a>
+        </h2>
+    </form>
+
+    <table class="grid">
+        <tr>
+            <th>{{ 'Id'|trans }}</th>
+            <th>{{ 'Title'|trans }}</th>
+            <th>{{ 'New Window'|trans }}</th>
+            <th>{{ 'Secure'|trans }}</th>
+            <th>{{ 'Header'|trans }}</th>
+            <th>{{ 'Sidebar'|trans }}</th>
+            <th>{{ 'Footer'|trans }}</th>
+            <th>{{ 'Chapter'|trans }}</th>
+            <th>{{ 'TOC'|trans }}</th>
+            <th>{{ 'Action'|trans }}</th>
+        </tr>
+        {% for ezPage in resultList.results %}
+            <tr>
+                <td>{{ ezPage.id }}</td>
+                <td>
+                    <a href="{{ path('ezpages_edit', {'id' : ezPage.id, 'languageId' : currentLanguage.id}) }}">
+                        {{ ezPage.title }}
+                    </a>
+                <td>
+                    <a href="#{{ ezPage.id }}-NewWin" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-NewWin" class="ezpage-status-{{  ezPage.isNewWin ? 'on' : 'off' }}">
+                        <span class="ui-icon ui-icon-circle-{{ ezPage.isNewWin ? 'check' : 'close' }}"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#{{ ezPage.id }}-SSL" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-SSL" class="ezpage-status-{{ ezPage.isSsl ? 'on' : 'off' }}">
+                        <span class="ui-icon ui-icon-circle-{{ ezPage.isSsl ? 'check' : 'close' }}"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#{{ ezPage.id }}-header }}" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-header" class="ezpage-status-{{ ezPage.isHeader ? 'on' : 'off' }}">
+                        <span class="ui-icon ui-icon-circle-{{ ezPage.isHeader ? 'check' : 'close' }}"></span>
+                    </a>
+                    {{ ezPage.headerSort }}
+                </td>
+                <td>
+                    <a href="#{{ ezPage.id }}-sidebox" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-sidebox" class="ezpage-status-{{ ezPage.isSidebox ? 'on' : 'off' }}">
+                        <span class="ui-icon ui-icon-circle-{{ ezPage.isSidebox ? 'check' : 'close' }}"></span>
+                    </a>
+                    {{ ezPage.sideboxSort }}
+                </td>
+                <td>
+                    <a href="#{{ ezPage.id }}-footer" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-footer" class="ezpage-status-{{ ezPage.isFooter ? 'on' : 'off' }}">
+                         <span class="ui-icon ui-icon-circle-{{ ezPage.isFooter ? 'check' : 'close' }}"></span>
+                    </a>
+                    {{ ezPage.footerSort }}
+                </td>
+                <td>{{ ezPage.tocChapter }}</td>
+                <td>
+                    <a href="#{{ ezPage.id }}-toc" onclick="toggle_status(this); return false;" id="{{ ezPage.id }}-toc" class="ezpage-status-{{ ezPage.isToc ? 'on' : 'off' }}">
+                        <span class="ui-icon ui-icon-circle-{{ ezPage.isToc ? 'check' : 'close' }}"></span>
+                    </a>
+                    {{ ezPage.tocSort }}
+                </td>
+                <td>
+                    <form action="{{ path('ezpages_process') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ 'Delete page id:# %id%?'|trans({'id': ezPage.id}) }}', this);">
+                        <input type="hidden" name="languageId" value="{{ currentLanguage.id }}">
+                        <input type="hidden" name="deleteId" value="{{ ezPage.id }}">
+                        <input class="{{ buttonClasses }}" type="submit" value="Delete">
+                        <a class="{{ buttonClasses }}" href="{{ path('ezpages_edit', {'id' : ezPage.id, 'languageId' : currentLanguage.id}) }}">Edit</a>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}

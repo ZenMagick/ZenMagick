@@ -1,0 +1,33 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <table class="grid">
+        <tr>
+            <th>{{ 'Block group id'|trans }}</th>
+            <th>{{ 'Options'|trans }}</th>
+        </tr>
+        {% for groupName in blockGroups %}
+            <tr>
+                <td>{{ groupName }}</td>
+                <td>
+                    <form class="button-form" action="{{ path('block_groups') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ 'Remove Group %group%'|trans({'%group%' : groupName}) }}', this);">
+                        <input type="hidden" name="groupName" value="{{ groupName }}">
+                        <input type="hidden" name="action" value="removeGroup">
+                        <input type="submit" class="{{ buttonClasses }}" value="Remove">
+                    </form>
+                    <a href="{{ path('block_group_admin', {'groupName' : groupName}) }}" class="{{ buttonClasses }}">
+                        {{ 'Configure'|trans }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">
+                <form action="{{ path('block_groups') }}" method="POST">
+                    <input type="hidden" name="action" value="addGroup">
+                    <input type="text" id="groupName" name="groupName" value="">
+                    <input type="submit" class="{{ buttonClasses }}" value="Add group">
+                </form>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

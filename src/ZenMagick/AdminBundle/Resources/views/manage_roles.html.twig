@@ -1,0 +1,81 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <form action="{{ path('manage_roles') }}" method="POST" id="manage-roles-form">
+        <fieldset>
+            <p>
+                <label for="roles">{{ 'Roles'|trans }}</label>
+                <select name="roles[]" id="roles" multiple size="3">
+                    {% for role in roles %}
+                        <option name="{{ role }}">{{ role }}</option>
+                    {% endfor %}
+                </select>
+                <a id="edit-role" class="{{ buttonClasses }}" href="#">{{ 'Edit permissions'|trans }}</a>
+                <input id="remove-roles" class="{{ buttonClasses }}" type="submit" value="{{ 'Remove selected'|trans }}">
+            </p>
+        </fieldset>
+    </form>
+    <form action="{{ path('manage_roles') }}" method="POST" id="add-role-form">
+        <fieldset>
+            <p><label for="roleName">{{ 'Add Role'|trans }}</label>
+                <input type="text" id="roleName" name="roleName" value="">
+                <input class="{{ buttonClasses }}" type="submit" value="{{ ' Add Role'|trans }}"></p>
+        </fieldset>
+    </form>
+
+    <script>
+        {% autoescape 'js' %}
+        $('#add-role-form').submit(function () {
+            var roleName = $('#roleName').val();
+            var data = '{"roleName":"' + roleName + '"}';
+            ZenMagick.rpc('sacs_admin', 'addRole', data, {
+                success: function (result) {
+                    $('#manage-roles-form #roles').append($("<option></option>").attr("value", roleName).text(roleName));
+                    //TODO: select
+                },
+                failure: function (error) {
+                    for (var ii in error.data.messages.error) {
+                        var msg = error.data.messages.error[ii];
+                        alert(msg);
+                    }
+                }
+            });
+            return false;
+        });
+        $('#remove-roles').click(function () {
+            var removeRoles = [];
+            $('#roles option:selected').each(function () {
+                removeRoles.push($(this).text());
+            });
+            var data = '{"roles":["' + removeRoles.join('", "') + '"]}';
+            ZenMagick.rpc('sacs_admin', 'removeRoles', data, {
+                success: function (result) {
+                    $('#roles option:selected').each(function () {
+                        $(this).remove();
+                    });
+                },
+                failure: function (error) {
+                    for (var ii in error.data.messages.error) {
+                        var msg = error.data.messages.error[ii];
+                        alert(msg);
+                    }
+                }
+            });
+            return false;
+        });
+        $('#edit-role').click(function () {
+            var roles = [];
+            $('#roles option:selected').each(function () {
+                roles.push($(this).text());
+            });
+            if (0 < roles.length) {
+                var role = roles.pop();
+                ZenMagick.ajaxFormDialog('{{ path('edit_role')|raw }}?role=' + role, {
+                    title: '{{ 'Edit role permissions:'|trans }}' + role,
+                    formId: 'ajax-form'
+                });
+            }
+            return false;
+        });
+        {% endautoescape %}
+    </script>
+{% endblock %}

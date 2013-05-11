@@ -1,0 +1,87 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% set page_title = 'Edit Content'|trans %}
+{% block body %}
+    <?php use ZenMagick\Base\Beans; ?>
+    <form action="{{ path('ezpages_process') }}" method="POST">
+        <input type="hidden" name="languageId" value="{{ currentLanguage.id }}">
+        <input type="hidden" name="id" value="{{ ezPage.id }}">
+
+        <fieldset>
+            <legend>{{ 'Page'|trans }}</legend>
+            <p>
+                <label for="title">{{ 'Title'|trans }}</label>
+                <input type="text" id="title" name="title" value="{{ ezPage.title }}">
+            </p>
+        </fieldset>
+
+        {% if not ezPage.isStatic %}
+            <fieldset>
+                <legend>{{ 'Navigation'|trans }}</legend>
+                <p>
+                <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
+                    <legend>{{ 'Header'|trans }}</legend>
+                    <label for="headerSort">{{ 'Sort'|trans }}</label>
+                    <input type="text" id="headerSort" name="headerSort" value="{{ ezPage.headerSort }}" size="4">
+                    {{ bean('booleanFormWidget#id=header&name=header&title=Header&value=' ~ (ezPage.isHeader ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                </fieldset>
+                <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
+                    <legend>{{ 'Sidebox'|trans }}</legend>
+                    <label for="sideboxSort">{{ 'Sort'|trans }}</label>
+                    <input type="text" id="sideboxSort" name="sideboxSort" value="{{ ezPage.sideboxSort }}" size="4">
+                    {{ bean('booleanFormWidget#id=sidebox&name=sidebox&title=Sidebox&value=' ~ (ezPage.isSidebox ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                </fieldset>
+                <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
+                    <legend>{{ 'Footer'|trans }}</legend>
+                    <label for="footerSort">{{ 'Sort'|trans }}</label>
+                    <input type="text" id="footerSort" name="footerSort" value="{{ ezPage.footerSort }}" size="4">
+                    {{ bean('booleanFormWidget#id=footer&name=footer&title=Footer&value=' ~ (ezPage.isFooter ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                </fieldset>
+                <fieldset style="float:left;min-width:35%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
+                    <legend>{{ 'Table Of Contents'|trans }}</legend>
+                    <label for="tocSort">{{ 'TOC Sort'|trans }}</label>
+                    <input type="text" id="tocSort" name="tocSort" value="{{ ezPage.tocSort }}" size="4">
+                    <label for="tocChapter">{{ 'Chapter'|trans }}</label>
+                    <input type="text" id="tocChapter" name="tocChapter" value="{{ ezPage.tocChapter }}" size="4">
+                    {{ bean('booleanFormWidget#id=toc&name=toc&title=TOC&value=' ~ (ezPage.isToc ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                </fieldset>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>{{ 'Link Options'|trans }}</legend>
+                <p>
+                    <label for="newWin">{{ 'Link Target'|trans }}</label>
+                    {{ bean('booleanFormWidget#id=newWin&name=newWin&title=' ~ 'Open in New Window'| trans|raw ~ '&value=' ~ (ezPage.isNewWin ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                    {{ bean('booleanFormWidget#id=SSL&name=SSL&title=' ~ 'Secure Link'|trans|raw ~ '&value=' ~ (ezPage.isSsl ? 'true' : 'false')).render(app.request, templateView)|raw }}
+                </p>
+
+                <p>
+                    <label for="altUrl">{{ 'Internal URL'|trans }}</label>
+                    <input type="text" id="altUrl" name="altUrl" value="{{ ezPage.altUrl }}" size="50">
+                </p>
+
+                <p>
+                    <label for="altUrlExternal">{{ 'External URL'|trans }}</label>
+                    <input type="text" id="altUrlExternal" name="altUrlExternal" value="{{ ezPage.altUrlExternal }}" size="50">
+                </p>
+            </fieldset>
+        {% endif %}
+        <fieldset>
+            <legend>{{ 'Contents'|trans }}</legend>
+            {% set editor = currentEditor %}
+            {% set e = editor.setId('content') %}
+            {% set e = editor.setName('content') %}
+            {% set e = editor.setRows(30) %}
+            {% set e = editor.setCols(100) %}
+            {% set e = editor.setValue(ezPage.getContent(false)) %}
+            {{ editor.render(app.request, templateView)|raw }}
+        </fieldset>
+
+        <div>
+            <input class="{{ buttonClasses }}" type="submit" value="Save">
+            <a class="{{ buttonClasses }}" href="{{ path('ezpages', {'languageId' : currentLanguage.id}) }}">
+                {{ 'Cancel'|trans }}
+            </a>
+        </div>
+    </form>
+{% endblock %}

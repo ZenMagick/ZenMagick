@@ -1,0 +1,37 @@
+{% extends '@Admin/default_layout.html.twig' %}
+{% set page_title = '%status% Orders'|trans({'%count%': orderStatus ? orderStatus.name}) %}
+{% block body %}
+    <table class="grid">
+        <tr>
+            <th>{{ 'ID'|trans }}</th>
+            <th>{{ 'Account'|trans }}</th>
+            <th>{{ 'Order Date'|trans }}</th>
+            <th>{{ 'Payment'|trans }}</th>
+            <th>{{ 'Shipping'|trans }}</th>
+            <th>{{ 'Status'|trans }}</th>
+            <th>{{ 'Total'|trans }}</th>
+        </tr>
+        {% for order in resultList.results %}
+            <tr>
+                <td>
+                    <a href="{{ path('order', {'orderId' : order.id()}) }}">
+                        {{ order.id }}
+                    </a>
+                </td>
+                {% set actual_ccount = accountService.getAccountForId(order.accountId) %}
+                {% set name = (account.type == constant('ZenMagick\\StoreBundle\\Entity\\Account')) ? 'order.acccount.fullName' ? '** Guest **'|trans %}
+                <td>
+                    <a href="{{ path('account_show', {'accountId' : order.accountId}) }}">
+                        {{ name }}
+                    </a>
+                </td>
+                <td>{{ order.orderDate }}</td>
+                <td>{{ order.get('payment_method') }}</td>
+                <td>{{ order.get('shipping_method') }}</td>
+                <td>{{ order.statusName }}</td>
+                <td>{{ utils.formatMoney(order.total) }}/td>
+            </tr>
+        {% endfor %}
+    </table>
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}

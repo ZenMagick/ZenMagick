@@ -58,7 +58,10 @@ class OrdersController extends DefaultController
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->query->get('page', 1));
 
-        $data = array('resultList' => $resultList, 'orderStatus' => $orderStatus);
+        $data = array(
+            'accountService' => $this->get('accountService'),
+            'resultList' => $resultList,
+            'orderStatus' => $orderStatus);
 
         return $this->findView(null, $data);
     }

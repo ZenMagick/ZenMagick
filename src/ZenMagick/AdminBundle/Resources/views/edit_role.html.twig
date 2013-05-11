@@ -1,0 +1,40 @@
+{% block body %}
+    <form id="ajax-form" action="{{ path('edit_role') }}" method="POST">
+        <input type="hidden" name="role" value="{{ role }}">
+
+        <table class="grid">
+            <tr>
+                <th>{{ 'Page'|trans }}</th>
+                <th>{{ 'Permission'|trans }}</th>
+            </tr>
+            {% for requestId, info in permissions %}
+            <tr>
+                <td>{{ requestId }}</td>
+                <td>
+                    {% if '*' == info['match'] %}
+                        {{ 'always (%type%)'|trans({'%type%': info['type']}) }}
+                    {% else %}
+                        <input type="checkbox" name="perm[]" value="{{ requestId }}" {{ info['allowed'] ? 'checked' }}>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <a id="add-row" class="{{ buttonClasses }}" href="">{{ 'Add row'|trans }}</a></td>
+            </tr>
+        </table>
+
+        <p>
+            <input class="{{ buttonClasses }}" type="submit" value="{{ ' Update'|trans }}">
+        </p>
+    </form>
+    <script>
+        {% autoescape 'js' %}
+        $('#add-row').click(function () {
+            $('#add-row').parent().parent().before('<tr><td><input type="text" name="requestId[]"></td><td><input type="checkbox" name="nperm[]" value="true" checked></td></tr>');
+            return false;
+        });
+        {% endautoescape %}
+    </script>
+{% endblock %}
