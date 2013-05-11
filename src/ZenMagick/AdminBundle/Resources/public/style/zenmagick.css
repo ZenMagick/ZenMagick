@@ -106,8 +106,8 @@ table.grid tr.sep td {background-color:#fff; border-left:none;border-right:none;
 .portlet table {width:100%;}
 
 /* icons */
-span.ui-icon-circle-check {background-image:url(jquery-ui/images/ui-icons_2e83ff_256x240.png);}
-span.ui-icon-circle-close {background-image:url(jquery-ui/images/ui-icons_cd0a0a_256x240.png);}
+span.ui-icon-circle-check {background-image:url(../jquery-ui/images/ui-icons_2e83ff_256x240.png);}
+span.ui-icon-circle-close {background-image:url(../jquery-ui/images/ui-icons_cd0a0a_256x240.png);}
 
 /* widgets */
 .ui-datepicker-trigger {cursor:pointer;cursor:hand;background-image:url(../images/icons/calendar.png);background-repeat:no-repeat;width:17px;height:17px;vertical-align:text-bottom;}
