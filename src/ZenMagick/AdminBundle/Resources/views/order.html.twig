@@ -40,7 +40,7 @@
         <tbody>
             {% for orderStatus in order.orderStatusHistory(app.session.get('languages_id')) %}
                 <tr>
-                    <td>{{ orderStatus.dateAdded|localizedDate('short', 'short') }}</td>
+                    <td>{{ orderStatus.dateAdded|localizeddate('short', 'short') }}</td>
                     <td>{{ orderStatus.name }}</td>
                     <td class="cmt">{{ orderStatus.comment }}</td>
                 </tr>
