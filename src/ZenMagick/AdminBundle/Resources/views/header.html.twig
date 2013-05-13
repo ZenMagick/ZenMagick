@@ -19,6 +19,8 @@
             </p>
             <!-- <a href="http://forum.zenmagick.org/" target="_blank">{{ 'Get Help'|trans }}</a> -->
         </div>
-        {{ knp_menu_render('admin_main', {'depth': 1}) }}
+        <div id="main-menu">
+            {{ knp_menu_render(menu.root, {'depth': 1}) }}
+        </div>
     {% endif %}
 </div>

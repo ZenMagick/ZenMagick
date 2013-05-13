@@ -63,6 +63,7 @@ class MenuBuilder
         foreach ($contextConfigLoader->getMenus() as $pluginMenu) {
             $menuData = Toolbox::arrayMergeRecursive($menuData, $pluginMenu);
         }
+
         $configGroups = $this->container->get('configService')->getConfigGroups();
         foreach ($configGroups as $group) {
             if ($group->isVisible()) {
@@ -92,9 +93,8 @@ class MenuBuilder
             } else {
                 $this->topItem = $array[1]['item']->getName();
             }
+            $menu = $current;
         }
-        // @todo set this externally
-        $menu->setChildrenAttributes(array('id' => 'main-menu'));
 
         return $menu;
     }
@@ -132,7 +132,7 @@ class MenuBuilder
 
         $iterator = new \Knp\Menu\Iterator\CurrentItemFilterIterator($treeIterator, $matcher);
 
-        $current = null;
+        $current = $menu;
         foreach ($iterator as $item) {
             $item->setCurrent(true);
             $current = $item;

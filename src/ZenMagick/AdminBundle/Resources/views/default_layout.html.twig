@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {# do some better title fetching from the menu #}
+        {% set menu = knp_menu_get('admin_main') %}
+
+        {% set crumbs = [] %}
+        {% for crumb in menu.getBreadCrumbsArray[1:2] %}
+            {% set crumbs = crumbs|merge({ (loop.index0): crumb.label}) %}
+        {% endfor %}
+        <title>{{ page_title|default(crumbs|join(' :: ')) }} :: {{ 'ZenMagick Admin'|trans }}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+        {# @todo move asset groups to a configuration file #}
+        {% block stylesheets %}
+            {% stylesheets
+                'bundles/admin/jquery-ui/jquery-ui-1.8.15.custom.css'
+                'bundles/admin/style/jquery.cluetip.css'
+                'bundles/admin/style/zenmagick.css'
+                'bundles/admin/style/dashboard.css'
+                'bundles/admin/style/views/*'
+                filter='?cssmin, cssrewrite'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {# @todo move some bits to footer #}
+            {% javascripts
+                '@AdminBundle/Resources/public/js/jquery-1.6.2.min.js'
+                '@AdminBundle/Resources/public/jquery-ui/jquery-ui-1.8.15.custom.min.js'
+                '@AdminBundle/Resources/public/js/jquery.cluetip.min.js'
+                '@AdminBundle/Resources/public/js/jquery.form.js'
+                '@AdminBundle/Resources/public/js/jquery.form.js'
+                '@AdminBundle/Resources/public/js/zenmagick.js'
+                '@AdminBundle/Resources/public/js/dashboard.js'
+                filter='?jsminplus'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </head>
+    <body id="p-{{ app.request.requestId }}">
+        <div id="main">
+            {{ include('@Admin/header.html.twig') }}
+            <div id="content">
+                {# @todo implement something more dynamic #}
+                <h1>{{ page_title|default(crumbs|last) }}</h1>
+                {{ include('@Admin/messages.html.twig') }}
+
+                {{ include('@Admin/sub-menu.html.twig') }}
+                <div id="view-container">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+            {{ include('@Admin/footer.html.twig') }}
+        </div>
+        <script type="text/javascript">
+            {% autoescape 'js' %}
+            $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });
+            ZenMagick.datepicker();
+            {% endautoescape %}
+        </script>
+    </body>
+</html>
