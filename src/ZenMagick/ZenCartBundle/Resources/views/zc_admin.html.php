@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2012 zenmagick.org
+ * Copyright (C) 2006-2013 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
-<?php
-$admin->title();
-foreach ($view['assetic']->stylesheets(
-    array('bundles/zencart/zc_admin.css',
-    ),
-    array('cssrewrite')) as $url) {
-    echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
-}
-foreach ($view['assetic']->javascripts(
-    array('@ZenCartBundle/Resources/public/zc_admin.js'
-    ),
-    array()) as $url) {
-    echo '<script src="'.$view->escape($url).'"></script>';
-}
 
-
-$adminDir = $view->container->getParameter('zencart.admin_dir');
+$adminDir = $this->container->getParameter('zencart.admin_dir');
 $adminWeb = basename($adminDir);
-$zcPage = str_replace('zc_admin_', '',$view['request']->getRouteId()).'.php';
+$zcPage = str_replace('zc_admin_', '',$request->getRequestId()).'.php';
 chdir($adminDir);
 
 //$autoLoader->setErrorLevel();
@@ -107,7 +90,6 @@ function check_form() {
 }
 </script>
 <?php echo $content; ?>
-<?php echo $currentEditor->apply($app->getRequest(), $templateView, null); ?>
 <?php if (isset($scripts)) { ?>
     <div id="navbar"></div>
     <div id="hoverJS"></div>

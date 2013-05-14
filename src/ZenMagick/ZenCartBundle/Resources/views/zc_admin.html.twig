@@ -1,0 +1,23 @@
+{% extends layout %}
+{% block body %}
+    {% block stylesheets %}
+        {{ parent() }}
+        {% stylesheets
+            'bundles/zencart/zc_admin.css'
+        %}
+             <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        {% javascripts
+            '@ZenCartBundle/Resources/public/zc_admin.js'
+        %}
+             <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    {{ content|raw }}
+    {% if currentEditor is defined %}
+        {{ currentEditor.apply(app.request, templateView, null) }}
+    {% endif %}
+{% endblock %}

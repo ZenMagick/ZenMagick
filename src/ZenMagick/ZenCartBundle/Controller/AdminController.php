@@ -83,17 +83,24 @@ class AdminController extends DefaultController
             $tpl[$k] = $v;
         }
 
-        $view = $this->findView('zc_admin', $tpl);
         $hiddenLayout = $this->container->getParameter('zencart.admin.hide_layout');
         $page = $request->getRequestId();
+
+        //@todo refactor zc_admin template
+        $tpl['layout'] = '@Admin/default_layout.html.twig';
         if (in_array($page, $hiddenLayout) || in_array('*', $hiddenLayout)) {
-            $view->setLayout(null);
+            $tpl['layout'] = '@Admin/empty.html.twig';
         }
 
-        $nativeAdmin = $this->container->getParameter('zencart.admin.native');
-        $view->setTemplate('ZenCartBundle::'.($nativeAdmin ? 'zc_admin_layout': 'zc_admin') . '.html.twig');
+        extract($tpl);
+        ob_start();
+        include __DIR__.'/../Resources/views/zc_admin.html.php';
+        $content = ob_get_clean();
 
-        return $view;
+        return $this->render('ZenCartBundle::zc_admin.html.twig',
+            array('content' => $content,
+                  'layout' => $layout)
+        );
     }
 
     /**
