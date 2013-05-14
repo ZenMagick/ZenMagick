@@ -38,6 +38,18 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        # @todo these services are temporarily here until obsoleted
+        # or turned into a proper twig extension
+        admin: "@adminTool"
+        dashboard: "@dashboard"
+        form: "@formTool"
+        languages: "@languageService"
+        locale: "@localeService"
+        macro: "@macroTool"
+        net:   "@netTool"
+        templateView: "@templateView"
+        utils: "@utilsTool"
 
 assetic:
     debug:          "%kernel.debug%"
