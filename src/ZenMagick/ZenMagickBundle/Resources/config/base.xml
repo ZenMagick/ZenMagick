@@ -59,6 +59,15 @@
                 <argument type="service" id="settingsService" />
             </call>
         </service>
+
+        <service id="twig.extension.debug" class="Twig_Extension_Debug">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="twig.extension.intl" class="Twig_Extensions_Extension_Intl">
+            <tag name="twig.extension" />
+        </service>
+
         <service id="twig.extension.aninstanceof" class="ZenMagick\Twig\Extension\AnInstanceOfExtension">
             <tag name="twig.extension" />
         </service>
