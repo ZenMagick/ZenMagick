@@ -1,0 +1,21 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addCrumb(_zm('Featured'))); ?>
+<?php if ($resultList->hasResults()) { ?>
+    <div class="rnblk">
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/options.html.php', array('resultList' => $resultList)) ?>
+    </div>
+
+    <div class="rlist">
+        <table cellspacing="0" cellpadding="0"><tbody>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { ?>
+              <?php echo $this->render('StorefrontBundle::resultlist/product.html.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
+            <?php $first = false; $odd = !$odd; } ?>
+        </tbody></table>
+    </div>
+    <div class="rnblk">
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
+    </div>
+<?php } else { ?>
+    <h2><?php _vzm("There are no new products in this category") ?></h2>
+<?php } ?>

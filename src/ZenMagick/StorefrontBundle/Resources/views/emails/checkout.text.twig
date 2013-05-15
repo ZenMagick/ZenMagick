@@ -1,0 +1,65 @@
+<?php use ZenMagick\Base\Toolbox; ?>
+<?php _vzm("%s Order Confirmation", $settingsService->get('storeName')) ?>
+
+
+<?php _vzm("Thanks for shopping at %s,", $settingsService->get('storeName')) ?>
+
+<?php _vzm("The following is a summary of your order.") ?>
+
+
+<?php _vzm("Order Details") ?>
+
+-----------------------------------------------
+<?php _vzm("Order Number: #%s", $order->getId()) ?>
+
+<?php _vzm("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
+
+
+<?php _vzm("Ordered Items") ?>
+
+-----------------------------------------------
+<?php foreach ($order->getOrderItems() as $orderItem) { ?>
+<?php printf("%3s x %26s  %7s", $orderItem->getQuantity(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice())) ?>
+
+<?php } ?>
+
+<?php printf("%30s  %s", "", "-----------") ?>
+
+<?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
+<?php printf("%32s  %7s", $orderTotalLine->getName(), $orderTotalLine->getValue()) ?>
+
+<?php } ?>
+
+
+<?php _vzm("Address Details") ?>
+
+-----------------------------------------------
+
+<?php _vzm("Shipping Address") ?>
+<?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
+<?php _vzm("N/A") ?>
+<?php } else { ?>
+<?php echo $macro->formatAddress($shippingAddress, false) ?>
+<?php } ?>
+
+
+<?php _vzm("Billing Address") ?>
+
+<?php echo $macro->formatAddress($billingAddress, false) ?>
+
+
+<?php _vzm("Payment Details") ?>
+
+-----------------------------------------------
+
+<?php if (null != ($paymentType = $order->getPaymentType())) { ?>
+<?php echo $view->escape($paymentType->getName()) ?>
+<?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
+
+
+<?php echo $paymentType->getInfo() ?>
+<?php } ?>
+<?php } ?>
+
+
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

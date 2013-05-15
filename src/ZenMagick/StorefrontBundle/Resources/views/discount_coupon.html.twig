@@ -1,0 +1,12 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Discount Coupon'))); ?>
+<?php echo $utils->staticPageContent("discount_coupon") ?>
+
+<?php echo $form->open('discount_coupon', '', false, array('method' => 'get')) ?>
+  <fieldset>
+    <legend><?php _vzm("Look-up Discount Coupon ...") ?></legend>
+    <label for="couponCode"><?php _vzm("Your Code") ?></label>
+    <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $view->escape($currentCoupon) ?>" />
+  </fieldset>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
+</form>

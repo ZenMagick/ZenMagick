@@ -1,0 +1,10 @@
+<?php if (isset($recentlyViewedProducts) && 0 < count($recentlyViewedProducts)) { ?>
+    <h3><?php _vzm('Recently Viewed') ?></h3>
+    <div id="sb_recently_viewed" class="box">
+        <ol>
+        <?php foreach ($view->container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $view['request']->getLocaleId()) as $product) { ?>
+            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
+        <?php } ?>
+        </ol>
+    </div>
+<?php } ?>

@@ -1,0 +1,24 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php echo $form->addProduct($currentProduct->getId(), 1) ?>
+  <div>
+    <div id="pinfo">
+      <?php $imageInfo = $currentProduct->getImageInfo() ?>
+      <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
+      <?php echo $currentProduct->getDescription() ?>
+    </div>
+    <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" /></div>
+
+    <p id="author">
+      <?php _vzm("Review by: %s", $currentReview->getAuthor()) ?>
+      <?php $rtext = sprintf(_zm("%s of 5 stars!"), $currentReview->getRating()) ?>
+      <span id="stars">
+        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
+        <?php $rtext ?>
+      </span>
+    </p>
+    <div id="rlongtext">
+        <?php echo $view->escape($currentReview->getText()) ?>
+    </div>
+  </div>
+</form>

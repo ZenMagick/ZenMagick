@@ -1,0 +1,36 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php
+$view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct());;
+
+if ($resultList->hasResults()) { ?>
+    <div class="rnblk">
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
+        <?php echo $view->render('StorefrontBundle::resultlist/options.html.php', array('resultList' => $resultList)) ?>
+    </div>
+
+    <div class="rlist">
+        <table cellspacing="0" cellpadding="0"><tbody>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { ?>
+              <?php echo $this->render('StorefrontBundle::resultlist/product.html.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
+            <?php $first = false; $odd = !$odd; } ?>
+        </tbody></table>
+    </div>
+    <div class="rnblk">
+        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
+    </div>
+<?php } else { ?>
+    <?php if ($currentCategory->hasChildren()) { ?>
+        <div class="subcats">
+            <h3><?php _vzm("Available Sub-categories") ?></h3>
+            <?php foreach ($currentCategory->getChildren() as $category) {
+                $encName = $view->escape($category->getName());
+                $catImage = $category->getImageInfo();
+                $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
+                ?>
+                <a href="<?php echo $view['router']->generate('category', array('cPath' => implode('_', $category->getPath()))) ?>"><?php echo $linkText ?></a>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+    <h2><?php _vzm("There are no products in this category") ?></h2>
+<?php } ?>

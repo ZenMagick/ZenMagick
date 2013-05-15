@@ -1,0 +1,34 @@
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title() ?>
+
+<table class="grid" width="50%">
+  <tr>
+    <th><?php _vzm('Source') ?></th>
+    <th><?php _vzm('Options') ?></th>
+  </tr>
+  <?php foreach ($resultList->getResults() as $line) { ?>
+  <tr>
+    <td><?php echo $view->escape($line->getName()) ?></td>
+    <td>
+      <a href="" class="<?php echo $buttonClasses ?>"><?php _vzm('Edit') ?></a>
+      <?php if (ID_SOURCE_OTHER != $line->getSourceId()) { ?>
+        <form class="button-form" action="<?php echo $view['router']->generate('howDidYouHearSourcesAdmin') ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
+          <input type="hidden" name="action" value="delete">
+          <input type="hidden" name="sourceId" value="<?php echo $line->getSourceId() ?>">
+          <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Delete') ?>">
+        </form>
+      <?php } ?>
+    </td>
+  </tr>
+  <?php } ?>
+  <tr>
+    <td colspan="2">
+      <form action="<?php echo $view['router']->generate('howDidYouHearSourcesAdmin') ?>" method="POST">
+        <input type="hidden" name="action" value="create">
+        <label for="source"><?php _vzm('New Source') ?></label> <input type="text" id="source" name="source" value="">
+        <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Create') ?>">
+      </form>
+    </td>
+  </tr>
+</table>
+<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)) ?>

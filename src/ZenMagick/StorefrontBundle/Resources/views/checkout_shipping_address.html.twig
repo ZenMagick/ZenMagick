@@ -1,0 +1,30 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping Address'))); ?>
+<?php $currentAddress = $shoppingCart->getShippingAddress(); ?>
+<?php if (0 < count($addressList)) { ?>
+    <?php echo $form->open('checkout_shipping_address', 'action=select', true) ?>
+        <h3><?php _vzm("Select an existing address") ?></h3>
+        <fieldset>
+            <legend><?php _vzm("Address Book") ?></legend>
+            <?php foreach ($addressList as $address) { ?>
+                <p>
+                    <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
+                    <?php if (1 == count($addressList)) { $checked = ' checked="checked"'; } ?>
+                    <input type="radio" id="address_<?php echo $address->getId() ?>" name="addressId" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
+                    <label for="address_<?php echo $address->getId() ?>"><?php echo $view->escape($address->getFullName()) ?></label>
+                    <br/>
+                    <?php echo $macro->formatAddress($address) ?>
+                    <br/>
+                </p>
+            <?php } ?>
+        </fieldset>
+        <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
+    </form>
+    <h3><?php _vzm("... or create a new one") ?></h3>
+<?php } ?>
+
+<?php echo $form->open('checkout_shipping_address', 'action=create', true, array('id'=>'shippingAddress')) ?>
+    <?php echo $this->render('StorefrontBundle::address.html.php', array('address' => $shippingAddress)) ?>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
+</form>

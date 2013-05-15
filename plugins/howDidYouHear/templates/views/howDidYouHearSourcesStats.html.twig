@@ -1,0 +1,23 @@
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title() ?>
+
+<table class="grid" width="50%">
+  <tr>
+    <th><?php _vzm('Source') ?></th>
+    <th><?php _vzm('Count') ?></th>
+  </tr>
+  <?php foreach ($resultList->getResults() as $line) { ?>
+  <tr>
+    <?php if (ID_SOURCE_OTHER == $line->getSourceId()) { ?>
+      <td><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats', array('other' => 'true')) ?>"><?php echo $view->escape($line->getName()) ?></a></td>
+    <?php } else { ?>
+      <td><?php echo $view->escape($line->getName()) ?></td>
+    <?php } ?>
+    <td><?php echo $line->getCount() ?></td>
+  </tr>
+  <?php } ?>
+</table>
+<?php if ($isOther) { ?>
+  <p><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
+<?php } ?>
+<?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)) ?>

@@ -1,0 +1,15 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<h3><?php _vzm("Oops - something went wrong!") ?></h3>
+<p><?php echo $utils->staticPageContent('error') ?></p>
+<?php if ($app->getEnvironment() == 'dev') { ?>
+  <pre>
+  <?php
+     if (isset($exception)) {
+        echo "<h2>".$exception->getMessage()."</h2>\n";
+        echo $exception->getTraceAsString();
+    } else { // we don't know what happened! @todo try to figure it out
+        debug_print_backtrace();
+    }
+  ?>
+  </pre>
+<?php } ?>

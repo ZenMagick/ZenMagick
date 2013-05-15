@@ -1,0 +1,16 @@
+<?php _vzm("Store Enquiry %s,", $settingsService->get('storeName')) ?>
+
+
+<?php _vzm("From: %s", $contactInfo->getName()) ?>
+
+<?php _vzm("Email: %s", $contactInfo->getEmail()) ?>
+
+
+-------------------------------------------
+<?php echo $contactInfo->getMessage() ?>
+
+-------------------------------------------
+
+
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
+<?php echo $office_only_text; ?>

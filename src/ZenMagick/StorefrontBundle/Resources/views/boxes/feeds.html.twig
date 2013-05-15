@@ -1,0 +1,12 @@
+<h3><?php _vzm("RSS Feeds") ?></h3>
+<div id="sb_feeds" class="box">
+    <a href="<?php echo $view['router']->generate('rss', array('channel' => 'reviews')) ?>">
+        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Product Reviews") ?>
+    </a>
+    <a href="<?php echo $view['router']->generate('rss', array('channel' => 'products', 'key' => 'new')) ?>">
+        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("New Products") ?>
+    </a>
+    <a href="<?php echo $view['router']->generate('rss', array('channel' => 'chapter', 'key' => 10)) ?>">
+        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="<?php _vzm("RSS") ?>" /><?php _vzm("Chapter 10") ?>
+    </a>
+</div>

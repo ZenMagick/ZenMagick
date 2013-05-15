@@ -1,0 +1,29 @@
+<script>
+function addTag(tag) {
+  var tags = document.getElementById('currentProductTags');
+  if ('' != tags.value) {
+      tags.value += ', ';
+  }
+  tags.value += tag;
+}
+</script>
+
+<form action="<?php echo $admin->catalog() ?>" method="POST">
+    <input type="hidden" name="catalogRequestId" value="product_tags_tab">
+    <fieldset>
+        <legend>Manage Product Tags</legend>
+        <p>
+            <label for="currentProductTags">Current Tags</label>
+            <textarea id="currentProductTags" name="currentProductTags"><?php echo $view->escape(implode(', ', $currentProductTags)) ?></textarea>
+        </p>
+        <p>
+            <h3>All Tags</h3>
+            <div>
+                <?php foreach ($allTags as $tag) { ?>
+                    <a href="#" onclick="addTag('<?php echo $tag ?>'); return false;"><?php echo $view->escape($tag) ?></a>
+                <?php } ?>
+            </div>
+        </p>
+    </fieldset>
+    <p><input type="submit" value="Update"></p>
+</form>

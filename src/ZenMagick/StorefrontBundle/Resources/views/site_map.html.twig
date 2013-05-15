@@ -1,0 +1,40 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $contact = '<a href="'.$view['router']->generate('contact_us') .'">'._zm("let us know").'</a>'; ?>
+<p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
+<?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()), "catalog"); ?>
+<ul>
+    <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
+      <li><a href="<?php echo $view['router']->generate('account') ?>"><?php _vzm("My Account") ?></a>
+      <ul>
+        <li><a href="<?php echo $view['router']->generate('account_edit'); ?>"><?php _vzm("Change Account") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('address_book'); ?>"><?php _vzm("My Address Book") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_password'); ?>"><?php _vzm("Change My Password") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_history') ?>"><?php _vzm("Order History") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_newsletters'); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_notifications'); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
+      </ul></li>
+        <?php if (!$view->container->get('shoppingCart')->isEmpty()) { ?>
+            <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>"><?php _vzm("Shopping cart") ?></a></li>
+            <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>"><?php _vzm("Checkout") ?></a></li>
+        <?php } ?>
+    <?php } ?>
+    <li><a href="<?php echo $view['router']->generate('advanced_search'); ?>"><?php _vzm("Advanced Search") ?></a></li>
+    <li><a href="<?php echo $view['router']->generate('products_new'); ?>"><?php _vzm("New Products") ?></a></li>
+    <li><a href="<?php echo $view['router']->generate('specials'); ?>"><?php _vzm("Specials") ?></a></li>
+    <li><a href="<?php echo $view['router']->generate('reviews'); ?>"><?php _vzm("Reviews") ?></a></li>
+    <li><?php _vzm("Information") ?>
+        <ul>
+          <li><a href="<?php echo $view['router']->generate('shippinginfo'); ?>"><?php _vzm("Shipping Information") ?></a></li>
+          <li><a href="<?php echo $view['router']->generate('privacy'); ?>"><?php _vzm("Privacy Policy") ?></a></li>
+          <li><a href="<?php echo $view['router']->generate('conditions'); ?>"><?php _vzm("Terms &amp; Conditions") ?></a></li>
+          <li><a href="<?php echo $view['router']->generate('contact_us'); ?>"><?php _vzm("Contact Us") ?></a></li>
+
+      <?php if ($view['settings']->get('isEnabledGV')) { ?>
+          <li><a href="<?php echo $view['router']->generate('gv_faq'); ?>"><?php _vzm("Giftvoucher FAQ") ?></a></li>
+      <?php } ?>
+      <?php if ($view['settings']->get('isEnabledCoupons')) { ?>
+          <li><a href="<?php echo $view['router']->generate('discount_coupon'); ?>"><?php _vzm("Coupon Lookup") ?></a></li>
+      <?php } ?>
+      <li><a href="<?php echo $view['router']->generate('unsubscribe'); ?>"><?php _vzm("Newsletter Unsubscribe") ?></a></li>
+   </ul></li>
+</ul>

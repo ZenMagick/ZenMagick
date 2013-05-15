@@ -1,0 +1,10 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php
+// prepare page name for crumbtrail
+$sub = $view['request']->getParameter('cat');
+$sub = str_replace('_', ' ', $sub);
+$sub = ucwords($sub);
+$view['slots']->set('crumbtrail', $crumbtrail->addCrumb($sub));;
+?>
+
+<?php echo $utils->staticPageContent($sub) ?>

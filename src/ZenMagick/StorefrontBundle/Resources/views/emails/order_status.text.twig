@@ -1,0 +1,25 @@
+<?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+
+
+<?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
+
+<?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) { ?>
+<?php _vzm("More details can be found at the following URL: %s", $view['router']->generate('account_history_info', array('order_id' => $currentOrder->getId()), true)) ?>
+<?php } else { ?>
+<?php _vzm("You can check the status of your order at: %s.", $view['router']->generate('guest_history', array(), true)) ?>
+<?php } ?>
+
+<?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
+<?php _vzm("The new order status is: %s.", $newOrderStatus) ?>
+<?php } ?>
+
+<?php if (!empty($comment)) { ?>
+<?php _vzm("The following comment has been added to your order:") ?>
+
+<?php echo $comment ?>
+<?php } ?>
+
+
+<?php _vzm("Regards, %s", $settingsService->get('storeName')) ?>
+
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

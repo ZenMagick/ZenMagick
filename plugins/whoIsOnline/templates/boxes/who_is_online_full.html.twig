@@ -1,0 +1,38 @@
+<?php if (isset($whoIsOnline)) { ?>
+    <?php $stats = $whoIsOnline->getStats(); ?>
+    <?php if (0 < $stats['total']) { ?>
+        <h3><?php _vzm("Who's Online") ?></h3>
+        <div id="sb_whos_online" class="box">
+            <?php
+                $out = '';
+                if (1 == $stats['total']) {
+                    // 1
+                    $out .= _zm("There is currently");
+                    if (1 == $stats['anonymous']) {
+                        $out .= _zm(" one guest online.");
+                    } else {
+                        $out .= _zm(" one registered user online.");
+                    }
+                } else {
+                    // >1
+                    $out .= _zm("There are currently");
+                    if (1 == $stats['anonymous']) {
+                        $out .= _zm(" one guest");
+                    } elseif (1 < $stats['anonymous']) {
+                        $out .= sprintf(_zm(" %s guests"), $stats['anonymous']);
+                    }
+                    if (0 < $stats['anonymous'] && 0 < $stats['registered']) {
+                        $out .= _zm(" and");
+                    }
+                    if (1 == $stats['registered']) {
+                        $out .= _zm(" one registered user");
+                    } elseif (1 < $stats['registered']) {
+                        $out .= sprintf(_zm(" %s registered users"), $stats['registered']);
+                    }
+                    $out .= _zm(' online.');
+                }
+                echo $out;
+            ?>
+        </div>
+    <?php } ?>
+<?php } ?>

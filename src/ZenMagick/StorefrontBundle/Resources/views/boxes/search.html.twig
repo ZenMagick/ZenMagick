@@ -1,0 +1,13 @@
+<?php if (false === strpos($view['request']->getRouteId(), 'search')) { ?>
+    <h3><?php _vzm("Quick Search") ?></h3>
+    <div id="sb_search" class="box">
+        <?php echo $form->open('search', '', $app->getRequest()->isSecure(), array('method' => 'get')) ?>
+            <div>
+                <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
+                <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
+                <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($view['request']->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            </div>
+        </form>
+        <a class="clear" href="<?php echo $view['router']->generate('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
+    </div>
+<?php } ?>

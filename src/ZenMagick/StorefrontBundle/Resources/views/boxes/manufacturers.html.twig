@@ -1,0 +1,14 @@
+<?php $manufacturers = $view->container->get('manufacturerService')->getManufacturers($view['request']->getLocaleId()); ?>
+<?php if (0 < count($manufacturers)) { ?>
+    <h3><?php _vzm("Manufacturers") ?></h3>
+    <div id="sb_manufacturers" class="box">
+        <?php echo $form->open('manufacturer', '', $app->getRequest()->isSecure(), array('method' => 'get', 'onsubmit'=>null)) ?>
+            <div>
+                <?php echo $form->idpSelect('manufacturers_id', array_merge(array(new ZMIdNamePair("", _zm("Please Select"))), $manufacturers), $view['request']->getParameter('manufacturers_id'), array('size'=>1, 'onchange'=>'this.form.submit()')) ?>
+                <noscript>
+                    <div><input type="submit" class="btn" value="<?php _vzm('Go') ?>" /></div>
+                </noscript>
+            </div>
+        </form>
+    </div>
+<?php } ?>

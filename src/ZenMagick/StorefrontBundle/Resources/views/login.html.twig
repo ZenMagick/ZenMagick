@@ -1,0 +1,46 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
+<?php echo $form->open('login_check', '', true, array('id'=>'login')) ?>
+  <fieldset>
+    <legend><?php _vzm("Login") ?></legend>
+    <div>
+      <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
+      <input type="text" id="email_address" name="email_address" value="<?php echo $lastUsername; ?>" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+    </div>
+    <div>
+      <label for="password"><?php _vzm("Password") ?></label>
+      <input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
+    </div>
+  </fieldset>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
+</form>
+
+<p>
+  <a href="<?php echo $view['router']->generate('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a><br />
+  <a href="<?php echo $view['router']->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
+</p>
+
+<?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty() && !$app->getUser()) { ?>
+  <h3><?php _vzm("Don't need an account?") ?></h3>
+  <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
+    <p><?php _vzm("Checkout without registering") ?></p>
+    <div>
+      <?php if ($view['settings']->get('isGuestCheckoutAskAddress')) { ?>
+        <?php
+          $guestAddressInfo = array(
+              'address' => $guestCheckoutAddress,
+              'customFields' => array(array(
+                  'label'=>_zm("E-Mail Address").'<span>*</span>',
+                  'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength('customers', 'customers_email_address').'/>'
+              ))
+          );
+          echo $this->render('StorefrontBundle::address.html.php', $guestAddressInfo);
+        ?>
+      <?php } else { ?>
+        <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
+        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+      <?php } ?>
+    </div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" /></div>
+  </form>
+<?php } ?>

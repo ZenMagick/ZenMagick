@@ -1,0 +1,13 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php
+  $view_name = $view['request']->getParameter('view_name');
+  $template = 'StorefrontBundle::'.$view_name;
+
+  if ($view->exists($template)) {
+      ?><h2>Source for <?php echo $view->load($template) ?></h2><pre id="source"><?php
+      echo htmlentities($view->escape($view->load($template)->getContent());
+      ?></pre><?php
+      return;
+  }
+?>
+<h2>Source File not found</h2>

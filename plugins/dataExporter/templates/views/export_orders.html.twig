@@ -1,0 +1,49 @@
+<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
+<?php $admin->title() ?>
+
+<script>
+$(function() {
+    $('.datepicker').datepicker();
+});
+</script>
+
+<h2><?php _vzm('Export orders') ?></h2>
+<div>
+  <form class="export-orders-form" action="<?php echo $view['router']->generate('export_orders') ?>" method="GET">
+    <p>
+      <label for="dateFrom"><?php _vzm('From:') ?></label>
+      <input class="datepicker" id="fromDate" name="fromDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $fromDate ?>">
+    </p>
+    <p>
+    <label for="dateTo"><?php _vzm('To:') ?></label>
+      <input class="datepicker" id="toDate" name="toDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $toDate ?>">
+    </p>
+    <p>
+      <label for="exportFormat"><?php _vzm('Format:') ?></label>
+      <select id="exportFormat" name="exportFormat">
+        <option value="display"><?php _vzm('Display') ?></option>
+        <option value="csv"><?php _vzm('CSV') ?></option>
+      </select>
+    </p>
+    <p><input type="submit" class="<?php echo $buttonClasses ?>" value="Find Orders"></p>
+  </form>
+</div>
+
+<?php if (isset($header) && isset($rows)) { ?>
+  <table class="grid">
+    <tr>
+      <?php foreach ($header as $column) { ?>
+        <th><?php echo $column ?></th>
+      <?php } ?>
+    </tr>
+    <?php foreach ($rows as $orderRows) { ?>
+      <?php foreach ($orderRows as $row) { ?>
+        <tr>
+          <?php foreach ($row as $column) { ?>
+            <td><?php echo $column ?></td>
+          <?php } ?>
+        </tr>
+      <?php } ?>
+    <?php } ?>
+  </table>
+<?php } ?>

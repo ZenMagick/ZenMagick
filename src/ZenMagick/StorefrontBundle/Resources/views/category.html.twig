@@ -1,0 +1,33 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()); ?>
+
+<h2><?php echo $view->escape($currentCategory->getName()) ?></h2>
+
+<?php if ($currentCategory->hasChildren()) { ?>
+  <div class="subcats">
+      <h3><?php _vzm("Available Sub-categories") ?></h3>
+      <?php foreach ($currentCategory->getChildren() as $category) {
+          $encName = $view->escape($category->getName());
+          $catImage = $category->getImageInfo();
+          $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
+          ?>
+          <a href="<?php echo $view['router']->generate('category', array('cPath' => implode('_', $category->getPath()))) ?>"><?php echo $linkText ?></a>
+      <?php } ?>
+  </div>
+<?php } ?>
+
+<?php $featured = $view->container->get('productService')->getFeaturedProducts($currentCategory->getId(), 4, true, $view['request']->getLocaleId()); ?>
+
+<?php if (0 < count($featured)) { ?>
+    <h3>Featured Products</h3>
+    <div id="featured">
+      <?php foreach ($featured as $product) { ?>
+        <div>
+          <p><?php echo $html->productImageLink($product) ?></p>
+          <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
+          <?php $offers = $product->getOffers(); ?>
+          <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+        </div>
+      <?php } ?>
+    </div>
+<?php } ?>

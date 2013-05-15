@@ -1,0 +1,18 @@
+<?php if (empty($message)) { ?>
+<?php _vzm("We're pleased to offer you a Gift Certificate") ?>
+<?php } else { ?>
+<?php echo $message; ?>
+<?php } ?>
+
+
+<?php _vzm('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false)) ?>
+
+
+<?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
+
+
+<?php _vzm("To redeem your gift, visit %s", $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true)) ?>
+
+
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
+<?php echo $office_only_text; ?>

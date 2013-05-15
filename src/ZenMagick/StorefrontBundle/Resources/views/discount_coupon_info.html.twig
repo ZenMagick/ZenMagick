@@ -1,0 +1,37 @@
+<?php $restrictions = $currentCoupon->getRestrictions(); ?>
+<p><?php _vzm("The Discount Coupon Redemption Code you have entered is for %s.", $currentCoupon->getName()) ?></p>
+<p><?php _vzm("Discount Offer:") ?><br /><?php echo $view->escape($currentCoupon->getDescription()) ?></p>
+
+<h4><?php _vzm("Promotional Period") ?></h4>
+<p><?php _vzm("The coupon is valid between %s and %s.", $view['date']->short($currentCoupon->getStartDate()), $view['date']->short($currentCoupon->getExpiryDate())) ?></p>
+
+<?php if ($restrictions->hasCategories()) { ?>
+    <h4><?php _vzm("Category Restrictions")?></h4>
+    <ul>
+    <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($view['request']->getLocaleId()); ?>
+        <li><?php echo $view->escape($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+    <?php } ?>
+    </ul>
+<?php } ?>
+
+<?php if ($restrictions->hasProducts()) { ?>
+    <h4><?php _vzm("Product Restrictions")?></h4>
+    <ul>
+    <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($view['request']->getLocaleId()); ?>
+        <li><?php echo $view->escape($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+    <?php } ?>
+    </ul>
+<?php } ?>
+
+<?php if (!$restrictions->hasRestrictions()) { ?>
+    <h4><?php _vzm("The coupon is valid for all categories and products.") ?></h4>
+<?php } ?>
+
+<?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
+  <fieldset>
+    <legend><?php _vzm("Look-up another discount coupon ...") ?></legend>
+    <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>
+    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $view->escape($currentCouponCode) ?>" />
+  </fieldset>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
+</form>

@@ -1,0 +1,12 @@
+<div id="footer">
+    <p id="fpages">
+        <?php foreach ($view->container->get('ezPageService')->getPagesForFooter($view['request']->getLocaleId()) as $page) { ?>
+            <?php echo $html->ezpageLink($page->getId()) ?>
+        <?php } ?>
+    </p>
+
+    <div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
+
+    <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
+    <p>&copy; 2006-2012 <a href="http://www.zenmagick.org">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>
+</div>

@@ -1,0 +1,28 @@
+$(document).ready(function() {
+    $('#countryId').change(updateState);
+});
+
+function updateState() {
+    // show timer
+    var zoneId = $('#zoneId');
+    var state = $('#state');
+    var countryId = $('#countryId').val();
+    var sz = 0 < zoneId.size() ? zoneId : state;
+    if (all_zones[countryId]) {
+        var state_value = $('#state').val();
+        var state_select = '<select id="zoneId" name="zoneId">';
+        state_select += '<option value=""><?php _vzm("-- Please select a state --") ?></option>';
+        for (var zoneId in all_zones[countryId]) {
+            var name = all_zones[countryId][zoneId];
+            var selected = state_value == name ? ' selected="selected"' : '';
+            state_select += '<option value="'+zoneId+'"'+selected+'>'+name+'</option>';
+        }
+        state_select += '</select>';
+
+        // replace with dropdown
+        sz.after(state_select).remove();
+    } else {
+        // free text
+       sz.after('<input type="text" id="state" name="state" value="">').remove();
+    }
+};

@@ -1,0 +1,25 @@
+<?php
+    $orders = array();
+    if ($app->getUser()) {
+        $orders = $view->container->get('orderService')->getOrdersForAccountId($app->getUser()->getId(), $view['request']->getLocaleId(), 7);
+    }
+    $products = array();
+?><?php if (0 < count($orders)) { ?>
+    <h3><?php _vzm("Previous Purchases") ?></h3>
+    <div id="sb_order_history" class="box">
+      <ul>
+      <?php foreach ($orders as $order) {
+          foreach ($order->getOrderItems() as $orderItem) {
+              if (array_key_exists($orderItem->getName(), $products))
+                  continue;
+              $products[$orderItem->getName()] = $orderItem->getProductId();
+              ?><li><a href="<?php echo $net->product($orderItem->getProductId()) ?>"><?php echo $view->escape($orderItem->getName()) ?></a></li><?php
+              if (7 == count($products))
+                  break;
+          }
+          if (7 == count($products))
+              break;
+      } ?>
+      </ul>
+    </div>
+<?php } ?>

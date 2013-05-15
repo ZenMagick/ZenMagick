@@ -1,0 +1,11 @@
+<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+
+<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Newsletter'))); ?>
+<p><?php _vzm("Including store news, new products, special offers, and other promotional announcements.") ?></p>
+<?php echo $form->open('account_newsletters', '', true, array('onsubmit'=>null)) ?>
+    <fieldset>
+        <legend><?php _vzm("Store Newsletter") ?></legend>
+        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php $form->checked(true, $currentAccount->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general"><?php _vzm("Receive Store Newsletter") ?></label></p>
+    </fieldset>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
+</form>
