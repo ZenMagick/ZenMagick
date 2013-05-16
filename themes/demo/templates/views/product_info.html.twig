@@ -20,7 +20,7 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php _vzm("Producer") ?>: <?php echo $view->escape($manufacturer->getName()); ?><br />
+        {{ 'Producer'|trans }}: <?php echo $view->escape($manufacturer->getName()); ?><br />
       <?php } ?>
       <p id="price"><?php echo $view->escape($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
@@ -36,17 +36,17 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
   <?php } ?>
 
   <fieldset>
-      <legend><?php _vzm("Shopping Options") ?></legend>
+      <legend>{{ 'Shopping Options'|trans }}</legend>
       <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = sprintf(_zm(" (Order minimum: %s)"), $currentProduct->getMinOrderQty()); } ?>
-      <label for="cart_quantity"><?php _vzm("Quantity") ?><?php echo $minMsg; ?></label>
+      <label for="cart_quantity">{{ 'Quantity'|trans }}<?php echo $minMsg; ?></label>
       <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
-      <input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" />
+      <input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" />
   </fieldset>
 
   <?php $addImgList = $currentProduct->getAdditionalImages(); ?>
   <?php if (0 < count($addImgList)) { ?>
       <fieldset>
-          <legend><?php _vzm("Additional Images") ?></legend>
+          <legend>{{ 'Additional Images'|trans }}</legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
                   <a href="<?php echo $addImg->getLargeImage() ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $addImg->getDefaultImage() ?>" alt="" title="" /></a>
@@ -58,12 +58,12 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
   <?php } ?>
   <?php if ($currentProduct->hasReviews() || $currentProduct->getTypeSetting('reviews')) { ?>
       <fieldset>
-          <legend><?php _vzm("Other Options") ?></legend>
+          <legend>{{ 'Other Options'|trans }}</legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $view['router']->generate('product_reviews') ?>"><?php _vzm("Read Reviews") ?></a>
+              <a class="btn" href="<?php echo $view['router']->generate('product_reviews') ?>">{{ 'Read Reviews'|trans }}</a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $view['router']->generate('product_reviews_write') ?>"><?php _vzm("Write a Review") ?></a>
+              <a class="btn" href="<?php echo $view['router']->generate('product_reviews_write') ?>">{{ 'Write a Review'|trans }}</a>
           <?php } ?>
       </fieldset>
   <?php } ?>

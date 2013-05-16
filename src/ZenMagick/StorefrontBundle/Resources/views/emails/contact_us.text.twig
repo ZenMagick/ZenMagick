@@ -1,9 +1,9 @@
-<?php _vzm("Store Enquiry %s,", $settingsService->get('storeName')) ?>
+{{ 'Store Enquiry %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
 
 
-<?php _vzm("From: %s", $contactInfo->getName()) ?>
+{{ 'From: %name%'|trans({'%name%': contactInfo.name}) }}
 
-<?php _vzm("Email: %s", $contactInfo->getEmail()) ?>
+{{ 'Email: %email%'|trans({'%email%' : contactInfo.email}) }}
 
 
 -------------------------------------------

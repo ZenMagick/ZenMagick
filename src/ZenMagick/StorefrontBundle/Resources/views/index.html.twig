@@ -2,7 +2,7 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
 <?php echo $utils->staticPageContent("main_page") ?>
 <?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
-<h3><?php _vzm('Featured Products') ?></h3>
+<h3>{{ 'Featured Products'|trans }}</h3>
 <div id="featured">
   <?php foreach ($featured as $product) { ?>
     <div>

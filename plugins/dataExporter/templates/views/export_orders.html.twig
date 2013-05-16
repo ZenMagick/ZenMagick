@@ -7,22 +7,22 @@ $(function() {
 });
 </script>
 
-<h2><?php _vzm('Export orders') ?></h2>
+<h2>{{ 'Export orders'|trans }}</h2>
 <div>
   <form class="export-orders-form" action="<?php echo $view['router']->generate('export_orders') ?>" method="GET">
     <p>
-      <label for="dateFrom"><?php _vzm('From:') ?></label>
+      <label for="dateFrom">{{ 'From:'|trans }}</label>
       <input class="datepicker" id="fromDate" name="fromDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $fromDate ?>">
     </p>
     <p>
-    <label for="dateTo"><?php _vzm('To:') ?></label>
+    <label for="dateTo">{{ 'To:'|trans }}</label>
       <input class="datepicker" id="toDate" name="toDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $toDate ?>">
     </p>
     <p>
-      <label for="exportFormat"><?php _vzm('Format:') ?></label>
+      <label for="exportFormat">{{ 'Format:'|trans }}</label>
       <select id="exportFormat" name="exportFormat">
-        <option value="display"><?php _vzm('Display') ?></option>
-        <option value="csv"><?php _vzm('CSV') ?></option>
+        <option value="display">{{ 'Display'|trans }}</option>
+        <option value="csv">{{ 'CSV'|trans }}</option>
       </select>
     </p>
     <p><input type="submit" class="<?php echo $buttonClasses ?>" value="Find Orders"></p>

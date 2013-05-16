@@ -1,6 +1,6 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Gift Certificate FAQ'))); ?>
-<h2><?php _vzm("Gift Certificate FAQ") ?></h2>
+<h2>{{ 'Gift Certificate FAQ'|trans }}</h2>
 
 <?php /* the available FAQ entries */
     $faq_topics = array(
@@ -14,7 +14,7 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $view['router']->generate('gv_faq', array('topic' => $key)) ?>"><?php _vzm($title) ?></a></li>
+    <li><a href="<?php echo $view['router']->generate('gv_faq', array('topic' => $key)) ?>"><?php echo $title ?></a></li>
 <?php } ?>
 </ul>
 
@@ -24,11 +24,11 @@
 
 <?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
   <fieldset>
-    <legend><?php _vzm("Redemption code details") ?></legend>
+    <legend>{{ 'Redemption code details'|trans }}</legend>
     <div>
-      <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
+      <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
       <input type="text" id="gvCode" name="couponCode" value="<?php echo $view->escape($gvRedeem->getCouponCode()) ?>" />
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>
 </form>

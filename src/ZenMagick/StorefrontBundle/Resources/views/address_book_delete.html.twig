@@ -1,13 +1,13 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete'))); ?>
-<p><?php _vzm("Are you sure you would like to delete the selected address from your address book?") ?></p>
+<p>{{ 'Are you sure you would like to delete the selected address from your address book?'|trans }}</p>
 <?php echo $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
     <fieldset>
-        <legend><?php _vzm("Selected Address") ?></legend>
+        <legend>{{ 'Selected Address'|trans }}</legend>
         <div class="btn">
             <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
-            <input type="submit" class="btn" value="<?php _vzm("Delete") ?>" />
+            <input type="submit" class="btn" value="{{ 'Delete'|trans }}" />
         </div>
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>

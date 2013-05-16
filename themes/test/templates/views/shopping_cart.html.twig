@@ -2,7 +2,7 @@
 <?php
 $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Shopping Cart')));;
 if ($shoppingCart->isEmpty()) { ?>
-    <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
+    <h2>{{ 'Your Shopping Cart is empty'|trans }}</h2>
 <?php } else { ?>
     <?php echo $form->open('shopping_cart', '', true) ?>
         <table cellpadding="0" cellspacing="0">
@@ -20,7 +20,7 @@ if ($shoppingCart->isEmpty()) { ?>
                     </td>
                     <td class="itm">
                         <?php if (!$item->isStockAvailable() && $view['settings']->get('isEnableStock')) { ?>
-                            <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
+                            <span class="note">{{ '* Out of Stock'|trans }}</span><br/>
                         <?php } ?>
                         <?php echo $view->escape($item->getProduct()->getName()) ?>
                         <?php if ($item->hasAttributes()) { ?>
@@ -41,23 +41,23 @@ if ($shoppingCart->isEmpty()) { ?>
                     <td class="price">
                         <?php echo $utils->formatMoney($item->getItemTotal()) ?>
                         <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
-                            <br><?php _vzm('One time: %s', $utils->formatMoney($oneTimeCharge)) ?>
+                            <br>{{ 'One time: %amount%'|trans({'%amount%' : utils.formatMoney(oneTimeCharge)}) }}
                         <?php } ?>
                     </td>
                 </tr>
             <?php $odd = !$odd; $first = false; } ?>
             <tr class="other">
-                <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
+                <td colspan="4" class="total">{{ 'Subtotal'|trans }}</td>
                 <td class="price"><?php echo $utils->formatMoney($shoppingCart->getSubtotal()) ?></td>
             </tr>
             </tbody>
         </table>
         <div class="btn">
-            <input type="submit" class="btn" value="<?php _vzm("Update Cart") ?>" />
-            <a class="btn" href="<?php echo $view['router']->generate('checkout_shipping') ?>"><?php _vzm("Checkout") ?></a>
+            <input type="submit" class="btn" value="{{ 'Update Cart'|trans }}" />
+            <a class="btn" href="<?php echo $view['router']->generate('checkout_shipping') ?>">{{ 'Checkout'|trans }}</a>
         </div>
         <div>
-            <a class="btn" href="<?php echo $view['router']->generate('popup_shipping_estimator') ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
+            <a class="btn" href="<?php echo $view['router']->generate('popup_shipping_estimator') ?>" onclick="popupWindow(this.href); return false;">{{ 'Shipping Estimator'|trans }}</a>
         </div>
 
         <?php echo $this->fetchBlockGroup('shoppingCart.options') ?>

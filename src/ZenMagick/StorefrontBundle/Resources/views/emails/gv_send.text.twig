@@ -1,18 +1,18 @@
-<?php _vzm("Dear %s,", $gvReceiver->getName()) ?>
+{{ 'Dear %receiver%,'|trans({'%receiver%' : gvReceiver.name}) }}
 
 
-<?php _vzm('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?>
+{{ 'You have been sent a Gift Certificate worth %amount% by %user%.'|trans({'%amount%' : utils.formatMoney(gvReceiver.amount, false), '%user%': currentAccount.fullName}) }}
 
-<?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
+{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
 
 <?php if ($gvReceiver->hasMessage()) { ?>
-<?php _vzm("%s says:", $currentAccount->getFirstName()); ?>
+    {{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
 
 <?php echo $gvReceiver->getMessage() ?>
 
 <?php } ?>
 
-<?php _vzm("To redeem your gift, visit %s", $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true)) ?>
+{{ 'To redeem your gift, visit %redeem_url%'|trans({'%redeem_url%' : $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true)}) }}
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

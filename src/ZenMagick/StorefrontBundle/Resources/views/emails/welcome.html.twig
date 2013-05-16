@@ -1,31 +1,31 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("Welcome to %s", $view['settings']->get('storeName')) ?></title>
+<title>{{ 'Welcome to %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}</title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
 
-<p><?php _vzm("We wish to welcome you to %s.", $view['settings']->get('storeName')) ?></p>
+<p>{{ 'We wish to welcome you to %store_name%.'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}</p>
 <div><?php echo $utils->staticPageContent('email_welcome') ?></div>
 
 <?php if ($newAccountDiscountCoupon) { ?>
 <div>
   <p><?php echo _zm('Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!') ?></p>
-  <p><?php _vzm('The coupon is valid between %s and %s', $view['date']->short($newAccountDiscountCoupon->getStartDate()), $view['date']->short($newAccountDiscountCoupon->getExpiryDate())) ?></p>
-  <p><?php _vzm('To use the Discount Coupon, enter the Redemption Code code during checkout: %s', $newAccountDiscountCoupon->getCode()) ?></p>
+  <p>{{ 'The coupon is valid between %start_date% and %end_date%'|trans({'%start_date%' : newAccountDiscountCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : newAccountDiscountCoupon.expiryDate|localizeddate('short', 'none')}) }}</p>
+  <p>{{ 'To use the Discount Coupon, enter the Redemption Code code during checkout: %code%'|trans({'%code%' : newAccountDiscountCoupon.code}) }}</p>
 </div>
 <?php } ?>
 <?php if ($newAccountDiscountCoupon) { ?>
 <div>
-  <p><?php _vzm("Just for stopping by today, we have sent you a Gift Certificate for %s!\nThe Gift Certificate Redemption Code is: %s", $utils->formatMoney($newAccountGVAmountCoupon->getAmount()), $newAccountGVAmountCoupon->getCode()) ?></p>
-  <p><?php _vzm("You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href=\"%s\">Redeem</a>", $view['router']->generate('gv_redeem', array('gv_no' => $newAccountGVAmountCoupon->getCode()), true)) ?></p>
+  <p>{{ 'Just for stopping by today, we have sent you a Gift Certificate for %amount%! The Gift Certificate Redemption Code is: %code%'|trans({'%amount%' : utils.formatMoney(newAccountGVAmountCoupon.amount), '%code%' : newAccountGVAmountCoupon.code}) }}</p>
+  <p>{{ 'You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href="%redeem_url%">Redeem</a>'|trans({'%redeem_url%' : $view['router']->generate('gv_redeem', array('gv_no' => newAccountGVAmountCoupon.code), true)}) }}</p>
   <p><?php echo _zm('Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!') ?></p>
 </div>
 <?php } ?>
-<p><?php _vzm("Sincerely, %s", $view['settings']->get('storeOwner')) ?></p>
+<p>{{'Sincerely, %store_owner%'|trans({'%store_owner%' : $view['settings']->get('storeOwner')}) }}</p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 <?php echo $office_only_html; ?>

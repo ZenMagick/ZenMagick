@@ -1,19 +1,19 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Redeem Gift Certificate'))); ?>
-<h2><?php _vzm("Redeem A Gift Certificate") ?></h2>
+<h2>{{ 'Redeem A Gift Certificate'|trans }}</h2>
 <?php if ($gvRedeem->isRedeemed()) { ?>
-  <p><?php _vzm("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>
+  <p>{{ 'Congratulations, you have redeemed a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(gvRedeem.amount)}) }}</p>
 <?php } else { ?>
   <?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
-      <legend><?php _vzm("Redemption code details") ?></legend>
+      <legend>{{ 'Redemption code details'|trans }}</legend>
       <div>
-        <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
+        <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
         <input type="text" id="gvCode" name="couponCode" value="<?php echo $view->escape($gvRedeem->getCouponCode()) ?>" />
       </div>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>
   </form>
 <?php } ?>
-<?php $faqLink = '<a href="'.$view['router']->generate('gv_faq').'">'._zm("Gift Certificate FAQ").'</a>'; ?>
-<p><?php _vzm("For more information regarding Gift Certificates, please see the %s.", $faqLink) ?></p>
+<?php $faqLink = $view['router']->generate('gv_faq'); ?>
+<p>{{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link% : faqLink})|raw }}</p>

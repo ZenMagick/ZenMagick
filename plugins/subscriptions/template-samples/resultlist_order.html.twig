@@ -1,13 +1,13 @@
 <?php use ZenMagick\Base\Toolbox; ?>
 
 <?php if (!Toolbox::isEmpty($order->getSchedule())) { ?>
-    <?php _vzm("(S)") ?>
+    {{ '(S)'|trans }}
     <?php if ($order->isSubscription()) { ?>
         <?php if ($subscriptions->isCustomerCancel()) { ?>
-            <a href="<?php echo $view['router']->generate('cancel_subscription', array('orderId' => $order->getId())) ?>"><?php _vzm("Cancel Subscription") ?></a>
+            <a href="<?php echo $view['router']->generate('cancel_subscription', array('orderId' => $order->getId())) ?>">{{ 'Cancel Subscription'|trans }}</a>
         <?php } else { ?>
-            <a href="<?php echo $view['router']->generate('subscription_request', array('orderId' => $order->getId(), 'type' => 'cancel')) ?>"><?php _vzm("Cancel Subscription") ?></a>
+            <a href="<?php echo $view['router']->generate('subscription_request', array('orderId' => $order->getId(), 'type' => 'cancel')) ?>">{{ 'Cancel Subscription'|trans }}</a>
         <?php } ?>
     <?php } ?>
-    <a href="<?php echo $view['router']->generate('subscription_request', array('orderId' => $order->getId(), 'type' => 'enquire')) ?>"><?php _vzm("Ask about Subscriptions") ?></a>
+    <a href="<?php echo $view['router']->generate('subscription_request', array('orderId' => $order->getId(), 'type' => 'enquire')) ?>">{{ 'Ask about Subscriptions'|trans }}</a>
 <?php } ?>

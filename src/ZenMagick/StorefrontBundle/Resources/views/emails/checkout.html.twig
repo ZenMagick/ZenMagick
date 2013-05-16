@@ -2,20 +2,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("%s Order Confirmation", $view['settings']->get('storeName')) ?></title>
+<title>{{ '%store_name% Order Confirmation'|trans({'%store_name%': $view['settings']->get('storeName')}) }}</title>
 </head>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Thanks for shopping at %s,", $view['settings']->get('storeName')) ?></p>
-<p><?php _vzm("The following is a summary of your order.") ?></p>
+<p>{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}</p>
+<p>{{ 'The following is a summary of your order.'|trans }}</p>
 
-<h3><?php _vzm("Order Details") ?></h3>
+<h3>{{ 'Order Details'|trans }}</h3>
 <p>
-<?php _vzm("Order Number: #%s", $order->getId()) ?><br>
-<?php _vzm("Order Date: %s", $view['date']->short($order->getOrderDate())) ?>
+    {{ 'Order Number: #%id%'|trans({'%id%' : order.id}) }}<br>
+    {{ 'Order Date: %date%'|trans({'%date%' : order.orderDate|localizeddate('short', 'none')}) }}
 </p>
 
-<h4><?php _vzm("Ordered Items") ?></h4>
+<h4>{{ 'Ordered Items'|trans }}</h4>
 <table cellpadding="3" cellspacing="2">
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
@@ -32,25 +32,25 @@
 <?php } ?>
 </table>
 
-<h3><?php _vzm("Address Details") ?></h3>
+<h3>{{ 'Address Details'|trans }}</h3>
 <table cellpadding="3" cellspacing="2">
 <tr>
 <td valign="top">
-<h4><?php _vzm("Shipping Address") ?></h4>
+<h4>{{ 'Shipping Address'|trans }}</h4>
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
-<?php _vzm("N/A") ?>
+{{ 'N/A'|trans }}
 <?php } else { ?>
 <?php echo $macro->formatAddress($shippingAddress) ?>
 <?php } ?>
 </td>
 <td valign="top">
-<h4><?php _vzm("Billing Address") ?></h4>
+<h4>{{ 'Billing Address'|trans }}</h4>
 <?php echo $macro->formatAddress($billingAddress) ?>
 </td>
 </tr>
 </table>
 
-<h3><?php _vzm("Payment Details") ?></h3>
+<h3>{{ 'Payment Details'|trans }}</h3>
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
 <p><?php echo $paymentType->getName() ?></p>
 <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>

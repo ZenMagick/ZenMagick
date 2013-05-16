@@ -1,10 +1,12 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
-        <a href="<?php echo $view['router']->generate('account_history_info', array('order_id' => $order->getId())) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
+        <a href="<?php echo $view['router']->generate('account_history_info', array('order_id' => $order->getId())) ?>">
+            {{'Order #%id%'|trans({'%id%' : order.id}) }}
+        </a>
     </td>
     <td><?php echo $view['date']->short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php echo $view->escape($address->getFullName()) ?></td>
-    <td><?php _vzm($order->getStatusName()) ?></td>
+    <td>{{ order.statusName }}</td>
     <td class="pprice"><?php echo $utils->formatMoney($order->getTotal()) ?></td>
 </tr>

@@ -4,9 +4,9 @@
 
 <?php echo $form->open('discount_coupon', '', false, array('method' => 'get')) ?>
   <fieldset>
-    <legend><?php _vzm("Look-up Discount Coupon ...") ?></legend>
-    <label for="couponCode"><?php _vzm("Your Code") ?></label>
+    <legend>{{ 'Look-up Discount Coupon ...'|trans }}</legend>
+    <label for="couponCode">{{ 'Your Code'|trans }}</label>
     <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $view->escape($currentCoupon) ?>" />
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
+  <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" />
 </form>

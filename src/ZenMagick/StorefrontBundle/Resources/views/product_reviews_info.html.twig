@@ -8,10 +8,10 @@
       <?php echo $currentProduct->getDescription(); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" /></div>
 
     <p id="author">
-      <?php _vzm("Review by: %s", $currentReview->getAuthor()) ?>
+      {{ 'Review by: %author%'|trans({'%author%' : currentReview.author}) }}
       <?php $rtext = sprintf(_zm("%s of 5 stars!"), $currentReview->getRating()) ?>
       <span id="stars">
         <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />

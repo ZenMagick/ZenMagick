@@ -1,25 +1,25 @@
-<?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
 
 
-<?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
+{{ 'This is to inform you that your order #%id% has been updated.'|trans('%id%': currentOrder.id}) }}
 
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) { ?>
-<?php _vzm("More details can be found at the following URL: %s", $view['router']->generate('account_history_info', array('order_id' => $currentOrder->getId()), true)) ?>
+{{ 'More details can be found at the following URL: %account_history_url%'|trans({'%account_history_url%' : $view['router']->generate('account_history_info', array('order_id' => currentOrder.id), true)}) }}
 <?php } else { ?>
-<?php _vzm("You can check the status of your order at: %s.", $view['router']->generate('guest_history', array(), true)) ?>
+{{ 'You can check the status of your order at: %guest_history_url%'|trans({'%guest_history_url%' : $view['router']->generate('guest_history', array(), true)}) }}
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
-<?php _vzm("The new order status is: %s.", $newOrderStatus) ?>
+    {{ 'The new order status is: %status%.'|trans({'%status%' : newOrderStatus}) }}
 <?php } ?>
 
 <?php if (!empty($comment)) { ?>
-<?php _vzm("The following comment has been added to your order:") ?>
+{{ 'The following comment has been added to your order:'|trans }}
 
 <?php echo $comment ?>
 <?php } ?>
 
 
-<?php _vzm("Regards, %s", $settingsService->get('storeName')) ?>
+{{ 'Regards, %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

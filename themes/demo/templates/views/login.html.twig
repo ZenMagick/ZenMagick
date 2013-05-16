@@ -30,37 +30,37 @@
 
 <?php echo $form->open('login', '', true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
   <fieldset>
-    <legend><?php _vzm("Login") ?></legend>
+    <legend>{{ 'Login'|trans }}</legend>
     <div>
-      <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
+      <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
       <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
       <?php echo $html->fieldMessages('email_address') ?>
     </div>
     <div>
-      <label for="password"><?php _vzm("Password") ?></label>
+      <label for="password">{{ 'Password'|trans }}</label>
       <input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
       <?php echo $html->fieldMessages('password') ?>
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
   <div class="btn"><a href="#" onclick="ajax_login('login'); return false;"><?php echo _zm("Login via Ajax") ?></a></div>
 </form>
 
 <p>
-  <a href="<?php echo $view['router']->generate('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a><br />
-  <a href="<?php echo $view['router']->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
+  <a href="<?php echo $view['router']->generate('password_forgotten') ?>">{{ 'Lost your password?'|trans }}</a><br />
+  <a href="<?php echo $view['router']->generate('create_account'); ?>">{{ 'Not registered yet?'|trans }}</a>
 </p>
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty()) { ?>
-  <h3><?php _vzm("Don't need an account?") ?></h3>
+  <h3>{{ 'Don't need an account?'|trans }}</h3>
   <?php echo $form->open('checkout_guest', '', true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
     <fieldset>
-      <legend><?php _vzm("Checkout without registering") ?></legend>
+      <legend>{{ 'Checkout without registering'|trans }}</legend>
       <div>
-        <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
+        <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
         <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
         <?php echo $html->fieldMessages('email_address') ?>
-        <input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" />
+        <input type="submit" class="btn" value="{{ 'Checkout'|trans }}" />
       </div>
     </fieldset>
   </form>

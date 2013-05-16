@@ -8,25 +8,25 @@
         <input type="hidden" name="message" value="<?php echo $view->escape($gvReceiver->getMessage()) ?>" />
     </div>
     <fieldset>
-        <legend><?php _vzm("Confirm Send Gift Certificate") ?></legend>
-
-        <p class="note"><?php _vzm("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
-          $utils->formatMoney($gvReceiver->getAmount(), false), $gvReceiver->getName(), $gvReceiver->getEmail()) ?>
+        <legend>{{ 'Confirm Send Gift Certificate'|trans }}</legend>
+        <p class="note">
+        {{ 'You are about to post a Gift Certificate worth %amount% to %name% whose email address is %email%.'|trans({
+        '%amount%' : utils.formatMoney(gvReceiver.amount, false), '%name%' : gvReceiver.name, '%email%' : gvReceiver.email}) }}
         </p>
 
         <fieldset>
-            <legend><?php _vzm("Your message") ?></legend>
+            <legend>{{ 'Your message'|trans }}</legend>
             <?php echo $view->escape($gvReceiver->getMessage()) ?>
         </fieldset>
 
-        <p class="note"><?php _vzm("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
+        <p class="note">{{ 'If these details are not correct, you may edit your message by clicking the edit button.'|trans }}</p>
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send Gift Certificate") ?>" /></div>
-    <div><input type="submit" class="btn" name="edit" value="<?php _vzm("Edit") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Send Gift Certificate'|trans }}" /></div>
+    <div><input type="submit" class="btn" name="edit" value="{{ 'Edit'|trans }}" /></div>
 </form>
 
 <div class="advisory">
-    <strong><?php _vzm("The following message is included with all emails sent from this site:") ?></strong><br />
+    <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

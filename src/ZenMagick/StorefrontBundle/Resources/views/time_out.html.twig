@@ -1,12 +1,12 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php if (!$app->getUser()) { ?>
-    <h2><?php _vzm("Whoops! Your session has expired.") ?></h2>
+    <h2>{{ 'Whoops! Your session has expired.'|trans }}</h2>
 <?php } else { ?>
-    <h2><?php _vzm("Whoops! Sorry, but you are not allowed to perform the action requested.") ?></h2>
+    <h2>{{ 'Whoops! Sorry, but you are not allowed to perform the action requested.'|trans }}</h2>
 <?php } ?>
 
-<p><?php _vzm("If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.") ?></p>
+<p>{{ 'If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.'|trans }}</p>
 
-<p><?php _vzm("If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href=\"%s\">My Account</a> page to view your order.", $view['router']->generate('account')) ?></p>
+<p>{{ 'If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%account_url%">My Account</a> page to view your order.'|trans({'%account_url%' : path('account')})|raw }}</p>
 
 <?php require("login.php"); ?>

@@ -1,4 +1,4 @@
-<h3><?php _vzm("Languages") ?></h3>
+<h3>{{ 'Languages'|trans }}</h3>
 <div id="sb_languages" class="box">
     <?php $ii = 0; foreach ($view->container->get('languageService')->getLanguages() as $lang) { ?>
         <a href="<?php echo $view['router']->generate('set_language', array('language' => $lang->getCode())) ?>">

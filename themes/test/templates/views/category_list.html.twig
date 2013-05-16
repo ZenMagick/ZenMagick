@@ -16,5 +16,5 @@
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
     </div>
 <?php } else { ?>
-    <h2><?php _vzm("There are no products in this category") ?></h2>
+    <h2>{{ 'There are no products in this category'|trans }}</h2>
 <?php } ?>

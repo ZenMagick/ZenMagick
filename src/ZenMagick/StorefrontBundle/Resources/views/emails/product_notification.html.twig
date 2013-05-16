@@ -1,12 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("Product Update Notification") ?></title>
+<title>{{ 'Product Update Notification'|trans }}</title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
 
 <div><?php echo $htmlMessage ?></div>
 

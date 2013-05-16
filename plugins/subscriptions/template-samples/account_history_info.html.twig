@@ -2,11 +2,11 @@
 
 <?php $schedule = $currentOrder->getSchedule(); ?>
 <?php if (!Toolbox::isEmpty($schedule)) { ?>
-    <h3><?php _vzm("Subscription") ?></h3>
+    <h3>{{ 'Subscription'|trans }}</h3>
     <?php $schedules = $subscriptions->getSchedules(); ?>
-    <p><?php _vzm("Order schedule: '%s.'", $schedules[$schedule]['name']) ?></p>
+    <p>{{ 'Order schedule: '%s%.'|trans({'%s%' : schedules[schedule]['name']}) ?></p>
 
     <?php if ($currentOrder->isSubscription()) { ?>
-        <a href="<?php echo $view['router']->generate('cancel_subscription', array('orderId' => $currentOrder->getId())) ?>"><?php _vzm("Cancel Subscription") ?></a>
+        <a href="<?php echo $view['router']->generate('cancel_subscription', array('orderId' => $currentOrder->getId())) ?>">{{ 'Cancel Subscription'|trans }}</a>
     <?php } ?>
 <?php } ?>

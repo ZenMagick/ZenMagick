@@ -15,6 +15,6 @@
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
     </div>
 <?php } else { ?>
-    <h2><?php _vzm("There are no reviews available at this time") ?></h2>
-    <p><?php _vzm("New reviews might need approval before they are listed.") ?></p>
+    <h2>{{ 'There are no reviews available at this time'|trans }}</h2>
+    <p>{{ 'New reviews might need approval before they are listed.'|trans }}</p>
 <?php } ?>

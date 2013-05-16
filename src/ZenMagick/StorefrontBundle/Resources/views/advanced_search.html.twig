@@ -2,43 +2,43 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Advanced Search'))); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
     <fieldset id="term">
-        <legend><?php _vzm("Search For..."); ?></legend>
+        <legend>{{ 'Search For...'|trans }}</legend>
         <div id="help">
-            <a href="javascript:popupWindow('<?php echo $view['router']->generate('popup_search_help') ?>')"><?php _vzm("Search Help [?]")?></a></div>
+            <a href="javascript:popupWindow('<?php echo $view['router']->generate('popup_search_help') ?>')">{{ 'Search Help [?]'|trans }}</a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="askeyword" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             <?php $checked = $searchCriteria->isIncludeDescription() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeDescription" name="includeDescription" value="1" <?php echo $checked?>/>
-            <label class="checkboxLabel" for="includeDescription"><?php _vzm("Search in product descriptions"); ?></label>
+            <label class="checkboxLabel" for="includeDescription">{{ 'Search in product descriptions'|trans }}</label>
         </div>
     </fieldset>
 
     <fieldset id="asfilter">
-        <legend><?php _vzm("Restrict Search By...")?></legend>
+        <legend>{{ 'Restrict Search By...")?></legend>
         <fieldset>
-            <legend><?php _vzm("Category")?></legend>
+            <legend>{{ 'Category")?></legend>
             <?php $categories = $view->container->get('categoryService')->getCategories($view['request']->getLocaleId()); ?>
             <?php echo $form->idpSelect('categoryId', array_merge(array(new ZMIdNamePair("", _zm("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
             <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" <?php echo $checked?>/>
-            <label for="includeSubcategories"><?php _vzm("Include subcategories"); ?></label>
+            <label for="includeSubcategories">{{ 'Include subcategories'|trans }}</label>
         </fieldset>
 
         <fieldset>
-            <legend><?php _vzm("Manufacturer"); ?></legend>
+            <legend>{{ 'Manufacturer'|trans }}</legend>
             <?php $manufacturers = $view->container->get('manufacturerService')->getManufacturers($view['request']->getLocaleId()); ?>
             <?php echo $form->idpSelect('manufacturerId', array_merge(array(new ZMIdNamePair("", _zm("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
         </fieldset>
 
         <fieldset>
-            <legend><?php _vzm("Price Range"); ?></legend>
+            <legend>{{ 'Price Range'|trans }}</legend>
             <input type="text" id="priceFrom" name="priceFrom" value="<?php echo $view->escape($searchCriteria->getPriceFrom()) ?>" />
             <input type="text" id="priceTo" name="priceTo" value="<?php echo $view->escape($searchCriteria->getPriceTo()) ?>" />
         </fieldset>
 
         <fieldset>
-            <legend><?php _vzm("Date"); ?></legend>
+            <legend>{{ 'Date'|trans }}</legend>
             <?php $defaultDateValue = $view['date']->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
             <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $view->escape($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
@@ -46,5 +46,5 @@
         </fieldset>
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Search'|trans }}" /></div>
 </form>

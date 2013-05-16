@@ -1,6 +1,6 @@
 <?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $view['settings']->get('storeCountry'); ?>
 <fieldset>
-    <legend><?php _vzm("Address") ?></legend>
+    <legend>{{ 'Address'|trans }}</legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
         <thead>
             <tr>
@@ -11,53 +11,53 @@
         <tbody>
             <?php if ($view['settings']->get('isAccountGender')) { ?>
                 <tr>
-                    <td><?php _vzm("Title") ?><span>*</span></td>
+                    <td>{{ 'Title'|trans }}<span>*</span></td>
                     <td>
                         <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m'==$address->getGender()) ?> />
-                        <label for="male"><?php _vzm("Mr.") ?></label>
+                        <label for="male">{{ 'Mr.'|trans }}</label>
                         <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $address->getGender()) ?> />
-                        <label for="female"><?php _vzm("Ms.") ?></label>
+                        <label for="female">{{ 'Ms.'|trans }}</label>
                     </td>
                 </tr>
             <?php } ?>
             <tr>
-                <td><?php _vzm("First Name") ?><span>*</span></td>
+                <td>{{ 'First Name'|trans }}<span>*</span></td>
                 <td><input type="text" id="firstName" name="firstName" value="<?php echo $view->escape($address->getFirstName()) ?>" /></td>
             </tr>
             <tr>
-                <td><?php _vzm("Last Name") ?><span>*</span></td>
+                <td>{{ 'Last Name'|trans }}<span>*</span></td>
                 <td><input type="text" id="lastName" name="lastName" value="<?php echo $view->escape($address->getLastName()) ?>" /></td>
             </tr>
             <?php if ($view['settings']->get('isAccountCompany')) { ?>
                 <tr>
-                    <td><?php _vzm("Company Name") ?></td>
+                    <td>{{ 'Company Name'|trans }}</td>
                     <td><input type="text" id="companyName" name="companyName" value="<?php echo $view->escape($address->getCompanyName()) ?>" /></td>
                 </tr>
             <?php } ?>
             <tr>
-                <td><?php _vzm("Street Address") ?><span>*</span></td>
+                <td>{{ 'Street Address'|trans }}<span>*</span></td>
                 <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $view->escape($address->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
             </tr>
             <tr>
-                <td><?php _vzm("Suburb") ?></td>
+                <td>{{ 'Suburb'|trans }}</td>
                 <td><input type="text" id="suburb" name="suburb" value="<?php echo $view->escape($address->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
             </tr>
             <tr>
-                <td><?php _vzm("City") ?><span>*</span></td>
+                <td>{{ 'City'|trans }}<span>*</span></td>
                 <td><input type="text" id="city" name="city" value="<?php echo $view->escape($address->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
             </tr>
             <tr>
-                <td><?php _vzm("Post Code") ?><span>*</span></td>
+                <td>{{ 'Post Code'|trans }}<span>*</span></td>
                 <td><input type="text" id="postcode" name="postcode" value="<?php echo $view->escape($address->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
             </tr>
              <tr>
-                <td><?php _vzm("Country") ?><span>*</span></td>
+                <td>{{ 'Country'|trans }}<span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
             <?php if ($view['settings']->get('isAccountState')) { ?>
                 <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
-                    <td><?php _vzm("State/Province") ?><span>*</span></td>
+                    <td>{{ 'State/Province'|trans }}<span>*</span></td>
                     <td>
                         <?php if (0 < count($zones)) { ?>
                             <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
@@ -73,14 +73,14 @@
                     <td>
                         <input type="hidden" name="_primary" value="<?php echo $address->isPrimary() ?>" />
                         <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
-                        <label for="primary"><?php _vzm("Use as primary address") ?></label>
+                        <label for="primary">{{ 'Use as primary address'|trans }}</label>
                     </td>
                 </tr>
             <?php } ?>
             <tr class="legend">
                 <td colspan="2">
                     <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
-                    <?php _vzm("<span>*</span> Mandatory fields") ?>
+                    {{ '<span>*</span> Mandatory fields'|trans|raw }}
                 </td>
             </tr>
         </tbody>

@@ -6,7 +6,7 @@
                     <?php /* if multi select do not auto submit */ ?>
                     <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
                     <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
-                        <option value=""><?php _vzm("Filter by '%s' ...", $filter->getName()) ?></option>
+                        <option value="">{{ 'Filter by "%filter%" ...'|trans({'%filter%' : filter.name}) }}</option>
                         <?php foreach ($filter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
@@ -28,7 +28,7 @@
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
-                    <option value=""><?php _vzm("Sort by ...") ?></option>
+                    <option value="">{{ 'Sort by ...'|trans }}</option>
                     <?php foreach ($resultList->getSorters() as $sorter) { ?>
                         <?php foreach ($sorter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
@@ -41,7 +41,7 @@
             </div>
         <?php } ?>
         <div>
-          <?php if ($hasOptions) { ?><input type="submit" class="btn" value="<?php _vzm("Sort / Reverse / Filter") ?>" /><?php } else { ?>&nbsp;<?php } ?>
+          <?php if ($hasOptions) { ?><input type="submit" class="btn" value="{{ 'Sort / Reverse / Filter'|trans }}" /><?php } else { ?>&nbsp;<?php } ?>
         </div>
     </form>
 <?php } ?>

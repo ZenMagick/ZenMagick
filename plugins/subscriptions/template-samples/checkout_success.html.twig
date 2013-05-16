@@ -2,7 +2,7 @@
 
 <?php $schedule = $currentOrder->getSchedule(); ?>
 <?php if (!Toolbox::isEmpty($schedule)) { ?>
-    <h3><?php _vzm("Subscription") ?></h3>
+    <h3>{{ 'Subscription'|trans }}</h3>
     <?php $schedules = $subscriptions->getSchedules(); ?>
-    <p><?php _vzm("Order schedule: '%s.'", $schedules[$schedule]['name']) ?></p>
+    <p>{{ 'Order schedule: "%schedule%".'|trans({'%schedule%' : schedules[schedule]['name']}) }}</p>
 <?php } ?>

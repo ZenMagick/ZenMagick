@@ -1,7 +1,7 @@
 <?php use ZenMagick\Base\Toolbox; ?>
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $view['request']->getParameter('order_id')))); ?>
-<h3><?php _vzm("Item Details") ?></h3>
+<h3>{{ 'Item Details'|trans }}</h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
     <?php foreach ($currentOrder->getOrderItems() as $orderItem) { ?>
@@ -33,7 +33,7 @@
     </tbody>
 </table>
 
-<h3><?php _vzm("Payment Details") ?></h3>
+<h3>{{ 'Payment Details'|trans }}</h3>
 <table cellpadding="0" cellspacing="0">
     <tbody><tr><td>
 <?php if (null != ($paymentType = $currentOrder->getPaymentType())) { ?>
@@ -42,12 +42,12 @@
       <p><?php echo nl2br($paymentType->getInfo()) ?></p>
     <?php } ?>
 <?php } else { ?>
-    <p><?php _vzm('N/A') ?></p>
+    <p>{{ 'N/A'|trans }}</p>
 <?php } ?>
     </td></tr></tbody>
 </table>
 
-<h3><?php _vzm("Order History") ?></h3>
+<h3>{{ 'Order History'|trans }}</h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
     <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
@@ -61,14 +61,14 @@
 </table>
 
 <?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
-    <h3><?php _vzm('Downloads') ?></h3>
-    <p><?php _vzm("To download your files click the download button and choose \"Save to Disk\" from the popup menu.") ?></p>
+    <h3>{{ 'Downloads'|trans }}</h3>
+    <p>{{ 'To download your files click the download button and choose "Save to Disk" from the popup menu.|trans }}</p>
     <table class="grid">
       <tr>
-          <th><?php _vzm('Item') ?></th>
-          <th><?php _vzm('Filename') ?></th>
-          <th><?php _vzm('Size') ?></th>
-          <th><?php _vzm('Remaining') ?></th>
+          <th>{{ 'Item'|trans }}</th>
+          <th>{{ 'Filename'|trans }}</th>
+          <th>{{ 'Size'|trans }}</th>
+          <th>{{ 'Remaining'|trans }}</th>
           <th></th>
       </tr>
       <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
@@ -77,24 +77,24 @@
               <th><?php echo $view->escape($download->getFilename()) ?></th>
               <th><?php echo $download->getFileSize() ?> bytes</th>
               <th><?php echo $download->getDownloadCount() ?></th>
-              <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>"><?php _vzm('Download') ?></a></th>
+              <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>">{{ 'Download'|trans }}</a></th>
           </tr>
       <?php } ?>
     </table>
 <?php } ?>
 
-<h3><?php _vzm("Address Details") ?></h3>
+<h3>{{ 'Address Details'|trans }}</h3>
 <div id="addr">
     <div id="daddr">
-        <h4><?php _vzm("Shipping Address") ?></h4>
+        <h4>{{ 'Shipping Address'|trans }}</h4>
         <?php if (!$currentOrder->hasShippingAddress()) { ?>
-            <?php _vzm("N/A") ?>
+            {{ 'N/A'|trans }}
         <?php } else { ?>
             <?php echo $macro->formatAddress($currentOrder->getShippingaddress()) ?>
         <?php } ?>
     </div>
     <div id="baddr">
-        <h4><?php _vzm("Billing Address") ?></h4>
+        <h4>{{ 'Billing Address'|trans }}</h4>
         <?php echo $macro->formatAddress($currentOrder->getBillingAddress()) ?>
     </div>
 </div>

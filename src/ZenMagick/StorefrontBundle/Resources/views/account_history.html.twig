@@ -18,5 +18,5 @@
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
     </div>
 <?php } else { ?>
-    <h2><?php _vzm("No orders found") ?></h2>
+    <h2>{{ 'No orders found'|trans }}</h2>
 <?php } ?>

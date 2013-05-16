@@ -1,6 +1,6 @@
 <?php use ZenMagick\Base\Beans; ?>
 <?php $lastIndex = count($fieldList)-1; ?>
-<h2><?php _vzm('Quick Edit: <em>%s</em>', $view->escape($category->getName())) ?></h2>
+<h2>{{ 'Quick Edit: <em>%category%</em>'|trans({'%category%' : category.name}) }}</h2>
 
 <form action="<?php echo $admin->catalog() ?>" method="POST">
   <table class="grid">
@@ -34,6 +34,6 @@
   </table>
   <p style="padding:8px 25px;text-align:center;">
     <input type="hidden" name="catalogRequestId" value="quick_edit_tab">
-    <input type="submit" name="submit" value="<?php _vzm('Update all products') ?>">
+    <input type="submit" name="submit" value="{{ 'Update all products'|trans }}">
   </p>
 </form>

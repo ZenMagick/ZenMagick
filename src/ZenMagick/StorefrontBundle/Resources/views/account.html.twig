@@ -1,28 +1,28 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'))); ?>
 <fieldset>
-    <legend><?php _vzm("My Account") ?></legend>
+    <legend>{{ 'My Account'|trans }}</legend>
     <ul>
-        <li><a href="<?php echo $view['router']->generate('account_edit'); ?>"><?php _vzm("Change Account") ?></a></li>
-        <li><a href="<?php echo $view['router']->generate('address_book'); ?>"><?php _vzm("My Address Book") ?></a></li>
-        <li><a href="<?php echo $view['router']->generate('account_password'); ?>"><?php _vzm("Change My Password") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_edit'); ?>">{{ 'Change Account'|trans }}</a></li>
+        <li><a href="<?php echo $view['router']->generate('address_book'); ?>">{{ 'My Address Book'|trans }}</a></li>
+        <li><a href="<?php echo $view['router']->generate('account_password'); ?>">{{ 'Change My Password'|trans }}</a></li>
     </ul>
 </fieldset>
 
 <fieldset>
-    <legend><?php _vzm("Email Settings") ?></legend>
+    <legend>{{ 'Email Settings'|trans }}</legend>
     <ul>
-        <li><a href="<?php echo $view['router']->generate('account_newsletters'); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
-        <li><a href="<?php echo $view['router']->generate('account_notifications'); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
+        <li><a href="<?php echo $view['router']->generate('account_newsletters'); ?>">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
+        <li><a href="<?php echo $view['router']->generate('account_notifications'); ?>">{{ 'Change Product Notifications'|trans }}</a></li>
     </ul>
 </fieldset>
 
 <?php $voucherBalance = $app->getUser()->getVoucherBalance(); ?>
 <?php if (0 < $voucherBalance) { ?>
     <fieldset>
-        <legend><?php _vzm("Gift Certificate Account") ?></legend>
-        <div class="btn"><a href="<?php echo $view['router']->generate('gv_send') ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
-        <p><?php _vzm("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?></p>
+        <legend>{{ 'Gift Certificate Account'|trans }}</legend>
+        <div class="btn"><a href="<?php echo $view['router']->generate('gv_send') ?>" class="btn">{{ 'Send Gift Certificate'|trans }}</a></div>
+        <p>{{ 'You have funds (%amount%) in your Gift Certificate Account.'|trans({'%amount%' : utils.formatMoney(voucherBalance)}) }}</p>
     </fieldset>
 <?php } ?>
 
@@ -30,9 +30,9 @@
     <?php $resultList->setPagination(3); ?>
     <h3>
         <?php if (3 < $resultList->getNumberOfResults()) { ?>
-            <a href="<?php echo $view['router']->generate('account_history') ?>"><?php _vzm("(Show All)") ?></a>
+            <a href="<?php echo $view['router']->generate('account_history') ?>">{{ '(Show All)'|trans }}</a>
         <?php } ?>
-        <?php _vzm("Previous Orders") ?>
+        {{ 'Previous Orders'|trans }}
     </h3>
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>

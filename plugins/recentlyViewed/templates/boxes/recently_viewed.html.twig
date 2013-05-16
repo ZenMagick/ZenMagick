@@ -1,5 +1,5 @@
 <?php if (isset($recentlyViewedProducts) && 0 < count($recentlyViewedProducts)) { ?>
-    <h3><?php _vzm('Recently Viewed') ?></h3>
+    <h3>{{ 'Recently Viewed'|trans }}</h3>
     <div id="sb_recently_viewed" class="box">
         <ol>
         <?php foreach ($view->container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $view['request']->getLocaleId()) as $product) { ?>

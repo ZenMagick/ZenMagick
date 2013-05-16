@@ -19,16 +19,17 @@
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
     <?php if ($view['settings']->get('isPrivacyMessage')) { ?>
         <fieldset>
-            <legend><?php _vzm("About Privacy") ?></legend>
+            <legend>{{ 'About Privacy'|trans }}</legend>
             <p>
-                <?php _vzm("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
-                <?php $href = '<a href="' . $net->staticPage('privacy') . '">' . _zm("here") . '</a>'; ?>
-                <?php _vzm("The privacy statement can be read %s.", $href) ?><p>
-            <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy"><?php _vzm("I have read and agreed to your privacy statement.") ?></label></p>
+                {{ 'Please acknowledge you agree with our privacy statement by ticking the following box.'|trans }}</br>
+                <?php $href = $net->staticPage('privacy')' ?>
+                {{ 'The privacy statement can be read <a href="%privacy_url%">here</a>'|trans({'%privacy_url%' : href})|raw }}
+            </p>
+            <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy">{{ 'I have read and agreed to your privacy statement.'|trans }}</label></p>
         </fieldset>
     <?php } ?>
     <fieldset>
-        <legend><?php _vzm("Create Account") ?></legend>
+        <legend>{{ 'Create Account'|trans }}</legend>
         <table cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
@@ -39,64 +40,64 @@
             <tbody>
                 <?php if ($view['settings']->get('isAccountGender')) { ?>
                     <tr>
-                        <td><?php _vzm("Title") ?><span>*</span></td>
+                        <td>{{ 'Title'|trans }}<span>*</span></td>
                         <td>
                             <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $registration->getGender()) ?> />
-                            <label for="male"><?php _vzm("Mr.") ?></label>
+                            <label for="male">{{ 'Mr.'|trans }}</label>
                             <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f' == $registration->getGender()) ?> />
-                            <label for="female"><?php _vzm("Ms.") ?></label>
+                            <label for="female">{{ 'Ms.'|trans }}</label>
                         </td>
                     </tr>
                 <?php } ?>
                 <tr>
-                    <td><?php _vzm("First Name") ?><span>*</span></td>
+                    <td>{{ 'First Name'|trans }}<span>*</span></td>
                     <td><input type="text" name="firstName" value="<?php echo $view->escape($registration->getFirstName()) ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php _vzm("Last Name") ?><span>*</span></td>
+                    <td>{{ 'Last Name'|trans }}<span>*</span></td>
                     <td><input type="text" name="lastName" value="<?php echo $view->escape($registration->getLastName()) ?>" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountDOB')) { ?>
                     <tr>
-                        <td><?php _vzm("Date of Birth") ?><span>*</span></td>
+                        <td>{{ 'Date of Birth'|trans }}<span>*</span></td>
                         <td><input type="text" name="dob" value="<?php echo $view->escape($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
-                    <td><?php _vzm("E-Mail Address") ?><span>*</span></td>
+                    <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
                     <td><input type="text" name="email" value="<?php echo $view->escape($registration->getEmail()) ?>" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountNickname')) { ?>
                     <tr>
-                        <td><?php _vzm("Nickname") ?></td>
+                        <td>{{ 'Nickname'|trans }}</td>
                         <td><input type="text" name="nickName" value="<?php echo $view->escape($registration->getNickName()) ?>" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
-                    <td><?php _vzm("Password") ?><span>*</span></td>
+                    <td>{{ 'Password'|trans }}<span>*</span></td>
                     <td><input type="password" name="password" value="" /></td>
                 </tr>
                 <tr>
-                    <td><?php _vzm("Confirm Password") ?><span>*</span></td>
+                    <td>{{ 'Confirm Password'|trans }}<span>*</span></td>
                     <td><input type="password" name="confirmation" value="" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountCompany')) { ?>
                     <tr>
-                        <td><?php _vzm("Company Name") ?></td>
+                        <td>{{ 'Company Name'|trans }}</td>
                         <td><input type="text" name="companyName" value="<?php echo $view->escape($registration->getCompanyName()) ?>" /></td>
                     </tr>
                 <?php } ?>
 
                 <tr>
-                    <td><?php _vzm("Street Address") ?><span>*</span></td>
+                    <td>{{ 'Street Address'|trans }}<span>*</span></td>
                     <td><input type="text" name="addressLine1" value="<?php echo $view->escape($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
-                    <td><?php _vzm("Suburb") ?></td>
+                    <td>{{ 'Suburb'|trans }}</td>
                     <td><input type="text" name="suburb" value="<?php echo $view->escape($registration->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
-                    <td><?php _vzm("City") ?><span>*</span></td>
+                    <td>{{ 'City'|trans }}<span>*</span></td>
                     <td><input type="text" name="city" value="<?php echo $view->escape($registration->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
                 </tr>
                 <?php
@@ -104,17 +105,17 @@
                     $countryId = 0 != $countryId ? $countryId : $view['settings']->get('storeCountry');
                 ?>
                 <tr>
-                    <td><?php _vzm("Post Code") ?><span>*</span></td>
+                    <td>{{ 'Post Code'|trans }}<span>*</span></td>
                     <td><input type="text" name="postcode" value="<?php echo $view->escape($registration->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
-                    <td><?php _vzm("Country") ?><span>*</span></td>
+                    <td>{{ 'Country'|trans }}<span>*</span></td>
                     <td><?php echo $form->idpSelect('countryId', $view->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountState')) { ?>
                     <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
-                        <td><?php _vzm("State/Province") ?><span>*</span></td>
+                        <td>{{ 'State/Province'|trans }}<span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
                                 <?php echo $form->idpSelect('zoneId', $zones, $registration->getZoneId()) ?>
@@ -126,43 +127,43 @@
                 <?php } ?>
 
                 <tr>
-                    <td><?php _vzm("Telephone Number") ?><span>*</span></td>
+                    <td>{{ 'Telephone Number'|trans }}<span>*</span></td>
                     <td><input type="text" name="phone" value="<?php echo $view->escape($registration->getPhone()) ?>" /></td>
                 </tr>
                 <tr>
-                    <td><?php _vzm("Fax Number") ?></td>
+                    <td>{{ 'Fax Number'|trans }}</td>
                     <td><input type="text" name="fax" value="<?php echo $view->escape($registration->getFax()) ?>" /></td>
                 </tr>
 
                  <tr>
-                    <td><?php _vzm("E-Mail Format") ?><span>*</span></td>
+                    <td>{{ 'E-Mail Format'|trans }}<span>*</span></td>
                     <td>
                         <input type="radio" id="html" name="emailFormat" value="HTML"<?php $form->checked('HTML', $registration->getEmailFormat(), 'HTML') ?> />
-                        <label for="html"><?php _vzm("HTML") ?></label>
+                        <label for="html">{{ 'HTML'|trans }}</label>
                         <input type="radio" id="text" name="emailFormat" value="TEXT"<?php $form->checked('TEXT', $registration->getEmailFormat(), 'TEXT', true) ?> />
-                        <label for="text"><?php _vzm("Text") ?></label>
+                        <label for="text">{{ 'Text'|trans }}</label>
                     </td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
-                        <td><input type="checkbox" id="newsletterSubscriber" name="newsletterSubscriber" value="1"<?php $form->checked($registration->isNewsletterSubscriber()) ?> /><label for="newsletterSubscriber"><?php _vzm("Receive Store Newsletter") ?></label></td>
+                        <td><input type="checkbox" id="newsletterSubscriber" name="newsletterSubscriber" value="1"<?php $form->checked($registration->isNewsletterSubscriber()) ?> /><label for="newsletterSubscriber">{{ 'Receive Store Newsletter'|trans }}</label></td>
                     </tr>
                 <?php } ?>
 
                 <?php if ($view['settings']->get('isAccountReferral')) { ?>
                     <tr>
-                        <td><?php _vzm("Referral Code") ?><span>*</span></td>
+                        <td>{{ 'Referral Code'|trans }}<span>*</span></td>
                         <td><input type="text" name="referral" value="" /></td>
                     </tr>
                 <?php } ?>
 
                 <tr class="legend">
-                    <td colspan="2"><?php _vzm("<span>*</span> Mandatory fields") ?></td>
+                    <td colspan="2">{{ '<span>*</span> Mandatory fields'|trans|raw }}</td>
                 </tr>
             </tbody>
         </table>
     </fieldset>
     <?php if ($this->exists('howDidYouHearOptions.html.php')) { echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php'); } ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Create Account") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Create Account'|trans }}" /></div>
 </form>

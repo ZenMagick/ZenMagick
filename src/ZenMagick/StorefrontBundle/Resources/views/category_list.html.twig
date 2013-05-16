@@ -21,7 +21,7 @@ if ($resultList->hasResults()) { ?>
 <?php } else { ?>
     <?php if ($currentCategory->hasChildren()) { ?>
         <div class="subcats">
-            <h3><?php _vzm("Available Sub-categories") ?></h3>
+            <h3>{{ 'Available Sub-categories'|trans }}</h3>
             <?php foreach ($currentCategory->getChildren() as $category) {
                 $encName = $view->escape($category->getName());
                 $catImage = $category->getImageInfo();
@@ -32,5 +32,5 @@ if ($resultList->hasResults()) { ?>
         </div>
     <?php } ?>
 
-    <h2><?php _vzm("There are no products in this category") ?></h2>
+    <h2>{{ 'There are no products in this category'|trans }}</h2>
 <?php } ?>

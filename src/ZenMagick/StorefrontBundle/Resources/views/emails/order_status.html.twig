@@ -1,31 +1,31 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("Order update #%s", $currentOrder->getId()) ?></title>
+<title>{{ 'Order update #%id%'|trans({'%id%' : currentOrder.id}) }}</title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
 
-<p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
+<p>{{ 'This is to inform you that your order #%id% has been updated.'|trans('%id%': currentOrder.id}) }}</p>
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) {
-    $href = '<a href="'.$view['router']->generate('account_history_info', array('order_id', $currentOrder->getId()), true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = $view['router']->generate('account_history_info', array('order_id', $currentOrder->getId()), true);
 } else {
-    $href = '<a href="'.$view['router']->generate('guest_history', array(), true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = $view['router']->generate('guest_history', array(), true);
 } ?>
-<p><?php _vzm("More details can be found at the following URL: %s", $href) ?></p>
+<p>{{ 'More details can be found at the following URL: <a href="%guest_url%">Order #%id%</a>'|trans({'%guest_url%' : href, '%id%' : currentOrder.id})|raw }}</p>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
-<?php _vzm("The new order status is: %s.", $newOrderStatus) ?>
+    {{ 'The new order status is: %status%.'|trans({'%status%' : newOrderStatus}) }}
 <?php } ?>
 
 <?php if (!empty($comment)) { ?>
-<p><?php _vzm("The following comment has been added to your order:") ?></p>
+<p>{{ 'The following comment has been added to your order:'|trans }}</p>
 <p><?php echo $html->text2html($comment) ?></p>
 <?php } ?>
 
-<p><?php _vzm("Regards, %s", $view['settings']->get('storeName')) ?></p>
+<p>{{ 'Regards, %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}</p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

@@ -1,6 +1,5 @@
-<?php _vzm("A Product Review for %s has been submitted and requires your approval.", $currentProduct->getName()) ?>
+{{ 'A Product Review for %product% has been submitted and requires your approval.'|trans({'%product%' : currentProduct.name}) }}
 
+{{ 'Review Details: %text%'|trans({'%text%': currentReview.text}) }}
 
-<?php _vzm("Review Details: %s", $currentReview->getText()) ?>
-
-<?php echo $office_only_text; ?>
+{{ office_only_text }}

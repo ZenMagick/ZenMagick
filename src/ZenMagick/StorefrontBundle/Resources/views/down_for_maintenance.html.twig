@@ -1,6 +1,6 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<h1><?php _vzm("Down for Maintenance ..."); ?></h1>
+<h1>{{ 'Down for Maintenance ...'|trans }}</h1>
 
-<h3><?php _vzm("The site is currently down for maintenance. Please try back later.") ?></h3>
+<h3>{{ 'The site is currently down for maintenance. Please try back later.'|trans }}</h3>
 
-<p><a class="btn" href="<?php echo $view['router']->generate('index') ?>"><?php _vzm('Check status') ?></a></p>
+<p><a class="btn" href="<?php echo $view['router']->generate('index') ?>">{{ 'Check status'|trans }}</a></p>

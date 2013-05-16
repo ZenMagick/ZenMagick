@@ -1,6 +1,8 @@
-<?php _vzm("%s Order Cancel...\n", $settingsService->get('storeName')) ?>
+{{ '%store_name% Order Cancel...'|trans ({'%store_name%': $settingsService->get('storeName')}) }}
 
-<?php _vzm("Order Details\n") ?>
+{{ 'Order Details'|trans }}
+
 -----------------------------------------------
-<?php _vzm("Order Number: #%s\n", $order->getId()) ?>
-<?php _vzm("Order Date: %s\n", $locale->shortDate($order->getOrderDate())) ?>
+{{ 'Order Number: %id%'|trans({'%id%': order.id}) }}
+
+{{ 'Order Date: %date%'|trans({'%date%': order.orderDate|localizeddate('short', 'none')}) }}

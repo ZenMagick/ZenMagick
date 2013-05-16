@@ -1,21 +1,22 @@
 <?php use ZenMagick\Base\Toolbox; ?>
-<?php _vzm("%s Order Confirmation", $settingsService->get('storeName')) ?>
+{{ '%store_name% Order Confirmation'|trans({'%store_name%': $view['settings']->get('storeName')}) }}
 
 
-<?php _vzm("Thanks for shopping at %s,", $settingsService->get('storeName')) ?>
+{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
 
-<?php _vzm("The following is a summary of your order.") ?>
+{{ 'The following is a summary of your order.'|trans }}
 
 
-<?php _vzm("Order Details") ?>
+{{ 'Order Details'|trans }}
 
 -----------------------------------------------
-<?php _vzm("Order Number: #%s", $order->getId()) ?>
+{{ 'Order Number: #%id%:|trans({'%id%' : order.id }) }}
 
-<?php _vzm("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
+{{ 'Order Date: %date%'|trans({'%date%': order.orderDate|localizeddate('short', 'none')}) }}
 
 
-<?php _vzm("Ordered Items") ?>
+
+{{ 'Ordered Items'|trans }}
 
 -----------------------------------------------
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
@@ -31,24 +32,24 @@
 <?php } ?>
 
 
-<?php _vzm("Address Details") ?>
+{{ 'Address Details'|trans }}
 
 -----------------------------------------------
 
-<?php _vzm("Shipping Address") ?>
+{{ 'Shipping Address'|trans }}
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
-<?php _vzm("N/A") ?>
+{{ 'N/A'|trans }}
 <?php } else { ?>
 <?php echo $macro->formatAddress($shippingAddress, false) ?>
 <?php } ?>
 
 
-<?php _vzm("Billing Address") ?>
+{{ 'Billing Address'|trans }}
 
 <?php echo $macro->formatAddress($billingAddress, false) ?>
 
 
-<?php _vzm("Payment Details") ?>
+{{ 'Payment Details'|trans }}
 
 -----------------------------------------------
 

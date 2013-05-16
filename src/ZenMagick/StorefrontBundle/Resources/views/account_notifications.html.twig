@@ -1,23 +1,23 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
-<p><?php _vzm("The product notification list allows you to stay up to date on products you find of interest.") ?></p>
-<p><?php _vzm("To be up to date on all product changes, select <strong>Global Product Notifications</strong>.") ?></p>
+<p>{{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}</p>
+<p>{{ 'To be up to date on all product changes, select <strong>Global Product Notifications</strong>.'|trans|raw }}</p>
 <?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>
     <input type="hidden" name="notify_type" value="set" />
     <fieldset>
-        <legend><?php _vzm("Global Product Notifications") ?></legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked(true, $currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php _vzm("Global Product Notification") ?></label></p>
+        <legend>{{ 'Global Product Notifications'|trans }}</legend>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked(true, $currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global">{{ 'Global Product Notification'|trans }}</label></p>
     </fieldset>
 
     <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>
         <fieldset>
-            <legend><?php _vzm("Product Notifications") ?></legend>
+            <legend>{{ 'Product Notifications'|trans }}</legend>
             <?php $ii=0;
             foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = $view->container->get('productService')->getProductForId($productId, $view['request']->getLocaleId()); ?>
                 <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $view->escape($product->getName()) : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>
     <?php } ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
 </form>

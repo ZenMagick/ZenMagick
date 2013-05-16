@@ -1,5 +1,5 @@
 <?php if (!$view->container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
-    <h3><?php _vzm("Shopping Cart") ?></h3>
+    <h3>{{ 'Shopping Cart'|trans }}</h3>
     <div id="sb_cart" class="box">
         <?php foreach ($view->container->get('shoppingCart')->getItems() as $item) { ?>
             <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $view->escape($item->getProduct()->getName()) ?></a><br />

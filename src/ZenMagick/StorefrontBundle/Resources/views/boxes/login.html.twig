@@ -1,20 +1,20 @@
 <?php if (!$app->getUser() && 'login' != $view['request']->getRouteId() && 'time_out' != $view['request']->getRouteId()) { ?>
-    <h3><?php _vzm("Login") ?></h3>
+    <h3>{{ 'Login'|trans }}</h3>
     <div id="sb_login" class="box">
         <?php echo $form->open('login', '', true, array('id'=>'login')) ?>
             <div>
-                <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
+                <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
                 <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address', 20) ?> />
             </div>
             <div>
-                <label for="password"><?php _vzm("Password") ?></label>
-                <input type="submit" class="btn" value="<?php _vzm("Login") ?>" />
+                <label for="password">{{ 'Password'|trans }}</label>
+                <input type="submit" class="btn" value="{{ 'Login'|trans }}" />
                 <input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password', 9) ?> />
             </div>
         </form>
         <div>
-            <a href="<?php echo $view['router']->generate('password_forgotten') ?>"><?php _vzm("Lost your password?") ?></a>
-            <a href="<?php echo $view['router']->generate('create_account'); ?>"><?php _vzm("Not registered yet?") ?></a>
+            <a href="<?php echo $view['router']->generate('password_forgotten') ?>">{{ 'Lost your password?'|trans }}</a>
+            <a href="<?php echo $view['router']->generate('create_account'); ?>">{{ 'Not registered yet?'|trans }}</a>
         </div>
     </div>
 <?php } ?>

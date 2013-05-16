@@ -1,17 +1,17 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php echo $form->open('foo', '', true, array('id'=>'foo')) ?>
   <fieldset>
-    <legend><?php _vzm("Foo") ?></legend>
+    <legend>{{ 'Foo'|trans }}</legend>
     <div>
-      <label for="foo"><?php _vzm("Foo") ?></label>
+      <label for="foo">{{ 'Foo'|trans }}</label>
       <input type="text" id="foo" name="foo" value="<?php echo $formData->getFoo() ?>" />
     </div>
     <div>
-      <label for="bar"><?php _vzm("Bar") ?></label>
+      <label for="bar">{{ 'Bar'|trans }}</label>
       <input type="text" id="bar" name="bar" value="<?php echo $formData->getBar() ?>"  />
     </div>
     <div>
-      <label for="doh"><?php _vzm("Bar") ?></label>
+      <label for="doh">{{ 'Bar'|trans }}</label>
       <select id="doh" name="doh[]" size="3" multiple style="width:4em;">
         <option value="do">do</option>
         <option value="re">re</option>
@@ -20,5 +20,5 @@
       </select>
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
 </form>

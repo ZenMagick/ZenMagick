@@ -2,13 +2,13 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Search'))); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
     <fieldset>
-    <legend><?php _vzm("Search again") ?></legend>
+    <legend>{{ 'Search again'|trans }}</legend>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>
-        <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
-        <a class="clear" href="<?php echo $view['router']->generate('advanced_search', array('keywords' => $searchCriteria->getKeywords())) ?>"><?php _vzm("Advanced Search") ?></a>
+        <div class="btn"><input type="submit" class="btn" value="{{ 'Search'|trans }}" /></div>
+        <a class="clear" href="<?php echo $view['router']->generate('advanced_search', array('keywords' => $searchCriteria->getKeywords())) ?>">{{ 'Advanced Search'|trans }}</a>
     </fieldset>
 </form>
 
@@ -30,6 +30,6 @@
             <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
         </div>
     <?php } else { ?>
-        <h2><?php _vzm("No products found") ?></h2>
+        <h2>{{ 'No products found'|trans }}</h2>
     <?php } ?>
 <?php } ?>

@@ -4,9 +4,9 @@
 <?php $currentAddress = $shoppingCart->getShippingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
     <?php echo $form->open('checkout_shipping_address', 'action=select', true) ?>
-        <h3><?php _vzm("Select an existing address") ?></h3>
+        <h3>{{ 'Select an existing address'|trans }}</h3>
         <fieldset>
-            <legend><?php _vzm("Address Book") ?></legend>
+            <legend>{{ 'Address Book'|trans }}</legend>
             <?php foreach ($addressList as $address) { ?>
                 <p>
                     <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
@@ -19,12 +19,12 @@
                 </p>
             <?php } ?>
         </fieldset>
-        <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
+        <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
     </form>
-    <h3><?php _vzm("... or create a new one") ?></h3>
+    <h3>{{ '... or create a new one'|trans }}</h3>
 <?php } ?>
 
 <?php echo $form->open('checkout_shipping_address', 'action=create', true, array('id'=>'shippingAddress')) ?>
     <?php echo $this->render('StorefrontBundle::address.html.php', array('address' => $shippingAddress)) ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
 </form>

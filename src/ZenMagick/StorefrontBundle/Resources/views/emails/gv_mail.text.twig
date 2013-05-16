@@ -1,17 +1,17 @@
 <?php if (empty($message)) { ?>
-<?php _vzm("We're pleased to offer you a Gift Certificate") ?>
+{{ 'We're pleased to offer you a Gift Certificate'|trans }}
 <?php } else { ?>
 <?php echo $message; ?>
 <?php } ?>
 
 
-<?php _vzm('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false)) ?>
+{{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}
 
 
-<?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
+<{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
 
-
-<?php _vzm("To redeem your gift, visit %s", $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true)) ?>
+<?php $href = $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true); ?>
+{{ 'To redeem your gift, visit %url%'|trans(}'%url%':  href}) }}
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

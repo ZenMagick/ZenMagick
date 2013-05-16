@@ -19,12 +19,12 @@
  */
 ?>
 
-<h3><?php _vzm("Subscription Enqiries") ?></h3>
+<h3>{{ 'Subscription Enqiries'|trans }}</h3>
 
 <?php echo $form->open('subscription_request', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
     <fieldset>
-        <legend><?php _vzm("Subscription Enquiries") ?></legend>
-        <label for="type"><?php _vzm("Request Type") ?><span>*</span></label>
+        <legend>{{ 'Subscription Enquiries'|trans }}</legend>
+        <label for="type">{{ 'Request Type'|trans }}<span>*</span></label>
         <select id="type" name="type">
             <?php foreach ($subscriptions->getRequestTypes() as $type => $name) { ?>
                 <?php $selected = $subscriptionRequest->getType() == $type ? ' selected' : ''; ?>
@@ -32,12 +32,12 @@
             <?php } ?>
         </select><br />
 
-        <label for="orderId"><?php _vzm("Order Number (optional)") ?></label>
+        <label for="orderId">{{ 'Order Number (optional)'|trans }}</label>
         <input type="text" id="orderId" name="orderId" size="8" value="<?php echo $view->escape($subscriptionRequest->getOrderId()) ?>" /><br />
 
-        <label for="message"><?php _vzm("Message") ?><span>*</span></label>
+        <label for="message">{{ 'Message'|trans }}<span>*</span></label>
         <textarea id="message" name="message" cols="30" rows="7"><?php echo $view->escape($subscriptionRequest->getMessage()) ?></textarea>
-        <p class="legend"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
+        <p class="legend">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
 </form>

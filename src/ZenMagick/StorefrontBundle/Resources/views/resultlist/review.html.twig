@@ -7,11 +7,13 @@
         <p><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
         <h4 class="rtitle"><?php echo $html->strip($review->getTitle()) ?></h4>
         <p class="rtext"><?php echo $html->more($html->strip($review->getText()), 120) ?></p>
-        <p class="rinfo"><?php _vzm("Date added: %s by %s", $view['date']->short($review->getDateAdded()), $review->getAuthor()) ?></p>
+        <p class="rinfo">
+            {{ 'Date added: %date_added% by %author%'|trans({'%date_added%' : review.dateAdded|localizeddate('short', 'none'), '%author%: review.author}) }}
+        </p>
     </td>
     <td class="lnks">
-        <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>"><?php _vzm("Product Information") ?></a></p>
+        <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>">{{ 'Product Information'|trans }}</a></p>
         <?php $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId()); ?>
-        <p><a class="btn" href="<?php echo $view['router']->generate('product_reviews_info', $params) ?>"><?php _vzm("Read full review") ?></a></p>
+        <p><a class="btn" href="<?php echo $view['router']->generate('product_reviews_info', $params) ?>">{{ 'Read full review'|trans }}</a></p>
     </td>
 </tr>

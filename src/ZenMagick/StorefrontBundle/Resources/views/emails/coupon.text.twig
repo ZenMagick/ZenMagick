@@ -1,24 +1,24 @@
-<?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
 
 
-<?php _vzm("We're pleased to offer you a Store Coupon for our online store at %s", $settingsService->get('storeName')) ?>
+{{ 'We\'re pleased to offer you a Store Coupon for our online store at %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
 
 
-<?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?>
+{{ 'You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.'|trans }}
 
 
-<?php _vzm('The coupon code is %s', $currentCoupon->getCode()) ?>
+{{ 'The Coupon code is %code%'|trans({'%code%' : currentCoupon.code}) }}
 
 
-<?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?>
+{{ 'The coupon is valid between %start_date% and %end_date%'|trans({'%start_date%' : currentCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : currentCoupon.expiryDate|localizeddate('short', 'none')}) }}
 
 
-<?php _vzm("Don't lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.") ?>
+{{ 'Don't lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.'|trans }}
 
 
-<?php _vzm('Thank you for shopping with us!') ?>
+{{ 'Thank you for shopping with us!'|trans }}
 
-<?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?>
+{{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : $view['settings']->get('storeOwner')}) }}
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
