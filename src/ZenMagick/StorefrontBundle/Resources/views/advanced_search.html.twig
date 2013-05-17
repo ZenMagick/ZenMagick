@@ -4,7 +4,7 @@
     <fieldset id="term">
         <legend>{{ 'Search For...'|trans }}</legend>
         <div id="help">
-            <a href="javascript:popupWindow('<?php echo $view['router']->generate('popup_search_help') ?>')">{{ 'Search Help [?]'|trans }}</a></div>
+            <a href="javascript:popupWindow('{{ path('popup_search_help') }}')">{{ 'Search Help [?]'|trans }}</a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="askeyword" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />

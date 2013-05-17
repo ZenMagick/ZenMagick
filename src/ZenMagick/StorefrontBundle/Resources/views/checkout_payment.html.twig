@@ -4,7 +4,7 @@
 <fieldset>
     <legend>{{ 'Billing Address'|trans }}</legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $view['router']->generate('checkout_payment_address') ?>">{{ 'Change Billing Address'|trans }}</a>
+        <a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change Billing Address'|trans }}</a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>

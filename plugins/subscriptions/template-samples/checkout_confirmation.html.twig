@@ -1,7 +1,7 @@
 
 <fieldset>
     <legend>{{ 'Subscription'|trans }}</legend>
-    <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_shipping') ?>">{{ 'Change'|trans }}</a></div>
+    <div class="btn"><a class="btn" href="{{ path('checkout_shipping') }}">{{ 'Change'|trans }}</a></div>
     <div>
         <?php $schedule = $subscriptions->getSelectedSchedule(); ?>
         <p>

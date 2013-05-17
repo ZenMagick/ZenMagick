@@ -16,8 +16,8 @@
 </form>
 
 <p>
-  <a href="<?php echo $view['router']->generate('password_forgotten') ?>">{{ 'Lost your password?'|trans }}</a><br />
-  <a href="<?php echo $view['router']->generate('create_account'); ?>">{{ 'Not registered yet?'|trans }}</a>
+  <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a><br />
+  <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
 </p>
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty() && !$app->getUser()) { ?>

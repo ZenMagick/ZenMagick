@@ -1,18 +1,18 @@
 <div id="menu">
   <ul>
-    <li class="first"><a href="<?php echo $view['router']->generate('index'); ?>">{{ 'HOME'|trans }}</a></li>
+    <li class="first"><a href="{{ path('index') }}">{{ 'HOME'|trans }}</a></li>
     <?php if (!$app->getUser()) { ?>
-        <li><a href="<?php echo $view['router']->generate('login'); ?>">{{ 'LOGIN'|trans }}</a></li>
+        <li><a href="{{ path('login') }}">{{ 'LOGIN'|trans }}</a></li>
     <?php } ?>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
-        <li><a href="<?php echo $view['router']->generate('account'); ?>">{{ 'ACCOUNT'|trans }}</a></li>
+        <li><a href="{{ path('account') }}">{{ 'ACCOUNT'|trans }}</a></li>
     <?php } ?>
     <?php if ($app->getUser()) { ?>
-        <li><a href="<?php echo $view['router']->generate('logoff'); ?>">{{ 'LOGOFF'|trans }}</a></li>
+        <li><a href="{{ path('logoff') }}">{{ 'LOGOFF'|trans }}</a></li>
     <?php } ?>
     <?php if (!$view->container->get('shoppingCart')->isEmpty() && !$isCheckout) { ?>
-        <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>">{{ 'SHOPPING CART'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>">{{ 'CHECKOUT'|trans }}</a></li>
+        <li><a href="{{ path('shopping_cart') }}">{{ 'SHOPPING CART'|trans }}</a></li>
+        <li><a href="{{ path('checkout_shipping') }}">{{ 'CHECKOUT'|trans }}</a></li>
     <?php } ?>
     <?php foreach ($view->container->get('ezPageService')->getPagesForHeader(1) as $page) { ?>
         <li><?php echo $html->ezpageLink($page->getId()) ?></li>

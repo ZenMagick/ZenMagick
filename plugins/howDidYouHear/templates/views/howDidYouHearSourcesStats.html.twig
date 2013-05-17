@@ -18,6 +18,6 @@
   <?php } ?>
 </table>
 <?php if ($isOther) { ?>
-  <p><a href="<?php echo $view['router']->generate('howDidYouHearSourcesStats') ?>" class="<?php echo $buttonClasses ?>">{{ 'Back to overview'|trans }}</a></p>
+  <p><a href="{{ path('howDidYouHearSourcesStats') }}" class="<?php echo $buttonClasses ?>">{{ 'Back to overview'|trans }}</a></p>
 <?php } ?>
 <?php echo $view->render('AdminBundle::pagination.html.php', array('resultList' => $resultList)) ?>

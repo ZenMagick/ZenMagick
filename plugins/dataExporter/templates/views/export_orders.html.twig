@@ -9,7 +9,7 @@ $(function() {
 
 <h2>{{ 'Export orders'|trans }}</h2>
 <div>
-  <form class="export-orders-form" action="<?php echo $view['router']->generate('export_orders') ?>" method="GET">
+  <form class="export-orders-form" action="{{ path('export_orders') }}" method="GET">
     <p>
       <label for="dateFrom">{{ 'From:'|trans }}</label>
       <input class="datepicker" id="fromDate" name="fromDate" date:dateFormat="<?php echo $dateFormat ?>" type="text" value="<?php echo $fromDate ?>">

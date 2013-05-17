@@ -12,7 +12,7 @@
     <td>
       <a href="" class="<?php echo $buttonClasses ?>">{{ 'Edit'|trans }}</a>
       <?php if (ID_SOURCE_OTHER != $line->getSourceId()) { ?>
-        <form class="button-form" action="<?php echo $view['router']->generate('howDidYouHearSourcesAdmin') ?>" method="POST" onsubmit="return ZenMagick.confirm('{{ 'Are you sure?'|trans }}', this);">
+        <form class="button-form" action="{{ path('howDidYouHearSourcesAdmin') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ 'Are you sure?'|trans }}', this);">
           <input type="hidden" name="action" value="delete">
           <input type="hidden" name="sourceId" value="<?php echo $line->getSourceId() ?>">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="{{ 'Delete'|trans }}">
@@ -23,7 +23,7 @@
   <?php } ?>
   <tr>
     <td colspan="2">
-      <form action="<?php echo $view['router']->generate('howDidYouHearSourcesAdmin') ?>" method="POST">
+      <form action="{{ path('howDidYouHearSourcesAdmin') }}" method="POST">
         <input type="hidden" name="action" value="create">
         <label for="source">{{ 'New Source'|trans }}</label> <input type="text" id="source" name="source" value="">
         <input type="submit" class="<?php echo $buttonClasses ?>" value="{{ 'Create'|trans }}">

@@ -4,5 +4,5 @@
     <a href="<?php echo $net->staticPage('shippinginfo') ?>">{{ 'Shipping & Returns'|trans }}</a>
     <a href="<?php echo $net->staticPage('privacy') ?>">{{ 'Our Privacy Policy'|trans }}</a>
     <a href="<?php echo $net->staticPage('conditions') ?>">{{ 'Conditions'|trans }}</a>
-    <a href="<?php echo $view['router']->generate('contact_us') ?>">{{ 'Contact Us'|trans }}</a>
+    <a href="{{ path('contact_us') }}">{{ 'Contact Us'|trans }}</a>
 </div>

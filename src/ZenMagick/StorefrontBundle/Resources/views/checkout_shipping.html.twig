@@ -4,7 +4,7 @@
 <fieldset>
     <legend>{{ 'Shipping Address'|trans }}</legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $view['router']->generate('checkout_shipping_address') ?>">{{ 'Change Shipping Address'|trans }}</a>
+        <a class="btn" href="{{ path('checkout_shipping_address') }}">{{ 'Change Shipping Address'|trans }}</a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>

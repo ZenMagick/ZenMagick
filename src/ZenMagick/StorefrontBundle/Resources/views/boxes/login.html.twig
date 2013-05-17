@@ -13,8 +13,8 @@
             </div>
         </form>
         <div>
-            <a href="<?php echo $view['router']->generate('password_forgotten') ?>">{{ 'Lost your password?'|trans }}</a>
-            <a href="<?php echo $view['router']->generate('create_account'); ?>">{{ 'Not registered yet?'|trans }}</a>
+            <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a>
+            <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
         </div>
     </div>
 <?php } ?>

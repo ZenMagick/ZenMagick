@@ -35,7 +35,7 @@
                 <?php $href =  $view['router']->generate('gv_send'); ?>
                 {{ 'If you want to, you can send those funds by <a href="%gv_send_url%">email</a> to someone.'|trans({'%gv_send_url%': href})|raw }}
             </p>
-            <div class="btn"><a href="<?php echo $view['router']->generate('gv_send') ?>" class="btn">{{ 'Send Gift Certificate'|trans }}</a></div>
+            <div class="btn"><a href="{{ path('gv_send') }}" class="btn">{{ 'Send Gift Certificate'|trans }}</a></div>
         </fieldset>
     <?php } ?>
 

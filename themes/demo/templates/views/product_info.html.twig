@@ -60,10 +60,10 @@ $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
       <fieldset>
           <legend>{{ 'Other Options'|trans }}</legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $view['router']->generate('product_reviews') ?>">{{ 'Read Reviews'|trans }}</a>
+              <a class="btn" href="{{ path('product_reviews') }}">{{ 'Read Reviews'|trans }}</a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $view['router']->generate('product_reviews_write') ?>">{{ 'Write a Review'|trans }}</a>
+              <a class="btn" href="{{ path('product_reviews_write') }}">{{ 'Write a Review'|trans }}</a>
           <?php } ?>
       </fieldset>
   <?php } ?>

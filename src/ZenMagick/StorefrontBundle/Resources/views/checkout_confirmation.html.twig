@@ -47,7 +47,7 @@
 
 <fieldset>
     <legend>{{ 'Payment Method'|trans }}</legend>
-    <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_payment') ?>">{{ 'Change'|trans }}</a></div>
+    <div class="btn"><a class="btn" href="{{ path('checkout_payment') }}">{{ 'Change'|trans }}</a></div>
     <?php $paymentType = $shoppingCart->getSelectedPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $paymentType->getName() ?></h4>
@@ -60,7 +60,7 @@
 <?php if (!$shoppingCart->isVirtual()) { ?>
     <fieldset>
         <legend>{{ 'Shipping'|trans }}</legend>
-        <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_shipping') ?>">{{ 'Change'|trans }}</a></div>
+        <div class="btn"><a class="btn" href="{{ path('checkout_shipping') }}">{{ 'Change'|trans }}</a></div>
         <br/>
         <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
           <?php echo $view->escape($shippingMethod->getProvider()->getName()) . ': ' . $view->escape($shippingMethod->getName()) ?><br/>
@@ -72,7 +72,7 @@
     <legend>{{ 'Address Information'|trans }}</legend>
     <?php if ($shoppingCart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_shipping_address') ?>">{{ 'Change'|trans }}</a></div>
+            <div class="btn"><a class="btn" href="{{ path('checkout_shipping_address') }}">{{ 'Change'|trans }}</a></div>
             <h4>{{ 'Shipping Address'|trans }}</h4>
             <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
         </div>
@@ -83,7 +83,7 @@
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_payment_address') ?>">{{ 'Change'|trans }}</a></div>
+        <div class="btn"><a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change'|trans }}</a></div>
         <h4>{{ 'Billing Address'|trans }}</h4>
         <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
     </div>
@@ -91,7 +91,7 @@
 
 <fieldset>
     <legend>{{ 'Special instructions or comments'|trans }}</legend>
-    <div class="btn"><a class="btn" href="<?php echo $view['router']->generate('checkout_payment') ?>">{{ 'Change'|trans }}</a></div>
+    <div class="btn"><a class="btn" href="{{ path('checkout_payment') }}">{{ 'Change'|trans }}</a></div>
     <div><?php echo $view->escape(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 

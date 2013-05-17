@@ -16,4 +16,4 @@
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>
 <?php } ?>
-<div class="btn"><a href="<?php echo $view['router']->generate('address_book_add') ?>" class="btn">{{ 'Add Address'|trans }}</a></div>
+<div class="btn"><a href="{{ path('address_book_add') }}" class="btn">{{ 'Add Address'|trans }}</a></div>

@@ -17,5 +17,5 @@
       <div class="btn"><input type="submit" class="btn" value="{{ 'Unsubscribe'|trans }}" /></div>
     </form>
 <?php } else { ?>
-      <div class="btn"><a href="<?php echo $view['router']->generate('account_newsletters') ?>" class="btn">{{ 'Unsubscribe'|trans }}</a></div>
+      <div class="btn"><a href="{{ path('account_newsletters') }}" class="btn">{{ 'Unsubscribe'|trans }}</a></div>
 <?php } ?>

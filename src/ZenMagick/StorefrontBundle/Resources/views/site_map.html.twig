@@ -4,37 +4,37 @@
 <?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()), "catalog"); ?>
 <ul>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
-      <li><a href="<?php echo $view['router']->generate('account') ?>">{{ 'My Account'|trans }}</a>
+      <li><a href="{{ path('account') }}">{{ 'My Account'|trans }}</a>
       <ul>
-        <li><a href="<?php echo $view['router']->generate('account_edit'); ?>">{{ 'Change Account'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('address_book'); ?>">{{ 'My Address Book'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('account_password'); ?>">{{ 'Change My Password'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('account_history') ?>">{{ 'Order History'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('account_newsletters'); ?>">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
-        <li><a href="<?php echo $view['router']->generate('account_notifications'); ?>">{{ 'Change Product Notifications'|trans }}</a></li>
+        <li><a href="{{ path('account_edit') }}">{{ 'Change Account'|trans }}</a></li>
+        <li><a href="{{ path('address_book') }}">{{ 'My Address Book'|trans }}</a></li>
+        <li><a href="{{ path('account_password') }}">{{ 'Change My Password'|trans }}</a></li>
+        <li><a href="{{ path('account_history') }}">{{ 'Order History'|trans }}</a></li>
+        <li><a href="{{ path('account_newsletters') }}">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
+        <li><a href="{{ path('account_notifications') }}">{{ 'Change Product Notifications'|trans }}</a></li>
       </ul></li>
         <?php if (!$view->container->get('shoppingCart')->isEmpty()) { ?>
-            <li><a href="<?php echo $view['router']->generate('shopping_cart'); ?>">{{ 'Shopping cart'|trans }}</a></li>
-            <li><a href="<?php echo $view['router']->generate('checkout_shipping'); ?>">{{ 'Checkout'|trans }}</a></li>
+            <li><a href="{{ path('shopping_cart') }}">{{ 'Shopping cart'|trans }}</a></li>
+            <li><a href="{{ path('checkout_shipping') }}">{{ 'Checkout'|trans }}</a></li>
         <?php } ?>
     <?php } ?>
-    <li><a href="<?php echo $view['router']->generate('advanced_search'); ?>">{{ 'Advanced Search'|trans }}</a></li>
-    <li><a href="<?php echo $view['router']->generate('products_new'); ?>">{{ 'New Products'|trans }}</a></li>
-    <li><a href="<?php echo $view['router']->generate('specials'); ?>">{{ 'Specials'|trans }}</a></li>
-    <li><a href="<?php echo $view['router']->generate('reviews'); ?>">{{ 'Reviews'|trans }}</a></li>
+    <li><a href="{{ path('advanced_search') }}">{{ 'Advanced Search'|trans }}</a></li>
+    <li><a href="{{ path('products_new') }}">{{ 'New Products'|trans }}</a></li>
+    <li><a href="{{ path('specials') }}">{{ 'Specials'|trans }}</a></li>
+    <li><a href="{{ path('reviews') }}">{{ 'Reviews'|trans }}</a></li>
     <li>{{ 'Information'|trans }}
         <ul>
-          <li><a href="<?php echo $view['router']->generate('shippinginfo'); ?>">{{ 'Shipping Information'|trans }}</a></li>
-          <li><a href="<?php echo $view['router']->generate('privacy'); ?>">{{ 'Privacy Policy'|trans }}</a></li>
-          <li><a href="<?php echo $view['router']->generate('conditions'); ?>">{{ 'Terms &amp; Conditions'|trans }}</a></li>
-          <li><a href="<?php echo $view['router']->generate('contact_us'); ?>">{{ 'Contact Us'|trans }}</a></li>
+          <li><a href="{{ path('shippinginfo') }}">{{ 'Shipping Information'|trans }}</a></li>
+          <li><a href="{{ path('privacy') }}">{{ 'Privacy Policy'|trans }}</a></li>
+          <li><a href="{{ path('conditions') }}">{{ 'Terms &amp; Conditions'|trans }}</a></li>
+          <li><a href="{{ path('contact_us') }}">{{ 'Contact Us'|trans }}</a></li>
 
       <?php if ($view['settings']->get('isEnabledGV')) { ?>
-          <li><a href="<?php echo $view['router']->generate('gv_faq'); ?>">{{ 'Giftvoucher FAQ'|trans }}</a></li>
+          <li><a href="{{ path('gv_faq') }}">{{ 'Giftvoucher FAQ'|trans }}</a></li>
       <?php } ?>
       <?php if ($view['settings']->get('isEnabledCoupons')) { ?>
-          <li><a href="<?php echo $view['router']->generate('discount_coupon'); ?>">{{ 'Coupon Lookup'|trans }}</a></li>
+          <li><a href="{{ path('discount_coupon') }}">{{ 'Coupon Lookup'|trans }}</a></li>
       <?php } ?>
-      <li><a href="<?php echo $view['router']->generate('unsubscribe'); ?>">{{ 'Newsletter Unsubscribe'|trans }}</a></li>
+      <li><a href="{{ path('unsubscribe') }}">{{ 'Newsletter Unsubscribe'|trans }}</a></li>
    </ul></li>
 </ul>
