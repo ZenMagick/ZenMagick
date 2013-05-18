@@ -67,20 +67,20 @@
     <route id="create_account" pattern="/account/create">
         <default key="_controller">StorefrontBundle:CreateAccount:process</default>
         <option key="form">ZMRegistrationForm#formId=registration</option>
-        <option key="view">StorefrontBundle::create_account.html.php</option>
+        <option key="view">StorefrontBundle::create_account.html.twig</option>
         <option key="view:success">redirect://create_account_success</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="create_account_success" pattern="/account/create/success">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::create_account_success.html.php</option>
+        <option key="view">StorefrontBundle::create_account_success.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account" pattern="/account">
         <default key="_controller">StorefrontBundle:Account:process</default>
-        <option key="view">StorefrontBundle::account.html.php</option>
+        <option key="view">StorefrontBundle::account.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
@@ -93,55 +93,55 @@
 
     <route id="account_history" pattern="/account/orders">
         <default key="_controller">StorefrontBundle:AccountHistory:process</default>
-        <option key="view">StorefrontBundle::account_history.html.php</option>
+        <option key="view">StorefrontBundle::account_history.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <!-- TODO: map to orderId -->
     <route id="account_history_info" pattern="/account/order/details/{order_id}">
         <default key="_controller">StorefrontBundle:AccountHistoryInfo:process</default>
-        <option key="view">StorefrontBundle::account_history_info.html.php</option>
+        <option key="view">StorefrontBundle::account_history_info.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_password" pattern="/account/password/edit">
         <default key="_controller">StorefrontBundle:AccountPassword:process</default>
-        <option key="view">StorefrontBundle::account_password.html.php</option>
+        <option key="view">StorefrontBundle::account_password.html.twig</option>
         <option key="view:success">redirect://account</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_newsletters" pattern="/account/newsletter">
         <default key="_controller">StorefrontBundle:AccountNewsletters:process</default>
-        <option key="view">StorefrontBundle::account_newsletters.html.php</option>
+        <option key="view">StorefrontBundle::account_newsletters.html.twig</option>
         <option key="view:success">redirect://account</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="account_notifications" pattern="/account/notifications">
         <default key="_controller">StorefrontBundle:AccountNotifications:process</default>
-        <option key="view">StorefrontBundle::account_notifications.html.php</option>
+        <option key="view">StorefrontBundle::account_notifications.html.twig</option>
         <option key="view:success">redirect://account</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="password_forgotten" pattern="/account/password/recover">
         <default key="_controller">StorefrontBundle:PasswordForgotten:process</default>
-        <option key="view">StorefrontBundle::password_forgotten.html.php</option>
+        <option key="view">StorefrontBundle::password_forgotten.html.twig</option>
         <option key="view:success">redirect://login</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="address_book" pattern="/account/addresses">
         <default key="_controller">StorefrontBundle:AddressBook:process</default>
-        <option key="view">StorefrontBundle::address_book.html.php</option>
+        <option key="view">StorefrontBundle::address_book.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="address_book_add" pattern="/account/address/new">
         <default key="_controller">StorefrontBundle:AddressBookAdd:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
-        <option key="view">StorefrontBundle::address_book_create.html.php</option>
+        <option key="view">StorefrontBundle::address_book_create.html.twig</option>
         <option key="view:success">redirect://address_book</option>
         <requirement key="_scheme">https</requirement>
     </route>
@@ -152,7 +152,7 @@
         <!-- The actual update is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=address</option>
-        <option key="view">StorefrontBundle::address_book_edit.html.php</option>
+        <option key="view">StorefrontBundle::address_book_edit.html.twig</option>
         <option key="view:error">redirect://address_book</option>
         <option key="view:success">redirect://address_book</option>
         <requirement key="_scheme">https</requirement>
@@ -163,31 +163,31 @@
         <default key="_controller">StorefrontBundle:AddressBookDelete:process</default>
         <!-- The actual delete is POST; that means the id is a POST value rather than url parameter -->
         <default key="id"></default>
-        <option key="view">StorefrontBundle::address_book_delete.html.php</option>
+        <option key="view">StorefrontBundle::address_book_delete.html.twig</option>
         <option key="view:success">redirect://address_book</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="popup_cvv_help" pattern="/help/cvv">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::popup/cvv_help.html.php</option>
+        <option key="view">StorefrontBundle::popup/cvv_help.html.twig</option>
     </route>
 
     <route id="popup_search_help" pattern="/help/search">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::popup/search_help.html.php</option>
+        <option key="view">StorefrontBundle::popup/search_help.html.twig</option>
     </route>
 
     <!-- TODO: coupon lookup should be in a controller; rename cID to couponId  -->
     <route id="popup_coupon_help" pattern="/help/coupon/{cID}">
         <default key="_controller">StorefrontBundle:CouponHelp:show</default>
-        <option key="view">StorefrontBundle::popup/coupon_help.html.php</option>
+        <option key="view">StorefrontBundle::popup/coupon_help.html.twig</option>
     </route>
 
     <route id="contact_us" pattern="/contact-us">
         <default key="_controller">StorefrontBundle:ContactUs:process</default>
         <option key="form">ZMContactInfo#formId=contactUs</option>
-        <option key="view">StorefrontBundle::contact_us.html.php</option>
+        <option key="view">StorefrontBundle::contact_us.html.twig</option>
         <option key="view:success">redirect://contact_us</option>
     </route>
 
@@ -197,34 +197,34 @@
 
     <route id="conditions" pattern="/conditions">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::conditions.html.php</option>
+        <option key="view">StorefrontBundle::conditions.html.twig</option>
     </route>
 
     <route id="shippinginfo" pattern="/shipping-info">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::shippinginfo.html.php</option>
+        <option key="view">StorefrontBundle::shippinginfo.html.twig</option>
     </route>
 
     <route id="privacy" pattern="/privacy">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::privacy.html.php</option>
+        <option key="view">StorefrontBundle::privacy.html.twig</option>
     </route>
 
     <route id="site_map" pattern="/sitemap">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::site_map.html.php</option>
+        <option key="view">StorefrontBundle::site_map.html.twig</option>
     </route>
 
     <route id="discount_coupon" pattern="/discount-coupon/{couponCode}">
         <default key="_controller">StorefrontBundle:DiscountCoupon:process</default>
         <default key="couponCode"></default>
-        <option key="view">StorefrontBundle::discount_coupon.html.php</option>
-        <option key="view:info">StorefrontBundle::discount_coupon_info.html.php</option>
+        <option key="view">StorefrontBundle::discount_coupon.html.twig</option>
+        <option key="view:info">StorefrontBundle::discount_coupon_info.html.twig</option>
     </route>
 
     <route id="popup_shipping_estimator" pattern="/shipping/estimator">
         <default key="_controller">ZenMagickBundle:Default:process</default>
-        <option key="view">StorefrontBundle::popup/shipping_estimator.html.php</option>
+        <option key="view">StorefrontBundle::popup/shipping_estimator.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
@@ -232,8 +232,8 @@
         <default key="_controller">StorefrontBundle:Category:process</default>
         <default key="cPath"></default>
         <requirement key="cPath">\w+</requirement>
-        <option key="view:category_list">StorefrontBundle::category_list.html.php</option>
-        <option key="view:manufacturer">StorefrontBundle::manufacturer.html.php</option>
+        <option key="view:category_list">StorefrontBundle::category_list.html.twig</option>
+        <option key="view:manufacturer">StorefrontBundle::manufacturer.html.twig</option>
         <option key="view:product_info">forward://product_info</option>
     </route>
 
@@ -278,15 +278,15 @@
     <route id="checkout_guest" pattern="/checkout/guest">
         <default key="_controller">StorefrontBundle:CheckoutGuest:process</default>
         <option key="form">ZenMagick\StoreBundle\Entity\Address#formId=checkout_guest</option>
-        <option key="view">StorefrontBundle::login.html.php</option>
-        <option key="view:guest_checkout_disabled">login.html.php</option>
+        <option key="view">StorefrontBundle::login.html.twig</option>
+        <option key="view:guest_checkout_disabled">login.html.twig</option>
         <option key="view:success">redirect://checkout_shipping</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
     <route id="checkout" pattern="/checkout">
         <default key="_controller">StorefrontBundle:CheckoutShipping:process</default>
-        <option key="view">StorefrontBundle::checkout_shipping.html.php</option>
+        <option key="view">StorefrontBundle::checkout_shipping.html.twig</option>
         <option key="view:skip_shipping">redirect://checkout_payment</option>
         <option key="view:success">redirect://checkout_payment</option>
         <requirement key="_scheme">https</requirement>
@@ -298,7 +298,7 @@
 
     <route id="guest_history" pattern="/guest/history">
         <default key="_controller">StorefrontBundle:GuestHistory:process</default>
-        <option key="view">StorefrontBundle::account_history_info.html.php</option>
+        <option key="view">StorefrontBundle::account_history_info.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
@@ -324,7 +324,7 @@
     <route id="gv_send" pattern="/gift-voucher/send">
         <default key="_controller">StorefrontBundle:GvSend:process</default>
         <option key="form">ZMGVReceiver#formId=gvReceiver</option>
-        <option key="view">StorefrontBundle::gv_send.html.php</option>
+        <option key="view">StorefrontBundle::gv_send.html.twig</option>
         <requirement key="_scheme">https</requirement>
     </route>
 
@@ -355,13 +355,13 @@
     <route id="advanced_search" pattern="/search/advanced">
         <default key="_controller">StorefrontBundle:Search:process</default>
         <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
-        <option key="view">StorefrontBundle::advanced_search.html.php</option>
+        <option key="view">StorefrontBundle::advanced_search.html.twig</option>
     </route>
 
     <route id="search" pattern="/search">
         <default key="_controller">StorefrontBundle:Search:process</default>
         <option key="form">ZMSearchCriteria#formId=searchCriteria</option>
-        <option key="view">StorefrontBundle::search.html.php</option>
+        <option key="view">StorefrontBundle::search.html.twig</option>
     </route>
 
     <route id="ipn_main_handler" pattern="/ipn">
@@ -413,7 +413,7 @@
 
     <route id="index" pattern="/">
         <default key="_controller">StorefrontBundle:Index:process</default>
-        <option key="view">StorefrontBundle::index.html.php</option>
+        <option key="view">StorefrontBundle::index.html.twig</option>
         <option key="view:category">forward://category</option>
     </route>
 

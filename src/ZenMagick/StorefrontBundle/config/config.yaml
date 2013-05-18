@@ -8,7 +8,7 @@ zenmagick:
   mvc:
     ## request
     request:
-      missingPage: page_not_found.html.php
+      missingPage: page_not_found.html.twig
 
     ## resultlist
     resultlist:
