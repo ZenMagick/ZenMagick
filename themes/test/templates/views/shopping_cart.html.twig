@@ -10,7 +10,7 @@ if ($shoppingCart->isEmpty()) { ?>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                     <td class="remove">
-                        <a href="<?php echo $view['router']->generate('cart.remove', array('product_id' => $item->getId())) ?>">
+                        <a href="{{ path('cart.remove', {'product_id' : item.id}) }}">
                             <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/small_delete.gif') ?>" alt="remove" />
                         </a>
                     </td>

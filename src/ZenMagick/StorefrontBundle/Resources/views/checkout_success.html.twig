@@ -4,11 +4,9 @@
     <h2>{{ 'Thanks for shopping with us'|trans }}</h2>
     <p>{{ 'Your order number is: <strong>%id%</strong>'|trans({'%id%' : currentOrder.id})|raw }}</p>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
-        <?php $href = $view['router']->generate('account') ?>
-        <p>{{ 'You can view your full order history by going to the <a href="%account_url%">My Account</a> page and by clicking on view all orders.'|trans({'%account_url%' : href})|raw }}</p>
+        <p>{{ 'You can view your full order history by going to the <a href="%account_url%">My Account</a> page and by clicking on view all orders.'|trans({'%account_url%' : path('account')})|raw }}</p>
     <?php } ?>
-    <?php $customercare = $view['router']->generate('contact_us'); ?>
-    <p>{{ 'Please direct any questions you have to <a href="%contact_url%">Customer Service</a>.'|trans({'%contact_url%': customercare})|raw }}</p>
+    <p>{{ 'Please direct any questions you have to <a href="%contact_url%">Customer Service</a>.'|trans({'%contact_url%': path('contact_us')})|raw }}</p>
 
     <?php if (!empty($productsToSubscribe)) { ?>
         <fieldset>
@@ -42,7 +40,11 @@
                       <th><?php echo $view->escape($download->getFilename()) ?></th>
                       <th><?php echo $download->getFileSize() ?> bytes</th>
                       <th><?php echo $download->getDownloadCount() ?></th>
-                      <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>">{{ 'Download'|trans }}</a></th>
+                      <th>
+                          <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
+                              {{ 'Download'|trans }}
+                          </a>
+                      </th>
                   </tr>
               <?php } ?>
             </table>
@@ -56,8 +58,7 @@
             <p>
                 {{ 'You have funds (%amount%) in your Gift Certificate Account.'|trans({'%amount%' : utils.formatMoney(voucherBalance)}) }}
                 <br />
-                <?php $href =  $view['router']->generate('gv_send'); ?>
-                {{ 'If you want to, you can send those funds by <a href="%gv_send_url%">email</a> to someone.'|trans({'%gv_send_url%': href})|raw }}
+                {{ 'If you want to, you can send those funds by <a href="%gv_send_url%">email</a> to someone.'|trans({'%gv_send_url%': path('gv_send')})|raw }}
             </p>
             <div class="btn"><a href="{{ path('gv_send') }}" class="btn">{{ 'Send Gift Certificate'|trans }}</a></div>
         </fieldset>
@@ -67,8 +68,7 @@
         <fieldset>
             <legend>{{ 'Order Status Check'|trans }}</legend>
             <p>
-                <?php $lookupLink = $view['router']->generate('guest_history'); ?>
-                {{ 'You can check the status of your order using the <a href="%guest_history_url%">order status check</a>.'|trans({'%guest_history_url%' : lookupLink})|raw }}
+                {{ 'You can check the status of your order using the <a href="%guest_history_url%">order status check</a>.'|trans({'%guest_history_url%' : path('guest_history')})|raw }}
             </p>
         </fieldset>
     <?php } ?>

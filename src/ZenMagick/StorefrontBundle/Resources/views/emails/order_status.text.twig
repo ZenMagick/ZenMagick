@@ -4,9 +4,9 @@
 {{ 'This is to inform you that your order #%id% has been updated.'|trans('%id%': currentOrder.id}) }}
 
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) { ?>
-{{ 'More details can be found at the following URL: %account_history_url%'|trans({'%account_history_url%' : $view['router']->generate('account_history_info', array('order_id' => currentOrder.id), true)}) }}
+{{ 'More details can be found at the following URL: %account_history_url%'|trans({'%account_history_url%' : url('account_history_info', {'order_id' : currentOrder.id})}) }}
 <?php } else { ?>
-{{ 'You can check the status of your order at: %guest_history_url%'|trans({'%guest_history_url%' : $view['router']->generate('guest_history', array(), true)}) }}
+{{ 'You can check the status of your order at: %guest_history_url%'|trans({'%guest_history_url%' : url('guest_history')}) }}
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>

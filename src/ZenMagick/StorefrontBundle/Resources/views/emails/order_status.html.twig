@@ -10,9 +10,9 @@
 
 <p>{{ 'This is to inform you that your order #%id% has been updated.'|trans('%id%': currentOrder.id}) }}</p>
 <?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) {
-    $href = $view['router']->generate('account_history_info', array('order_id', $currentOrder->getId()), true);
+    $href = url('account_history_info', {'order_id' : currentOrder.id})
 } else {
-    $href = $view['router']->generate('guest_history', array(), true);
+    $href = url('guest_history')
 } ?>
 <p>{{ 'More details can be found at the following URL: <a href="%guest_url%">Order #%id%</a>'|trans({'%guest_url%' : href, '%id%' : currentOrder.id})|raw }}</p>
 

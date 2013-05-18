@@ -77,7 +77,11 @@
               <th><?php echo $view->escape($download->getFilename()) ?></th>
               <th><?php echo $download->getFileSize() ?> bytes</th>
               <th><?php echo $download->getDownloadCount() ?></th>
-              <th><a href="<?php echo $view['router']->generate('download', array('order' => $currentOrder->getId(), 'id' => $download->getId())) ?>">{{ 'Download'|trans }}</a></th>
+              <th>
+                  <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
+                      {{ 'Download'|trans }}
+                  </a>
+              </th>
           </tr>
       <?php } ?>
     </table>

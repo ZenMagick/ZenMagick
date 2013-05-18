@@ -13,7 +13,10 @@
     </td>
     <td class="lnks">
         <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>">{{ 'Product Information'|trans }}</a></p>
-        <?php $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId()); ?>
-        <p><a class="btn" href="<?php echo $view['router']->generate('product_reviews_info', $params) ?>">{{ 'Read full review'|trans }}</a></p>
+        <p>
+            <a class="btn" href="{{ path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id}) }}">
+                {{ 'Read full review'|trans }}
+            </a>
+        </p>
     </td>
 </tr>

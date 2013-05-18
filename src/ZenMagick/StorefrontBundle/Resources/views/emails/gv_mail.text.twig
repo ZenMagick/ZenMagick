@@ -10,8 +10,7 @@
 
 <{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
 
-<?php $href = $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true); ?>
-{{ 'To redeem your gift, visit %url%'|trans(}'%url%':  href}) }}
+{{ 'To redeem your gift, visit %url%'|trans({'%url%':  url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

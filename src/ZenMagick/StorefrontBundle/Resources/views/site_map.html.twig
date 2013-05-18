@@ -1,6 +1,5 @@
 <?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
-<?php $contact = '<a href="'.$view['router']->generate('contact_us') .'">'._zm("let us know").'</a>'; ?>
-<p>{{ 'If you are having difficulty in locating something on our site, please %s!", $contac'|trans }}</p>
+<p>{{ 'If you are having difficulty in locating something on our site, please <a href="%contact_url%">let us know</a>!'|trans({'%contact_url%' : path('contact_us')})|raw }}</p>
 <?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()), "catalog"); ?>
 <ul>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>

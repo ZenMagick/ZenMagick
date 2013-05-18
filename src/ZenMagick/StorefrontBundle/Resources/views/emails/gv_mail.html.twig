@@ -14,8 +14,7 @@
 
 <p>{{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}</p>
 <p>{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}</p>
-<?php $href = $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true); ?>
-<p>{{ 'To redeem your gift, visit < href="%redeem_url%">%store_name%</a>'|trans({'%redeem_url%':  href, '%store_name%' : $view['settings']->get('storeName')}) }}</p>
+<p>{{ 'To redeem your gift, visit < href="%redeem_url%">%store_name%</a>'|trans({'%redeem_url%':  url('gv_redeem, {'couponCode' : currentCoupon.code}), '%store_name%' : $view['settings']->get('storeName')}) }}</p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

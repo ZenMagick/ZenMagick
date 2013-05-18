@@ -7,7 +7,7 @@
             <div id="sb_manufacturer_info" class="box">
                 <?php
                 if ($manufacturer->hasImage()) {
-                    $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                    $url = path('manufacturer', {'manufacturers_id' : manufacturer.id})
                     $class = '';
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
@@ -15,11 +15,11 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                        $url = path('manufacturer', {'manufacturers_id' : $manufacturer.id})
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>>{{ 'Other Products'|trans }}</a><?php
                     }
                 } else {
-                    $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                    $url = path('manufacturer', {'manufacturers_id' : manufacturer.id})
                     $class = '';
                     $text = _zm("Other Products");
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
@@ -29,7 +29,7 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $text ?></a><?php
                     if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $view['router']->generate('manufacturer', array('manufacturers_id' => $manufacturer->getId()));
+                        $url = path('manufacturer', {'manufacturers_id' : $manufacturer.id})
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>>{{ 'Other Products'|trans }}</a><?php
                     }
                 } ?>

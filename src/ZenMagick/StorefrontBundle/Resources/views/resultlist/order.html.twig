@@ -1,6 +1,6 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
     <td>
-        <a href="<?php echo $view['router']->generate('account_history_info', array('order_id' => $order->getId())) ?>">
+        <a href="{{ path('account_history_info', {'order_id' : order.id}) }}">
             {{'Order #%id%'|trans({'%id%' : order.id}) }}
         </a>
     </td>

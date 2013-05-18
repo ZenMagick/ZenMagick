@@ -15,10 +15,10 @@
   <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
 </form>
 
-<p>
-  <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a><br />
-  <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
-</p>
+    <p>
+        <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a><br/>
+        <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
+    </p>
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty() && !$app->getUser()) { ?>
   <h3>{{ 'Don't need an account?'|trans }}</h3>

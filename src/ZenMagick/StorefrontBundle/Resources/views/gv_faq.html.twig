@@ -14,7 +14,11 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $view['router']->generate('gv_faq', array('topic' => $key)) ?>"><?php echo $title ?></a></li>
+    <li>
+        <a href="{{ path('gv_faq', {'topic' : key}) }}">
+            <?php echo $title ?>
+        </a>
+    </li>
 <?php } ?>
 </ul>
 

@@ -7,6 +7,8 @@
     <p>{{ 'Order schedule: '%s%.'|trans({'%s%' : schedules[schedule]['name']}) ?></p>
 
     <?php if ($currentOrder->isSubscription()) { ?>
-        <a href="<?php echo $view['router']->generate('cancel_subscription', array('orderId' => $currentOrder->getId())) ?>">{{ 'Cancel Subscription'|trans }}</a>
+        <a href="{{ path('cancel_subscription', {'orderId' : currentOrder.id}) }}">
+            {{ 'Cancel Subscription'|trans }}
+        </a>
     <?php } ?>
 <?php } ?>

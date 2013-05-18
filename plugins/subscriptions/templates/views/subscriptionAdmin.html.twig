@@ -35,7 +35,9 @@
         <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
-                    <a href="<?php echo $view['router']->generate('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())) ?>">{{ 'Order #%id%'|trans({'%id%' : order.id }) }}</a>
+                    <a href="{{ path('zc_admin_orders', {'action' : 'edit', 'oID' : order.id}) }}">
+                        {{ 'Order #%id%'|trans({'%id%' : order.id }) }}
+                    </a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
                 <td><?php echo $view['date']->short($order->getNextOrder()) ?></td>

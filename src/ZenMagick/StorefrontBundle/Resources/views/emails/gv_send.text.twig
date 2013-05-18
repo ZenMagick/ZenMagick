@@ -12,7 +12,7 @@
 
 <?php } ?>
 
-{{ 'To redeem your gift, visit %redeem_url%'|trans({'%redeem_url%' : $view['router']->generate('gv_redeem', array('couponCode' => $currentCoupon->getCode()), true)}) }}
+{{ 'To redeem your gift, visit %redeem_url%'|trans({'%redeem_url%' : url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

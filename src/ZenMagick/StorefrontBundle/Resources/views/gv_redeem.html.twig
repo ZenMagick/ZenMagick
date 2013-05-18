@@ -15,5 +15,4 @@
     <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>
   </form>
 <?php } ?>
-<?php $faqLink = $view['router']->generate('gv_faq'); ?>
-<p>{{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link% : faqLink})|raw }}</p>
+<p>{{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link% : path('gv_faq')})|raw }}</p>

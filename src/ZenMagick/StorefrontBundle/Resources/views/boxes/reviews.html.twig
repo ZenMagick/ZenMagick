@@ -6,8 +6,7 @@
 ?>
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
-    $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
-    $href = $view['router']->generate('product_reviews_info', $params);
+    $href = path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id})
     $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
     $rimg = '<img src="'.$view['assets']->getUrl('bundles/storefront/images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>

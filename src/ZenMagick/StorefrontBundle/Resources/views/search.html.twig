@@ -8,7 +8,9 @@
             <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>
         <div class="btn"><input type="submit" class="btn" value="{{ 'Search'|trans }}" /></div>
-        <a class="clear" href="<?php echo $view['router']->generate('advanced_search', array('keywords' => $searchCriteria->getKeywords())) ?>">{{ 'Advanced Search'|trans }}</a>
+        <a class="clear" href="{{ path('advanced_search', {'keywords' : searchCriteria.keywords} }}">
+            {{ 'Advanced Search'|trans }}
+        </a>
     </fieldset>
 </form>
 
