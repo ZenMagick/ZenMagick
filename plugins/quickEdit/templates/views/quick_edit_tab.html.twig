@@ -1,39 +1,46 @@
 <?php use ZenMagick\Base\Beans; ?>
-<?php $lastIndex = count($fieldList)-1; ?>
-<h2>{{ 'Quick Edit: <em>%category%</em>'|trans({'%category%' : category.name}) }}</h2>
+<h2>{{ 'Quick Edit: <em>%category%</em>'|trans({'%category%' : category.name})|raw }}</h2>
 
-<form action="<?php echo $admin->catalog() ?>" method="POST">
-  <table class="grid">
-    <thead><tr>
-      <th class="first">Id</th>
-      <?php foreach ($fieldList as $ii => $field) { ?>
-        <th<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?>><?php echo $field['widget']->getTitle() ?></th>
-      <?php } ?>
-    </tr></thead>
-    <tbody>
-      <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
-        <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-          <td class="first" style="text-align:right;"><a href="<?php echo $admin->catalog(null, array('productId' => $product->getId())) ?>"><?php echo $product->getId() ?></a></td>
-          <?php foreach ($fieldList as $ii => $field) { $widget = $field['widget'];
-            // allow widgets to do custom calculations, etc
-            $widget->setProduct($product);
-            $fieldName = $field['name'].'_'.$product->getId();
-            $productData = Beans::obj2map($product, $fieldMap);
-            $value = $productData[$fieldMap[$field['name']]];
-            $widget->setName($fieldName);
-            $widget->setValue($value);
-            ?>
-            <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
-              <?php echo $widget->render($app->getRequest(), $templateView) ?>
-              <input type="hidden" name="<?php echo ZMQuickEditTabController::STALE_CHECK_FIELD_PREFIX.$fieldName ?>" value="<?php echo $view->escape($value) ?>">
-            </td>
-          <?php } ?>
-        </tr>
-      <?php $first = false; $odd = !$odd; } ?>
-    </tbody>
-  </table>
-  <p style="padding:8px 25px;text-align:center;">
-    <input type="hidden" name="catalogRequestId" value="quick_edit_tab">
-    <input type="submit" name="submit" value="{{ 'Update all products'|trans }}">
-  </p>
+<form action="{{ admin.catalog }}" method="POST">
+    <table class="grid">
+        <thead>
+            <tr>
+                <th class="first">{{ 'Id'|trans }}</th>
+                {% for field in fieldList %}
+                    <th {{ loop.last ? 'class="last"' }}>
+                        {{ field['widget'].title }}
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in productList %}
+                <tr class="{{ loop.even ? 'even' : 'odd' ~ loop.first ? ' first' : ' other' }}"
+                    <td class="first" style="text-align:right;">
+                        <a href="{{  admin.catalog(null, {'productId' : product.id}) }}">
+                            {{ product.id }}
+                        </a>
+                    </td>
+                    {% for field in fieldList %}
+                        {% set widget = field['widget'] %}
+                        {# allow widgets to do custom calculations, etc #}
+                        {% set w = widget.setProduct(product) %}
+                        {% set fieldName = field['name'] ~ '_' ~ product.id %}
+                        {% set productData = bean_obj2map(product, fieldMap) %}
+                        {% set value = productData[fieldMap[field['name']]] %}
+                        {% set w = widget.setName(fieldName) %}
+                        {% set w = widget.setValue(value) %}
+                    <td {{ loop.last ? ' class="last"' }} style="text-align:center;">
+                        {{ widget.render(app.request, templateView)|raw }}
+                        <input type="hidden" name="{{ constant('ZMQuickEditTabController::STALE_CHECK_FIELD_PREFIX') ~ fieldName }}" value="{{ value }}">
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p style="padding:8px 25px;text-align:center;">
+        <input type="hidden" name="catalogRequestId" value="quick_edit_tab">
+        <input type="submit" name="submit" value="{{ 'Update all products'|trans }}">
+    </p>
 </form>

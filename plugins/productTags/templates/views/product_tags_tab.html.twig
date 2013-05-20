@@ -1,29 +1,31 @@
 <script>
-function addTag(tag) {
-  var tags = document.getElementById('currentProductTags');
-  if ('' != tags.value) {
-      tags.value += ', ';
-  }
-  tags.value += tag;
-}
+{% autoescape 'js' %}
+    function addTag(tag) {
+        var tags = document.getElementById('currentProductTags');
+        if ('' != tags.value) {
+            tags.value += ', ';
+        }
+        tags.value += tag;
+    }
+{% endautoescape %}
 </script>
 
-<form action="<?php echo $admin->catalog() ?>" method="POST">
+<form action="{{ admin.catalog }}" method="POST">
     <input type="hidden" name="catalogRequestId" value="product_tags_tab">
     <fieldset>
-        <legend>Manage Product Tags</legend>
+        <legend>{{ 'Manage Product Tags'|trans }}</legend>
         <p>
-            <label for="currentProductTags">Current Tags</label>
-            <textarea id="currentProductTags" name="currentProductTags"><?php echo $view->escape(implode(', ', $currentProductTags)) ?></textarea>
+            <label for="currentProductTags">{{ 'Current Tags'|trans }}</label>
+            <textarea id="currentProductTags" name="currentProductTags">{{ currentProductTags|join(', ') }}</textarea>
         </p>
         <p>
-            <h3>All Tags</h3>
+            <h3>{{ 'All Tags'|trans }}</h3>
             <div>
-                <?php foreach ($allTags as $tag) { ?>
-                    <a href="#" onclick="addTag('<?php echo $tag ?>'); return false;"><?php echo $view->escape($tag) ?></a>
-                <?php } ?>
+                {% for tag in allATags %}
+                    <a href="#" onclick="addTag('{{ tag|e('js') }}'); return false;">{{ tag }}</a>
+                {% endfor %}
             </div>
         </p>
     </fieldset>
-    <p><input type="submit" value="Update"></p>
+    <p><input type="submit" value="{{ 'Update'|trans }}"></p>
 </form>

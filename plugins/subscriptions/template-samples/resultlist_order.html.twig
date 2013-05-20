@@ -1,19 +1,17 @@
-<?php use ZenMagick\Base\Toolbox; ?>
-
-<?php if (!Toolbox::isEmpty($order->getSchedule())) { ?>
+{% if order.schedule is not empty %}
     {{ '(S)'|trans }}
-    <?php if ($order->isSubscription()) { ?>
-        <?php if ($subscriptions->isCustomerCancel()) { ?>
+    {% if order.subscription %}
+        {% if subscriptions.customerCancel %}
             <a href="{{ path('cancel_subscription', {'orderId' : order.id}) }}">
                 {{ 'Cancel Subscription'|trans }}
             </a>
-        <?php } else { ?>
+        {% else %}
             <a href="{{ path('subscription_request', {'orderId' : order.id, 'type' : 'cancel'}) }}">
                 {{ 'Cancel Subscription'|trans }}
             </a>
-        <?php } ?>
-    <?php } ?>
+        {% endif %}
+    {% endif %}
     <a href="{{ path('subscription_request', {'orderId' : order.id, 'type' : 'enquire'}) }}">
         {{ 'Ask about Subscriptions'|trans }}
     </a>
-<?php } ?>
+{% endif %}

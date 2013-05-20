@@ -1,8 +1,8 @@
-<?php use ZenMagick\Base\Toolbox; ?>
-
-<?php $schedule = $currentOrder->getSchedule(); ?>
-<?php if (!Toolbox::isEmpty($schedule)) { ?>
+{% set schedule = currentOrder.schedule %}
+{% if schedule is not empty %}
     <h3>{{ 'Subscription'|trans }}</h3>
-    <?php $schedules = $subscriptions->getSchedules(); ?>
-    <p>{{ 'Order schedule: "%schedule%".'|trans({'%schedule%' : schedules[schedule]['name']}) }}</p>
-<?php } ?>
+    {% set schedules = subscription.schedules %}
+    <p>
+        {{ 'Order schedule: "%schedule%".'|trans({'%schedule%' : schedules[schedule]['name']}) }}
+    </p>
+{% endif %}

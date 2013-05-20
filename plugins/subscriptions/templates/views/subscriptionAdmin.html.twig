@@ -1,61 +1,75 @@
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
-<?php $admin->title() ?>
-<h2>{{ 'All Subscriptions'|trans }}</h2>
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    <h2>{{ 'All Subscriptions'|trans }}</h2>
 
-<?php $resultList->setPagination(10); ?>
-<?php if (1 < $resultList->getNumberOfPages()) { ?>
-    <div class="rnav">
-        <span class="pno">{{ 'Page %current%/%total%'|trans('%current% :resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}</span>
-        <?php if ($resultList->hasPreviousPage()) { ?>
-            <a href="<?php echo $net->resultListBack($resultList) ?>">{{ 'Previous'|trans }}</a>&nbsp;
-        <?php } else { ?>
-            <span class="nin">{{ 'Previous'|trans }}</span>&nbsp;
-        <?php } ?>
-        <?php if ($resultList->hasNextPage()) { ?>
-            <a href="<?php echo $net->resultListNext($resultList) ?>">{{ 'Next'|trans }}</a>
-        <?php } else { ?>
-            <span class="nin">{{ 'Next'|trans }}</span>
-        <?php } ?>
+    {% if 1 < resultList.numberOfPages %}
+        <div class="rnav">
+            <span class="pno">
+                {{ 'Page %current%/%total%'|trans({'%current%' :resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}
+            </span>
+            {% if resultList.hasPreviousPage %}
+                <a href="{{ net.resultListBack(resultList) }}">
+                    {{ 'Previous'|trans }}
+                </a>
+                &nbsp;
+            {% else %}
+                <span class="nin">{{ 'Previous'|trans }}</span>
+                &nbsp;
+            {% endif %}
+            {% if resultList.hasNextPage %}
+                <a href="{{ net.resultListNext(resultList) }}">
+                    {{ 'Next'|trans }}
+                </a>
+            {% else %}
+                <span class="nin">{{ 'Next'|trans }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% set schedules = plugin.schedules %}
+
+    <div class="rlist">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>{{ 'Order'|trans }}</th>
+                    <th>{{ 'Frequency'|trans }}</th>
+                    <th>{{ 'Next Order'|trans }}</th>
+                    <th>{{ 'Earliest Cancel Date'|trans }}</th>
+                    <th>{{ 'Status'|trans }}</th>
+                    <th>{{ 'Options'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in resultList.results %}
+                    <tr class="{{ loop.odd ? 'odd' : 'even' ~ loop.first ? ' first' : ' other' }}">
+                        <td>
+                            <a href="{{ path('zc_admin_orders', {'action' : 'edit', 'oID' : order.id}) }}">
+                                {{ 'Order #%id%'|trans({'%id%' : order.id }) }}
+                            </a>
+                        </td>
+                        <td>{{ schedules[order.schedule]['name'] }}</td>
+                        <td>{{ order.nextOrder|localizeddate('short', 'none') }}</td>
+                        <td>{{ plugin.minLastOrderDate(order.id)|localizeddate('short', 'none') }}</td>
+                        <td style="text-align:center;">
+                            <img src="images/icons/{{ order.subscriptionCanceled ? 'cross.gif' : 'tick.gif' }}" alt="tick">
+                        </td>
+                        <td>
+                            {% if not order.subscriptionCanceled %}
+                                <form action="{{ path('cancel_subscription') }}" method="POST">
+                                    <input type="hidden" name="fkt" value="subscription_admin">
+                                    <input type="hidden" name="orderId" value="{{ order.id }}">
+                                    <input type="submit" name="cancel" value="{{ 'Cancel'|trans }}">
+                                    <input type="checkbox" id="hard_{{ order.id }}" name="hard" value="1">
+                                    <label for="hard_{{ order.id }}">{{ 'Hard Cancel'|trans }}</label>
+                                </form>
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-<?php } ?>
-
-<?php $schedules = $plugin->getSchedules(); ?>
-
-<div class="rlist">
-    <table cellspacing="0" cellpadding="0" border="1"><thead>
-        <tr>
-            <th>Order</th>
-            <th>Frequency</th>
-            <th>Next Order</th>
-            <th>Earliest Cancel Date</th>
-            <th>Status</th>
-            <th>Options</th>
-        </tr>
-    </thead><tbody>
-        <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
-            <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-                <td>
-                    <a href="{{ path('zc_admin_orders', {'action' : 'edit', 'oID' : order.id}) }}">
-                        {{ 'Order #%id%'|trans({'%id%' : order.id }) }}
-                    </a>
-                </td>
-                <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
-                <td><?php echo $view['date']->short($order->getNextOrder()) ?></td>
-                <td><?php echo $view['date']->short($plugin->getMinLastOrderDate($order->getId())) ?></td>
-                <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
-                <td>
-                    <?php if (!$order->isSubscriptionCanceled()) { ?>
-                        <form action="{{ path('cancel_subscription') }}" method="POST">
-                            <input type="hidden" name="fkt" value="subscription_admin">
-                            <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
-                            <input type="submit" name="cancel" value="cancel">
-                            <input type="checkbox" id="hard_<?php echo $order->getId() ?>" name="hard" value="1"><label for="hard_<?php echo $order->getId() ?>">Hard cancel</label>
-                        </form>
-                    <?php } else { ?>
-                        &nbsp;
-                    <?php } ?>
-                </td>
-            </tr>
-        <?php $first = false; $odd = !$odd; } ?>
-    </tbody></table>
-</div>
+{% endblock %}

@@ -1,16 +1,16 @@
-<?php if (isset($howDidYouHearForm)) { ?>
-  <fieldset>
-  <legend><?php echo _zm('How did you hear about us') ?></legend>
-  <p>
-    <label for="sourceId" ><?php echo _zm('Please select a source:') ?></label>
-      <?php echo $form->idpSelect('sourceId', $howDidYouHearSources, $howDidYouHearForm->getSourceId()) ?>
-  </p>
+{% if howDidYouHearForm is defined %}
+    <fieldset>
+        <legend>{{ 'How did you hear about us'|trans }}</legend>
+        <p>
+            <label for="sourceId">{{ 'Please select a source:'|trans }}</label>
+            {{ form.idpSelect('sourceId', howDidYouHearSources, howDidYouHearForm.sourceId)|raw }}
+        </p>
 
-  <?php if ($howDidYouHear->isDisplayOther()) { ?>
-    <p>
-      <label for="sourceOther" ><?php echo _zm('(if "Other" please specify):') ?></label>
-        <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $view->escape($howDidYouHearForm->getSourceOther()) ?>">
-    </p>
-  <?php } ?>
-  </fieldset>
-<?php } ?>
+        {% if howDidYouHear.isDisplayOther %}
+            <p>
+                <label for="sourceOther">{{ '(if "Other" please specify):'|trans }}</label>
+                <input type="text" name="sourceOther" id="sourceOther" value="{{ howDidYouHearForm.sourceOther }}">
+            </p>
+        {% endif %}
+    </fieldset>
+{% endif %}

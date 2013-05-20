@@ -1,3 +1,4 @@
-<?php $view->extend('AdminBundle::default_layout.html.php'); ?>
-<?php $admin->title() ?>
-{{ 'yo, examples rock!'|trans }}
+{% extends '@Admin/default_layout.html.twig' %}
+{% block body %}
+    {{ 'yo, examples rock!'|trans }}
+{% endblock %}

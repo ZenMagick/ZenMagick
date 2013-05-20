@@ -1,10 +1,14 @@
-<?php if (isset($recentlyViewedProducts) && 0 < count($recentlyViewedProducts)) { ?>
+{% if recentlyViewedProducts is defined and recentlyViewedProducts is not empty %}
     <h3>{{ 'Recently Viewed'|trans }}</h3>
     <div id="sb_recently_viewed" class="box">
         <ol>
-        <?php foreach ($view->container->get('productService')->getProductsForIds($recentlyViewedProducts, true, $view['request']->getLocaleId()) as $product) { ?>
-            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
-        <?php } ?>
+            {% for product in productManager.productsForIds(recentlyViewedProducts, true, app.session.get('languages_id')) %}
+                <li>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ html.more(product.name, 28) }}
+                    </a>
+                </li>
+            {% endfor %}
         </ol>
     </div>
-<?php } ?>
+{% endif %}

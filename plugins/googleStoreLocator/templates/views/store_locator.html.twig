@@ -1,4 +1,6 @@
-<h2>{{ 'Find our store using Google Maps!'|trans }}</h2>
-<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;">{{ 'Loading map...'|trans }}</div>
-<div id="stores">
-</div>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
+    <h2>{{ 'Find our store using Google Maps!'|trans }}</h2>
+    <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;">{{ 'Loading map...'|trans }}</div>
+    <div id="stores"></div>
+{% endblock %}

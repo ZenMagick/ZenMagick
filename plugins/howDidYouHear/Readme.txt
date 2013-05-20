@@ -16,7 +16,7 @@ INSTALLAION
    Download the latest version from http://www.zenmagick.org/
 
 2) Extract into the ZenMagick plugins directory
-   After that you should have a howDidYouHear folder in the plugins/general folder.
+   After that you should have a howDidYouHear folder in the plugins folder.
 
 3) Install the plugin via the ZenMagick plugins admin page.
 
@@ -25,15 +25,15 @@ TEMPALTE CHANGES
 ================
 The plugin includes a small template file to be included into the create_account.html.php template.
 
-In your create_account.html.php, after the last closing fieldset element, add the following line:
+In your create_account.html.twig, after the last closing fieldset element, add the following line:
 
-    <?php echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php') ?>
+    {{ include('@Storefront/howDidYouHearOptions.html.twig') }}
 
-In address.html.php (for guest checkout), add the same line to the end of the template:
+In address.html.twig (for guest checkout), add the same line to the end of the template:
 
-    <?php echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php') ?>
+    {{ include('@Storefront/howDidYouHearOptions.html.twig') }}
 
 
 CUSTOMISATION
 =============
-To customize howDidYouHearOptions.html.php, copy the file into your theme's views folder and edit away.
+To customize howDidYouHearOptions.html.twig, copy the file into your theme's views folder and edit away.

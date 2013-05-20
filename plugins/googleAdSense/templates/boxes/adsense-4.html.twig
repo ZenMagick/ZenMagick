@@ -1,5 +1,5 @@
-<?php if (isset($googleAdSense) && null != ($ad = $googleAdSense->getAd(4)) && !empty($ad)) { ?>
-  <div class="box google">
-    <?php echo $ad ?>
-  </div>
-<?php } ?>
+{% if googleAdSense is defined %}
+    <div class="box google">
+        {{ googleAdSense.ad(4) }}
+    </div>
+{% endif %}

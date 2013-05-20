@@ -1,14 +1,15 @@
-<?php use ZenMagick\Base\Toolbox; ?>
-
-<?php $schedule = $currentOrder->getSchedule(); ?>
+{% set schedule = currentOrder.schedule %}
+{% if schedule is not empty %}
 <?php if (!Toolbox::isEmpty($schedule)) { ?>
     <h3>{{ 'Subscription'|trans }}</h3>
-    <?php $schedules = $subscriptions->getSchedules(); ?>
-    <p>{{ 'Order schedule: '%s%.'|trans({'%s%' : schedules[schedule]['name']}) ?></p>
+    {% set schedules = subscriptions.schedules %}
+    <p>
+        {{ 'Order schedule: "%s%".'|trans({'%s%' : schedules[schedule]['name']}) }}
+    </p>
 
-    <?php if ($currentOrder->isSubscription()) { ?>
+    {% if currentOrder.subscription %}
         <a href="{{ path('cancel_subscription', {'orderId' : currentOrder.id}) }}">
             {{ 'Cancel Subscription'|trans }}
         </a>
-    <?php } ?>
-<?php } ?>
+    {% endif %}
+{% endif %}
