@@ -37,7 +37,7 @@ class ZMIdNamePair extends ZMObject
      * @param int id The id.
      * @param string name The name.
      */
-    public function __construct($id, $name)
+    public function __construct($id = null, $name = null)
     {
         parent::__construct();
         $this->id = $id;
@@ -55,6 +55,16 @@ class ZMIdNamePair extends ZMObject
     }
 
     /**
+     * Set Id
+     *
+     * @param int id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Get the name.
      *
      * @return string The name.
@@ -64,4 +74,13 @@ class ZMIdNamePair extends ZMObject
         return $this->name;
     }
 
+    /**
+     * Set name
+     *
+     * @param string name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }
