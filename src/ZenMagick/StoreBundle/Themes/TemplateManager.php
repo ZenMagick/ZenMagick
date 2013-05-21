@@ -20,6 +20,8 @@
 namespace ZenMagick\StoreBundle\Themes;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use ZenMagick\Base\Beans;
 
 /**
  * Template stuff.
@@ -34,6 +36,7 @@ class TemplateManager
     const PAGE_BOTTOM = 'bottom';
     const PAGE_NOW = 'now';
 
+    private $container;
     private $em;
     private $leftColEnabled;
     private $rightColEnabled;
@@ -45,8 +48,9 @@ class TemplateManager
     /**
      * Create new instance.
      */
-    public function __construct(EntityManager $em, ThemeService $themeService)
+    public function __construct(EntityManager $em, ThemeService $themeService, ContainerInterface $container)
     {
+        $this->container = $container;
         $this->em = $em;
         $this->themeService = $themeService;
         $this->leftColEnabled = true;
@@ -221,6 +225,61 @@ class TemplateManager
         }
 
         return $template . '_info';
+    }
+    /**
+     * Fetch/generate the contents for a given block group id.
+     *
+     * @param string group The group id.
+     * @param array args Optional parameter; default is an empty array.
+     * @return string The contents.
+     */
+    public function fetchBlockGroup($groupId, $args=array())
+    {
+        $contents = '';
+        $request = $this->container->get('request');
+        foreach ($this->container->get('blockManager')->getBlocksForId($request, $groupId, $args) as $block) {
+//            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
+            $contents .= $block->render($request, $this->container->get('defaultView'));
+        }
+
+        return $contents;
+    }
+
+    /**
+     * Render a widget.
+     *
+     * @param mixed widget Either a <code>Widget</code> instance or a widget bean definition.
+     * @param string name Optional name; default is <code>null</code> for none.
+     * @param string value Optional value; default is <code>null</code> for none.
+     * @param mixed args Optional parameter; a map of widget properties;  default is <code>null</code>.
+     * @return string The widget contents.
+     */
+    public function widget($widget, $name=null, $value=null, $args=null)
+    {
+        $wObj = $widget;
+        if (is_string($widget)) {
+            $wObj = Beans::getBean($widget);
+        }
+        if (!($wObj instanceof Widget)) {
+            Runtime::getLogging()->debug('invalid widget: '.$widget);
+
+            return '';
+        }
+        if (null !== $name) {
+            $wObj->setName($name);
+            if (null === $args || !array_key_exists('id', $args)) {
+                // no id set, so default to name
+                $wObj->setId($name);
+            }
+        }
+        if (null !== $value) {
+            $wObj->setValue($value);
+        }
+        if (null !== $args) {
+            Beans::setAll($wObj, $args);
+        }
+
+        return $wObj->render($this->container->get('request'), $this->container->get('defaultView'));
     }
 
 }
