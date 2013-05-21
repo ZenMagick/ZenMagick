@@ -29,18 +29,34 @@ class BeanExtension extends \Twig_Extension
     {
         return array(
             'bean' => new \Twig_Function_Method($this, 'getBean'),
+            'bean_obj2map' => new \Twig_Function_Method($this, 'obj2map'),
         );
     }
 
     /**
-     * Get a Bean object
+     * Get a Bean object from a bean definition
      *
+     * @see Beans::getBean
      * @param string $def A Bean definition
      * @return mixed
      */
     public function getBean($def)
     {
         return Beans::getBean($def);
+    }
+
+    /**
+     * Turn an object into a map (array)
+     *
+     * @see Beans::obj2map
+     * @param  object obj
+     * @param  array  properties
+     * @param  bool   useGeneric
+     * @return array
+     */
+    public function obj2Map($obj, $properties = null, $addGeneric = true)
+    {
+        return Beans::obj2map($obj, $properties, $addGeneric);
     }
 
     /**
