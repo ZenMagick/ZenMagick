@@ -3,7 +3,7 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Discount Coupon'))); ?>
 <?php echo $utils->staticPageContent("discount_coupon") ?>
 
-<?php echo $form->open('discount_coupon', '', false, array('method' => 'get')) ?>
+{{ form.open('discount_coupon', '', false, {'method' : 'get'})|raw }}
   <fieldset>
     <legend>{{ 'Look-up Discount Coupon ...'|trans }}</legend>
     <label for="couponCode">{{ 'Your Code'|trans }}</label>

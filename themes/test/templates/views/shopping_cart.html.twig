@@ -5,7 +5,7 @@ $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Shopping Cart')));;
 if ($shoppingCart->isEmpty()) { ?>
     <h2>{{ 'Your Shopping Cart is empty'|trans }}</h2>
 <?php } else { ?>
-    <?php echo $form->open('shopping_cart', '', true) ?>
+    {{ form.open('shopping_cart', '', true)|raw }}
         <table cellpadding="0" cellspacing="0">
             <tbody>
             <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>

@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account'))); ?>
-<?php echo $form->open('account_edit', '', true, array('id'=>'account')) ?>
+{{ form.open('account_edit', '', true, {'id' : 'account'})|raw }}
     <fieldset>
         <legend>{{ 'My Account'|trans }}</legend>
         <table cellspacing="0" cellpadding="0">

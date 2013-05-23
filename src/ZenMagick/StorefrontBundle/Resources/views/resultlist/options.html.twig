@@ -1,5 +1,5 @@
 <?php if ($resultList->hasFilters() || $resultList->hasSorters()) { $hasOptions = false; ?>
-    <?php echo $form->open($view['request']->getRouteId(), null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
+    {{ form.open(app.request.requestId, null, false, {'method' : 'get', 'class' : 'ropt', 'onsubmit' : null})|raw }}
         <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach ($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) { continue; } $hasOptions = true; ?>

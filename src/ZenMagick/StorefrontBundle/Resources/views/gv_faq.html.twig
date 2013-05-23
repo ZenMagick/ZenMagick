@@ -27,7 +27,7 @@
     <?php echo $utils->staticPageContent($topic); ?>
 <?php } ?>
 
-<?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
+{{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
   <fieldset>
     <legend>{{ 'Redemption code details'|trans }}</legend>
     <div>

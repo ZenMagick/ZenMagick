@@ -96,7 +96,7 @@
     <div><?php echo $view->escape(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 
-<?php echo $form->open($orderFormUrl, '', true) ?>
+{{ form.open(orderFormUrl, '', true)|raw }}
     <?php echo $orderFormContent ?>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Confirm to order'|trans }}" /></div>
 </form>

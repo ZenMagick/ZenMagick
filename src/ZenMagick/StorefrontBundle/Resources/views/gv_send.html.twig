@@ -2,7 +2,7 @@
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
 <p>{{ 'Current available balance: <strong>%amount%</strong>'|trans({'%amount%' : utils.formatMoney(app.user.voucherBalance)}) }}</p>
-<?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>
+{{ form.open('gv_send', '', true, {'id' : 'gvreceiverObject'})|raw }}
     <fieldset>
         <legend>{{ 'EMail Gift Certificate'|trans }}</legend>
         <label for="name">{{ 'Receiver Name'|trans }}</label><br />

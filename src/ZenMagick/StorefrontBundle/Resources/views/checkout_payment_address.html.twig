@@ -4,7 +4,7 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Billing Address'))); ?>
 <?php $currentAddress = $shoppingCart->getBillingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
-    <?php echo $form->open('checkout_payment_address', 'action=select', true) ?>
+    {{ form.open('checkout_payment_address', 'action=select', true)|raw }}
         <h3>{{ 'Select an existing address'|trans }}</h3>
         <fieldset>
             <legend>{{ 'Address Book'|trans }}</legend>
@@ -24,7 +24,7 @@
     </form>
     <h3>{{ '... or create a new one'|trans }}</h3>
 <?php } ?>
-<?php echo $form->open('checkout_payment_address', 'action=create', true, array('id'=>'paymentAddress')) ?>
+{{ form.open('checkout_payment_address', 'action=create', true, {'id' : 'paymentAddress'})|raw }}
     <?php echo $this->render('StorefrontBundle::address.html.php', array('address' => $billingAddress)) ?>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
 </form>

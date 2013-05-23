@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Search'))); ?>
-<?php echo $form->open('search', '', false, array('method' => 'get')) ?>
+{{ form.open('search', '', false, {'method' : 'get'})|raw }}
     <fieldset>
     <legend>{{ 'Search again'|trans }}</legend>
         <div>

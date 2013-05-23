@@ -5,7 +5,7 @@
 <?php if ($gvRedeem->isRedeemed()) { ?>
   <p>{{ 'Congratulations, you have redeemed a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(gvRedeem.amount)}) }}</p>
 <?php } else { ?>
-  <?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
+  {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
     <fieldset>
       <legend>{{ 'Redemption code details'|trans }}</legend>
       <div>

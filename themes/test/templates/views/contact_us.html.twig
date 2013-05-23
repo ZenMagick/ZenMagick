@@ -8,7 +8,7 @@
 
 <?php echo $utils->staticPageContent("contact_us") ?>
 
-<?php echo $form->open('contact_us', 'action=send', false, array('id' => 'contactUs')) ?>
+{{ form.open('contact_us', 'action=send', false, {'id' : 'contactUs'})|raw }}
     <fieldset>
         <legend>{{ 'Contact us'|trans }}</legend>
         <label for="name">{{ 'Full Name'|trans }}<span>*</span></label>

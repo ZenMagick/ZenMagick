@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Order Confirmation'))); ?>
-<?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
+{{ form.open('checkout_success', 'action=update', true, {'onsubmit' : null})|raw }}
     <h2>{{ 'Thanks for shopping with us'|trans }}</h2>
     <p>{{ 'Your order number is: <strong>%id%</strong>'|trans({'%id%' : currentOrder.id})|raw }}</p>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>

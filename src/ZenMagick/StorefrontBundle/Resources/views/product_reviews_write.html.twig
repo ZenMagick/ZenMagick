@@ -13,7 +13,7 @@
   </div>
 </form>
 
-<?php echo $form->open('product_reviews_write', 'productId=' . $currentProduct->getId().'&languageId='.$currentProduct->getLanguageId(), true, array('id'=>'newReview')) ?>
+{{ form.open('product_reviews_write', 'productId=' ~ currentProduct.id ~ '&languageId=' ~ currentProduct.languageId, true, {'id' : 'newReview'})|raw }}
     <fieldset>
         <legend>{{ 'New Review'|trans }}</legend>
         <p>{{ 'Choose a ranking for this item. 1 star is the worst and 5 stars is the best.'|trans }}</p>

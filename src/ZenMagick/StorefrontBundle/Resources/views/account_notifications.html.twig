@@ -4,7 +4,7 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
 <p>{{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}</p>
 <p>{{ 'To be up to date on all product changes, select <strong>Global Product Notifications</strong>.'|trans|raw }}</p>
-<?php echo $form->open('account_notifications', '', true, array('onsubmit'=>null)) ?>
+{{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
     <input type="hidden" name="notify_type" value="set" />
     <fieldset>
         <legend>{{ 'Global Product Notifications'|trans }}</legend>

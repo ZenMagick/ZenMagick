@@ -2,7 +2,7 @@
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Order Confirmation'))); ?>
 <?php $account = $app->getUser(); ?>
-<?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
+{{ form.open('checkout_success', 'action=update', true, {'onsubmit' : null})|raw }}
     <h2>{{ 'Thanks for shopping with us'|trans }}</h2>
     <p>{{ 'Your order number is: <strong>%id%</strong>'|trans({'%id%' : currentOrder.id})|raw }}</p>
     <?php if ($view['security']->isGranted('ROLE_REGISTERED')) { ?>
@@ -48,7 +48,7 @@
 </form>
 
 <?php if (1 == count($view->container->get('orderService')->getOrdersForAccountId($currentOrder->getAccountId(), $view['request']->getLocaleId(), 2)) && 'registered' == $account->getType()) { ?>
-    <?php echo $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
+    {{ form.open('checkout_refer_a_friend', '', true, {'id' : 'checkout_refer_a_friend'})|raw }}
         Friend1: <input type="text" name="friend1" value=""><br>
         Friend2: <input type="text" name="friend2" value=""><br>
         Friend3: <input type="text" name="friend3" value=""><br>

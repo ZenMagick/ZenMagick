@@ -10,7 +10,7 @@
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
 
-<?php echo $form->open('checkout_shipping') ?>
+{{ form.open('checkout_shipping')|raw }}
     <?php if ($shoppingCart->getShippingProviders()) { ?>
         <fieldset>
             <legend>{{ 'Shipping Methods'|trans }}</legend>

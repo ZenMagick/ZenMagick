@@ -2,7 +2,7 @@
 {% block body %}
 <h3>{{ 'Subscription Enqiries'|trans }}</h3>
 
-<?php echo $form->open('subscription_request', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
+{{ form.open('subscription_request', null, true, {'method' : 'post', 'id' : 'subscription_request'})|raw }}
     <fieldset>
         <legend>{{ 'Subscription Enquiries'|trans }}</legend>
         <label for="type">{{ 'Request Type'|trans }}<span>*</span></label>

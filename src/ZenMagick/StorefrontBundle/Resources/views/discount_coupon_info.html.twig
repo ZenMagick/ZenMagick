@@ -27,7 +27,7 @@
     <h4>{{ 'The coupon is valid for all categories and products.'|trans }}</h4>
 <?php } ?>
 
-<?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
+{{ form.open('discount_coupon', 'action=lookup', false, {'method' : 'get'})|raw }}
   <fieldset>
     <legend>{{ 'Look-up another discount coupon ...'|trans }}</legend>
     <label for="lookup_discount_coupon">{{ 'Your Code'|trans }}</label>

@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
-<?php echo $form->open('gv_send_confirm', '', true, array('onsubmit'=>null)) ?>
+{{ form.open('gv_send_confirm', '', true, {'onsubmit' : null})|raw }}
     <div>
         <input type="hidden" name="name" value="<?php echo $view->escape($gvReceiver->getName()) ?>" />
         <input type="hidden" name="email" value="<?php echo $view->escape($gvReceiver->getEmail()) ?>" />

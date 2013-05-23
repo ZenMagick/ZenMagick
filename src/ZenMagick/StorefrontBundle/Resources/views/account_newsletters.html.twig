@@ -3,7 +3,7 @@
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Newsletter'))); ?>
 <p>{{ 'Including store news, new products, special offers, and other promotional announcements.'|trans }}</p>
-<?php echo $form->open('account_newsletters', '', true, array('onsubmit'=>null)) ?>
+{{ form.open('account_newsletters', '', true, {'onsubmit' : null})|raw }}
     <fieldset>
         <legend>{{ 'Store Newsletter'|trans }}</legend>
         <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php $form->checked(true, $currentAccount->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general">{{ 'Receive Store Newsletter'|trans }}</label></p>

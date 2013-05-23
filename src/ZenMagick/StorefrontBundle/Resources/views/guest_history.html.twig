@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Guest Order Status'))); ?>
-<?php echo $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
+{{ form.open('guest_history', '', true, {'id' : 'guest_history'})|raw }}
   <fieldset>
     <legend>{{ 'Find Guest Order'|trans }}</legend>
     <div>

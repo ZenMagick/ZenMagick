@@ -20,7 +20,7 @@
             <?php echo $macro->formatAddress($address); ?>
         </div>
     <?php } else { ?>
-        <?php echo $form->open('popup_shipping_estimator', '', true) ?>
+        {{ form.open('popup_shipping_estimator', '', true)|raw }}
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td>{{ 'Country'|trans }}</td>

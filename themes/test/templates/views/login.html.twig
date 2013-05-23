@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
-<?php echo $form->open('login', '', true, array('id'=>'login')) ?>
+{{ form.open('login', '', true, {'id' : 'login'})|raw }}
   <fieldset>
     <legend>{{ 'Login'|trans }}</legend>
     <div>
@@ -23,7 +23,7 @@
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$app->getUser()) { ?>
   <h3>{{ 'Don't need an account?'|trans }}</h3>
-  <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
+  {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest'})|raw }}
     <fieldset>
       <legend>{{ 'Checkout without registering'|trans }}</legend>
       <div>
@@ -36,7 +36,7 @@
 <?php } ?>
 
 <h3>{{ 'Use OpenID'|trans }}</h3>
-<?php echo $form->open('openID', '', true, array('id'=>'openid_login')) ?>
+{{ form.open('openID', '', true, {'id' : 'openid_login'})|raw }}
   <fieldset>
     <div>
       <label for="openid">{{ 'OpenID'|trans }}</label>

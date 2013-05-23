@@ -1,6 +1,6 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php echo $form->open('foo', '', true, array('id'=>'foo')) ?>
+{{ form.open('foo', '', true, {'id' : 'foo'})|raw }}
   <fieldset>
     <legend>{{ 'Foo'|trans }}</legend>
     <div>
