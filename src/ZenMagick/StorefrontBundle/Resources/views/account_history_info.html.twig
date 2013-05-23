@@ -94,12 +94,12 @@
         <?php if (!$currentOrder->hasShippingAddress()) { ?>
             {{ 'N/A'|trans }}
         <?php } else { ?>
-            <?php echo $macro->formatAddress($currentOrder->getShippingaddress()) ?>
+            {{ macro.formatAddress(currentOrder.shippingAddress)|raw }}
         <?php } ?>
     </div>
     <div id="baddr">
         <h4>{{ 'Billing Address'|trans }}</h4>
-        <?php echo $macro->formatAddress($currentOrder->getBillingAddress()) ?>
+        {{ macro.formatAddress(currentOrder.billingAddress)|raw }}
     </div>
 </div>
 {% endblock %}

@@ -40,12 +40,12 @@
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
 {{ 'N/A'|trans }}
 <?php } else { ?>
-<?php echo $macro->formatAddress($shippingAddress) ?>
+{{ macro.formatAddress(shippingAddress)|raw }}
 <?php } ?>
 </td>
 <td valign="top">
 <h4>{{ 'Billing Address'|trans }}</h4>
-<?php echo $macro->formatAddress($billingAddress) ?>
+{{ macro.formatAddress(billingAddress)|raw }}
 </td>
 </tr>
 </table>

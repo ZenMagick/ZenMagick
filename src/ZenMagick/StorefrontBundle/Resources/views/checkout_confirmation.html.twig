@@ -75,7 +75,7 @@
         <div class="oadr">
             <div class="btn"><a class="btn" href="{{ path('checkout_shipping_address') }}">{{ 'Change'|trans }}</a></div>
             <h4>{{ 'Shipping Address'|trans }}</h4>
-            <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
+            {{ macro.formatAddress(shoppingCart.shippingAddress)|raw }}
         </div>
     <?php } else { ?>
         <div class="oadr">
@@ -86,7 +86,7 @@
     <div class="oadr snd">
         <div class="btn"><a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change'|trans }}</a></div>
         <h4>{{ 'Billing Address'|trans }}</h4>
-        <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
+        {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
     </div>
 </fieldset>
 

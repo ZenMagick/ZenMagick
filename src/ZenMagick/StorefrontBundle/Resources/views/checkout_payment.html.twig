@@ -7,7 +7,7 @@
     <div class="btn">
         <a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change Billing Address'|trans }}</a>
     </div>
-    <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
+    {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>

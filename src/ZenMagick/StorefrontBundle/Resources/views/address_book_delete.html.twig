@@ -10,7 +10,7 @@
             <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
             <input type="submit" class="btn" value="{{ 'Delete'|trans }}" />
         </div>
-        <?php echo $macro->formatAddress($address) ?>
+        {{ macro.formatAddress(address)|raw }}
     </fieldset>
 </form>
 {% endblock %}

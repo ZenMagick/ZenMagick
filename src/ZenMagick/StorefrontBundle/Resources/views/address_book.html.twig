@@ -16,7 +16,7 @@
                 {{ 'Edit'|trans }}
             </a>
         </div>
-        <?php echo $macro->formatAddress($address) ?>
+        {{ macro.formatAddress(address)|raw }}
     </fieldset>
 <?php } ?>
 <div class="btn"><a href="{{ path('address_book_add') }}" class="btn">{{ 'Add Address'|trans }}</a></div>
