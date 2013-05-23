@@ -24,7 +24,7 @@
                     <?php } ?>
                 </td>
                 <td class="price">
-                    <?php echo $utils->formatMoney($item->getItemTotal()) ?>
+                    {{ utils.formatMoney(item.itemTotal) }}
                     <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
                         <br>{{ 'One time: %amount%'|trans({'%amount%' : utils.formatMoney(oneTimeCharge)}) }}
                     <?php } ?>

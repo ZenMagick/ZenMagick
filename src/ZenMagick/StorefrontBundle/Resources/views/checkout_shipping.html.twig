@@ -31,7 +31,7 @@
                       <?php $selected = (0 == count($providers) && 0 == count($methods)); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td>{{ 'Free Shipping'|trans }}</td>
-                          <td class="smcost"><?php echo $utils->formatMoney(0) ?></td>
+                          <td class="smcost">{{  utils.formatMoney(0) }}</td>
                           <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>"<?php $form->checked(true, $selected) ?> /></td>
                       </tr>
                   <?php } ?>
@@ -53,7 +53,7 @@
                       <?php $selected = (1 == count($methods) && 1 == count($providers)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td><?php echo $view->escape($method->getName()) ?></td>
-                          <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
+                          <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
                           <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                       </tr>
                   <?php } ?>

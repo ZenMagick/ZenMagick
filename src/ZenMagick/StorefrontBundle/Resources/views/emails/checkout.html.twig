@@ -21,7 +21,7 @@
 <tr>
 <td><?php echo $orderItem->getQuantity() ?> x </td>
 <td><?php echo $view->escape($orderItem->getName()) ?></td>
-<td><?php echo $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
+<td>{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>

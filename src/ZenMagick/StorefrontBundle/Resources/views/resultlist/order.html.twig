@@ -8,5 +8,5 @@
     <?php $address = $order->getBillingAddress(); ?>
     <td><?php echo $view->escape($address->getFullName()) ?></td>
     <td>{{ order.statusName }}</td>
-    <td class="pprice"><?php echo $utils->formatMoney($order->getTotal()) ?></td>
+    <td class="pprice">{{ utils.formatMoney(order.total) }}</td>
 </tr>

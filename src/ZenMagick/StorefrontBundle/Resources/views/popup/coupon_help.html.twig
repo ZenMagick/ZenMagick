@@ -4,7 +4,7 @@
   $restrictions = $coupon->getRestrictions();
   $fixed = _zm('This coupon entitles you to a %s discount against your order');
   if ($coupon::TYPPE_FIXED == $coupon->getType()) {
-      $discount = sprintf($fixed, $utils->formatMoney($coupon->getAmount()));
+      $discount = sprintf($fixed, utils.formatMoney(coupon.amount));
   } elseif ($coupon::TYPPE_PERCENT == $coupon->getType()) {
       $discount = sprintf($fixed, number_format($coupon->getAmount(), $view['settings']->get('discountDecimals')).'%');
   } else {

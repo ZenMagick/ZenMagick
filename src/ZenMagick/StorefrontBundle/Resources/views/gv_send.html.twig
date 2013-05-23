@@ -11,7 +11,7 @@
         <input type="text" id="email" name="email" size="40" value="<?php echo $view->escape($gvReceiver->getEmail()) ?>" /><br />
         <label for="amount">{{ 'Gift Certificate Amount'|trans }}<span>*</span></label><br />
         <?php /* Do not convert the amout - either it is 0 or entered by the user; in either case it is fine as  is */ ?>
-        <input type="text" id="amount" name="amount" value="<?php echo $utils->formatMoney($gvReceiver->getAmount(), false) ?>" /><br />
+        <input type="text" id="amount" name="amount" value="{{ utils.formatMoney(gvReceiver.amount, false) }}" /><br />
         <label for="message">{{ 'Message Text'|trans }}</label><br />
         <textarea id="message" name="message" cols="50" rows="8"><?php echo $view->escape($gvReceiver->getMessage()) ?></textarea><br />
         <p class="man">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>

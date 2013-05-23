@@ -21,7 +21,7 @@
                     <?php } ?>
                 <?php } ?>
             </td>
-            <td class="price"><?php echo $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
+            <td class="price">{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
         </tr>
     <?php } ?>
     <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>

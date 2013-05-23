@@ -36,13 +36,13 @@ if ($shoppingCart->isEmpty()) { ?>
                         <?php } ?>
                     </td>
                     <td class="item">
-                        <?php echo $utils->formatMoney($item->getItemPrice()) ?>
+                        {{ utils.formatMoney(item.itemPrice) }}
                     </td>
                     <td class="qty">
                         <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQuantity() ?>" />
                     </td>
                     <td class="price">
-                        <?php echo $utils->formatMoney($item->getItemTotal()) ?>
+                        {{ utils.formatMoney(item.itemTotal) }}
                         <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
                             <br>{{ 'One time: %amount%'|trans({'%amount%' : utils.formatMoney(oneTimeCharge)}) }}
                         <?php } ?>
@@ -51,7 +51,7 @@ if ($shoppingCart->isEmpty()) { ?>
             <?php $odd = !$odd; $first = false; } ?>
             <tr class="other">
                 <td colspan="5" class="total">{{ 'Subtotal'|trans }}</td>
-                <td class="price"><?php echo $utils->formatMoney($shoppingCart->getSubtotal()) ?></td>
+                <td class="price">{{ utils.formatMoney(shoppingCart.subtotal) }}</td>
             </tr>
             </tbody>
         </table>

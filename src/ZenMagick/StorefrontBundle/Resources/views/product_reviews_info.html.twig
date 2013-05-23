@@ -8,7 +8,7 @@
       <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
       <?php echo $currentProduct->getDescription(); ?>
     </div>
-    <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
+    <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" /></div>
 
     <p id="author">

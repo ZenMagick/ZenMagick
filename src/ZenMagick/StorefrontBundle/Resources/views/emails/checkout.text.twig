@@ -20,7 +20,7 @@
 
 -----------------------------------------------
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
-<?php printf("%3s x %26s  %7s", $orderItem->getQuantity(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice())) ?>
+<?php printf("%3s x %26s  %7s", $orderItem->getQuantity(), $orderItem->getName(), utils.formatMoney(orderItem.calculatedPrice)) ?>
 
 <?php } ?>
 

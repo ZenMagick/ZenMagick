@@ -6,7 +6,7 @@
       <?php echo $html->productImageLink($currentProduct) ?>
       <?php echo $currentProduct->getDescription(); ?>
     </div>
-    <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
+    <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" /></div>
     <br /><br /><br /><br />
     <?php echo $this->render('StorefrontBundle::reviews.html.php'); ?>
