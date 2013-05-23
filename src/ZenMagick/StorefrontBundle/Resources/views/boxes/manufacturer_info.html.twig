@@ -1,38 +1,42 @@
-<?php use ZenMagick\Base\Toolbox; ?>
+{% if currentProduct is defined %}
+    {% set manufacturer = currentProduct.manufacturer %}
+    {% if manufacturer != null %}
+        <h3>{{ 'Manufacturer Info'|trans }}</h3>
+        <div id="sb_manufacturer_info" class="box">
+            {% if manufacturer.hasImage %}
+                {% set url = path('manufacturer', {'manufacturers_id' : manufacturer.id}) %}
+                {% set class = '' %}
+                {% if manufacturer.url is not empty %}
+                    {% set url = net.trackLink('manufacturer', manufacturer.id) %}
+                    {% set class = ' class="new-win" ' %}
+                {% endif %}
 
-<?php if (isset($currentProduct)) { ?>
-        <?php $manufacturer = $currentProduct->getManufacturer(); ?>
-        <?php if (null != $manufacturer) { ?>
-            <h3>{{ 'Manufacturer Info'|trans }}</h3>
-            <div id="sb_manufacturer_info" class="box">
-                <?php
-                if ($manufacturer->hasImage()) {
-                    $url = path('manufacturer', {'manufacturers_id' : manufacturer.id})
-                    $class = '';
-                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $class = ' class="new-win" ';
-                    }
-                    ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
-                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = path('manufacturer', {'manufacturers_id' : $manufacturer.id})
-                        ?><a href="<?php echo $url ?>"<?php echo $target ?>>{{ 'Other Products'|trans }}</a><?php
-                    }
-                } else {
-                    $url = path('manufacturer', {'manufacturers_id' : manufacturer.id})
-                    $class = '';
-                    $text = _zm("Other Products");
-                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $class = ' class="new-win" ';
-                        $text = _zm("Manufacturer Homepage");
-                    }
-                    ?><a href="<?php echo $url ?>"<?php echo $class ?>><?php echo $text ?></a><?php
-                    if (!Toolbox::isEmpty($manufacturer->getUrl())) {
-                        $url = path('manufacturer', {'manufacturers_id' : $manufacturer.id})
-                        ?><a href="<?php echo $url ?>"<?php echo $target ?>>{{ 'Other Products'|trans }}</a><?php
-                    }
-                } ?>
-            </div>
-        <?php } ?>
-<?php } ?>
+                <a href="{{ url }}" {{ class }}>
+                    {{ html.image(manufacturer.imageInfo)|raw }}
+                </a>
+                {% if manufacturer.url is not empty %}
+                    <a href="{{ path('manufacturer', {'manufacturers_id' : manufacturer.id}) }}">
+                        {{ 'Other Products'|trans }}
+                    </a>
+                {% endif %}
+            {% else %}
+                {% set url = path('manufacturer', {'manufacturers_id' : manufacturer.id}) %}
+                {% set class = '' %}
+                {% set text = 'Other Products'|trans %}
+                {% if manufacturer.url is not empty %}
+                    {% set url = net.trackLink('manufacturer', manufacturer.id) %}
+                    {% set class = ' class="new-win" ' %}
+                    {% set text = 'Manufacturer Homepage'|trans %}
+                {% endif %}
+                <a href="{{ url }}" {{ class }}>
+                    {{ text }}
+                </a>
+                {% if manufacturer.url is not empty %}
+                    <a href="{{ path('manufacturer', {'manufacturers_id' : manufacturer.id}) }}">
+                        {{ 'Other Products'|trans }}
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}

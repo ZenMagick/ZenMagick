@@ -1,25 +1,24 @@
-<?php
-    $orders = array();
-    if ($app->getUser()) {
-        $orders = $view->container->get('orderService')->getOrdersForAccountId($app->getUser()->getId(), $view['request']->getLocaleId(), 7);
-    }
-    $products = array();
-?><?php if (0 < count($orders)) { ?>
+{% if app.user %}
+    {% set orders = order_manager.ordersForAccountId(app.user.id, app.session.get('languages_id'), 7) %}
+    {% set product_id_list = {} %}
+{% endif %}
+{% if orders is defined and 0 < orders|length %}
     <h3>{{ 'Previous Purchases'|trans }}</h3>
     <div id="sb_order_history" class="box">
-      <ul>
-      <?php foreach ($orders as $order) {
-          foreach ($order->getOrderItems() as $orderItem) {
-              if (array_key_exists($orderItem->getName(), $products))
-                  continue;
-              $products[$orderItem->getName()] = $orderItem->getProductId();
-              ?><li><a href="<?php echo $net->product($orderItem->getProductId()) ?>"><?php echo $view->escape($orderItem->getName()) ?></a></li><?php
-              if (7 == count($products))
-                  break;
-          }
-          if (7 == count($products))
-              break;
-      } ?>
+        <ul>
+            {# @todo: remove product_id_list merge. move the filtering to the order manager #}
+            {% for order in orders %}
+                {% for orderItem in order.orderItems|slice(0, 7) %}
+                    {% if orderItem.productId not in product_id_list %}
+                        {% set product_id_list = product_id_list|merge({(loop.index0) : orderItem.productId}) %}
+                        <li>
+                            <a href="{{ net.product(orderItem.productId) }}">
+                                {{ orderItem.name }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+         {% endfor %}
       </ul>
     </div>
-<?php } ?>
+{% endif %}

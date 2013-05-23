@@ -1,5 +1,5 @@
-<?php $tree = $view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()); ?>
+{% set tree = category_manager.categoryTree(app.session.get('languages_id')) %}
 <h3>{{ 'Categories'|trans }}</h3>
 <div id="sb_categories" class="box">
-    <?php echo $macro->categoryTree($tree, $view['settings']->get('isShowCategoryCount', false), $view['settings']->get('isUseCategoryPage', false)) ?>
+    {{ macro.categoryTree(tree, settings.get('isShowCategoryCount'), settings.get('isUseCategoryPage'))|raw }}
 </div>

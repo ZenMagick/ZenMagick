@@ -1,6 +1,7 @@
-<?php if (null != ($banner = $this->fetchBlockGroup('banners.box1')) && !empty($banner)) { ?>
+{% set banner = templateManager.fetchBlockGroup('banners.box1') %}
+{% if banner is not empty %}
     <h3>{{ 'Sponsors'|trans }}</h3>
     <div id="sb_banner_box" class="box">
-        <?php echo $banner; ?>
+        {{ banner|raw }}
     </div>
-<?php } ?>
+{% endif %}

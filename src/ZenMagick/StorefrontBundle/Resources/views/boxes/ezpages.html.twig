@@ -1,10 +1,14 @@
-<?php $sbchapter = isset($sbchapter) ? $sbchapter : $view['request']->getParameter('sbchapter'); ?>
-<?php $pages = null != $sbchapter ? $view->container->get('ezPageService')->getPagesForChapterId($sbchapter, $view['request']->getLocaleId()) : $view->container->get('ezPageService')->getPagesForSidebar($view['request']->getLocaleId()); ?>
-<?php if (0 < count($pages)) { ?>
+{% set sbchapter = sbchapter is defined ? sbchapter : app.request.query.get('spchapter') %}
+{% if sbchapter is not null %}
+    {% set pages = ezpage_manager.pagesForChapterId(sbchapter, app.session.get('languages_id')) %}
+{% else %}
+    {% set pages = ezpage_manager.pagesForSidebar(app.session.get('languages_id')) %}
+{% endif %}
+{% if 0 < pages|length %}
     <h3>{{ 'Important Links'|trans }}</h3>
     <div id="sb_ezpages" class="box">
-        <?php foreach ($pages as $page) { ?>
-            <?php echo $html->ezpageLink($page->getId())?>
-        <?php } ?>
+        {% for page in pages %}
+            {{ html.ezpageLink(page.id)|raw }}
+        {% endfor %}
     </div>
-<?php } ?>
+{% endif %}

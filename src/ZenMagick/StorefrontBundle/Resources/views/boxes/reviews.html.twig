@@ -1,19 +1,29 @@
-<?php
-
-    // get review for product (if on product page)
-    $filterArg = isset($currentProduct) ? $currentProduct->getId() : null;
-    $reviews = $view->container->get('reviewService')->getRandomReviews($view['request']->getLocaleId(), $filterArg, 1);
-?>
-<?php if (1 == count($reviews)) {
-    $review = $reviews[0];
-    $href = path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id})
-    $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
-    $rimg = '<img src="'.$view['assets']->getUrl('bundles/storefront/images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
-    ?>
-    <h3><a href="{{ path('reviews') }}">{{ '[More]'|trans }}</a>{{ 'Reviews'|trans }}</h3>
+{# get review for product (if on product page) #}
+{% set filter_arg = currentProduct is defined ? currentProduct : null %}
+{% set reviews = review_manager.randomReviews(app.session.get('languages_id'), filter_arg, 1) %}
+{% if 1 == reviews|length %}
+    {% set review = reviews[0] %}
+    {% set href = path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id}) %}
+    {% set rtext = '%rating% of 5 stars!'|trans({'%rating%' : review.rating}) %}
+    <h3>
+        <a href="{{ path('reviews') }}">{{ '[More]'|trans }}</a>
+        {{ 'Reviews'|trans }}
+    </h3>
     <div id="sb_reviews" class="box">
-        <p><a href="<?php echo $net->product($review->getProductId()) ?>"><?php echo $html->image($review->getProductImageInfo()) ?></a></p>
-        <p id="rtext"><a href="<?php echo $href ?>"><?php echo $html->more($review->getText(), 60) ?></a></p>
-        <p><a href="<?php echo $href ?>"><?php echo $rimg ?></a></p>
+        <p>
+            <a href="{{ net.product(review.productId) }}">
+                {{ html.image(review.productImageInfo)|raw }}
+            </a>
+        </p>
+        <p id="rtext">
+            <a href="{{ href }}">
+                {{ html.more(review.text, 60) }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ href }}">
+                <img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="{{ rtext }}" title="{{ rtext }}" />
+            </a>
+        </p>
     </div>
-<?php } ?>
+{% endif %}

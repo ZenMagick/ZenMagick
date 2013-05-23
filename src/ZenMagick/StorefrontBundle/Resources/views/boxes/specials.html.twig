@@ -1,12 +1,22 @@
-<?php if (!isset($currentProduct) && 'specials' != $view['request']->getRouteId()) { ?>
-    <?php $products = $view->container->get('productService')->getSpecials(1, $view['request']->getLocaleId()); ?>
-    <?php if (0 != count($products)) { $product = $products[0]; ?>
-        <h3><a href="{{ path('specials') }}">{{ '[More]'|trans }}</a>{{ 'Specials'|trans }}</h3>
+{% if currentProduct is defined and (specials != app.request.requestId) %}
+    {% set products = product_manager.specials(1, app.session.get('languages_id')) %}
+    {% if products is not empty %}
+        {% set product = products[0] %}
+        <h3>
+            <a href="{{ path('specials') }}">
+                {{ '[More]'|trans }}
+            </a>
+            {{ 'Specials'|trans }}
+        </h3>
         <div id="sb_specials" class="box">
-            <p><?php echo $html->productImageLink($product) ?></p>
-            <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
-            <?php $offers = $product->getOffers(); ?>
-            <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+            <p>{{ html.productImageLink(product)|raw }}</p>
+            <p>
+                <a href="{{ net.product(product.id) }}">
+                    {{ product.name }}
+                </a>
+            </p>
+            {% set offers = product.offers %}
+            <p class="price">{{ utils.formatMoney(offers.calculatedPrice) }}</p>
         </div>
-    <?php } ?>
-<?php } ?>
+    {% endif %}
+{% endif %}

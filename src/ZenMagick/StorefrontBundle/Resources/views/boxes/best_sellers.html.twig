@@ -1,11 +1,15 @@
-<?php $products = $view->container->get('productService')->getBestSellers($view['request']->getParameter('categoryId'), null, $view['request']->getLocaleId()); ?>
-<?php if (0 < count($products)) { ?>
+{% set products = product_manager.bestSellers(app.request.query.get('categoryId'), null, app.session.get('languages_id')) %}
+{% if 0 < products|length %}
     <h3>{{ 'Best Sellers'|trans }}</h3>
     <div id="sb_bestsellers" class="box">
         <ol>
-        <?php foreach ($products as $product) { ?>
-            <li><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($html->more($product->getName(), 28)) ?></a></li>
-        <?php } ?>
+            {% for product in products %}
+                <li>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ html.more(product.name, 30) }}
+                    </a>
+                </li
+            {% endfor %}
         </ol>
     </div>
-<?php } ?>
+{% endif %}

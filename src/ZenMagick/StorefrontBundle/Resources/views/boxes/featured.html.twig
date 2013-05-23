@@ -1,12 +1,20 @@
-<?php $products = $view->container->get('productService')->getFeaturedProducts($view['request']->getParameter('categoryId'), 1, false, $view['request']->getLocaleId()); ?>
-<?php if (1 == count($products)) {
-    $product = $products[0];
-    ?>
-    <h3><a href="{{ path('featured_products') }}">{{ '[More]'|trans }}</a>{{ 'Featured'|trans }}</h3>
+{% set products = product_manager.featuredProducts(app.request.query.get('categoryId'), 1, false, app.session.get('languages_id')) %}
+{% if 1 == products|length %}
+    {% set product = products[0] %}
+    <h3>
+        <a href="{{ path('featured_products') }}">
+            {{ '[More]'|trans }}
+        </a>
+        {{ 'Featured'|trans }}
+    </h3>
     <div id="sb_featured" class="box">
-        <p><?php echo $html->productImageLink($product) ?></p>
-        <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $view->escape($product->getName()) ?></a></p>
-        <?php $offers = $product->getOffers(); ?>
-        <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+        <p>{{ html.productImageLink(product)|raw }}</p>
+        <p>
+            <a href="{{ net.product(product.id) }}">
+                {{ product.name }}
+            </a>
+        </p>
+        {% set offers = product.offers %}
+        <p class="price">{{ utils.formatMoney(offers.calculatedPrice) }}</p>
     </div>
-<?php } ?>
+{% endif %}

@@ -1,15 +1,25 @@
-<?php
-  $feedUrl = 'http://www.radebatz.net/mano/feed/';
-  $category = 'ZenMagick'; // set to null for all
-?>
-<?php $rssFeed = $view->container->get('rssLoader')->getFeed($feedUrl, $category); if ($rssFeed->hasContents()) { $channel = $rssFeed->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>>{{ '[More]'|trans }}</a><?php echo $view->escape($channel->getTitle()) ?></h3>
+{% set feed_url = 'http://www.radebatz.net/mano/feed/' %}
+{% set category = 'ZenMagick' %} {# set to null for all #}
+
+{% set feed = rss_loader.feed(feed_url, category) %}
+{% if feed.hasContents %}
+    {% set channel = feed.channel %}
+    <h3>
+        <a href="{{ channel.link }}" class="new-win">
+            {{ '[More]'|trans }}
+        </a>
+        {{ channel.title }}
+    </h3>
     <div id="sb_rss" class="box">
         <dl>
-            <?php foreach ($rssFeed->getItems() as $item) { ?>
-                <dt><?php echo $view['date']->short($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>" class="new-win"><?php echo $view->escape($item->getTitle()); ?></a></dd>
-            <?php } ?>
+            {% for item in feed.items %}
+                <dt>{{ item.pubDate|localizeddate('short', 'short') }}</dt>
+                <dd>
+                    <a href="{{ item.Link }}" class="new-win">
+                        {{ item.title }}
+                    </a>
+                </dd>
+            {% endfor %}
         </dl>
     </div>
-<?php } ?>
+{% endif %}

@@ -1,14 +1,15 @@
-<?php $manufacturers = $view->container->get('manufacturerService')->getManufacturers($view['request']->getLocaleId()); ?>
-<?php if (0 < count($manufacturers)) { ?>
+{% set manufacturers = manufacturer_manager.manufacturers(app.session.get('languages_id')) %}
+{% if 0 < manufacturers|length %}
     <h3>{{ 'Manufacturers'|trans }}</h3>
     <div id="sb_manufacturers" class="box">
-        <?php echo $form->open('manufacturer', '', $app->getRequest()->isSecure(), array('method' => 'get', 'onsubmit'=>null)) ?>
+        {{ form.open('manufacturer', '', app.request.isSecure, {'method' : 'get', 'onsubmit' : null})|raw }}
             <div>
-                <?php echo $form->idpSelect('manufacturers_id', array_merge(array(new ZMIdNamePair("", _zm("Please Select"))), $manufacturers), $view['request']->getParameter('manufacturers_id'), array('size'=>1, 'onchange'=>'this.form.submit()')) ?>
+                {% set manufacturer_select = [bean('ZMIdNamePair#id=&name=' ~ 'Please Select'|trans)] %}
+                {{ form.idpSelect('manufacturers_id', manufacturer_select|merge(manufacturers), app.request.query.get('manufacturers_id'), {'size' : 1, 'onchange' : 'this.form.submit()'})|raw }}
                 <noscript>
                     <div><input type="submit" class="btn" value="{{ 'Go'|trans }}" /></div>
                 </noscript>
             </div>
         </form>
     </div>
-<?php } ?>
+{% endif %}

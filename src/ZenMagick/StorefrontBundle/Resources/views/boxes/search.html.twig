@@ -1,13 +1,14 @@
-<?php if (false === strpos($view['request']->getRouteId(), 'search')) { ?>
+{% if app.request.requestId not in ['search', 'advanced_search', 'advanced_search_result'] %}
     <h3>{{ 'Quick Search'|trans }}</h3>
     <div id="sb_search" class="box">
-        <?php echo $form->open('search', '', $app->getRequest()->isSecure(), array('method' => 'get')) ?>
+        {{ form.open('search', '', app.request.secure, {'method' : 'get'})|raw }}
             <div>
                 <input type="submit" class="btn" value="{{ 'Go'|trans }}" />
-                <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-                <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($view['request']->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+                <input type="text" id="keywords" name="keywords" value="{{ app.request.get('keywords', 'Search...'|trans) }}" onfocus="if (this.value == '{{ 'Search...'|trans }}') this.value=''" />
             </div>
         </form>
-        <a class="clear" href="{{ path('advanced_search') }}">{{ 'Advanced Search'|trans }}</a>
+        <a class="clear" href="{{ path('advanced_search') }}">
+            {{ 'Advanced Search'|trans }}
+        </a>
     </div>
-<?php } ?>
+{% endif %}

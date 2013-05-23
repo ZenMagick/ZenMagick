@@ -1,12 +1,15 @@
 <h3>{{ 'RSS Feeds'|trans }}</h3>
 <div id="sb_feeds" class="box">
     <a href="{{ path('rss', {'channel' : 'reviews'}) }}">
-        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="{{ 'RSS'|trans }}" />{{ 'Product Reviews'|trans }}
+        <img src="{{ asset('bundles/storefront/images/feed-icon-12x12.gif') }}" alt="{{ 'RSS'|trans }}" />
+        {{ 'Product Reviews'|trans }}
     </a>
     <a href="{{ path('rss', {'channel' : 'products', 'key' : 'new'}) }}">
-        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="{{ 'RSS'|trans }}" />{{ 'New Products'|trans }}
+        <img src="{{ asset('bundles/storefront/images/feed-icon-12x12.gif') }}" alt="{{ 'RSS'|trans }}" />
+        {{ 'New Products'|trans }}
     </a>
     <a href="{{ path('rss', {'channel' : 'chapter', 'key' : 10}) }}">
-        <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/feed-icon-12x12.gif')?>" alt="{{ 'RSS'|trans }}" />{{ 'Chapter 10'|trans }}
+        <img src="{{ asset('bundles/storefront/images/feed-icon-12x12.gif') }}" alt="{{ 'RSS'|trans }}" />
+        {{ 'Chapter 10'|trans }}
     </a>
 </div>
