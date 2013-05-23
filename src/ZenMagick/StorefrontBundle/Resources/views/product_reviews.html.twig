@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>
     <div id="pinfo">
@@ -11,3 +12,4 @@
     <?php echo $this->render('StorefrontBundle::reviews.html.php'); ?>
   </div>
 </form>
+{% endblock %}

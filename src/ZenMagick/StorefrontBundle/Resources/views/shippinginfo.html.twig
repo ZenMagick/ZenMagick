@@ -1,2 +1,4 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php echo $utils->staticPageContent("shippinginfo") ?>
+{% endblock %}

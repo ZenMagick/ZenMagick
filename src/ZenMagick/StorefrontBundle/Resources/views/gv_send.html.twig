@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
 <p>{{ 'Current available balance: <strong>%amount%</strong>'|trans({'%amount%' : utils.formatMoney(app.user.voucherBalance)}) }}</p>
 <?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>
@@ -22,3 +23,4 @@
     <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </p>
+{% endblock %}

@@ -1,6 +1,8 @@
-<?php $view->extend('StorefrontBundle::popup_layout.html.php'); ?>
+{% extend '@Storefront/popup_layout.html.twig' %}
+{% block body %}
 <h1>{{ 'Search Help'|trans }}</h1>
 
 <?php echo $utils->staticPageContent('popup_search_help') ?>
 
 <div id="close"><a href="#" onclick="javascript:window.close()">{{ 'Close Window [x]'|trans }}</a></div>
+{% endblock %}

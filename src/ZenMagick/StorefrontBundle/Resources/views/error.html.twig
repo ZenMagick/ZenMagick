@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <h3>{{ 'Oops - something went wrong!'|trans }}</h3>
 <p><?php echo $utils->staticPageContent('error') ?></p>
 <?php if ($app->getEnvironment() == 'dev') { ?>
@@ -13,3 +14,4 @@
   ?>
   </pre>
 <?php } ?>
+{% endblock %}

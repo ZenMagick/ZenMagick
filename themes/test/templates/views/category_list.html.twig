@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
@@ -18,3 +19,4 @@
 <?php } else { ?>
     <h2>{{ 'There are no products in this category'|trans }}</h2>
 <?php } ?>
+{% endblock %}

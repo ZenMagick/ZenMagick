@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::popup_layout.html.php'); ?>
+{% extend '@Storefront/popup_layout.html.twig' %}
+{% block body %}
 <?php
   $shoppingCart = $view->container->get('shoppingCart');
   $shippingEstimator = new ZenMagick\StorefrontBundle\Utils\ShippingEstimator();
@@ -65,3 +66,4 @@
         </table>
     <?php } ?>
 <?php } ?>
+{% endblock %}

@@ -1,8 +1,9 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Contact Us'))); ?>
 <h3>{{ 'Store Contact Details'|trans }}</h3>
 <p><address><?php echo nl2br($view['settings']->get('storeNameAddress')); ?></address></p>
 <br/>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
 <?php echo $utils->staticPageContent("contact_us") ?>
 
@@ -21,3 +22,4 @@
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
 </form>
+{% endblock %}

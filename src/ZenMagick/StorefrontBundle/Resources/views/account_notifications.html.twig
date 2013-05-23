@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
 <p>{{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}</p>
@@ -21,3 +22,4 @@
     <?php } ?>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
 </form>
+{% endblock %}

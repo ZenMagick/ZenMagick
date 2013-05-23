@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Create Account'))); ?>
 <script type="text/javascript">
     var all_zones = new Array();
@@ -167,3 +168,4 @@
     <?php if ($this->exists('howDidYouHearOptions.html.php')) { echo $this->render('StorefrontBundle::howDidYouHearOptions.html.php'); } ?>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Create Account'|trans }}" /></div>
 </form>
+{% endblock %}

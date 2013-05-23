@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::popup_layout.html.php'); ?>
+{% extend '@Storefront/popup_layout.html.twig' %}
+{% block body %}
 <?php
   $restrictions = $coupon->getRestrictions();
   $fixed = _zm('This coupon entitles you to a %s discount against your order');
@@ -44,3 +45,4 @@
 <p>{{ 'Discount Coupons may not be applied towards the purchase of Gift Certificates.'|trans }}</p>
 
 <div id="close"><a href="#" onclick="javascript:window.close()">{{ 'Close Window [x]'|trans }}</a></div>
+{% endblock %}

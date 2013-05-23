@@ -1,6 +1,8 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php if (null == $currentProduct) { ?>
     <h3>{{ 'Product not found'|trans }}</h3>
 <?php } else { ?>
     <h3>{{ '"%product%" is currently not in stock.'|trans({'%product%' : currentProduct.name}) }}</h3>
 <?php } ?>
+{% endblock %}

@@ -1,5 +1,6 @@
 <?php use ZenMagick\Base\Toolbox; ?>
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout'))->addCrumb(_zm('Summary'))); ?>
 <fieldset>
@@ -99,3 +100,4 @@
     <?php echo $orderFormContent ?>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Confirm to order'|trans }}" /></div>
 </form>
+{% endblock %}

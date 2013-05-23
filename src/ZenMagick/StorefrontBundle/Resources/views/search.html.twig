@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Search'))); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
     <fieldset>
@@ -35,3 +36,4 @@
         <h2>{{ 'No products found'|trans }}</h2>
     <?php } ?>
 <?php } ?>
+{% endblock %}

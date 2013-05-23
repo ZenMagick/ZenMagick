@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb($ezPage->getTitle())); ?>
 <?php $toc = $view->container->get('ezPageService')->getPagesForChapterId($view['request']->getParameter("chapter"), $view['request']->getLocaleId()); ?>
 <?php if (1 < count($toc)) { ?>
@@ -43,3 +44,4 @@
 <?php } ?>
 <h2><?php echo $view->escape($ezPage->getTitle()) ?></h2>
 <?php echo $ezPage->getHTMLText() ?>
+{% endblock %}

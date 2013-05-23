@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete'))); ?>
 <p>{{ 'Are you sure you would like to delete the selected address from your address book?'|trans }}</p>
@@ -12,3 +13,4 @@
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>
 </form>
+{% endblock %}

@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php
 $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct());;
 
@@ -34,3 +35,4 @@ if ($resultList->hasResults()) { ?>
 
     <h2>{{ 'There are no products in this category'|trans }}</h2>
 <?php } ?>
+{% endblock %}

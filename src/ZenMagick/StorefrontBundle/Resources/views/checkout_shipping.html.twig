@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping'))); ?>
 <fieldset>
@@ -71,3 +72,4 @@
 
     <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
 </form>
+{% endblock %}

@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Order Confirmation'))); ?>
 <?php $account = $app->getUser(); ?>
 <?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
@@ -54,3 +55,4 @@
         <input type="submit" value="refer friends">
     </form>
 <?php } ?>
+{% endblock %}

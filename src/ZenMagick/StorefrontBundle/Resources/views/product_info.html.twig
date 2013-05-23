@@ -1,5 +1,6 @@
 <?php use ZenMagick\StoreBundle\Services\Products; ?>
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())); ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
@@ -83,3 +84,4 @@
     <?php } ?>
   </div>
 <?php } ?>
+{% endblock %}

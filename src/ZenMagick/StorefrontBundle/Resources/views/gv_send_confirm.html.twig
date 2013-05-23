@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
 <?php echo $form->open('gv_send_confirm', '', true, array('onsubmit'=>null)) ?>
     <div>
@@ -30,3 +31,4 @@
     <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>
+{% endblock %}

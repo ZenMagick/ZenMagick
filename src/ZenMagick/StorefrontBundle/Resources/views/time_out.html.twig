@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php if (!$app->getUser()) { ?>
     <h2>{{ 'Whoops! Your session has expired.'|trans }}</h2>
 <?php } else { ?>
@@ -10,3 +11,4 @@
 <p>{{ 'If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%account_url%">My Account</a> page to view your order.'|trans({'%account_url%' : path('account')})|raw }}</p>
 
 <?php require("login.php"); ?>
+{% endblock %}

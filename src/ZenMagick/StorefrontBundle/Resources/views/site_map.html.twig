@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <p>{{ 'If you are having difficulty in locating something on our site, please <a href="%contact_url%">let us know</a>!'|trans({'%contact_url%' : path('contact_us')})|raw }}</p>
 <?php echo $macro->categoryTree($view->container->get('categoryService')->getCategoryTree($view['request']->getLocaleId()), "catalog"); ?>
 <ul>
@@ -37,3 +38,4 @@
       <li><a href="{{ path('unsubscribe') }}">{{ 'Newsletter Unsubscribe'|trans }}</a></li>
    </ul></li>
 </ul>
+{% endblock %}

@@ -1,5 +1,5 @@
-<?php use ZenMagick\Base\Toolbox; ?>
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $view['request']->getParameter('order_id')))); ?>
 <h3>{{ 'Item Details'|trans }}</h3>
 <table cellpadding="0" cellspacing="0">
@@ -102,3 +102,4 @@
         <?php echo $macro->formatAddress($currentOrder->getBillingAddress()) ?>
     </div>
 </div>
+{% endblock %}

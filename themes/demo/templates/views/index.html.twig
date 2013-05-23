@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <h1>Welcome to the ZenMagick demo store</h1>
 
 <p>Running on top of a standard <a href="http://www.zen-cart.com">zen-cart</a> installation,
@@ -46,3 +47,4 @@
      <a href="{{ path('source_view', array('view_name' => app.request.requestId}) }}">view</a>
     ) on this site! (there are links in the footer on all other pages)</li>
 </ul>
+{% endblock %}

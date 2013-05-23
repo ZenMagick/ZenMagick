@@ -1,5 +1,7 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <h2>{{ 'Find our <em>TEST</em> store using Google Maps!'|trans|raw }}</h2>
 <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;">{{ 'Loading map...'|trans }}</div>
 <div id="stores">
 </div>
+{% endblock %}

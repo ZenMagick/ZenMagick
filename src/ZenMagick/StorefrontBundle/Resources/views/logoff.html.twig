@@ -1,5 +1,7 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Logoff'))); ?>
 <p>{{ 'You have been logged off your account. It is now safe to leave the computer.'|trans }}</p>
 <p>{{ 'Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.'|trans }}</p>
 <?php echo $html->backLink(_zm("continue")) ?>
+{% endblock %}

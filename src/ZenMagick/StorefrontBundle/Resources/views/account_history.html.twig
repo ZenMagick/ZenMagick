@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History'))); ?>
 
 <?php if ($resultList->hasResults()) { ?>
@@ -20,3 +21,4 @@
 <?php } else { ?>
     <h2>{{ 'No orders found'|trans }}</h2>
 <?php } ?>
+{% endblock %}

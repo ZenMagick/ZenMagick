@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php echo $form->open('foo', '', true, array('id'=>'foo')) ?>
   <fieldset>
     <legend>{{ 'Foo'|trans }}</legend>
@@ -22,3 +23,4 @@
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
 </form>
+{% endblock %}

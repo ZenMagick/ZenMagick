@@ -1,4 +1,3 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
 <?php echo $form->open('login_check', '', true, array('id'=>'login')) ?>
   <fieldset>
@@ -14,6 +13,8 @@
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
 </form>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 
     <p>
         <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a><br/>
@@ -44,3 +45,4 @@
     <div class="btn"><input type="submit" class="btn" value="{{ 'Checkout'|trans }}" /></div>
   </form>
 <?php } ?>
+{% endblock %}

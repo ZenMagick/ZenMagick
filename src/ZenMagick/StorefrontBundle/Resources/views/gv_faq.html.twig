@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Gift Certificate FAQ'))); ?>
 <h2>{{ 'Gift Certificate FAQ'|trans }}</h2>
 
@@ -36,3 +37,4 @@
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>
 </form>
+{% endblock %}

@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php echo get_class($view->container->get('productService')) ?>
 <?php echo $utils->staticPageContent("main_page") ?>
 <?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
@@ -16,3 +17,4 @@
     </table></div>
   <?php } ?>
 </div>
+{% endblock %}

@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account'))); ?>
 <?php echo $form->open('account_edit', '', true, array('id'=>'account')) ?>
     <fieldset>
@@ -71,3 +72,4 @@
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
 </form>
+{% endblock %}

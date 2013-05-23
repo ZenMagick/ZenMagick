@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <h3>{{ 'Subscription Enqiries'|trans }}</h3>
 
 <?php echo $form->open('subscription_request', null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
@@ -21,3 +22,4 @@
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
 </form>
+{% endblock %}

@@ -1,4 +1,5 @@
-<?php $view->extend('StorefrontBundle::default_layout.html.php'); ?>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
 <p>This is a demo page illustrating Ajax in <em>ZenMagick</em>. The examples use <a href="http://www.json.org">JSON</a>
 data format. If you want to use anything else, like XML, just write your own methods and you are good to go.</p>
 <p>The controller is using <a href="http://pear.php.net/pepr/pepr-proposal-show.php?id=198">PEAR Json</a> for the JSON encoding.
@@ -407,3 +408,4 @@ Depending on your server configuration you might be better of using something di
         });
     }
 </script>
+{% endblock %}
