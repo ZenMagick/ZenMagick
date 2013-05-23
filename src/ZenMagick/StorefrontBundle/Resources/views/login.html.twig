@@ -1,48 +1,51 @@
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
-<?php echo $form->open('login_check', '', true, array('id'=>'login')) ?>
-  <fieldset>
-    <legend>{{ 'Login'|trans }}</legend>
-    <div>
-      <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
-      <input type="text" id="email_address" name="email_address" value="<?php echo $lastUsername; ?>" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
-    </div>
-    <div>
-      <label for="password">{{ 'Password'|trans }}</label>
-      <input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
-    </div>
-  </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
-</form>
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
+    {{ form.open('login_check', '', true, {'id' : 'login'})|raw }}
+        <fieldset>
+            <legend>{{ 'Login'|trans }}</legend>
+            <div>
+                <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
+                <input type="text" id="email_address" name="email_address" value="{{ lastUsername }}" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
+            </div>
+            <div>
+                <label for="password">{{ 'Password'|trans }}</label>
+                <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password')|raw }} />
+            </div>
+        </fieldset>
+        <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}"/></div>
+    </form>
 
     <p>
         <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a><br/>
         <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
     </p>
 
-<?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty() && !$app->getUser()) { ?>
-  <h3>{{ 'Don't need an account?'|trans }}</h3>
-  <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
-    <p>{{ 'Checkout without registering'|trans }}</p>
-    <div>
-      <?php if ($view['settings']->get('isGuestCheckoutAskAddress')) { ?>
-        <?php
-          $guestAddressInfo = array(
-              'address' => $guestCheckoutAddress,
-              'customFields' => array(array(
-                  'label'=>_zm("E-Mail Address").'<span>*</span>',
-                  'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength('customers', 'customers_email_address').'/>'
-              ))
-          );
-          echo $this->render('StorefrontBundle::address.html.php', $guestAddressInfo);
-        ?>
-      <?php } else { ?>
-        <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
-        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
-      <?php } ?>
-    </div>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Checkout'|trans }}" /></div>
-  </form>
-<?php } ?>
+    {% if settings.get('isGuestCheckout') and cart.empty and not app.user %}
+        <h3>{{ 'Don\'t need an account?'|trans }}</h3>
+        {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest'})|raw }}
+            <p>{{ 'Checkout without registering'|trans }}</p>
+            <div>
+                {% if settings.get('isGuestCheckoutAskAddress') %}
+                    {% if guestCheckoutAddress is not defined %}
+                        {% set guestCheckoutAddress = bean('ZenMagick\\StoreBundle\\Entity\\Address#setPrimary=true') %}
+                        {{ dump(guestCheckoutAddress) }}
+                    {% endif %}
+                    {% set guestAddressInfo = {
+                        'address' : guestCheckoutAddress,
+                        'customFields' : [{
+                                'label' : 'E-Mail Address'|trans ~ '<span>*</span>',
+                                'field' : '<input type="text" id="email_address_guest" name="email_address"' ~ form.fieldLength('customers', 'customers_email_address') ~ ' />'
+                            }]
+                        }
+                    %}
+                    {{ include('@Storefront/address.html.twig', guestAddressInfo|raw) }}
+                {% else %}
+                    <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
+                    <input type="text" id="email_address_guest" name="email_address"  {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
+                {% endif %}
+            </div>
+            <div class="btn"><input type="submit" class="btn" value="{{ 'Checkout'|trans }}"/></div>
+        </form>
+    {% endif %}
 {% endblock %}

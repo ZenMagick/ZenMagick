@@ -1,21 +1,20 @@
 <script type="text/javascript">
+    {% autoescape 'js' %}
     var all_zones = new Array();
-    <?php
-        foreach ($view->container->get('countryService')->getCountries() as $country) {
-            $zones = $view->container->get('countryService')->getZonesForCountryId($country->getId());
-            if (0 < count($zones)) {
-                echo 'all_zones['.$country->getId() . '] = new Array();';
-                foreach ($zones as $zone) {
-                    echo "all_zones[".$country->getId()."][".$zone->getId()."] = '" . $zone->getName() ."';";
-                }
-            }
-        }
-    ?>
+    {% for country in countries.countries %}
+        {% set zones = countries.zonesForCountryId(country.id) %}
+        {% if zones %}
+            all_zones[{{ country.id }}] = new Array();
+            {% for zone in zones %}
+                all_zones[{{ country.id }}][{{ zone.id }}] = '{{ zone.name }}';
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    {% endautoescape %}
 </script>
-<?php /*=== include to allow PHP execution in ZM context ==*/ ?>
-<script type="text/javascript"><?php echo $this->render('StorefrontBundle::dynamicState.js.php') ?></script>
+<script>{{ include('@Storefront/dynamicState.js.twig') }}</script>
 
-<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $view['settings']->get('storeCountry'); ?>
+{% set country_id = address.countryId ?: settings.get('storeCountry') %}
 <fieldset>
     <legend>{{ 'Address'|trans }}</legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
@@ -26,85 +25,84 @@
             </tr>
         </thead>
         <tbody>
-            <?php if (isset($customFields)) { ?>
-                <?php foreach ($customFields as $fieldInfo) { ?>
-                    <tr>
-                        <td><?php echo $fieldInfo['label'] ?></td>
-                        <td><?php echo $fieldInfo['field'] ?></td>
-                    </tr>
-                <?php } ?>
-            <?php } ?>
-            <?php if ($view['settings']->get('isAccountGender')) { ?>
+            {% for fieldInfo in customFields if customFields is defined %}
+                <tr>
+                    <td>{{ fieldInfo['label']|raw }}</td>
+                    <td>{{ fieldInfo['field']|raw }}</td>
+                </tr>
+            {% endfor %}
+            {% if settings.get('isAccountGender') %}
                 <tr>
                     <td>{{ 'Title'|trans }}<span>*</span></td>
                     <td>
-                        <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m'==$address->getGender()) ?> />
+                        <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', address.gender)|raw }} />
                         <label for="male">{{ 'Mr.'|trans }}</label>
-                        <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $address->getGender()) ?> />
+                        <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', address.gender)|raw }} />
                         <label for="female">{{ 'Ms.'|trans }}</label>
                     </td>
                 </tr>
-            <?php } ?>
+            {% endif %}
             <tr>
                 <td>{{ 'First Name'|trans }}<span>*</span></td>
-                <td><input type="text" id="firstName" name="firstName" value="<?php echo $view->escape($address->getFirstName()) ?>" /></td>
+                <td><input type="text" id="firstName" name="firstName" value="{{ address.firstName }}" /></td>
             </tr>
             <tr>
                 <td>{{ 'Last Name'|trans }}<span>*</span></td>
-                <td><input type="text" id="lastName" name="lastName" value="<?php echo $view->escape($address->getLastName()) ?>" /></td>
+                <td><input type="text" id="lastName" name="lastName" value="{{ address.lastName }}" /></td>
             </tr>
-            <?php if ($view['settings']->get('isAccountCompany')) { ?>
+            {% if settings.get('isAccountCompany') %}
                 <tr>
                     <td>{{ 'Company Name'|trans }}</td>
-                    <td><input type="text" id="companyName" name="companyName" value="<?php echo $view->escape($address->getCompanyName()) ?>" /></td>
+                    <td><input type="text" id="companyName" name="companyName" value="{{ address.companyName }}" /></td>
                 </tr>
-            <?php } ?>
+            {% endif %}
             <tr>
                 <td>{{ 'Street Address'|trans }}<span>*</span></td>
-                <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $view->escape($address->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="{{ address.addressLine1 }}" {{ form.fieldLength('address_book', 'entry_street_address')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'Suburb'|trans }}</td>
-                <td><input type="text" id="suburb" name="suburb" value="<?php echo $view->escape($address->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
+                <td><input type="text" id="suburb" name="suburb" value="{{ address.suburb }}" {{ form.fieldLength('address_book', 'entry_suburb')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'City'|trans }}<span>*</span></td>
-                <td><input type="text" id="city" name="city" value="<?php echo $view->escape($address->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
+                <td><input type="text" id="city" name="city" value="{{ address.city }}" {{ form.fieldLength('address_book', 'entry_city')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'Post Code'|trans }}<span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="<?php echo $view->escape($address->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
+                <td><input type="text" id="postcode" name="postcode" value="{{ address.postCode }}" {{ form.fieldLength('address_book', 'entry_postcode')|raw }} /></td>
             </tr>
              <tr>
                 <td>{{ 'Country'|trans }}<span>*</span></td>
-                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $countryId) ?></td>
+                {% set country_select = [bean('ZMIdNamePair#id=&name=' ~ 'Select Country'|trans)] %}
+                <td>{{ form.idpSelect('countryId', country_select|merge(countries.countries), country_id)|raw }}</td>
             </tr>
-            <?php if ($view['settings']->get('isAccountState')) { ?>
-                <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
+            {% if settings.get('isAccountState') %}
                 <tr>
                     <td>{{ 'State/Province'|trans }}<span>*</span></td>
                     <td>
-                        <?php if (0 < count($zones)) { ?>
-                            <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
-                        <?php } else { ?>
-                            <input type="text" id="state" name="state" value="<?php echo $view->escape($address->getState()) ?>" />
-                        <?php } ?>
+                        {% set zones = countries.zonesForCountryId(country_id) %}
+                        {% if zones %}
+                            {{ form.idpSelect('zoneId', zones, address.zoneId)|raw }}
+                        {% else %}
+                            <input type="text" id="state" name="state" value="{{ address.state }}" />
+                        {% endif %}
                     </td>
                 </tr>
-            <?php } ?>
-            <?php if (!$address->isPrimary()) { ?>
+            {% endif %}
+            {% if address.isPrimary %}
                  <tr>
                     <td></td>
                     <td>
-                        <input type="hidden" name="_primary" value="<?php echo $address->isPrimary() ?>" />
-                        <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
+                        <input type="hidden" name="_primary" value="{{ address.isPrimary }}" />
+                        <input type="checkbox" id="primary" name="primary" value="on" {{ form.checked(address.isPrimary)|raw }} />
                         <label for="primary">{{ 'Use as primary address'|trans }}</label>
                     </td>
                 </tr>
-            <?php } ?>
+            {% endif %}
             <tr class="legend">
                 <td colspan="2">
-                    <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
+                    <input type="hidden" name="id" value="{{ address.id }}" />
                     {{ '<span>*</span> Mandatory fields'|trans|raw }}
                 </td>
             </tr>
