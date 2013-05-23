@@ -65,7 +65,8 @@ class ZenMagickBundle extends Bundle
         \Zenmagick\Base\Runtime::setContainer($this->container);
 
         // @todo don't just exit if no plugins
-        if (!$this->container->has('pluginService')) return;
+        $pluginsEnabled = $parameterBag->get('zenmagick.plugins.enabled');
+        if (!$this->container->has('pluginService') && $pluginsEnabled) return;
 
         if ($this->container->has('configService')) {
             foreach ($this->container->get('configService')->loadAll() as $key => $value) {
