@@ -1,25 +1,30 @@
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Contact Us'))); ?>
-<h3>{{ 'Store Contact Details'|trans }}</h3>
-<p><address><?php echo nl2br($view['settings']->get('storeNameAddress')); ?></address></p>
-<br/>
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Contact Us'))); ?>
+    <h3>{{ 'Store Contact Details'|trans }}</h3>
+    <p>
+        <address>{{ settings.get('storeNameAddress')|nl2br }}</address>
+    </p>
+    <br/>
 
-<?php echo $utils->staticPageContent("contact_us") ?>
+    {{ utils.staticPageContent('contact_us')|raw }}
 
-<?php echo $form->open('contact_us', 'action=send', false, array('id' => 'contactUs')) ?>
-    <fieldset>
-        <legend>{{ 'Contact us'|trans }}</legend>
-        <label for="name">{{ 'Full Name'|trans }}<span>*</span></label>
-        <input type="text" id="name" name="name" size="40" value="<?php echo $view->escape($contactUs->getName()) ?>" /><br />
+    {{ form.open('contact_us', 'action=send', false, {'id' : 'contactUs'})|raw }}
+        <fieldset>
+            <legend>{{ 'Contact us'|trans }}</legend>
+            <label for="name">{{ 'Full Name'|trans }}<span>*</span></label>
+            <input type="text" id="name" name="name" size="40" value="{{ contactUs.name }}" />
+            <br/>
 
-        <label for="email">{{ 'Email Address'|trans }}<span>*</span></label>
-        <input type="text" id="email" name="email" size="40" value="<?php echo $view->escape($contactUs->getEmail()) ?>" /><br />
+            <label for="email">{{ 'Email Address'|trans }}<span>*</span></label>
+            <input type="text" id="email" name="email" size="40" value="{{ contactUs.email }}" />
+            <br/>
 
-        <label for="message">{{ 'Message'|trans }}<span>*</span></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php echo $view->escape($contactUs->getMessage()) ?></textarea>
-        <p class="legend">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
-    </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
-</form>
+            <label for="message">{{ 'Message'|trans }}<span>*</span></label>
+            <textarea id="message" name="message" cols="30" rows="7">{{ contactUs.message }}</textarea>
+
+            <p class="legend">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
+        </fieldset>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}"/></div>
+    </form>
 {% endblock %}
