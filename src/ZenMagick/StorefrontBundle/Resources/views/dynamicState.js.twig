@@ -1,3 +1,4 @@
+{% autoescape 'js' %}
 $(document).ready(function() {
     $('#countryId').change(updateState);
 });
@@ -26,3 +27,4 @@ function updateState() {
        sz.after('<input type="text" id="state" name="state" value="">').remove();
     }
 };
+{% endautoescape %}
