@@ -1,4 +1,4 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php echo $utils->staticPageContent("conditions") ?>
+    {{ utils.staticPageContent('conditions')|raw }}
 {% endblock %}

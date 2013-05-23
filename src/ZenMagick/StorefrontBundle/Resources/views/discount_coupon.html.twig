@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Discount Coupon'))); ?>
-<?php echo $utils->staticPageContent("discount_coupon") ?>
+    {{ utils.staticPageContent('discount_coupon')|raw }}
 
 {{ form.open('discount_coupon', '', false, {'method' : 'get'})|raw }}
   <fieldset>

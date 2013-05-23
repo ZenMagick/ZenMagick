@@ -15,5 +15,5 @@
 {{ 'Sincerely, %store_owner%|'trans({'%store_owner%' : $view['settings']->get('storeOwner')}) }}
 
 
-<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
+{{ utils.staticPageContent('email_advisory')|strip_tags }}
 <?php echo $office_only_text; ?>

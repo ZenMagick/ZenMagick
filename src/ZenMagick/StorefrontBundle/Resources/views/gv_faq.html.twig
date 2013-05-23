@@ -24,7 +24,7 @@
 </ul>
 
 <?php if (null != ($topic = $view['request']->getParameter('topic')) && array_key_exists($topic, $faq_topics)) { ?>
-    <?php echo $utils->staticPageContent($topic); ?>
+    {{ utils.staticPageContent(topic)|raw }}
 <?php } ?>
 
 {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}

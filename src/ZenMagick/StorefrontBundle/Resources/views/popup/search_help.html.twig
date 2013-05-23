@@ -2,7 +2,7 @@
 {% block body %}
 <h1>{{ 'Search Help'|trans }}</h1>
 
-<?php echo $utils->staticPageContent('popup_search_help') ?>
+    {{ utils.staticPageContent('popup_search_help')|raw }}
 
 <div id="close"><a href="#" onclick="javascript:window.close()">{{ 'Close Window [x]'|trans }}</a></div>
 {% endblock %}

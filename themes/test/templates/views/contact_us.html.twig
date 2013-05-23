@@ -6,7 +6,7 @@
 <p><address><?php echo nl2br($view['settings']->get('storeNameAddress')); ?></address></p>
 <br/>
 
-<?php echo $utils->staticPageContent("contact_us") ?>
+    {{ utils.staticPageContent('contact_us')|raw }}
 
 {{ form.open('contact_us', 'action=send', false, {'id' : 'contactUs'})|raw }}
     <fieldset>

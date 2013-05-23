@@ -16,7 +16,9 @@
 <p>{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}</p>
 <p>{{ 'To redeem your gift, visit < href="%redeem_url%">%store_name%</a>'|trans({'%redeem_url%':  url('gv_redeem, {'couponCode' : currentCoupon.code}), '%store_name%' : $view['settings']->get('storeName')}) }}</p>
 
-<?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
+<?php if (!isset($isSupressDisclaimer)) { ?>
+    {{ utils.staticPageContent('email_advisory')|raw }}
+<?php } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

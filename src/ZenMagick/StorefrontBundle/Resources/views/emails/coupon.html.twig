@@ -20,7 +20,9 @@
 <p>{{ 'Thank you for shopping with us!'|trans }}</p>
 <p>{{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : $view['settings']->get('storeOwner')}) }}</p>
 
-<?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
+<?php if (!isset($isSupressDisclaimer)) { ?>
+    {{ utils.staticPageContent('email_advisory')|raw }}
+<?php } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

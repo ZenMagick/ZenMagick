@@ -19,7 +19,9 @@
 <?php } ?>
 <p>{{'To redeem your gift, visit <a href="%redeem_url%">%store_name%</a>.'|trans({'%redeem_url%' : url('gv_redeem' : {'couponCode': currentCoupon.code}), '%store_name%' : $view['settings']->get('storeName')})|raw }}</p>
 
-<?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
+<?php if (!isset($isSupressDisclaimer)) {?>
+    {{ utils.staticPageContent('email_advisory')|raw }}
+<?php } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

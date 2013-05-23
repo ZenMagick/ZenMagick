@@ -14,7 +14,9 @@
 <hr>
 <div><?php echo $html->text2html($contactInfo->getMessage()) ?></div>
 <hr>
-<?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
+<?php if (!isset($isSupressDisclaimer)) { 
+    {{ utils.staticPageContent('email_advisory')|raw }}
+<?php } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

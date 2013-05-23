@@ -21,6 +21,6 @@
 
 <p class="rclear">
     <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong><br />
-    <?php echo $utils->staticPageContent('email_advisory') ?>
+    {{ utils.staticPageContent('email_advisory')|raw }}
 </p>
 {% endblock %}

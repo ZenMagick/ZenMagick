@@ -1,7 +1,7 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
-<?php echo $utils->staticPageContent("main_page") ?>
+    {{ utils.staticPageContent('main_page')|raw }}
 <?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
 <h3>{{ 'Featured Products'|trans }}</h3>
 <div id="featured">

@@ -1,4 +1,4 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php echo $utils->staticPageContent("privacy") ?>
+    {{ utils.staticPageContent('privacy')|raw }}
 {% endblock %}

@@ -13,5 +13,5 @@
 {{ 'To redeem your gift, visit %url%'|trans({'%url%':  url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
 
 
-<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
+{{ utils.staticPageContent('email_advisory')|strip_tags }}
 <?php echo $office_only_text; ?>
