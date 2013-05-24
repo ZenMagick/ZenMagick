@@ -1,15 +1,22 @@
-<?php if (1 < $resultList->getNumberOfPages()) { ?>
+{% if 1 < result.numberOfPages %}
     <div class="rnav">
-        <span class="pno">{{ 'Page %page%/%total%'|trans({'%page%' : resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}</span>
-        <?php if ($resultList->hasPreviousPage()) { ?>
-            <a href="<?php echo $net->resultListBack($resultList) ?>">{{ 'Previous'|trans }}</a>&nbsp;
-        <?php } else { ?>
+        <span class="pno">
+            {{ 'Page %page%/%total%'|trans({'%page%' : resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}
+        </span>
+        {% if resultList.hasPreviousPage %}
+            <a href="{{ net.resultListBack(resultList) }}">
+                {{ 'Previous'|trans }}
+            </a>
+            &nbsp;
+        {% else %}
             <span class="nin">{{ 'Previous'|trans }}</span>&nbsp;
-        <?php } ?>
-        <?php if ($resultList->hasNextPage()) { ?>
-            <a href="<?php echo $net->resultListNext($resultList) ?>">{{ 'Next'|trans }}</a>
-        <?php } else { ?>
+        {% endif %}
+        {% if resultList.hasNextPage %}
+            <a href="{{ net.resultListNext(resultList) }}">
+                {{ 'Next'|trans }}
+            </a>
+        {% else %}
             <span class="nin">{{ 'Next'|trans }}</span>
-        <?php } ?>
+        {% endif %}
     </div>
-<?php } ?>
+{% endif %}
