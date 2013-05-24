@@ -1,17 +1,21 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
     {{ utils.staticPageContent('main_page')|raw }}
-<?php $featured = $view->container->get('productService')->getFeaturedProducts(null, 4, false, $view['request']->getLocaleId()); ?>
-<h3>{{ 'Featured Products'|trans }}</h3>
-<div id="featured">
-  <?php foreach ($featured as $product) { ?>
-    <div>
-      <p>{{ html.productImageLink(product)|raw }}</p>
-      <p><a href="<?php echo $net->product($product->getId()) ?>">{{ product.name }}</a></p>
-      <?php $offers = $product->getOffers(); ?>
-      <p>{{ utils.formatMoney(offers.calculatedPrice) }}</p>
+    {% set featured = product_manager.featuredProducts(null, 4, false, app.session.get('languages_id')) %}
+    <h3>{{ 'Featured Products'|trans }}</h3>
+    <div id="featured">
+        {% for product in featured %}
+            <div>
+                <p>{{ html.productImageLink(product)|raw }}</p>
+
+                <p>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ product.name }}
+                    </a>
+                </p>
+                <p>{{ utils.formatMoney(product.offers.calculatedPrice) }}</p>
+            </div>
+        {% endfor %}
     </div>
-  <?php } ?>
-</div>
 {% endblock %}
