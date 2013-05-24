@@ -63,7 +63,7 @@ if ($shoppingCart->isEmpty()) { ?>
             <a class="btn" href="{{ path('popup_shipping_estimator') }}" onclick="popupWindow(this.href); return false;">{{ 'Shipping Estimator'|trans }}</a>
         </div>
 
-        <?php echo $this->fetchBlockGroup('shoppingCart.options') ?>
+        {{ templateManager.fetchBlockGroup('shoppingCart.options')|raw }}
     </form>
 <?php } ?>
 

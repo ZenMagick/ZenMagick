@@ -5,7 +5,7 @@
         <?php } ?>
     </p>
 
-    <div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
+    <div id="bannerFive">{{ templateManager.fetchBlockGroup('banners.footer2')|raw }}</div>
 
     <p id="sview">
         <a href="{{ path('source_view', {'layout_name' : view.layout}) }}">
