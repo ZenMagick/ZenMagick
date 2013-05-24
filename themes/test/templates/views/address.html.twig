@@ -1,4 +1,4 @@
-<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $view['settings']->get('storeCountry'); ?>
+<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : settings.get('storeCountry'); ?>
 <fieldset>
     <legend>{{ 'Address'|trans }}</legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php if ($view['settings']->get('isAccountGender')) { ?>
+            <?php if (settings.get('isAccountGender')) { ?>
                 <tr>
                     <td>{{ 'Title'|trans }}<span>*</span></td>
                     <td>
@@ -28,7 +28,7 @@
                 <td>{{ 'Last Name'|trans }}<span>*</span></td>
                 <td><input type="text" id="lastName" name="lastName" value="{{ address.lastName }}" /></td>
             </tr>
-            <?php if ($view['settings']->get('isAccountCompany')) { ?>
+            <?php if (settings.get('isAccountCompany')) { ?>
                 <tr>
                     <td>{{ 'Company Name'|trans }}</td>
                     <td><input type="text" id="companyName" name="companyName" value="{{ address.company }}" /></td>
@@ -54,7 +54,7 @@
                 <td>{{ 'Country'|trans }}<span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
-            <?php if ($view['settings']->get('isAccountState')) { ?>
+            <?php if (settings.get('isAccountState')) { ?>
                 <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td>{{ 'State/Province'|trans }}<span>*</span></td>

@@ -52,7 +52,7 @@
     <tbody>
     <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
         <tr>
-            <td><?php echo $view['date']->short($orderStatus->getDateAdded()) ?></td>
+            <td>{{ orderStatus.dateAdded|localizeddate('short', 'none') }}</td>
             <td>{{ orderStatus.name }}</td>
             <td class="cmt">{{ orderStatus.comment }}</td>
         </tr>

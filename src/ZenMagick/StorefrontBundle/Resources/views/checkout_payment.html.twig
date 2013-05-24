@@ -14,7 +14,7 @@
 <?php echo $shoppingCart->getPaymentFormValidationJS($app->getRequest()) ?>
 
 {{ form.open('checkout_confirmation', '', true, {'id' : 'checkout_payment', 'onsubmit' : 'return check_form();'})|raw }}
-  <?php if ($view['settings']->get('isConditionsMessage')) { ?>
+  <?php if (settings.get('isConditionsMessage')) { ?>
       <fieldset>
           <legend>{{ 'Terms and Conditions'|trans }}</legend>
           <p>

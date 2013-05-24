@@ -19,7 +19,7 @@
 <script type="text/javascript"><?php echo $this->render('StorefrontBundle::dynamicState.js.php') ?></script>
 
 {{ form.open('create_account', '', true, {'id' : 'registration'})|raw }}
-    <?php if ($view['settings']->get('isPrivacyMessage')) { ?>
+    <?php if (settings.get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend>{{ 'About Privacy'|trans }}</legend>
             <p>
@@ -40,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if ($view['settings']->get('isAccountGender')) { ?>
+                <?php if (settings.get('isAccountGender')) { ?>
                     <tr>
                         <td>{{ 'Title'|trans }}<span>*</span></td>
                         <td>
@@ -59,7 +59,7 @@
                     <td>{{ 'Last Name'|trans }}<span>*</span></td>
                     <td><input type="text" name="lastName" value="{{ registration.lastName }}" /></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountDOB')) { ?>
+                <?php if (settings.get('isAccountDOB')) { ?>
                     <tr>
                         <td>{{ 'Date of Birth'|trans }}<span>*</span></td>
                         <td><input type="text" name="dob" value="{{ registration.dob }}" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
@@ -69,7 +69,7 @@
                     <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
                     <td><input type="text" name="email" value="{{ registration.email }}" /></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountNickname')) { ?>
+                <?php if (settings.get('isAccountNickname')) { ?>
                     <tr>
                         <td>{{ 'Nickname'|trans }}</td>
                         <td><input type="text" name="nickName" value="{{ registration.nickName }}" /></td>
@@ -83,7 +83,7 @@
                     <td>{{ 'Confirm Password'|trans }}<span>*</span></td>
                     <td><input type="password" name="confirmation" value="" /></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountCompany')) { ?>
+                <?php if (settings.get('isAccountCompany')) { ?>
                     <tr>
                         <td>{{ 'Company Name'|trans }}</td>
                         <td><input type="text" name="companyName" value="{{ registration.companyName }}" /></td>
@@ -104,7 +104,7 @@
                 </tr>
                 <?php
                     $countryId = $registration->getCountryId();
-                    $countryId = 0 != $countryId ? $countryId : $view['settings']->get('storeCountry');
+                    $countryId = 0 != $countryId ? $countryId : settings.get('storeCountry');
                 ?>
                 <tr>
                     <td>{{ 'Post Code'|trans }}<span>*</span></td>
@@ -114,7 +114,7 @@
                     <td>{{ 'Country'|trans }}<span>*</span></td>
                     <td><?php echo $form->idpSelect('countryId', $view->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountState')) { ?>
+                <?php if (settings.get('isAccountState')) { ?>
                     <?php $zones = $view->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td>{{ 'State/Province'|trans }}<span>*</span></td>
@@ -146,14 +146,14 @@
                         <label for="text">{{ 'Text'|trans }}</label>
                     </td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountNewsletter')) { ?>
+                <?php if (settings.get('isAccountNewsletter')) { ?>
                     <tr>
                         <td></td>
                         <td><input type="checkbox" id="newsletterSubscriber" name="newsletterSubscriber" value="1" {{ form.checked(registration.newsletterSubscriber)|raw }} /><label for="newsletterSubscriber">{{ 'Receive Store Newsletter'|trans }}</label></td>
                     </tr>
                 <?php } ?>
 
-                <?php if ($view['settings']->get('isAccountReferral')) { ?>
+                <?php if (settings.get('isAccountReferral')) { ?>
                     <tr>
                         <td>{{ 'Referral Code'|trans }}<span>*</span></td>
                         <td><input type="text" name="referral" value="" /></td>

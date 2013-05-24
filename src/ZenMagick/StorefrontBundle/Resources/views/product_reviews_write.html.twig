@@ -36,7 +36,7 @@
         <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
         <div>
             <strong>{{ 'NOTE:'|trans }} </strong>{{ 'HTML tags are not allowed.'|trans }}<br />
-            <?php if ($view['settings']->get('isApproveReviews')) { ?>
+            <?php if (settings.get('isApproveReviews')) { ?>
                <strong>{{ 'NOTE:'|trans }} </strong>{{ 'Reviews require prior approval before they will be displayed.'|trans }}
             <?php } ?>
         </div>

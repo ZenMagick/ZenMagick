@@ -3,7 +3,7 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Contact Us'))); ?>
 
 <h3>{{ 'Store Contact Details'|trans }}</h3>
-<p><address><?php echo nl2br($view['settings']->get('storeNameAddress')); ?></address></p>
+<p><address><?php echo nl2br(settings.get('storeNameAddress')); ?></address></p>
 <br/>
 
     {{ utils.staticPageContent('contact_us')|raw }}

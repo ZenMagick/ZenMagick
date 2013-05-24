@@ -29,10 +29,10 @@
           <li><a href="{{ path('conditions') }}">{{ 'Terms &amp; Conditions'|trans }}</a></li>
           <li><a href="{{ path('contact_us') }}">{{ 'Contact Us'|trans }}</a></li>
 
-      <?php if ($view['settings']->get('isEnabledGV')) { ?>
+      <?php if (settings.get('isEnabledGV')) { ?>
           <li><a href="{{ path('gv_faq') }}">{{ 'Giftvoucher FAQ'|trans }}</a></li>
       <?php } ?>
-      <?php if ($view['settings']->get('isEnabledCoupons')) { ?>
+      <?php if (settings.get('isEnabledCoupons')) { ?>
           <li><a href="{{ path('discount_coupon') }}">{{ 'Coupon Lookup'|trans }}</a></li>
       <?php } ?>
       <li><a href="{{ path('unsubscribe') }}">{{ 'Newsletter Unsubscribe'|trans }}</a></li>

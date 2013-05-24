@@ -20,7 +20,7 @@ if ($shoppingCart->isEmpty()) { ?>
                         <?php echo $form->hiddenCartFields($item) ?>
                     </td>
                     <td class="itm">
-                        <?php if (!$item->isStockAvailable() && $view['settings']->get('isEnableStock')) { ?>
+                        <?php if (!$item->isStockAvailable() && settings.get('isEnableStock')) { ?>
                             <span class="note">{{ '* Out of Stock'|trans }}</span><br/>
                         <?php } ?>
                         {{ item.product.name }}

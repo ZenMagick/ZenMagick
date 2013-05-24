@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if ($view['settings']->get('isAccountGender')) { ?>
+                <?php if (settings.get('isAccountGender')) { ?>
                     <tr>
                         <td>{{ 'Title'|trans }}<span>*</span></td>
                         <td>
@@ -31,17 +31,17 @@
                     <td>{{ 'Last Name'|trans }}<span>*</span></td>
                     <td><input type="text" name="lastName" value="{{ account.lastName }}" /></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountDOB')) { ?>
+                <?php if (settings.get('isAccountDOB')) { ?>
                     <tr>
                         <td>{{ 'Date of Birth'|trans }}<span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php echo $view['date']->short($account->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
+                        <td><input type="text" name="dob" value="{{ account.dob|localizeddate('short', 'none') }}" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
                     <td><input type="text" name="email" value="{{ account.email }}" /></td>
                 </tr>
-                <?php if ($view['settings']->get('isAccountNickname')) { ?>
+                <?php if (settings.get('isAccountNickname')) { ?>
                     <tr>
                         <td>{{ 'Nickname'|trans }}</td>
                         <td><input type="text" name="nickName" value="{{ account.nickName }}" /></td>

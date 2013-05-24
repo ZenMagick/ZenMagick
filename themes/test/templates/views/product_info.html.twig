@@ -23,7 +23,8 @@ use ZenMagick\StoreBundle\Services\Products;
       <?php if (null != $manufacturer) { ?>
         {{ 'Producer'|trans }}: {{ manufacturer.name }}<br />
       <?php } ?>
-        {{ 'Avilable'|trans }}: <?php echo $view['date']->short($currentProduct->getDateAvailable()) ?><br />
+        {{ 'Avilable'|trans }}: {{ currentProduct.dateAvailable|localizeddate('short', 'none') }}
+        <br />
       <p id="price">{{ currentProduct.model }}: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
