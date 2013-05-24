@@ -3,8 +3,8 @@
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>
     <div id="pinfo">
-      <?php echo $html->productImageLink($currentProduct) ?>
-      <?php echo $currentProduct->getDescription(); ?>
+      {{ html.productImageLink(currentProduct)|raw }}
+      <?php echo $currentProduct->getDescription() ?>
     </div>
     <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" /></div>

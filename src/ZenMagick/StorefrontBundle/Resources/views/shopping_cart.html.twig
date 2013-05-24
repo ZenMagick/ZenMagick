@@ -15,7 +15,7 @@ if ($shoppingCart->isEmpty()) { ?>
                         </a>
                     </td>
                     <td class="img">
-                        <?php echo $html->productImageLink($item->getProduct()) ?>
+                        {{ html.productImageLink(item.product)|raw }}
                         <?php echo $form->hiddenCartFields($item) ?>
                     </td>
                     <td class="itm">

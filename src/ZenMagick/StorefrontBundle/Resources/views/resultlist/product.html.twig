@@ -1,5 +1,5 @@
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td><?php echo $html->productImageLink($product, $view['request']->getParameter('categoryId')) ?></td>
+    <td>{{ html.productImageLink(product, app.request.get('categoryId'))|raw }}</td>
     <td class="pinfo">
         <a href="<?php echo $net->product(product.id, app.request.query.get('categoryId')) }}">
             {{ product.name }}

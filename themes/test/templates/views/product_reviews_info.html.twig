@@ -4,7 +4,7 @@
   <div>
     <div id="pinfo">
       <?php $imageInfo = $currentProduct->getImageInfo() ?>
-      <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
+      <a href="<?php echo $net->product($currentProduct->getId()) ?>">{{ html.productImageLink(currentProduct)|raw }}</a>
       <?php echo $currentProduct->getDescription() ?>
     </div>
     <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
