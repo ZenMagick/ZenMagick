@@ -34,12 +34,12 @@
     <legend>{{ 'Login'|trans }}</legend>
     <div>
       <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
-      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+      <input type="text" id="email_address" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
       <?php echo $html->fieldMessages('email_address') ?>
     </div>
     <div>
       <label for="password">{{ 'Password'|trans }}</label>
-      <input type="password" id="password" name="password" <?php echo $form->fieldLength('customers', 'customers_password') ?> />
+      <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password')|raw }} />
       <?php echo $html->fieldMessages('password') ?>
     </div>
   </fieldset>
@@ -59,7 +59,7 @@
       <legend>{{ 'Checkout without registering'|trans }}</legend>
       <div>
         <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
-        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+        <input type="text" id="email_address_guest" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
         <?php echo $html->fieldMessages('email_address') ?>
         <input type="submit" class="btn" value="{{ 'Checkout'|trans }}" />
       </div>

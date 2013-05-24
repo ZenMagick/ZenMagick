@@ -36,19 +36,19 @@
             <?php } ?>
             <tr>
                 <td>{{ 'Street Address'|trans }}<span>*</span></td>
-                <td><input type="text" id="addressLine1" name="addressLine1" value="{{ address.addressLine1 }}" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="{{ address.addressLine1 }}" {{ form.fieldLength('address_book', 'entry_street_address')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'Suburb'|trans }}</td>
-                <td><input type="text" id="suburb" name="suburb" value="{{ address.suburb }}" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
+                <td><input type="text" id="suburb" name="suburb" value="{{ address.suburb }}" {{ form.fieldLength('address_book', 'entry_suburb')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'City'|trans }}<span>*</span></td>
-                <td><input type="text" id="city" name="city" value="{{ address.city }}" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
+                <td><input type="text" id="city" name="city" value="{{ address.city }}" {{ form.fieldLength('address_book', 'entry_city')|raw }} /></td>
             </tr>
             <tr>
                 <td>{{ 'Post Code'|trans }}<span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="{{ address.postcode }}" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
+                <td><input type="text" id="postcode" name="postcode" value="{{ address.postcode }}" {{ form.fieldLength('address_book', 'entry_postcode')|raw }} /></td>
             </tr>
              <tr>
                 <td>{{ 'Country'|trans }}<span>*</span></td>

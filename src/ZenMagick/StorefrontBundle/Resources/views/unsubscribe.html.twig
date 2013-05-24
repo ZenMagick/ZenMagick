@@ -12,7 +12,7 @@
         <legend>{{ 'Newsletter Unsubscribe'|trans }}</legend>
         <div>
           <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
-          <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength('customers', 'customers_email_address') ?> />
+          <input type="text" id="email_address" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
         </div>
       </fieldset>
       <div class="btn"><input type="submit" class="btn" value="{{ 'Unsubscribe'|trans }}" /></div>
