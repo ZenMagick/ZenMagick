@@ -1,46 +1,52 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'))); ?>
-<fieldset>
-    <legend>{{ 'My Account'|trans }}</legend>
-    <ul>
-        <li><a href="{{ path('account_edit') }}">{{ 'Change Account'|trans }}</a></li>
-        <li><a href="{{ path('address_book') }}">{{ 'My Address Book'|trans }}</a></li>
-        <li><a href="{{ path('account_password') }}">{{ 'Change My Password'|trans }}</a></li>
-    </ul>
-</fieldset>
-
-<fieldset>
-    <legend>{{ 'Email Settings'|trans }}</legend>
-    <ul>
-        <li><a href="{{ path('account_newsletters') }}">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
-        <li><a href="{{ path('account_notifications') }}">{{ 'Change Product Notifications'|trans }}</a></li>
-    </ul>
-</fieldset>
-
-<?php $voucherBalance = $app->getUser()->getVoucherBalance(); ?>
-<?php if (0 < $voucherBalance) { ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'))); ?>
     <fieldset>
-        <legend>{{ 'Gift Certificate Account'|trans }}</legend>
-        <div class="btn"><a href="{{ path('gv_send') }}" class="btn">{{ 'Send Gift Certificate'|trans }}</a></div>
-        <p>{{ 'You have funds (%amount%) in your Gift Certificate Account.'|trans({'%amount%' : utils.formatMoney(voucherBalance)}) }}</p>
+        <legend>{{ 'My Account'|trans }}</legend>
+        <ul>
+            <li><a href="{{ path('account_edit') }}">{{ 'Change Account'|trans }}</a></li>
+            <li><a href="{{ path('address_book') }}">{{ 'My Address Book'|trans }}</a></li>
+            <li><a href="{{ path('account_password') }}">{{ 'Change My Password'|trans }}</a></li>
+        </ul>
     </fieldset>
-<?php } ?>
 
-<?php if ($resultList->hasResults()) { ?>
-    <?php $resultList->setPagination(3); ?>
-    <h3>
-        <?php if (3 < $resultList->getNumberOfResults()) { ?>
-            <a href="{{ path('account_history') }}">{{ '(Show All)'|trans }}</a>
-        <?php } ?>
-        {{ 'Previous Orders'|trans }}
-    </h3>
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
-              <?php echo $this->render('StorefrontBundle::resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-<?php } ?>
+    <fieldset>
+        <legend>{{ 'Email Settings'|trans }}</legend>
+        <ul>
+            <li><a href="{{ path('account_newsletters') }}">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
+            <li><a href="{{ path('account_notifications') }}">{{ 'Change Product Notifications'|trans }}</a></li>
+        </ul>
+    </fieldset>
+
+    {% set voucherBalance = app.user.voucherBalance %}
+    {% if 0 < voucherBalance %}
+        <fieldset>
+            <legend>{{ 'Gift Certificate Account'|trans }}</legend>
+            <div class="btn">
+                <a href="{{ path('gv_send') }}" class="btn">
+                    {{ 'Send Gift Certificate'|trans }}
+                </a>
+            </div>
+            <p>{{ 'You have funds (%amount%) in your Gift Certificate Account.'|trans({'%amount%' : utils.formatMoney(voucherBalance)}) }}</p>
+        </fieldset>
+    {% endif %}
+
+    {% if resultList.hasResults %}
+        {% set r = resultList.setPagination(3) %}
+        <h3>
+            {% if 3 < resultList.numberOfResults %}
+                <a href="{{ path('account_history') }}">{{ '(Show All)'|trans }}</a>
+            {% endif %}
+            {{ 'Previous Orders'|trans }}
+        </h3>
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for order in resultList.results %}
+                        {{ include('@Storefront/resultlist/order.html.php') }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}

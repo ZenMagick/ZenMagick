@@ -1,12 +1,11 @@
-<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+<tr class="{{ loop.odd ? 'odd': 'even' }} {{ loop.first ? 'first' : 'other' }}">
     <td>
         <a href="{{ path('account_history_info', {'order_id' : order.id}) }}">
             {{'Order #%id%'|trans({'%id%' : order.id}) }}
         </a>
     </td>
-    <td><?php echo $view['date']->short($order->getOrderDate()) ?></td>
-    <?php $address = $order->getBillingAddress(); ?>
-    <td><{{ address.fullName }}</td>
+    <td>{{ order.orderDate|localizeddate('short', 'none') }}</td>
+    <td><{{ order.billingAddress.fullName }}</td>
     <td>{{ order.statusName }}</td>
     <td class="pprice">{{ utils.formatMoney(order.total) }}</td>
 </tr>
