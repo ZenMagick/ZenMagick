@@ -32,7 +32,7 @@
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td>{{ 'Free Shipping'|trans }}</td>
                           <td class="smcost">{{  utils.formatMoney(0) }}</td>
-                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>"<?php $form->checked(true, $selected) ?> /></td>
+                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>" {{ form.checked(true, selected)|raw }} /></td>
                       </tr>
                   <?php } ?>
                   <?php $errors = $provider->getErrors(); ?>
@@ -54,7 +54,7 @@
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td>{{ method.name }}</td>
                           <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
-                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
+                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>" {{ form.checked(true, selected)|raw }} /></td>
                       </tr>
                   <?php } ?>
                 <?php } ?>

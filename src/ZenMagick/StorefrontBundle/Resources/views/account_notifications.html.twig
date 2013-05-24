@@ -8,7 +8,7 @@
     <input type="hidden" name="notify_type" value="set" />
     <fieldset>
         <legend>{{ 'Global Product Notifications'|trans }}</legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked(true, $currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global">{{ 'Global Product Notification'|trans }}</label></p>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1" {{ form.checked(true, currentAccount.globalProductSubscriber, true)|raw }} /><label for="product_global">{{ 'Global Product Notification'|trans }}</label></p>
     </fieldset>
 
     <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>

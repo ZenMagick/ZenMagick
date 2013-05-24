@@ -6,7 +6,7 @@
 {{ form.open('account_newsletters', '', true, {'onsubmit' : null})|raw }}
     <fieldset>
         <legend>{{ 'Store Newsletter'|trans }}</legend>
-        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php $form->checked(true, $currentAccount->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general">{{ 'Receive Store Newsletter'|trans }}</label></p>
+        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1" {{ form.checked(true, currentAccount.newsletterSubscriber, true)|raw }} /><label for="newsletter_general">{{ 'Receive Store Newsletter'|trans }}</label></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
 </form>

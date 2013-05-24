@@ -16,9 +16,9 @@
                     <tr>
                         <td>{{ 'Title'|trans }}<span>*</span></td>
                         <td>
-                            <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $account->getGender()) ?> />
+                            <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', account.gender)|raw }} />
                             <label for="male">{{ 'Mr.'|trans }}</label>
-                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $account->getGender()) ?> />
+                            <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', account.gender)|raw }} />
                             <label for="female">{{ 'Ms.'|trans }}</label>
                         </td>
                     </tr>
@@ -62,9 +62,9 @@
                  <tr>
                     <td>{{ 'E-Mail Format'|trans }}<span>*</span></td>
                     <td>
-                        <input type="radio" id="html" name="emailFormat" value="HTML"<?php $form->checked('HTML', $account->getEmailFormat(), 'HTML') ?> />
+                        <input type="radio" id="html" name="emailFormat" value="HTML" {{ form.checked('HTML', account.emailFormat, 'HTML')|raw }} />
                         <label for="html">{{ 'HTML'|trans }}</label>
-                        <input type="radio" id="text" name="emailFormat" value="TEXT"<?php $form->checked('TEXT', $account->getEmailFormat(), 'TEXT', true) ?> />
+                        <input type="radio" id="text" name="emailFormat" value="TEXT" {{ form.checked('TEXT', account.emailFormat, 'TEXT', true)|raw }} />
                         <label for="text">{{ 'Text'|trans }}</label>
                     </td>
                 </tr>

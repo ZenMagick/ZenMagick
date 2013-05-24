@@ -13,9 +13,9 @@
                 <tr>
                     <td>{{ 'Title'|trans }}<span>*</span></td>
                     <td>
-                        <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m'==$address->getGender()) ?> />
+                        <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', address.gender)|raw }} />
                         <label for="male">{{ 'Mr.'|trans }}</label>
-                        <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $address->getGender()) ?> />
+                        <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', address.gender)|raw }} />
                         <label for="female">{{ 'Ms.'|trans }}</label>
                     </td>
                 </tr>
@@ -72,7 +72,7 @@
                     <td></td>
                     <td>
                         <input type="hidden" name="_primary" value="<?php echo $address->isPrimary() ?>" />
-                        <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
+                        <input type="checkbox" id="primary" name="primary" value="on" {{ form.checked(address.primary)|raw }} />
                         <label for="primary">{{ 'Use as primary address'|trans }}</label>
                     </td>
                 </tr>
