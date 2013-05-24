@@ -6,7 +6,7 @@
     </td>
     <td><?php echo $view['date']->short($order->getOrderDate()) ?></td>
     <?php $address = $order->getBillingAddress(); ?>
-    <td><?php echo $view->escape($address->getFullName()) ?></td>
+    <td><{{ address.fullName }}</td>
     <td>{{ order.statusName }}</td>
     <td class="pprice">{{ utils.formatMoney(order.total) }}</td>
 </tr>

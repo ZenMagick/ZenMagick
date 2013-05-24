@@ -32,7 +32,7 @@
     <legend>{{ 'Redemption code details'|trans }}</legend>
     <div>
       <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
-      <input type="text" id="gvCode" name="couponCode" value="<?php echo $view->escape($gvRedeem->getCouponCode()) ?>" />
+      <input type="text" id="gvCode" name="couponCode" value="{{ gvRedeem.couponCode }}" />
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>

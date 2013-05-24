@@ -22,33 +22,33 @@
             <?php } ?>
             <tr>
                 <td>{{ 'First Name'|trans }}<span>*</span></td>
-                <td><input type="text" id="firstName" name="firstName" value="<?php echo $view->escape($address->getFirstName()) ?>" /></td>
+                <td><input type="text" id="firstName" name="firstName" value="{{ address.firstName }}" /></td>
             </tr>
             <tr>
                 <td>{{ 'Last Name'|trans }}<span>*</span></td>
-                <td><input type="text" id="lastName" name="lastName" value="<?php echo $view->escape($address->getLastName()) ?>" /></td>
+                <td><input type="text" id="lastName" name="lastName" value="{{ address.lastName }}" /></td>
             </tr>
             <?php if ($view['settings']->get('isAccountCompany')) { ?>
                 <tr>
                     <td>{{ 'Company Name'|trans }}</td>
-                    <td><input type="text" id="companyName" name="companyName" value="<?php echo $view->escape($address->getCompanyName()) ?>" /></td>
+                    <td><input type="text" id="companyName" name="companyName" value="{{ address.company }}" /></td>
                 </tr>
             <?php } ?>
             <tr>
                 <td>{{ 'Street Address'|trans }}<span>*</span></td>
-                <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $view->escape($address->getAddressLine1()) ?>" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="{{ address.addressLine1 }}" <?php echo $form->fieldLength('address_book', 'entry_street_address') ?> /></td>
             </tr>
             <tr>
                 <td>{{ 'Suburb'|trans }}</td>
-                <td><input type="text" id="suburb" name="suburb" value="<?php echo $view->escape($address->getSuburb()) ?>" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
+                <td><input type="text" id="suburb" name="suburb" value="{{ address.suburb }}" <?php echo $form->fieldLength('address_book', 'entry_suburb') ?> /></td>
             </tr>
             <tr>
                 <td>{{ 'City'|trans }}<span>*</span></td>
-                <td><input type="text" id="city" name="city" value="<?php echo $view->escape($address->getCity()) ?>" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
+                <td><input type="text" id="city" name="city" value="{{ address.city }}" <?php echo $form->fieldLength('address_book', 'entry_city') ?> /></td>
             </tr>
             <tr>
                 <td>{{ 'Post Code'|trans }}<span>*</span></td>
-                <td><input type="text" id="postcode" name="postcode" value="<?php echo $view->escape($address->getPostcode()) ?>" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
+                <td><input type="text" id="postcode" name="postcode" value="{{ address.postcode }}" <?php echo $form->fieldLength('address_book', 'entry_postcode') ?> /></td>
             </tr>
              <tr>
                 <td>{{ 'Country'|trans }}<span>*</span></td>
@@ -62,7 +62,7 @@
                         <?php if (0 < count($zones)) { ?>
                             <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
                         <?php } else { ?>
-                            <input type="text" name="state" value="<?php echo $view->escape($address->getState()) ?>" />
+                            <input type="text" name="state" value="{{ address.state }}" />
                         <?php } ?>
                     </td>
                 </tr>
@@ -79,7 +79,7 @@
             <?php } ?>
             <tr class="legend">
                 <td colspan="2">
-                    <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
+                    <input type="hidden" name="id" value="{{ address.id }}" />
                     {{ '<span>*</span> Mandatory fields'|trans|raw }}
                 </td>
             </tr>

@@ -38,9 +38,9 @@
                   <?php $errors = $provider->getErrors(); ?>
                   <?php if (0 < count($methods) || $provider->hasErrors()) { ?>
                     <tr><td colspan="3">
-                      <strong><?php echo $view->escape($provider->getName()) ?></strong>
+                      <strong>{{ provider.name }}</strong>
                       <?php if ($provider->hasIcon()) { ?>
-                        <img src="<?php echo $provider->getIcon() ?>" alt="<?php echo $view->escape($provider->getName()) ?>" title="<?php echo $view->escape($provider->getName()) ?>">
+                        <img src="<?php echo $provider->getIcon() ?>" alt="{{ provider.name }}" title="{{ provider.name }}">
                       <?php } ?>
                       {% if provider.hasErrors %}
                           <br />
@@ -52,7 +52,7 @@
                       <?php $id = 'ship_'.$method->getId();?>
                       <?php $selected = (1 == count($methods) && 1 == count($providers)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                          <td><?php echo $view->escape($method->getName()) ?></td>
+                          <td>{{ method.name }}</td>
                           <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
                           <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                       </tr>
@@ -67,7 +67,7 @@
         <legend>{{ 'Comments'|trans }}</legend>
         <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $view->escape($shoppingCart->getComments()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>

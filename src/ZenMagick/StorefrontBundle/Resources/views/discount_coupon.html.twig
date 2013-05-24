@@ -7,7 +7,7 @@
   <fieldset>
     <legend>{{ 'Look-up Discount Coupon ...'|trans }}</legend>
     <label for="couponCode">{{ 'Your Code'|trans }}</label>
-    <input type="text" id="couponCode" name="couponCode" size="40" value="<?php echo $view->escape($currentCoupon) ?>" />
+    <input type="text" id="couponCode" name="couponCode" size="40" value="{{ currentCoupon }}" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" />
 </form>

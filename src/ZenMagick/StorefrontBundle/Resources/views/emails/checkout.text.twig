@@ -54,7 +54,7 @@
 -----------------------------------------------
 
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
-<?php echo $view->escape($paymentType->getName()) ?>
+{{ paymentType.name }}
 <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
 
 

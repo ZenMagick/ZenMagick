@@ -90,7 +90,7 @@
       <legend>{{ 'Comments'|trans }}</legend>
       <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
       <?php /* Fix for IE bug regarding textarea... */ ?>
-      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $view->escape($shoppingCart->getComments()) ?></textarea></td></tr></table>
+      <table><tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr></table>
   </fieldset>
 
   <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>

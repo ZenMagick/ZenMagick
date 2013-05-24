@@ -25,15 +25,15 @@
                 <?php } ?>
                 <tr>
                     <td>{{ 'First Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="firstName" value="<?php echo $view->escape($account->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstName" value="{{ account.firstName }}" /></td>
                 </tr>
                 <tr>
                     <td>{{ 'Last Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="lastName" value="<?php echo $view->escape($account->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastName" value="{{ account.lastName }}" /></td>
                 </tr>
                 <tr>
                     <td>{{ 'OpenID'|trans }}</td>
-                    <td><input type="text" name="openid" value="<?php echo $view->escape($account->get('openid')) ?>" /></td>
+                    <td><input type="text" name="openid" value="{{ account.get('openid') }}" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountDOB')) { ?>
                     <tr>

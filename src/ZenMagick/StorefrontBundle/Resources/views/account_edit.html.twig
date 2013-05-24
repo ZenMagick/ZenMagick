@@ -25,11 +25,11 @@
                 <?php } ?>
                 <tr>
                     <td>{{ 'First Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="firstName" value="<?php echo $view->escape($account->getFirstName()) ?>" /></td>
+                    <td><input type="text" name="firstName" value="{{ account.firstName }}" /></td>
                 </tr>
                 <tr>
                     <td>{{ 'Last Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="lastName" value="<?php echo $view->escape($account->getLastName()) ?>" /></td>
+                    <td><input type="text" name="lastName" value="{{ account.lastName }}" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountDOB')) { ?>
                     <tr>
@@ -39,21 +39,21 @@
                 <?php } ?>
                 <tr>
                     <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
-                    <td><input type="text" name="email" value="<?php echo $view->escape($account->getEmail()) ?>" /></td>
+                    <td><input type="text" name="email" value="{{ account.email }}" /></td>
                 </tr>
                 <?php if ($view['settings']->get('isAccountNickname')) { ?>
                     <tr>
                         <td>{{ 'Nickname'|trans }}</td>
-                        <td><input type="text" name="nickName" value="<?php echo $view->escape($account->getNickName()) ?>" /></td>
+                        <td><input type="text" name="nickName" value="{{ account.nickName }}" /></td>
                     </tr>
                 <?php } ?>
                 <tr>
                     <td>{{ 'Telephone Number'|trans }}<span>*</span></td>
-                    <td><input type="text" name="phone" value="<?php echo $view->escape($account->getPhone()) ?>" /></td>
+                    <td><input type="text" name="phone" value="{{ account.phone }}" /></td>
                 </tr>
                 <tr>
                     <td>{{ 'Fax Number'|trans }}</td>
-                    <td><input type="text" name="fax" value="<?php echo $view->escape($account->getFax()) ?>" /></td>
+                    <td><input type="text" name="fax" value="{{ account.fax }}" /></td>
                 </tr>
                  <tr>
                     <td>{{ 'E-Mail Format'|trans }}<span>*</span></td>

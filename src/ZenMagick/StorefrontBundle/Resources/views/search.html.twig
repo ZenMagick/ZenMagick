@@ -6,7 +6,7 @@
     <legend>{{ 'Search again'|trans }}</legend>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="keywords" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="keywords" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="<?php echo $onfocus ?>" />
         </div>
         <div class="btn"><input type="submit" class="btn" value="{{ 'Search'|trans }}" /></div>
         <a class="clear" href="{{ path('advanced_search', {'keywords' : searchCriteria.keywords} }}">

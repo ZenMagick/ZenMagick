@@ -8,14 +8,14 @@
         <tr>
             <td class="qty"><?php echo $orderItem->getQuantity() ?> x </td>
             <td class="itm">
-                <?php echo $view->escape($orderItem->getName()) ?>
+                {{ orderItem.name }}
                 <?php if ($orderItem->hasAttributes()) { ?>
                     <br/>
                     <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
-                        <p><span class="attr"><?php echo $view->escape($attribute->getName()) ?>:</span>
+                        <p><span class="attr">{{ attribute.name }}:</span>
                         <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                             <?php if (!$first) { ?>, <?php } ?>
-                            <span class="atval"><?php echo $view->escape($attributeValue->getName()) ?></span>
+                            <span class="atval">{{ attributeValue.name }}</span>
                         <?php $first = false; } ?>
                         </p>
                     <?php } ?>
@@ -26,7 +26,7 @@
     <?php } ?>
     <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>
         <tr>
-            <td colspan="2" class="total"><?php echo $view->escape($orderTotalLine->getName()) ?></td>
+            <td colspan="2" class="total">{{ orderTotalLine.name }}</td>
             <td class="price"><?php echo $orderTotalLine->getValue() ?></td>
         </tr>
     <?php } ?>
@@ -53,8 +53,8 @@
     <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
         <tr>
             <td><?php echo $view['date']->short($orderStatus->getDateAdded()) ?></td>
-            <td><?php echo $view->escape($orderStatus->getName()) ?></td>
-            <td class="cmt"><?php echo $view->escape($orderStatus->getComment()) ?></td>
+            <td>{{ orderStatus.name }}</td>
+            <td class="cmt">{{ orderStatus.comment }}</td>
         </tr>
     <?php } ?>
     </tbody>
@@ -73,10 +73,10 @@
       </tr>
       <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
           <tr>
-              <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
-              <th><?php echo $view->escape($download->getFilename()) ?></th>
-              <th><?php echo $download->getFileSize() ?> bytes</th>
-              <th><?php echo $download->getDownloadCount() ?></th>
+              <th>{{ downloadProduct.name }}</th>
+              <th>{{ download.filename }}</th>
+              <th>{{ download.fileSize }} bytes</th>
+              <th>{{ download.downloadCount }}</th>
               <th>
                   <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
                       {{ 'Download'|trans }}

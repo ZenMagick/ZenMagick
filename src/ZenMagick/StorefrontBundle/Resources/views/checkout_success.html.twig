@@ -16,7 +16,7 @@
             <?php foreach ($productsToSubscribe as $productId => $productName) { $id = "not_" . $productId; ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $productId ?>" />
-                    <label for="<?php echo $id ?>"><?php echo $view->escape($productName) ?></label><br />
+                    <label for="<?php echo $id ?>">{{ productName }}</label><br />
                 </p>
             <?php } ?>
             <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
@@ -37,10 +37,10 @@
               </tr>
               <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
                   <tr>
-                      <th><?php echo $view->escape($downloadProduct->getName()) ?></th>
-                      <th><?php echo $view->escape($download->getFilename()) ?></th>
-                      <th><?php echo $download->getFileSize() ?> bytes</th>
-                      <th><?php echo $download->getDownloadCount() ?></th>
+                      <th>{{ downloadProduct.name }}</th>
+                      <th>{{ download.filename }}</th>
+                      <th>{{ download.fileSize }} bytes</th>
+                      <th>{{ download.downloadCount }}</th>
                       <th>
                           <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
                               {{ 'Download'|trans }}

@@ -24,7 +24,7 @@
     <h4> {{ 'Category Restrictions'|trans }} </h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($view['request']->getLocaleId()); ?>
-        <li><?php echo $view->escape($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+        <li>{{ category.name }} - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -33,7 +33,7 @@
     <h4>{{ 'Product Restrictions'|trans }}</h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($view['request']->getLocaleId()); ?>
-        <li><?php echo $view->escape($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+        <li>{{ product.name }} - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>

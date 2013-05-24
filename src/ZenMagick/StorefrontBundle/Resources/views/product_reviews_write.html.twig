@@ -32,7 +32,7 @@
         </div>
 
         <label for="text">{{ 'Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.'|trans }}</label>
-        <textarea id="text" name="text" cols="60" rows="5"><?php echo $view->escape($newReview->getText()) ?></textarea>
+        <textarea id="text" name="text" cols="60" rows="5">{{ newReview.text }}</textarea>
         <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" /></div>
         <div>
             <strong>{{ 'NOTE:'|trans }} </strong>{{ 'HTML tags are not allowed.'|trans }}<br />

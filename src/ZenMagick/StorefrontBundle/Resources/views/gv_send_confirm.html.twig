@@ -3,10 +3,10 @@
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Send Gift Certificate'))); ?>
 {{ form.open('gv_send_confirm', '', true, {'onsubmit' : null})|raw }}
     <div>
-        <input type="hidden" name="name" value="<?php echo $view->escape($gvReceiver->getName()) ?>" />
-        <input type="hidden" name="email" value="<?php echo $view->escape($gvReceiver->getEmail()) ?>" />
-        <input type="hidden" name="amount" value="<?php echo $view->escape($gvReceiver->getAmount()) ?>" />
-        <input type="hidden" name="message" value="<?php echo $view->escape($gvReceiver->getMessage()) ?>" />
+        <input type="hidden" name="name" value="{{ gvReceiver.name }}" />
+        <input type="hidden" name="email" value="{{ gvReceiver.email }}" />
+        <input type="hidden" name="amount" value="{{ gvReceiver.amount }}" />
+        <input type="hidden" name="message" value="{{ gvReceiver.message }}" />
     </div>
     <fieldset>
         <legend>{{ 'Confirm Send Gift Certificate'|trans }}</legend>
@@ -17,7 +17,7 @@
 
         <fieldset>
             <legend>{{ 'Your message'|trans }}</legend>
-            <?php echo $view->escape($gvReceiver->getMessage()) ?>
+            {{ gvReceiver.message }}
         </fieldset>
 
         <p class="note">{{ 'If these details are not correct, you may edit your message by clicking the edit button.'|trans }}</p>

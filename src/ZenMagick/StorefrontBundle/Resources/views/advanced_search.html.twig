@@ -8,7 +8,7 @@
             <a href="javascript:popupWindow('{{ path('popup_search_help') }}')">{{ 'Search Help [?]'|trans }}</a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
-            <input type="text" id="askeyword" name="keywords" value="<?php echo $view->escape($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="askeyword" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="<?php echo $onfocus ?>" />
             <?php $checked = $searchCriteria->isIncludeDescription() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeDescription" name="includeDescription" value="1" <?php echo $checked?>/>
             <label class="checkboxLabel" for="includeDescription">{{ 'Search in product descriptions'|trans }}</label>
@@ -34,16 +34,16 @@
 
         <fieldset>
             <legend>{{ 'Price Range'|trans }}</legend>
-            <input type="text" id="priceFrom" name="priceFrom" value="<?php echo $view->escape($searchCriteria->getPriceFrom()) ?>" />
-            <input type="text" id="priceTo" name="priceTo" value="<?php echo $view->escape($searchCriteria->getPriceTo()) ?>" />
+            <input type="text" id="priceFrom" name="priceFrom" value="{{ searchCriteria.priceFrom }}" />
+            <input type="text" id="priceTo" name="priceTo" value="{{ searchCriteria.priceTo }}" />
         </fieldset>
 
         <fieldset>
             <legend>{{ 'Date'|trans }}</legend>
             <?php $defaultDateValue = $view['date']->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
-            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $view->escape($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dateTo" name="dateTo" value="<?php echo $view->escape($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateFrom" name="dateFrom" value="{{ searchCriteria.dateFrom(defaultDateValue) }}" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="{{ searchCriteria.dateTo(defaultDateValue }}" onfocus="<?php echo $onfocus ?>" />
         </fieldset>
     </fieldset>
 

@@ -20,13 +20,13 @@
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
 <td><?php echo $orderItem->getQuantity() ?> x </td>
-<td><?php echo $view->escape($orderItem->getName()) ?></td>
+<td>{{ orderItem.name }}</td>
 <td>{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
 <tr>
-<td colspan="2"><?php echo $view->escape($orderTotalLine->getName()) ?></td>
+<td colspan="2">{{ orderTotalLine.name }}</td>
 <td><?php echo $orderTotalLine->getValue() ?></td>
 </tr>
 <?php } ?>

@@ -6,11 +6,11 @@
     <legend>{{ 'Find Guest Order'|trans }}</legend>
     <div>
       <label for="email">{{ 'E-Mail Address'|trans }}</label>
-      <input type="text" id="email" name="email" value="<?php echo $view->escape($view['request']->getParameter('email')) ?>" />
+      <input type="text" id="email" name="email" value="{{ app.request.get('email') }}" />
     </div>
     <div>
       <label for="orderId">{{ 'Order Number'|trans }}</label>
-      <input type="text" id="orderId" name="orderId" value="<?php echo $view->escape($view['request']->getParameter('orderId')) ?>" />
+      <input type="text" id="orderId" name="orderId" value="{{ app.request.get('orderId') }}" />
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>

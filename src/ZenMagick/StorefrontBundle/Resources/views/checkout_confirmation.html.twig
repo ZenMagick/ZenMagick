@@ -10,14 +10,14 @@
         <?php foreach ($shoppingCart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQuantity() ?> x <?php echo $view->escape($item->getProduct()->getName()) ?>
+                    <?php echo $item->getQuantity() ?> x {{item.product.name }}
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php echo $view->escape($attribute->getName()) ?>:</span>
+                            <p><span class="attr">{{ attribute.name }}:</span>
                             <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                                 <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php echo $view->escape($attributeValue->getName()) ?></span>
+                                <span class="atval">{{ attributeValue.name }}</span>
                             <?php $first = false; } ?>
                             </p>
                         <?php } ?>
@@ -38,7 +38,7 @@
                   if ('total' == $total->getType()) {
                       $tot = ' tot';
                   }
-                  ?><tr><td class="total"><?php echo $view->escape($total->getName()) ?></td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
+                  ?><tr><td class="total">{{ total.name }}</td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
               }
           ?>
 
@@ -64,7 +64,8 @@
         <div class="btn"><a class="btn" href="{{ path('checkout_shipping') }}">{{ 'Change'|trans }}</a></div>
         <br/>
         <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
-          <?php echo $view->escape($shippingMethod->getProvider()->getName()) . ': ' . $view->escape($shippingMethod->getName()) ?><br/>
+            {{ shippingMethod.provider.name }} : {{ shippingMethod.name }}
+            <br />
         <?php } ?>
     </fieldset>
 <?php } ?>
@@ -93,7 +94,7 @@
 <fieldset>
     <legend>{{ 'Special instructions or comments'|trans }}</legend>
     <div class="btn"><a class="btn" href="{{ path('checkout_payment') }}">{{ 'Change'|trans }}</a></div>
-    <div><?php echo $view->escape(!Toolbox::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
+    <div>{{ shoppingCart.comments ? shoppingCart.comments : 'None'|trans }}</div>
 </fieldset>
 
 {{ form.open(orderFormUrl, '', true)|raw }}

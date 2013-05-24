@@ -5,7 +5,7 @@
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
         <legend>
-            <?php echo $view->escape($address->getFirstName() . ' ' . $address->getLastName()) ?>
+            {{ address.firstName }} {{ address.lastName }}
             {{ address.isPrimary ? '(primary)'|trans }}
         </legend>
         <div class="btn">
