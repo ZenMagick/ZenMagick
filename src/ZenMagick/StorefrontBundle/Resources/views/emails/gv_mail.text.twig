@@ -1,5 +1,5 @@
 <?php if (empty($message)) { ?>
-{{ 'We're pleased to offer you a Gift Certificate'|trans }}
+{{ 'We\'re pleased to offer you a Gift Certificate'|trans }}
 <?php } else { ?>
 <?php echo $message; ?>
 <?php } ?>
@@ -8,10 +8,11 @@
 {{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}
 
 
-<{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
+{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
+
 
 {{ 'To redeem your gift, visit %url%'|trans({'%url%':  url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
 
 
-{{ utils.staticPageContent('email_advisory')|strip_tags }}
+{{ utils.staticPageContent('email_advisory')|striptags }}
 <?php echo $office_only_text; ?>

@@ -62,7 +62,7 @@
 
 <?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
     <h3>{{ 'Downloads'|trans }}</h3>
-    <p>{{ 'To download your files click the download button and choose "Save to Disk" from the popup menu.|trans }}</p>
+    <p>{{ 'To download your files click the download button and choose "Save to Disk" from the popup menu.'|trans }}</p>
     <table class="grid">
       <tr>
           <th>{{ 'Item'|trans }}</th>
@@ -78,7 +78,7 @@
               <th>{{ download.fileSize }} bytes</th>
               <th>{{ download.downloadCount }}</th>
               <th>
-                  <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
+                  <a href="{{ path('download', {'order' : currentOrder.id, 'id' : download.id}) }}">
                       {{ 'Download'|trans }}
                   </a>
               </th>

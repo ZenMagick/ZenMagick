@@ -52,7 +52,7 @@ use ZenMagick\StoreBundle\Services\Products;
   <?php $attributes = $macro->productAttributes($currentProduct); ?>
   <?php foreach ($attributes as $attribute) { /* ADDED: */ if (MULTI_QUANTITY_NAME == $attribute['name']) { continue; } ?>
       <fieldset>
-          <legend>{{ attribute['name']) }}</legend>
+          <legend>{{ attribute['name'] }}</legend>
           <?php foreach ($attribute['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>

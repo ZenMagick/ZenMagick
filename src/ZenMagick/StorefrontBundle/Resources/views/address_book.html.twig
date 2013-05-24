@@ -10,7 +10,7 @@
         </legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="{{ path('address_book_delete', {'id' => address.id}) }}">{{ 'Delete'|trans }}</a>
+                <a class="btn" href="{{ path('address_book_delete', {'id' : address.id}) }}">{{ 'Delete'|trans }}</a>
             <?php } ?>
             <a class="btn" href="{{ path('address_book_edit', {'id' : address.id}) }}">
                 {{ 'Edit'|trans }}

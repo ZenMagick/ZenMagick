@@ -44,7 +44,7 @@
   <li>Check out the actual used template files (
      <a href="{{ path('source_view', {'template_name' : view.layout}) }}">layout</a>
       and
-     <a href="{{ path('source_view', array('view_name' => app.request.requestId}) }}">view</a>
+      <a href="{{ path('source_view', {'view_name' : app.request.requestId}) }}">view</a>
     ) on this site! (there are links in the footer on all other pages)</li>
 </ul>
 {% endblock %}

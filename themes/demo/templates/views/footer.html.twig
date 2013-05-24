@@ -10,7 +10,7 @@
     <p id="sview">
         <a href="{{ path('source_view', {'layout_name' : view.layout}) }}">
             Layout: '<?php echo basename($view->getLayout()) ?>'</a>
-        <a href="{{ path('source_view', {'view_name' : app.request.requestId}) ?>">
+        <a href="{{ path('source_view', {'view_name' : app.request.requestId}) }}">
             View: '<?php echo basename($view['request']->getRouteId()) ?>'
         </a>
     </p>

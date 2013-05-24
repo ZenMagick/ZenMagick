@@ -1,4 +1,4 @@
-{{ 'Store Enquiry %store_name%'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
+{{ 'Store Enquiry %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}
 
 
 {{ 'From: %name%'|trans({'%name%': contactInfo.name}) }}
@@ -11,5 +11,5 @@
 
 -------------------------------------------
 
-{{ utils.staticPagecontent('email_advisory')|strip_tags }}
+{{ utils.staticPagecontent('email_advisory')|striptags }}
 <?php echo $office_only_text; ?>

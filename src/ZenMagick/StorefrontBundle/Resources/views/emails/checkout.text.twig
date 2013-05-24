@@ -1,8 +1,8 @@
 <?php use ZenMagick\Base\Toolbox; ?>
-{{ '%store_name% Order Confirmation'|trans({'%store_name%': $view['settings']->get('storeName')}) }}
+{{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}
 
 
-{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}
+{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}
 
 {{ 'The following is a summary of your order.'|trans }}
 
@@ -10,7 +10,7 @@
 {{ 'Order Details'|trans }}
 
 -----------------------------------------------
-{{ 'Order Number: #%id%:|trans({'%id%' : order.id }) }}
+{{ 'Order Number: #%id%:'|trans({'%id%' : order.id }) }}
 
 {{ 'Order Date: %date%'|trans({'%date%': order.orderDate|localizeddate('short', 'none')}) }}
 
@@ -40,7 +40,7 @@
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
 {{ 'N/A'|trans }}
 <?php } else { ?>
-{{ macro.formatAddress($shippingAddress, false)|raw }}
+{{ macro.formatAddress(shippingAddress, false)|raw }}
 <?php } ?>
 
 
@@ -63,4 +63,4 @@
 <?php } ?>
 
 
-{{ utils.staticPageContent('email_advisory')|strip_tags }}
+{{ utils.staticPageContent('email_advisory')|striptags }}

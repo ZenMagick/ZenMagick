@@ -9,7 +9,7 @@
             <input type="text" id="keywords" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="<?php echo $onfocus ?>" />
         </div>
         <div class="btn"><input type="submit" class="btn" value="{{ 'Search'|trans }}" /></div>
-        <a class="clear" href="{{ path('advanced_search', {'keywords' : searchCriteria.keywords} }}">
+        <a class="clear" href="{{ path('advanced_search', {'keywords' : searchCriteria.keywords}) }}">
             {{ 'Advanced Search'|trans }}
         </a>
     </fieldset>

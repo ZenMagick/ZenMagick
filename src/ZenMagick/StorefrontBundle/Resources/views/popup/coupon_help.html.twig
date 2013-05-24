@@ -1,4 +1,4 @@
-{% extend '@Storefront/popup_layout.html.twig' %}
+{% extends '@Storefront/popup_layout.html.twig' %}
 {% block body %}
 <?php
   $restrictions = $coupon->getRestrictions();
@@ -13,7 +13,7 @@
 ?>
 <h2>{{ 'Congratulations, you have redeemed a Discount Coupon.'|trans }}</h2>
 <p>
-  {{ 'Coupon Name: %name%|trans({'%name%' : coupon.name}) }}<br/>
+  {{ 'Coupon Name: %name%'|trans({'%name%' : coupon.name}) }}<br/>
   {{ 'Coupon Description: %description%'|trans({'%description%' : coupon.description}) }}<br/>
   <?php echo $discount ?>
 </p>

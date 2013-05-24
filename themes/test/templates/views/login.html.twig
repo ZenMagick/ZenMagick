@@ -22,7 +22,7 @@
 </p>
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$app->getUser()) { ?>
-  <h3>{{ 'Don't need an account?'|trans }}</h3>
+  <h3>{{ 'Don\'t need an account?'|trans }}</h3>
   {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest'})|raw }}
     <fieldset>
       <legend>{{ 'Checkout without registering'|trans }}</legend>

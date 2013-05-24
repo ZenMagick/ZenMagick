@@ -53,8 +53,8 @@
 </p>
 
 <?php if ($view['settings']->get('isGuestCheckout') && !$view->container->get('shoppingCart')->isEmpty()) { ?>
-  <h3>{{ 'Don't need an account?'|trans }}</h3>
-  {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest', 'method' : 'post', 'onsubmit' => 'return zmFormValidation.validate(this);'})|raw }}
+  <h3>{{ 'Don\'t need an account?'|trans }}</h3>
+  {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest', 'method' : 'post', 'onsubmit' : 'return zmFormValidation.validate(this);'})|raw }}
     <fieldset>
       <legend>{{ 'Checkout without registering'|trans }}</legend>
       <div>

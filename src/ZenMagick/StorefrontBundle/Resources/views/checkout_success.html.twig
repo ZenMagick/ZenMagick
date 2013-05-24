@@ -42,7 +42,7 @@
                       <th>{{ download.fileSize }} bytes</th>
                       <th>{{ download.downloadCount }}</th>
                       <th>
-                          <a href="{{ path('download', {'order' : currentOrder.id, 'id' => download.id}) }}">
+                          <a href="{{ path('download', {'order' : currentOrder.id, 'id' : download.id}) }}">
                               {{ 'Download'|trans }}
                           </a>
                       </th>

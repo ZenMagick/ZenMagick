@@ -8,7 +8,7 @@
         <h4 class="rtitle"><?php echo $html->strip($review->getTitle()) ?></h4>
         <p class="rtext"><?php echo $html->more($html->strip($review->getText()), 120) ?></p>
         <p class="rinfo">
-            {{ 'Date added: %date_added% by %author%'|trans({'%date_added%' : review.dateAdded|localizeddate('short', 'none'), '%author%: review.author}) }}
+            {{ 'Date added: %date_added% by %author%'|trans({'%date_added%' : review.dateAdded|localizeddate('short', 'none'), '%author%': review.author}) }}
         </p>
     </td>
     <td class="lnks">

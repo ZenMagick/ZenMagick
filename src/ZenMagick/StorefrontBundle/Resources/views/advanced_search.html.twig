@@ -16,9 +16,9 @@
     </fieldset>
 
     <fieldset id="asfilter">
-        <legend>{{ 'Restrict Search By...")?></legend>
+        <legend>{{ 'Restrict Search By...'|trans }}</legend>
         <fieldset>
-            <legend>{{ 'Category")?></legend>
+            <legend>{{ 'Category'|trans }}</legend>
             <?php $categories = $view->container->get('categoryService')->getCategories($view['request']->getLocaleId()); ?>
             <?php echo $form->idpSelect('categoryId', array_merge(array(new ZMIdNamePair("", _zm("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
             <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
@@ -43,7 +43,7 @@
             <?php $defaultDateValue = $view['date']->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
             <input type="text" id="dateFrom" name="dateFrom" value="{{ searchCriteria.dateFrom(defaultDateValue) }}" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dateTo" name="dateTo" value="{{ searchCriteria.dateTo(defaultDateValue }}" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="{{ searchCriteria.dateTo(defaultDateValue) }}" onfocus="<?php echo $onfocus ?>" />
         </fieldset>
     </fieldset>
 

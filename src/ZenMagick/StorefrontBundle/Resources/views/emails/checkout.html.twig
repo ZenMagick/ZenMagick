@@ -2,11 +2,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title>{{ '%store_name% Order Confirmation'|trans({'%store_name%': $view['settings']->get('storeName')}) }}</title>
+<title>{{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}</title>
 </head>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p>{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : $view['settings']->get('storeName')}) }}</p>
+<p>{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
 <p>{{ 'The following is a summary of your order.'|trans }}</p>
 
 <h3>{{ 'Order Details'|trans }}</h3>
