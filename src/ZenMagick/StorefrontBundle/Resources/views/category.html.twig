@@ -27,7 +27,7 @@
       <?php foreach ($featured as $product) { ?>
         <div>
           <p>{{ html.productImageLink(product)|raw }}</p>
-          <p><a href="<?php echo $net->product($product->getId()) ?>">{{ product.name }}</a></p>
+          <p><a href="{{ net.product(product.id) }}">{{ product.name }}</a></p>
           <?php $offers = $product->getOffers(); ?>
           <p>{{ utils.formatMoney(offers.calculatedPrice) }}</p>
         </div>

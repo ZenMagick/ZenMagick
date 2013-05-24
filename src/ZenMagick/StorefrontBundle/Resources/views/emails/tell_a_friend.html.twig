@@ -18,8 +18,7 @@
 </p>
 <?php } ?>
 
-<?php $href = $net->product($currentProduct->getId(), null); ?>
-<p>{{ 'To view the product, click on the following link or copy and paste the link into your web browser: <a href="%product_url%">%product%</a>'|trans({'%product_url%': href, '%product%' : currentProduct.name}) }}</p>
+<p>{{ 'To view the product, click on the following link or copy and paste the link into your web browser: <a href="%product_url%">%product%</a>'|trans({'%product_url%': net.product(currentProduct.id)|raw, '%product%' : currentProduct.name}) }}</p>
 
 <p>{{ 'Regards, %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
 

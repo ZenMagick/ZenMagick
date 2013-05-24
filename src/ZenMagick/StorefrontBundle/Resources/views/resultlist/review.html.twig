@@ -12,7 +12,7 @@
         </p>
     </td>
     <td class="lnks">
-        <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>">{{ 'Product Information'|trans }}</a></p>
+        <p><a class="btn" href="{{ net.product(product.id) }}">{{ 'Product Information'|trans }}</a></p>
         <p>
             <a class="btn" href="{{ path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id}) }}">
                 {{ 'Read full review'|trans }}

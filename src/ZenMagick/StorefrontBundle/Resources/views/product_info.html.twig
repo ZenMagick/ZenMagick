@@ -77,7 +77,7 @@
     <?php foreach ($similarOrderProducts as $assoc) { $assocProduct = $productService->getProductForId($assoc->getProductId(), $view['request']->getLocaleId()) ; ?>
       <div>
         <p>{{ html.productImageLink(assocProduct)|raw }}</p>
-        <p><a href="<?php echo $net->product($assocProduct->getId()) ?>">{{ assocProduct.name }}</a></p>
+        <p><a href="{{ net.product(assocProduct.id) }}">{{ assocProduct.name }}</a></p>
         <?php $offers = $assocProduct->getOffers(); ?>
         <p>{{ utils.formatMoney(offers.calculatedPrice) }}</p>
       </div>
