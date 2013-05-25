@@ -75,5 +75,10 @@
         <service id="twig.extension.bean" class="ZenMagick\Twig\Extension\BeanExtension">
             <tag name="twig.extension" />
         </service>
+
+        <service id="twig.extension.str_replace" class="ZenMagick\Twig\Extension\StrReplaceExtension">
+            <tag name="twig.extension" />
+        </service>
+
     </services>
 </container>
