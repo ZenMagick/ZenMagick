@@ -1,13 +1,6 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
     {% set page = app.request.query.get('cat') %}
-<?php
-// prepare page name for crumbtrail
-$sub = $view['request']->getParameter('cat');
-$sub = str_replace('_', ' ', $sub);
-$sub = ucwords($sub);
-$view['slots']->set('crumbtrail', $crumbtrail->addCrumb($sub));;
-?>
-
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(page|humanize)); ?>
     {{ utils.staticPageContent(page)|raw }}
 {% endblock %}
