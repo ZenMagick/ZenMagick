@@ -1,4 +1,4 @@
-{% if 1 < result.numberOfPages %}
+{% if 1 < resultList.numberOfPages %}
     <div class="rnav">
         <span class="pno">
             {{ 'Page %page%/%total%'|trans({'%page%' : resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}

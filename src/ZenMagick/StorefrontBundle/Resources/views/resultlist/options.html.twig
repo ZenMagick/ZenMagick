@@ -1,47 +1,61 @@
-<?php if ($resultList->hasFilters() || $resultList->hasSorters()) { $hasOptions = false; ?>
+{% if resultList.hasFilters or resultList.hasSorters %}
+    {% set hasOptions = false %}
     {{ form.open(app.request.requestId, null, false, {'method' : 'get', 'class' : 'ropt', 'onsubmit' : null})|raw }}
-        <?php if ($resultList->hasFilters()) { ?>
+        {% if resultList.hasFilters %}
             <div class="rlf">
-                <?php foreach ($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) { continue; } $hasOptions = true; ?>
-                    <?php /* if multi select do not auto submit */ ?>
-                    <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
-                    <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
+                {% for filter in resultList.filters if filter.available %}
+                    {% set hasOptions = true %}
+                    {# if multi select do not auto submit  #}
+                    {% set opts = filter.multiSelection ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"' %}
+                    <select id="{{ filter.id|str_replace('[]', '') }}" name="{{ filter.id }}" {{ opts|raw }}>
                         <option value="">{{ 'Filter by "%filter%" ...'|trans({'%filter%' : filter.name}) }}</option>
-                        <?php foreach ($filter->getOptions() as $option) { ?>
-                            <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
-                            <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
-                        <?php } ?>
+                        {% for option in filter.options %}
+                            <option value="{{ option.id }}" {{ option.active ? 'selected="selected"'|raw }}>
+                                {{ option.name }}
+                            </option>
+                        {% endfor %}
                     </select>
-                <?php } ?>
+                {% endfor %}
             </div>
-        <?php } ?>
-        <?php if ($resultList->hasSorters()) { $hasOptions = true; ?>
+        {% endif %}
+        {% if resultList.hasSorters %}
+            {% set hasOptions = true %}
             <div class="rls">
-                <?php if ($view['request']->getParameter('keywords')) { ?>
-                    <input type="hidden" name="keywords" value="<?php echo $view['request']->getParameter('keywords') ?>" />
-                <?php } ?>
-                <input type="hidden" name="page" value="<?php echo $resultList->getPageNumber() ?>" />
-                <?php if ($view['request']->getParameter('cPath')) { ?>
-                    <input type="hidden" name="cPath" value="<?php echo $view['request']->getParameter('cPath') ?>" />
-                <?php } elseif ($view['request']->getParameter('manufacturers_id')) { ?>
-                    <input type="hidden" name="manufacturers_id" value="<?php echo $view['request']->getParameter('manufacturers_id') ?>" />
-                <?php } ?>
+                {% set cPath = app.request.query.get('cPath') %}
+                {% set keywords = app.request.query.get('keywords') %}
+                {% set manufacturers_id = app.request.query.get('manufacturers_id') %}
+                {% if keywords %}
+                    <input type="hidden" name="keywords" value="{{ keywords }}" />
+                {% endif %}
+                <input type="hidden" name="page" value="{{ resultList.pageNumber }}" />
+                {% if cPath %}
+                    <input type="hidden" name="cPath" value="{{ cPath }}" />
+                {% elseif manufacturers_id %}
+                    <input type="hidden" name="manufacturers_id" value="{{ manufacturers_id }}" />
+                {% endif %}
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
                     <option value="">{{ 'Sort by ...'|trans }}</option>
-                    <?php foreach ($resultList->getSorters() as $sorter) { ?>
-                        <?php foreach ($sorter->getOptions() as $option) { ?>
-                            <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
-                            <?php $indicator = $option->isActive() ? ($option->isDecending() ? ' (-)' : ' (+)') : ''; ?>
-                            <?php $id = $option->isActive() ? $option->getReverseId() : $option->getId(); ?>
-                            <option value="<?php echo $id ?>"<?php echo $selected ?>><?php echo $option->getName().$indicator ?></option>
-                        <?php } ?>
-                    <?php } ?>
+                    {% for sorter in resultList.sorters %}
+                        {% for option in sorter.options %}
+                            {% set id = option.active ? option.reverseId : option.id %}
+                            <option value="{{ id }}" {{ option.active ? 'selected="selected"'|raw }}>
+                                {{ option.name }}
+                                {% if option.active %}
+                                    {{ option.descending ? ' (-)' : ' (+)' }}
+                                {% endif %}
+                            </option>
+                        {% endfor %}
+                    {% endfor %}
                 </select>
             </div>
-        <?php } ?>
+        {% endif %}
         <div>
-          <?php if ($hasOptions) { ?><input type="submit" class="btn" value="{{ 'Sort / Reverse / Filter'|trans }}" /><?php } else { ?>&nbsp;<?php } ?>
+            {% if hasOptions %}
+                <input type="submit" class="btn" value="{{ 'Sort / Reverse / Filter'|trans }}" />
+            {% else %}
+                &nbsp;
+            {% endif %}
         </div>
     </form>
-<?php } ?>
+{% endif %}
