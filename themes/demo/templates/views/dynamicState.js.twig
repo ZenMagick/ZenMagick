@@ -7,7 +7,7 @@ function updateState() {
     var zoneId = $('#zoneId');
     var state = $('#state');
     var sz = ((0 < zoneId.size()) ? zoneId : state);
-    sz.after('<span id="state_timer"><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/circle-ball-dark-antialiased.gif') ?>">{{ 'Loading...'|trans }}</span>');
+    sz.after('<span id="state_timer"><img src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}">{{ 'Loading...'|trans }}</span>');
 
     var countryId = $('#countryId').val();
     $.ajax({

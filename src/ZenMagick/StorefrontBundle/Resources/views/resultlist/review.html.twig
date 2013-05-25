@@ -4,7 +4,7 @@
         {{ html.productImageLink(product)|raw }}
         <h3>{{ product.name }}</h3>
         <?php $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating()); ?>
-        <p><img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
+        <p><img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="<?php echo $rtext ?>" /></p>
         <h4 class="rtitle"><?php echo $html->strip($review->getTitle()) ?></h4>
         <p class="rtext"><?php echo $html->more($html->strip($review->getText()), 120) ?></p>
         <p class="rinfo">

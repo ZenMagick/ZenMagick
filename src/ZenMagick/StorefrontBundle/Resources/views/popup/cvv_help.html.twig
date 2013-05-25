@@ -4,12 +4,12 @@
 
 <div>
     {{ utils.staticPageContent('popup_cvv_visa_master')|raw }}
-  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/icons/cvv2visa.gif') ?>" alt="{{ 'cvv sample 1'|trans }}" />
+  <img src="{{ asset('bundles/storefront/images/icons/cvv2visa.gif') }}" alt="{{ 'cvv sample 1'|trans }}" />
 </div>
 
 <div>
     {{ utils.staticPageContent('popup_cvv_amex')|raw }}
-  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/icons/cvv2amex.gif') ?>" alt="{{ 'cvv sample 2'|trans }}" />
+  <img src="{{ asset('bundles/storefront/images/icons/cvv2amex.gif') }}" alt="{{ 'cvv sample 2'|trans }}" />
 </div>
 
 <div id="close"><a href="#" onclick="javascript:window.close()">{{ 'Close Window [x]'|trans }}</a></div>

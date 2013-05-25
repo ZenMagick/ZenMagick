@@ -22,7 +22,7 @@
             <?php for ($ii=1; $ii<6; ++$ii) { $checked = ($newReview->getRating() == $ii ? ' checked="checked"' : ''); ?>
               <input type="radio" id="rating-<?php echo $ii ?>" name="rating" value="<?php echo $ii ?>"<?php echo $checked ?> />
               <label for="rating-<?php echo $ii ?>">
-                  <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/stars_'.$ii.'_small.gif') ?>" alt="{{ '%number% Star'|trans({'%number%' : ii}) }}" title="{{ '%number% Star'|trans({'%number%' : ii}) }}" />
+                  <img src="{{ asset('bundles/storefront/images/stars_' ~ ii ~ '_small.gif') }}" alt="{{ '%number% Star'|trans({'%number%' : ii}) }}" title="{{ '%number% Star'|trans({'%number%' : ii}) }}" />
               </label>
             <?php } ?>
         </div>

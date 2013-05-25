@@ -12,7 +12,7 @@ if ($shoppingCart->isEmpty()) { ?>
                 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                     <td class="remove">
                         <a href="{{ path('cart.remove', {'product_id' : item.id}) }}">
-                            <img src="<?php echo $view['assets']->getUrl('bundles/storefront/images/small_delete.gif') ?>" alt="remove" />
+                            <img src="{{ asset('bundles/storefront/images/small_delete.gif') }}" alt="remove" />
                         </a>
                     </td>
                     <td class="img">
