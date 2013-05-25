@@ -1,24 +1,25 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History'))); ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History'))); ?>
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {% include('@Storefront/resultlist/nav.html.twig') %}
+            <p>&nbsp;</p>
+        </div>
 
-<?php if ($resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-        <p>&nbsp;</p>
-    </div>
-
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
-              <?php echo $this->render('StorefrontBundle::resultlist/order.html.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-    </div>
-<?php } else { ?>
-    <h2>{{ 'No orders found'|trans }}</h2>
-<?php } ?>
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for order in resultList.results %}
+                        {{ include('@Storefront/resultlist/order.html.twig') }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        <h2>{{ 'No orders found'|trans }}</h2>
+    {% endif %}
 {% endblock %}

@@ -1,75 +1,79 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account'))); ?>
-{{ form.open('account_edit', '', true, {'id' : 'account'})|raw }}
-    <fieldset>
-        <legend>{{ 'My Account'|trans }}</legend>
-        <table cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                   <th id="label"></th>
-                   <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (settings.get('isAccountGender')) { ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account'))); ?>
+    {{ form.open('account_edit', '', true, {'id' : 'account'})|raw }}
+        <fieldset>
+            <legend>{{ 'My Account'|trans }}</legend>
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ 'Title'|trans }}<span>*</span></td>
+                        <th id="label"></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if settings.get('isAccountGender') %}
+                        <tr>
+                            <td>{{ 'Title'|trans }}<span>*</span></td>
+                            <td>
+                                <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', account.gender)|raw }} />
+                                <label for="male">{{ 'Mr.'|trans }}</label>
+                                <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', account.gender)|raw }} />
+                                <label for="female">{{ 'Ms.'|trans }}</label>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'First Name'|trans }}<span>*</span></td>
+                        <td><input type="text" name="firstName" value="{{ account.firstName }} "/></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Last Name'|trans }}<span>*</span></td>
+                        <td><input type="text" name="lastName" value="{{ account.lastName }} "/></td>
+                    </tr>
+                    {% if settings.get('isAccountDOB') %}
+                        <tr>
+                            <td>{{ 'Date of Birth'|trans }}<span>*</span></td>
+                            <td><input type="text" name="dob" value="{{ account.dob|localizeddate('short', 'none') }}" />
+                                {{ 'Format: %format% (e.g: %example%)'|trans({'%format%' : locale.format('date', 'short-ui-format'), '%example%' : locale.format('date', 'short-ui-example')}) }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
+                        <td><input type="text" name="email" value="{{ account.email }}" /></td>
+                    </tr>
+                    {% if settings.get('isAccountNickname') %}
+                        <tr>
+                            <td>{{ 'Nickname'|trans }}</td>
+                            <td><input type="text" name="nickName" value="{{ account.nickName }}" /></td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>{{ 'Telephone Number'|trans }}<span>*</span></td>
+                        <td><input type="text" name="phone" value="{{ account.phone }}" /></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Fax Number'|trans }}</td>
+                        <td><input type="text" name="fax" value="{{ account.fax }}" /></td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'E-Mail Format'|trans }}<span>*</span></td>
                         <td>
-                            <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', account.gender)|raw }} />
-                            <label for="male">{{ 'Mr.'|trans }}</label>
-                            <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', account.gender)|raw }} />
-                            <label for="female">{{ 'Ms.'|trans }}</label>
+                            <input type="radio" id="html" name="emailFormat" value="HTML" {{ form.checked('HTML', account.emailFormat, 'HTML')|raw }} />
+                            <label for="html">{{ 'HTML'|trans }}</label>
+                            <input type="radio" id="text" name="emailFormat" value="TEXT" {{ form.checked('TEXT', account.emailFormat, 'TEXT', true)|raw }} />
+                            <label for="text">{{ 'Text'|trans }}</label>
                         </td>
                     </tr>
-                <?php } ?>
-                <tr>
-                    <td>{{ 'First Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="firstName" value="{{ account.firstName }}" /></td>
-                </tr>
-                <tr>
-                    <td>{{ 'Last Name'|trans }}<span>*</span></td>
-                    <td><input type="text" name="lastName" value="{{ account.lastName }}" /></td>
-                </tr>
-                <?php if (settings.get('isAccountDOB')) { ?>
-                    <tr>
-                        <td>{{ 'Date of Birth'|trans }}<span>*</span></td>
-                        <td><input type="text" name="dob" value="{{ account.dob|localizeddate('short', 'none') }}" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $view['date']->getFormat('date', 'short-ui-format'), $view['date']->getFormat('date', 'short-ui-example')) ?></td>
+                    <tr class="legend">
+                        <td colspan="2">{{ '<span>*</span> Mandatory fields'|trans|raw }}</td>
                     </tr>
-                <?php } ?>
-                <tr>
-                    <td>{{ 'E-Mail Address'|trans }}<span>*</span></td>
-                    <td><input type="text" name="email" value="{{ account.email }}" /></td>
-                </tr>
-                <?php if (settings.get('isAccountNickname')) { ?>
-                    <tr>
-                        <td>{{ 'Nickname'|trans }}</td>
-                        <td><input type="text" name="nickName" value="{{ account.nickName }}" /></td>
-                    </tr>
-                <?php } ?>
-                <tr>
-                    <td>{{ 'Telephone Number'|trans }}<span>*</span></td>
-                    <td><input type="text" name="phone" value="{{ account.phone }}" /></td>
-                </tr>
-                <tr>
-                    <td>{{ 'Fax Number'|trans }}</td>
-                    <td><input type="text" name="fax" value="{{ account.fax }}" /></td>
-                </tr>
-                 <tr>
-                    <td>{{ 'E-Mail Format'|trans }}<span>*</span></td>
-                    <td>
-                        <input type="radio" id="html" name="emailFormat" value="HTML" {{ form.checked('HTML', account.emailFormat, 'HTML')|raw }} />
-                        <label for="html">{{ 'HTML'|trans }}</label>
-                        <input type="radio" id="text" name="emailFormat" value="TEXT" {{ form.checked('TEXT', account.emailFormat, 'TEXT', true)|raw }} />
-                        <label for="text">{{ 'Text'|trans }}</label>
-                    </td>
-                </tr>
-                <tr class="legend">
-                    <td colspan="2">{{ '<span>*</span> Mandatory fields'|trans|raw }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
-</form>
+                </tbody>
+            </table>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Update'|trans }}" />
+        </div>
+    </form>
 {% endblock %}

@@ -1,25 +1,36 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
-<p>{{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}</p>
-<p>{{ 'To be up to date on all product changes, select <strong>Global Product Notifications</strong>.'|trans|raw }}</p>
-{{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
-    <input type="hidden" name="notify_type" value="set" />
-    <fieldset>
-        <legend>{{ 'Global Product Notifications'|trans }}</legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1" {{ form.checked(true, currentAccount.globalProductSubscriber, true)|raw }} /><label for="product_global">{{ 'Global Product Notification'|trans }}</label></p>
-    </fieldset>
-
-    <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Product Notifications'))); ?>
+    <p>
+        {{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}
+    </p>
+    <p>
+        {{ 'To be up to date on all product changes, select <strong>Global Product Notifications</strong>.'|trans|raw }}
+    </p>
+    {{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
+        <input type="hidden" name="notify_type" value="set"/>
         <fieldset>
-            <legend>{{ 'Product Notifications'|trans }}</legend>
-            <?php $ii=0;
-            foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = $view->container->get('productService')->getProductForId($productId, $view['request']->getLocaleId()); ?>
-                <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $view->escape($product->getName()) : '???' ?></label></p>
-            <?php ++$ii; } ?>
+            <legend>{{ 'Global Product Notifications'|trans }}</legend>
+            <p>
+                <input type="checkbox" id="product_global" name="product_global" value="1" {{ form.checked(true, currentAccount.globalProductSubscriber, true)|raw }} />
+                <label for="product_global">{{ 'Global Product Notification'|trans }}</label>
+            </p>
         </fieldset>
-    <?php } ?>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
-</form>
+
+        {% if currentAccount.globalProductSubscriber == false and currentAccount.hasProductSubscriptions %}
+            <fieldset>
+                <legend>{{ 'Product Notifications'|trans }}</legend>
+                {% for productId in currentAccount.subscribedProducts %}
+                    {% set product = product_manager.productForId(productId, app.session.get('languages_id')) %}
+                    <p>
+                        <input type="checkbox" id="products_{{ loop.index0 }}" name="notify[{{ loop.index0 }}]" value="{{ productId }}" checked="checked"/>
+                        <label for="products_{{ loop.index0 }}">{{ product ? product.name : '???' }}</label>
+                    </p>
+                {% endfor %}
+            </fieldset>
+        {% endif %}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Update'|trans }}"/>
+        </div>
+    </form>
 {% endblock %}

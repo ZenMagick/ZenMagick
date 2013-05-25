@@ -1,13 +1,19 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Newsletter'))); ?>
-<p>{{ 'Including store news, new products, special offers, and other promotional announcements.'|trans }}</p>
-{{ form.open('account_newsletters', '', true, {'onsubmit' : null})|raw }}
-    <fieldset>
-        <legend>{{ 'Store Newsletter'|trans }}</legend>
-        <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1" {{ form.checked(true, currentAccount.newsletterSubscriber, true)|raw }} /><label for="newsletter_general">{{ 'Receive Store Newsletter'|trans }}</label></p>
-    </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Update'|trans }}" /></div>
-</form>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Newsletter'))); ?>
+    <p>
+        {{ 'Including store news, new products, special offers, and other promotional announcements.'|trans }}
+    </p>
+    {{ form.open('account_newsletters', '', true, {'onsubmit' : null})|raw }}
+        <fieldset>
+            <legend>{{ 'Store Newsletter'|trans }}</legend>
+            <p>
+                <input type="checkbox" id="newsletter_general" name="newsletter_general" value="1" {{ form.checked(true, currentAccount.newsletterSubscriber, true)|raw }} />
+                <label for="newsletter_general">{{ 'Receive Store Newsletter'|trans }}</label>
+            </p>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Update'|trans }}" />
+        </div>
+    </form>
 {% endblock %}

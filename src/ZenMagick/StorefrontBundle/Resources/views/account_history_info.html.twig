@@ -2,100 +2,108 @@
 {% block body %}
 <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Order History'), $view['router']->generate('account_history'))->addCrumb(sprintf(_zm('Order #%s'), $view['request']->getParameter('order_id')))); ?>
 <h3>{{ 'Item Details'|trans }}</h3>
-<table cellpadding="0" cellspacing="0">
+<table>
     <tbody>
-    <?php foreach ($currentOrder->getOrderItems() as $orderItem) { ?>
-        <tr>
-            <td class="qty"><?php echo $orderItem->getQuantity() ?> x </td>
-            <td class="itm">
-                {{ orderItem.name }}
-                <?php if ($orderItem->hasAttributes()) { ?>
-                    <br/>
-                    <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
-                        <p><span class="attr">{{ attribute.name }}:</span>
-                        <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
-                            <?php if (!$first) { ?>, <?php } ?>
-                            <span class="atval">{{ attributeValue.name }}</span>
-                        <?php $first = false; } ?>
-                        </p>
-                    <?php } ?>
-                <?php } ?>
-            </td>
-            <td class="price">{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
-        </tr>
-    <?php } ?>
-    <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>
-        <tr>
-            <td colspan="2" class="total">{{ orderTotalLine.name }}</td>
-            <td class="price"><?php echo $orderTotalLine->getValue() ?></td>
-        </tr>
-    <?php } ?>
+        {% for orderItem in currentOrder.orderItems %}
+            <tr>
+                <td class="qty">{{ orderItem.quantity }} x</td>
+                <td class="itm">
+                    {{ orderItem.name }}
+                    {% if orderItem.hasAttributes %}
+                        <br/>
+                        {% for attribute in orderItem.attributes %}
+                            <p>
+                                <span class="attr">{{ attribute.name }}:</span>
+                                {% for attributeValue in attribute.values %}
+                                    {% if not loop.first %},{% endif %}
+                                    <span class="atval">{{ attributeValue.name }}</span>
+                                {% endfor %}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td class="price">{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
+            </tr>
+        {% endfor %}
+        {% for orderTotalLine in currentOrder.orderTotalLines %}
+            <tr>
+                <td colspan="2" class="total">{{ orderTotalLine.name }}</td>
+                <td class="price">{{ orderTotalLine.value }}</td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 
 <h3>{{ 'Payment Details'|trans }}</h3>
-<table cellpadding="0" cellspacing="0">
-    <tbody><tr><td>
-<?php if (null != ($paymentType = $currentOrder->getPaymentType())) { ?>
-    <p><?php echo $paymentType->getName() ?></p>
-    <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
-      <p><?php echo nl2br($paymentType->getInfo()) ?></p>
-    <?php } ?>
-<?php } else { ?>
-    <p>{{ 'N/A'|trans }}</p>
-<?php } ?>
-    </td></tr></tbody>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            {% set paymentType = currentOrder.paymentType %}
+            {% if paymentType is not empty %}
+                <p>{{ paymentType.name }}</p>
+                {% if paymentType.info is not empty %}
+                    <p>{{ paymentType.info|nl2br }}</p>
+                {% endif %}
+            {% else %}
+                <p>{{ 'N/A'|trans }}</p>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
 </table>
 
 <h3>{{ 'Order History'|trans }}</h3>
-<table cellpadding="0" cellspacing="0">
+<table>
     <tbody>
-    <?php foreach ($currentOrder->getOrderStatusHistory($view['request']->getLocaleId()) as $orderStatus) { ?>
+    {% for orderStatus in currentOrder.orderStatusHistory(app.session.get('languages_id')) %}
         <tr>
             <td>{{ orderStatus.dateAdded|localizeddate('short', 'none') }}</td>
             <td>{{ orderStatus.name }}</td>
             <td class="cmt">{{ orderStatus.comment }}</td>
         </tr>
-    <?php } ?>
+    {% endfor %}
     </tbody>
 </table>
 
-<?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
+{% set downloads = currentOrder.downloads %}
+{% if downloads is not empty %}
     <h3>{{ 'Downloads'|trans }}</h3>
     <p>{{ 'To download your files click the download button and choose "Save to Disk" from the popup menu.'|trans }}</p>
     <table class="grid">
-      <tr>
-          <th>{{ 'Item'|trans }}</th>
-          <th>{{ 'Filename'|trans }}</th>
-          <th>{{ 'Size'|trans }}</th>
-          <th>{{ 'Remaining'|trans }}</th>
-          <th></th>
-      </tr>
-      <?php foreach ($downloads as $download) { $downloadProduct = $view->container->get('productService')->getProductForId($download->getProductId(), $view['request']->getLocaleId()); ?>
-          <tr>
-              <th>{{ downloadProduct.name }}</th>
-              <th>{{ download.filename }}</th>
-              <th>{{ download.fileSize }} bytes</th>
-              <th>{{ download.downloadCount }}</th>
-              <th>
-                  <a href="{{ path('download', {'order' : currentOrder.id, 'id' : download.id}) }}">
-                      {{ 'Download'|trans }}
-                  </a>
-              </th>
-          </tr>
-      <?php } ?>
+        <tr>
+            <th>{{ 'Item'|trans }}</th>
+            <th>{{ 'Filename'|trans }}</th>
+            <th>{{ 'Size'|trans }}</th>
+            <th>{{ 'Remaining'|trans }}</th>
+            <th></th>
+        </tr>
+        {% for download in downloads %}
+            {% set downloadProduct = product_manager.productForId(download.productId, app.session.get('languages_id')) %}
+            <tr>
+                <th>{{ downloadProduct.name }}</th>
+                <th>{{ download.filename }}</th>
+                <th>{{ download.fileSize }} bytes</th>
+                <th>{{ download.downloadCount }}</th>
+                <th>
+                    <a href="{{ path('download', {'order' : currentOrder.id, 'id' : download.id}) }}">
+                        {{ 'Download'|trans }}
+                    </a>
+                </th>
+            </tr>
+        {% endfor %}
     </table>
-<?php } ?>
+{% endif %}
 
 <h3>{{ 'Address Details'|trans }}</h3>
 <div id="addr">
     <div id="daddr">
         <h4>{{ 'Shipping Address'|trans }}</h4>
-        <?php if (!$currentOrder->hasShippingAddress()) { ?>
-            {{ 'N/A'|trans }}
-        <?php } else { ?>
+        {% if currentOrder.hasShippingAddress %}
             {{ macro.formatAddress(currentOrder.shippingAddress)|raw }}
-        <?php } ?>
+        {% else %}
+            {{ 'N/A'|trans }}
+        {% endif %}
     </div>
     <div id="baddr">
         <h4>{{ 'Billing Address'|trans }}</h4>
