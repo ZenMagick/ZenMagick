@@ -1,16 +1,17 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete'))); ?>
-<p>{{ 'Are you sure you would like to delete the selected address from your address book?'|trans }}</p>
-{{ form.open('address_book_delete', '', true, {'onsubmit' : null})|raw }}
-    <fieldset>
-        <legend>{{ 'Selected Address'|trans }}</legend>
-        <div class="btn">
-            <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
-            <input type="submit" class="btn" value="{{ 'Delete'|trans }}" />
-        </div>
-        {{ macro.formatAddress(address)|raw }}
-    </fieldset>
-</form>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Addresses'), $view['router']->generate('address_book'))->addCrumb(_zm('Delete'))); ?>
+    <p>
+        {{ 'Are you sure you would like to delete the selected address from your address book?'|trans }}
+    </p>
+    {{ form.open('address_book_delete', '', true, {'onsubmit' : null})|raw }}
+        <fieldset>
+            <legend>{{ 'Selected Address'|trans }}</legend>
+            <div class="btn">
+                <input type="hidden" name="id" value="{{ address.id }}" />
+                <input type="submit" class="btn" value="{{ 'Delete'|trans }}" />
+            </div>
+            {{ macro.formatAddress(address)|raw }}
+        </fieldset>
+    </form>
 {% endblock %}

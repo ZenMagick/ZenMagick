@@ -17,7 +17,7 @@
 {% set country_id = address.countryId ?: settings.get('storeCountry') %}
 <fieldset>
     <legend>{{ 'Address'|trans }}</legend>
-    <table cellspacing="0" cellpadding="0" id="newaddress">
+    <table id="newaddress">
         <thead>
             <tr>
                <th id="label"></th>
@@ -25,12 +25,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for fieldInfo in customFields if customFields is defined %}
-                <tr>
-                    <td>{{ fieldInfo['label']|raw }}</td>
-                    <td>{{ fieldInfo['field']|raw }}</td>
-                </tr>
-            {% endfor %}
+            {% if customFields is defined %}
+                {% for fieldInfo in customFields %}
+                    <tr>
+                        <td>{{ fieldInfo['label']|raw }}</td>
+                        <td>{{ fieldInfo['field']|raw }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
             {% if settings.get('isAccountGender') %}
                 <tr>
                     <td>{{ 'Title'|trans }}<span>*</span></td>
