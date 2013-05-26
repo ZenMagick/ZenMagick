@@ -1,37 +1,52 @@
-<?php $restrictions = $currentCoupon->getRestrictions(); ?>
-<p>{{ 'The Discount Coupon Redemption Code you have entered is for %name%.'|trans({'%name%' :  currentCoupon.name}) }}</p>
-<p>{{ 'Discount Offer:'|trans }}<br />{{ currentCoupon.description }}</p>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
+    {% set restrictions = currentCoupon.restrictions %}
+    <p>
+        {{ 'The Discount Coupon Redemption Code you have entered is for %name%.'|trans({'%name%' :  currentCoupon.name}) }}
+    </p>
+    <p>
+        {{ 'Discount Offer:'|trans }}
+        <br />
+        {{ currentCoupon.description }}
+    </p>
 
-<h4>{{ 'Promotional Period'|trans }}</h4>
-<p>{{ 'The discount is valid between %start_date% and %end_date%.'|trans({'%start_date%' : currentCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : currentCoupon.expiryDate|localizeddate('short', 'none')}) }}</p>
+    <h4>{{ 'Promotional Period'|trans }}</h4>
+    <p>
+        {{ 'The discount is valid between %start_date% and %end_date%.'|trans({'%start_date%' : currentCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : currentCoupon.expiryDate|localizeddate('short', 'none')}) }}
+    </p>
 
-<?php if ($restrictions->hasCategories()) { ?>
-    <h4>{{'Category Restrictions'|trans }}</h4>
-    <ul>
-    <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($view['request']->getLocaleId()); ?>
-        <li>{{ category.name }} - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
-    <?php } ?>
-    </ul>
-<?php } ?>
+    {% if restrictions.hasCategories %}
+        <h4>{{ 'Category Restrictions'|trans }}</h4>
+        <ul>
+            {% for restriction in restrictions.categories %}
+                {% set category = restriction.category(app.session.get('languages_id')) %}
+                <li>{{ category.name }} - {{ restriction.allowed() ? 'included'|trans : 'excluded'|trans }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-<?php if ($restrictions->hasProducts()) { ?>
-    <h4>{{ 'Product Restrictions'|trans }}</h4>
-    <ul>
-    <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($view['request']->getLocaleId()); ?>
-        <li>{{ product.name }} - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
-    <?php } ?>
-    </ul>
-<?php } ?>
+    {% if restrictions.hasProducts %}
+        <h4>{{ 'Product Restrictions'|trans }}</h4>
+        <ul>
+            {% for restriction in restrictions.products %}
+                {% set product = restriction.product(app.session.get('languages_id')) %}
+                <li>{{ product.name }} - {{ restriction.allowed() ? 'included'|trans : 'excluded'|trans }}</li>
+           {% endfor %}
+        </ul>
+    {% endif %}
 
-<?php if (!$restrictions->hasRestrictions()) { ?>
-    <h4>{{ 'The coupon is valid for all categories and products.'|trans }}</h4>
-<?php } ?>
+    {% if not restrictions.hasRestrictions %}
+        <h4>{{ 'The coupon is valid for all categories and products.'|trans }}</h4>
+    {% endif %}
 
-{{ form.open('discount_coupon', 'action=lookup', false, {'method' : 'get'})|raw }}
-  <fieldset>
-    <legend>{{ 'Look-up another discount coupon ...'|trans }}</legend>
-    <label for="lookup_discount_coupon">{{ 'Your Code'|trans }}</label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="{{ currentCouponCode }}" />
-  </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}" />
-</form>
+    {{ form.open('discount_coupon', 'action=lookup', false, {'method' : 'get'})|raw }}
+        <fieldset>
+            <legend>{{ 'Look-up another discount coupon ...'|trans }}</legend>
+            <label for="lookup_discount_coupon">{{ 'Your Code'|trans }}</label>
+            <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="{{ currentCouponCode }}" />
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Send'|trans }}" />
+        </div>
+    </form>
+{% endblock %}
