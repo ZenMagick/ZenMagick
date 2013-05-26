@@ -1,8 +1,13 @@
-<h3>{{ 'Congratulations!'|trans }}</h3>
-<p>{{ 'Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.'|trans }}</p>
-<p>
-    {{ 'If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the <a href="%contact_url%">store owner</a>.'|trans({'%contact_url%' : path('contact_us')})|raw }}
-</p>
-<p>
-    {{ 'A confirmation has been sent to the provided email address. If you have not received it within the hour, please <a href="%contact_url%">contact us</a>.'|trans({'%contact_url%' : path('contact_us')})|raw }}
-</p>
+{% extends '@Storefront/create_account_success.html.twig' %}
+{% block body %}
+    <h3>{{ 'Congratulations!'|trans }}</h3>
+    <p>
+        {{ 'Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.'|trans }}
+    </p>
+    <p>
+        {{ 'If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the <a href="%contact_url%">store owner</a>.'|trans({'%contact_url%' : path('contact_us')})|raw }}
+    </p>
+    <p>
+        {{ 'A confirmation has been sent to the provided email address. If you have not received it within the hour, please <a href="%contact_url%">contact us</a>.'|trans({'%contact_url%' : path('contact_us')})|raw }}
+    </p>
+{% endblock %}
