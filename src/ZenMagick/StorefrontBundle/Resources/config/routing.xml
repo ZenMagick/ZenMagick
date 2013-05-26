@@ -341,7 +341,7 @@
     </route>
 
     <route id="reviews" pattern="/reviews">
-        <default key="_controller">StorefrontBundle:ProductReviews:process</default>
+        <default key="_controller">StorefrontBundle:Reviews:process</default>
     </route>
 
     <route id="product_reviews_info" pattern="/produc-reviews-info">
