@@ -1,38 +1,40 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php
-$view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct());;
-
-if ($resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-        <?php echo $view->render('StorefrontBundle::resultlist/options.html.php', array('resultList' => $resultList)) ?>
-    </div>
-
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { ?>
-              <?php echo $this->render('StorefrontBundle::resultlist/product.html.php', array('product' => $product, 'first' => $first, 'odd' => $odd)) ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-    </div>
-<?php } else { ?>
-    <?php if ($currentCategory->hasChildren()) { ?>
-        <div class="subcats">
-            <h3>{{ 'Available Sub-categories'|trans }}</h3>
-            <?php foreach ($currentCategory->getChildren() as $category) {
-                $encName = $view->escape($category->getName());
-                $catImage = $category->getImageInfo();
-                $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
-                ?>
-                <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}"><?php echo $linkText ?></a>
-            <?php } ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct());;
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+            {{ include('@Storefront/resultlist/options.html.twig') }}
         </div>
-    <?php } ?>
 
-    <h2>{{ 'There are no products in this category'|trans }}</h2>
-<?php } ?>
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for product in resultList.results %}
+                        {{ include('@Storefront/resultlist/product.html.twig', {'loop' : loop}) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        {% if currentCategory.hasChildren %}
+            <div class="subcats">
+                <h3>{{ 'Available Sub-categories'|trans }}</h3>
+                {% for category in currentCategory.children %}
+                    <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}">
+                        {% if category.imageInfo %}
+                            <img src="{{ category.imageInfo.defaultImage }}" alt="{{ category.name }}" title="{{ category.name }}" />
+                        {% else %}
+                            {{ category.name }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2>{{ 'There are no products in this category'|trans }}</h2>
+        {% endif %}
+    {% endif %}
 {% endblock %}

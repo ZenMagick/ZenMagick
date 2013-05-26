@@ -1,37 +1,38 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()); ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()); ?>
 
-<h2>{{ currentCategory.name }}</h2>
+    <h2>{{ currentCategory.name }}</h2>
 
-<?php if ($currentCategory->hasChildren()) { ?>
-  <div class="subcats">
-      <h3>{{ 'Available Sub-categories'|trans }}</h3>
-      <?php foreach ($currentCategory->getChildren() as $category) {
-          $encName = $view->escape($category->getName());
-          $catImage = $category->getImageInfo();
-          $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
-          ?>
-          <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}">
-              <?php echo $linkText ?>
-          </a>
-      <?php } ?>
-  </div>
-<?php } ?>
-
-<?php $featured = $view->container->get('productService')->getFeaturedProducts($currentCategory->getId(), 4, true, $view['request']->getLocaleId()); ?>
-
-<?php if (0 < count($featured)) { ?>
-    <h3>Featured Products</h3>
-    <div id="featured">
-      <?php foreach ($featured as $product) { ?>
-        <div>
-          <p>{{ html.productImageLink(product)|raw }}</p>
-          <p><a href="{{ net.product(product.id) }}">{{ product.name }}</a></p>
-          <?php $offers = $product->getOffers(); ?>
-          <p>{{ utils.formatMoney(offers.calculatedPrice) }}</p>
+    {% if currentCategory.hasChildren %}
+        <div class="subcats">
+            <h3>{{ 'Available Sub-categories'|trans }}</h3>
+            {% for category in category.children %}
+                <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}">
+                    {% if category.imageInfo %}
+                        <img src="{{ category.imageInfo.defaultImage }}" alt="{{ category.name }}" title="{{ category.name }}" />
+                    {% else %}
+                        {{ category.name }}
+                    {% endif %}
+                </a>
+            {% endfor %}
         </div>
-      <?php } ?>
-    </div>
-<?php } ?>
+    {% endif %}
+
+    {% set featured = product_manager.featuredProducts(currentCategory.id, 4, true, app.session.get('languages_id')) %}
+
+    {% if 0 < featured|length %}
+        <h3>Featured Products</h3>
+        <div id="featured">
+            {% for product in featured %}
+                <div>
+                    <p>{{ html.productImageLink(product)|raw }}</p>
+                    <p>
+                        <a href="{{ net.product(product.id) }}">{{ product.name }}</a>
+                    </p>
+                    <p>{{ utils.formatMoney(product.offers.calculatedPrice) }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
