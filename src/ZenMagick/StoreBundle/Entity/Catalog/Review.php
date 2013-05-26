@@ -238,6 +238,18 @@ class Review extends ZMObject
     }
 
     /**
+     * Get the review text.
+     *
+     * @deprecated
+     * @return string The review text.
+     */
+    public function getTitle()
+    {
+        $description = $this->descriptions->get($this->languageId);
+
+        return null != $description ? $description->getTitle() : '';
+    }
+    /**
      * Get all available descriptions.
      *
      * @return ArrayCollection List of <code>ReviewDescription</code> instances.
