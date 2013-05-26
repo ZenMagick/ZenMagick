@@ -1,20 +1,25 @@
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()->addCrumb(_zm('Reviews'))); ?>
-<?php if ($resultList->hasResults()) { ?>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-    </div>
+{% extends '@Storefront/default_layout.html.twig' %}
+{% block body %}
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()->addCrumb(_zm('Reviews'))); ?>
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
 
-    <div class="rlist">
-        <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $review) { ?>
-              <?php echo $this->render('StorefrontBundle::resultlist/review.html.php', array('review' => $review, 'first' => $first, 'odd' => $odd)) ?>
-            <?php $first = false; $odd = !$odd; } ?>
-        </tbody></table>
-    </div>
-    <div class="rnblk">
-        <?php echo $view->render('StorefrontBundle::resultlist/nav.html.php', array('resultList' => $resultList)) ?>
-    </div>
-<?php } else { ?>
-    <h2>{{ 'There are no reviews available at this time'|trans }}</h2>
-    <p>{{ 'New reviews might need approval before they are listed.'|trans }}</p>
-<?php } ?>
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for review in resultList.results %}
+                        {{ include('@Storefront/resultlist/review.html.twig', {'loop' : loop}) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        <h2>{{ 'There are no reviews available at this time'|trans }}</h2>
+        <p>{{ 'New reviews might need approval before they are listed.'|trans }}</p>
+    {% endif %}
+{% endblock %}

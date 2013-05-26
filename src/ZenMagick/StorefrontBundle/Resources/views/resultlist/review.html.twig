@@ -1,18 +1,23 @@
-<?php $product = $view->container->get('productService')->getProductForId($review->getProductId(), $view['request']->getLocaleId()); ?>
-<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+{% set product = product_manager.productForId(review.productId, app.session.get('languages_id')) %}
+<tr class="{{ loop.index0 is odd ? 'odd' : 'event' }} {{ loop.first ? 'first' : 'other' }}">
     <td>
         {{ html.productImageLink(product)|raw }}
         <h3>{{ product.name }}</h3>
-        <?php $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating()); ?>
-        <p><img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="<?php echo $rtext ?>" /></p>
-        <h4 class="rtitle"><?php echo $html->strip($review->getTitle()) ?></h4>
-        <p class="rtext"><?php echo $html->more($html->strip($review->getText()), 120) ?></p>
+        <p>
+            <img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="{{ '%count% of 5 stars'|trans({'%count%' : review.rating}) }}" />
+        </p>
+        <h4 class="rtitle">{{ html.strip(review.title)|raw }}</h4>
+        <p class="rtext">{{ html.more(html.strip(review.text)|raw, 120)|raw }}</p>
         <p class="rinfo">
             {{ 'Date added: %date_added% by %author%'|trans({'%date_added%' : review.dateAdded|localizeddate('short', 'none'), '%author%': review.author}) }}
         </p>
     </td>
     <td class="lnks">
-        <p><a class="btn" href="{{ net.product(product.id) }}">{{ 'Product Information'|trans }}</a></p>
+        <p>
+            <a class="btn" href="{{ net.product(product.id) }}">
+                {{ 'Product Information'|trans }}
+            </a>
+        </p>
         <p>
             <a class="btn" href="{{ path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id}) }}">
                 {{ 'Read full review'|trans }}
