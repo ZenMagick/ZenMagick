@@ -335,8 +335,8 @@
     </route>
 
     <route id="product_reviews_write" pattern="/product/review/write">
-        <default key="_controller">StorefrontBundle:Redirect:process</default>
-        <option key="view">redirect://reviews</option>
+        <default key="_controller">StorefrontBundle:ProductReviewsWrite:process</default>
+        <option key="view">StorefrontBundle::product_reviews_write.html.twig</option>
         <option key="form">ZenMagick\StoreBundle\Entity\Catalog\Review#formId=newReview</option>
     </route>
 
@@ -344,7 +344,7 @@
         <default key="_controller">StorefrontBundle:Reviews:process</default>
     </route>
 
-    <route id="product_reviews_info" pattern="/produc-reviews-info">
+    <route id="product_reviews_info" pattern="/product-reviews-info">
         <default key="_controller">StorefrontBundle:ProductReviewsInfo:process</default>
     </route>
 
