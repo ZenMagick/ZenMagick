@@ -1,8 +1,11 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<h1>{{ 'Down for Maintenance ...'|trans }}</h1>
+    <h1>{{ 'Down for Maintenance ...'|trans }}</h1>
+    <h3>{{ 'The site is currently down for maintenance. Please try back later.'|trans }}</h3>
 
-<h3>{{ 'The site is currently down for maintenance. Please try back later.'|trans }}</h3>
-
-<p><a class="btn" href="{{ path('index') }}">{{ 'Check status'|trans }}</a></p>
+    <p>
+        <a class="btn" href="{{ path('index') }}">
+            {{ 'Check status'|trans }}
+        </a>
+    </p>
 {% endblock %}

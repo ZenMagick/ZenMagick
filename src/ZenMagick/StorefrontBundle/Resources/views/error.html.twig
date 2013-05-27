@@ -1,17 +1,13 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<h3>{{ 'Oops - something went wrong!'|trans }}</h3>
-<p>{{ utils.staticPageContent('error')|raw }}</p>
-<?php if ($app->getEnvironment() == 'dev') { ?>
-  <pre>
-  <?php
-     if (isset($exception)) {
-        echo "<h2>".$exception->getMessage()."</h2>\n";
-        echo $exception->getTraceAsString();
-    } else { // we don't know what happened! @todo try to figure it out
-        debug_print_backtrace();
-    }
-  ?>
-  </pre>
-<?php } ?>
+    <h3>{{ 'Oops - something went wrong!'|trans }}</h3>
+    <p>{{ utils.staticPageContent('error')|raw }}</p>
+    {% if 'dev' == app.environment %}
+        <pre>
+            {% if exception is defined %}
+                <h2>{{ exception.message }}</h2>
+                {{ exception.traceAsString|raw }}
+            {% endif %}
+        </pre>
+    {% endif %}
 {% endblock %}

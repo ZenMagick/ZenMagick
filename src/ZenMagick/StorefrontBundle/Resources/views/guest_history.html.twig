@@ -1,18 +1,20 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Guest Order Status'))); ?>
-{{ form.open('guest_history', '', true, {'id' : 'guest_history'})|raw }}
-  <fieldset>
-    <legend>{{ 'Find Guest Order'|trans }}</legend>
-    <div>
-      <label for="email">{{ 'E-Mail Address'|trans }}</label>
-      <input type="text" id="email" name="email" value="{{ app.request.get('email') }}" />
-    </div>
-    <div>
-      <label for="orderId">{{ 'Order Number'|trans }}</label>
-      <input type="text" id="orderId" name="orderId" value="{{ app.request.get('orderId') }}" />
-    </div>
-  </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}" /></div>
-</form>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Guest Order Status'))); ?>
+    {{ form.open('guest_history', '', true, {'id' : 'guest_history'})|raw }}
+        <fieldset>
+            <legend>{{ 'Find Guest Order'|trans }}</legend>
+            <div>
+                <label for="email">{{ 'E-Mail Address'|trans }}</label>
+                <input type="text" id="email" name="email" value="{{ app.request.get('email') }}"/>
+            </div>
+            <div>
+                <label for="orderId">{{ 'Order Number'|trans }}</label>
+                <input type="text" id="orderId" name="orderId" value="{{ app.request.get('orderId') }}"/>
+            </div>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Submit'|trans }}" />
+        </div>
+    </form>
 {% endblock %}
