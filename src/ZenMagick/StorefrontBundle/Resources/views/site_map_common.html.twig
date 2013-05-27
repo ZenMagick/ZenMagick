@@ -1,0 +1,42 @@
+<p>
+    {{ 'If you are having difficulty in locating something on our site, please <a href="%contact_url%">let us know</a>!'|trans({'%contact_url%' : path('contact_us')})|raw }}
+</p>
+{{ macro.categoryTree(category_manager.categoryTree(app.session.get('languages_id', 'catalog')))|raw }}
+<ul>
+    {% if not is_granted('ROLE_REGISTERED') %}
+        <li><a href="{{ path('account') }}">{{ 'My Account'|trans }}</a>
+            <ul>
+                <li><a href="{{ path('account_edit') }}">{{ 'Change Account'|trans }}</a></li>
+                <li><a href="{{ path('address_book') }}">{{ 'My Address Book'|trans }}</a></li>
+                <li><a href="{{ path('account_password') }}">{{ 'Change My Password'|trans }}</a></li>
+                <li><a href="{{ path('account_history') }}">{{ 'Order History'|trans }}</a></li>
+                <li><a href="{{ path('account_newsletters') }}">{{ 'Change Newsletter Subscriptions'|trans }}</a></li>
+                <li><a href="{{ path('account_notifications') }}">{{ 'Change Product Notifications'|trans }}</a></li>
+            </ul>
+        </li>
+        {% if not cart.empty %}
+            <li><a href="{{ path('shopping_cart') }}">{{ 'Shopping cart'|trans }}</a></li>
+            <li><a href="{{ path('checkout_shipping') }}">{{ 'Checkout'|trans }}</a></li>
+        {% endif %}
+    {% endif %}
+    <li><a href="{{ path('advanced_search') }}">{{ 'Advanced Search'|trans }}</a></li>
+    <li><a href="{{ path('products_new') }}">{{ 'New Products'|trans }}</a></li>
+    <li><a href="{{ path('specials') }}">{{ 'Specials'|trans }}</a></li>
+    <li><a href="{{ path('reviews') }}">{{ 'Reviews'|trans }}</a></li>
+    <li>{{ 'Information'|trans }}
+        <ul>
+            <li><a href="{{ path('shippinginfo') }}">{{ 'Shipping Information'|trans }}</a></li>
+            <li><a href="{{ path('privacy') }}">{{ 'Privacy Policy'|trans }}</a></li>
+            <li><a href="{{ path('conditions') }}">{{ 'Terms &amp; Conditions'|trans }}</a></li>
+            <li><a href="{{ path('contact_us') }}">{{ 'Contact Us'|trans }}</a></li>
+
+            {% if settings.get('isEnabledGV') %}
+                <li><a href="{{ path('gv_faq') }}">{{ 'Gift Voucher FAQ'|trans }}</a></li>
+            {% endif %}
+            {% if settings.get('isEnabledCoupons') %}
+                <li><a href="{{ path('discount_coupon') }}">{{ 'Coupon Lookup'|trans }}</a></li>
+            {% endif %}
+            <li><a href="{{ path('unsubscribe') }}">{{ 'Newsletter Unsubscribe'|trans }}</a></li>
+        </ul>
+    </li>
+</ul>

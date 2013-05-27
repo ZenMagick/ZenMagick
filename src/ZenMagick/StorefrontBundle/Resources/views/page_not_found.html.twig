@@ -4,5 +4,5 @@
 
     {{ utils.staticPageContent('page_not_found')|raw }}
 
-<?php echo $this->render('StorefrontBundle::site_map.html.php'); ?>
+    {{ include('@Storefront/site_map_common.html.twig') }}
 {% endblock %}
