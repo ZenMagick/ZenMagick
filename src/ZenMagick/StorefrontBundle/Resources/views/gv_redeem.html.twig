@@ -1,20 +1,26 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Redeem Gift Certificate'))); ?>
-<h2>{{ 'Redeem A Gift Certificate'|trans }}</h2>
-<?php if ($gvRedeem->isRedeemed()) { ?>
-  <p>{{ 'Congratulations, you have redeemed a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(gvRedeem.amount)}) }}</p>
-<?php } else { ?>
-  {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
-    <fieldset>
-      <legend>{{ 'Redemption code details'|trans }}</legend>
-      <div>
-        <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
-        <input type="text" id="gvCode" name="couponCode" value="{{ gvRedeem.couponCode }}" />
-      </div>
-    </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Redeem'|trans }}" /></div>
-  </form>
-<?php } ?>
-<p>{{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link%' : path('gv_faq')})|raw }}</p>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Redeem Gift Certificate'))); ?>
+    <h2>{{ 'Redeem A Gift Certificate'|trans }}</h2>
+    {% if gvRedeem.redeemed %}
+        <p>
+            {{ 'Congratulations, you have redeemed a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(gvRedeem.amount)}) }}
+        </p>
+    {% else %}
+        {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
+            <fieldset>
+                <legend>{{ 'Redemption code details'|trans }}</legend>
+                <div>
+                    <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
+                    <input type="text" id="gvCode" name="couponCode" value="{{ gvRedeem.couponCode }}"/>
+                </div>
+            </fieldset>
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Redeem'|trans }}" />
+            </div>
+        </form>
+    {% endif %}
+    <p>
+        {{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link%' : path('gv_faq')})|raw }}
+    </p>
 {% endblock %}
