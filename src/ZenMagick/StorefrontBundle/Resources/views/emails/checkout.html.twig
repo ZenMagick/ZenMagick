@@ -1,64 +1,64 @@
-<?php use ZenMagick\Base\Toolbox; ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="<?php echo $language->getCode() ?>">
+<html lang="{{ language.code }}">
 <head>
-<title>{{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}</title>
+    <title>{{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}</title>
 </head>
 <body>
-<div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p>{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
-<p>{{ 'The following is a summary of your order.'|trans }}</p>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
+        <p>{{ 'The following is a summary of your order.'|trans }}</p>
 
-<h3>{{ 'Order Details'|trans }}</h3>
-<p>
-    {{ 'Order Number: #%id%'|trans({'%id%' : order.id}) }}<br>
-    {{ 'Order Date: %date%'|trans({'%date%' : order.orderDate|localizeddate('short', 'none')}) }}
-</p>
+        <h3>{{ 'Order Details'|trans }}</h3>
+        <p>
+            {{ 'Order Number: #%id%'|trans({'%id%' : order.id}) }}<br>
+            {{ 'Order Date: %date%'|trans({'%date%' : order.orderDate|localizeddate('short', 'none')}) }}
+        </p>
 
-<h4>{{ 'Ordered Items'|trans }}</h4>
-<table cellpadding="3" cellspacing="2">
-<?php foreach ($order->getOrderItems() as $orderItem) { ?>
-<tr>
-<td><?php echo $orderItem->getQuantity() ?> x </td>
-<td>{{ orderItem.name }}</td>
-<td>{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
-</tr>
-<?php } ?>
-<?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
-<tr>
-<td colspan="2">{{ orderTotalLine.name }}</td>
-<td><?php echo $orderTotalLine->getValue() ?></td>
-</tr>
-<?php } ?>
-</table>
+        <h4>{{ 'Ordered Items'|trans }}</h4>
+        <table cellpadding="3" cellspacing="2">
+            {% for orderItem in order.orderItems %}
+                <tr>
+                    <td>{{ orderItem.quantity }} x </td>
+                    <td>{{ orderItem.name }}</td>
+                    <td>{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
+                </tr>
+            {% endfor %}
+            {% for orderTotalLine in order.orderTotalLines %}
+                <tr>
+                    <td colspan="2">{{ orderTotalLine.name }}</td>
+                    <td>{{ orderTotalLine.value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
-<h3>{{ 'Address Details'|trans }}</h3>
-<table cellpadding="3" cellspacing="2">
-<tr>
-<td valign="top">
-<h4>{{ 'Shipping Address'|trans }}</h4>
-<?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
-{{ 'N/A'|trans }}
-<?php } else { ?>
-{{ macro.formatAddress(shippingAddress)|raw }}
-<?php } ?>
-</td>
-<td valign="top">
-<h4>{{ 'Billing Address'|trans }}</h4>
-{{ macro.formatAddress(billingAddress)|raw }}
-</td>
-</tr>
-</table>
+        <h3>{{ 'Address Details'|trans }}</h3>
+        <table cellpadding="3" cellspacing="2">
+            <tr>
+                <td valign="top">
+                    <h4>{{ 'Shipping Address'|trans }}</h4>
+                    {% if order.storePickup or not order.hasShippingAddress %}
+                        {{ 'N/A'|trans }}
+                    {% else %}
+                        {{ macro.formatAddress(shippingAddress)|raw }}
+                    {% endif %}
+                </td>
+                <td valign="top">
+                    <h4>{{ 'Billing Address'|trans }}</h4>
+                    {{ macro.formatAddress(billingAddress)|raw }}
+                </td>
+            </tr>
+        </table>
 
-<h3>{{ 'Payment Details'|trans }}</h3>
-<?php if (null != ($paymentType = $order->getPaymentType())) { ?>
-<p><?php echo $paymentType->getName() ?></p>
-<?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
-<p><?php echo nl2br($paymentType->getInfo()) ?></p>
-<?php } ?>
-<?php } ?>
+        <h3>{{ 'Payment Details'|trans }}</h3>
+        {% set paymentType = order.paymentType %}
+        {% if null != paymentType %}
+            <p>{{ paymentType.name }}</p>
+            {% if paymentType.info is not empty %}
+                <p>{{ paymentType.info|nl2br }}</p>
+            {% endif %}
+        {% endif %}
 
-    {{ utils.staticPageContent('email_advisory')|raw }}
-</div>
+        {{ utils.staticPageContent('email_advisory')|raw }}
+    </div>
 </body>
 </html>

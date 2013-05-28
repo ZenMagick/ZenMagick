@@ -1,36 +1,36 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="<?php echo $language->getCode() ?>">
+<html lang="{{ language.code }}">
 <head>
-<title>{{ 'Welcome to %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</title>
+    <title>{{ 'Welcome to %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</title>
 </head>
 <body>
-<body>
-<div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
 
-<p>{{ 'We wish to welcome you to %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
-<div>{{ utils.staticPageContent('email_welcome')|raw }}</div>
+        <p>{{ 'We wish to welcome you to %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
+        <div>{{ utils.staticPageContent('email_welcome')|raw }}</div>
 
-<?php if ($newAccountDiscountCoupon) { ?>
-<div>
-  <p><?php echo _zm('Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!') ?></p>
-  <p>{{ 'The coupon is valid between %start_date% and %end_date%'|trans({'%start_date%' : newAccountDiscountCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : newAccountDiscountCoupon.expiryDate|localizeddate('short', 'none')}) }}</p>
-  <p>{{ 'To use the Discount Coupon, enter the Redemption Code code during checkout: %code%'|trans({'%code%' : newAccountDiscountCoupon.code}) }}</p>
-</div>
-<?php } ?>
-<?php if ($newAccountDiscountCoupon) { ?>
-<div>
-  <p>{{ 'Just for stopping by today, we have sent you a Gift Certificate for %amount%! The Gift Certificate Redemption Code is: %code%'|trans({'%amount%' : utils.formatMoney(newAccountGVAmountCoupon.amount), '%code%' : newAccountGVAmountCoupon.code}) }}</p>
-  <p>
-    {{ 'You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href="%redeem_url%">Redeem</a>'|trans({'%redeem_url%' : url('gv_redeem', {'gv_no' : newAccountGVAmountCoupon.code})}) }}
-  </p>
-  <p><?php echo _zm('Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!') ?></p>
-</div>
-<?php } ?>
-<p>{{'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}</p>
 
-{{ utils.staticPageContent('email_advisory')|raw }}
-<?php echo $office_only_html; ?>
-</div>
+        {% if newAccountDiscountCoupon %}
+            <div>
+                <p>{{ 'Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!'|trans }}</p>
+                <p>{{ 'The coupon is valid between %start_date% and %end_date%'|trans({'%start_date%' : newAccountDiscountCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : newAccountDiscountCoupon.expiryDate|localizeddate('short', 'none')}) }}</p>
+                <p>{{ 'To use the Discount Coupon, enter the Redemption Code code during checkout: %code%'|trans({'%code%' : newAccountDiscountCoupon.code}) }}</p>
+            </div>
+        {% endif %}
+        {% if newAccountGVAmountCoupon %}
+            <div>
+                <p>{{ 'Just for stopping by today, we have sent you a Gift Certificate for %amount%! The Gift Certificate Redemption Code is: %code%'|trans({'%amount%' : utils.formatMoney(newAccountGVAmountCoupon.amount), '%code%' : newAccountGVAmountCoupon.code}) }}</p>
+                <p>
+                    {{ 'You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href="%redeem_url%">Redeem</a>'|trans({'%redeem_url%' : url('gv_redeem', {'gv_no' : newAccountGVAmountCoupon.code})}) }}
+                </p>
+                <p>{{ 'Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!'|trans }}</p>
+            </div>
+        {% endif %}
+        <p>{{'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}</p>
+
+        {{ utils.staticPageContent('email_advisory')|raw }}
+        {{ office_only_html|raw }}
+    </div>
 </body>
 </html>

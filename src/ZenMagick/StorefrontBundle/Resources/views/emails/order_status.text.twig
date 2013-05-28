@@ -3,21 +3,22 @@
 
 {{ 'This is to inform you that your order #%id% has been updated.'|trans({'%id%': currentOrder.id}) }}
 
-<?php if (ZenMagick\StoreBundle\Entity\Account::REGISTERED == $currentAccount->getType()) { ?>
+
+{% if constant('ZenMagick\\StoreBundle\\Entity\\Account::REGISTERED') == currentAccount.type %}
 {{ 'More details can be found at the following URL: %account_history_url%'|trans({'%account_history_url%' : url('account_history_info', {'order_id' : currentOrder.id})}) }}
-<?php } else { ?>
+{% else %}
 {{ 'You can check the status of your order at: %guest_history_url%'|trans({'%guest_history_url%' : url('guest_history')}) }}
-<?php } ?>
+{% endif %}
 
-<?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
-    {{ 'The new order status is: %status%.'|trans({'%status%' : newOrderStatus}) }}
-<?php } ?>
+{% if newOrderStatus != currentOrder.statusName %}
+{{ 'The new order status is: %status%.'|trans({'%status%' : newOrderStatus}) }}
+{% endif %}
 
-<?php if (!empty($comment)) { ?>
+{% if comment is not empty %}
 {{ 'The following comment has been added to your order:'|trans }}
 
-<?php echo $comment ?>
-<?php } ?>
+{{ comment }}
+{% endif %}
 
 
 {{ 'Regards, %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}

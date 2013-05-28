@@ -1,4 +1,3 @@
-<?php use ZenMagick\Base\Toolbox; ?>
 {{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}
 
 
@@ -19,17 +18,17 @@
 {{ 'Ordered Items'|trans }}
 
 -----------------------------------------------
-<?php foreach ($order->getOrderItems() as $orderItem) { ?>
-<?php printf("%3s x %26s  %7s", $orderItem->getQuantity(), $orderItem->getName(), utils.formatMoney(orderItem.calculatedPrice)) ?>
+{% for orderItem in order.orderItems %}
+{{ '%3s x %26s  %7s'|format(orderItem.quantity, orderItem.name, utils.formatMoney(orderItem.calculatedPrice)) }}
 
-<?php } ?>
+{% endfor %}
 
-<?php printf("%30s  %s", "", "-----------") ?>
+{{ '%30s  %s'|format('', '-----------') }}
 
-<?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
-<?php printf("%32s  %7s", $orderTotalLine->getName(), $orderTotalLine->getValue()) ?>
+{% for orderTotalLine in order.orderTotalLines %}
+{{ '%32s  %7s'|format(orderTotalLine.name, orderTotalLine.value) }}
 
-<?php } ?>
+{% endfor %}
 
 
 {{ 'Address Details'|trans }}
@@ -37,11 +36,11 @@
 -----------------------------------------------
 
 {{ 'Shipping Address'|trans }}
-<?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
+{% if order.storePickup or not order.hasShippingAddress %}
 {{ 'N/A'|trans }}
-<?php } else { ?>
+{% else %}
 {{ macro.formatAddress(shippingAddress, false)|raw }}
-<?php } ?>
+{% endif %}
 
 
 {{ 'Billing Address'|trans }}
@@ -53,14 +52,14 @@
 
 -----------------------------------------------
 
-<?php if (null != ($paymentType = $order->getPaymentType())) { ?>
+{% set paymentType = order.paymentType %}
+{% if null != order.paymentType %}
 {{ paymentType.name }}
-<?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
+{% if paymentType.info is not empty %}
 
-
-<?php echo $paymentType->getInfo() ?>
-<?php } ?>
-<?php } ?>
+{{ paymentType.info }}
+{% endif %}
+{% endif %}
 
 
 {{ utils.staticPageContent('email_advisory')|striptags }}

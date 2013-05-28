@@ -5,15 +5,15 @@
 
 {{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
 
-<?php if ($gvReceiver->hasMessage()) { ?>
-    {{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
+{% if gvReceiver.hasMessage %}
+{{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
 
-<?php echo $gvReceiver->getMessage() ?>
-
-<?php } ?>
+{{ gvReceiver.message }}
+{% endif %}
 
 {{ 'To redeem your gift, visit %redeem_url%'|trans({'%redeem_url%' : url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
 
-
+{% if isSupressDisclaimer is not defined %}
 {{ utils.staticPageContent('email_advisory')|striptags }}
-<?php echo $office_only_text; ?>
+{% endif %}
+{{ office_only_text }}

@@ -7,9 +7,12 @@
 
 
 -------------------------------------------
-<?php echo $contactInfo->getMessage() ?>
+{{ contactInfo.message }}
 
 -------------------------------------------
 
-{{ utils.staticPagecontent('email_advisory')|striptags }}
-<?php echo $office_only_text; ?>
+{% if isSupressDisclaimer is not defined %}
+    {{ utils.staticPageContent('email_advisory')|striptags }}
+{% endif %}
+
+{{ office_only_text }}

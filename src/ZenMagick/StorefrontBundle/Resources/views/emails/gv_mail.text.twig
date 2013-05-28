@@ -1,8 +1,8 @@
-<?php if (empty($message)) { ?>
+{% if message is empty %}
 {{ 'We\'re pleased to offer you a Gift Certificate'|trans }}
-<?php } else { ?>
-<?php echo $message; ?>
-<?php } ?>
+{% else %}
+{{ message }}
+{% endif %}
 
 
 {{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}
@@ -15,4 +15,4 @@
 
 
 {{ utils.staticPageContent('email_advisory')|striptags }}
-<?php echo $office_only_text; ?>
+{{ office_only_text }}

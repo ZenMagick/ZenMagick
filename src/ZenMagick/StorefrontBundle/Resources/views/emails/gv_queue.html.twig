@@ -1,26 +1,25 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="<?php echo $language->getCode() ?>">
+<html lang="{{ language.code }}">
 <head>
-<title>{{ 'Gift Certificate Order #%id%'|trans({'%id%' : currentOrder.id }) }}</title>
+    <title>{{ 'Gift Certificate Order #%id%'|trans({'%id%' : currentOrder.id }) }}</title>
 </head>
 <body>
-<body>
-<div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
 
-<p>{{ 'You recently purchased a Gift Certificate from our online store at %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
+        <p>{{ 'You recently purchased a Gift Certificate from our online store at %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
 
-<p>{{ 'For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.'|trans }}</p>
+        <p>{{ 'For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.'|trans }}</p>
 
-<p>{{ 'The Gift Certificate(s) you purchased are worth %amount%'|trans({'%amount%' : utils.formatMoney(couponQueue.getAmount, false)}) }}</p>
+        <p>{{ 'The Gift Certificate(s) you purchased are worth %amount%'|trans({'%amount%' : utils.formatMoney(couponQueue.getAmount, false)}) }}</p>
 
-<p>{{ 'Thank you for shopping with us!'|trans }}</p>
-<p>{{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}</p>
+        <p>{{ 'Thank you for shopping with us!'|trans }}</p>
+        <p>{{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}</p>
 
-<?php if (!isset($isSupressDisclaimer)) { ?>
-    {{ utils.staticPageContent('email_advisory')|raw }}
-<?php } ?>
-<?php echo $office_only_html; ?>
-</div>
+        {% if isSupressDisclaimer is not defined %}
+            {{ utils.staticPageContent('email_advisory')|raw }}
+        {% endif %}
+        {{ office_only_html|raw }}
+    </div>
 </body>
 </html>

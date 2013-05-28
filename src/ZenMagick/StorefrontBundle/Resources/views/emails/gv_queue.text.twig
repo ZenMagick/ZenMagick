@@ -14,6 +14,8 @@
 
 {{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}
 
-
+{% if isSupressDisclaimer is not defined %}
 {{ utils.staticPageContent('email_advisory')|striptags }}
-<?php echo $office_only_text; ?>
+{% endif %}
+
+{{ office_only_text }}
