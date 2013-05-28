@@ -1,26 +1,30 @@
-<?php $view->extend('::base.html.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
-    <?php echo $this->render('StorefrontBundle::head.html.php'); ?>
-    <?php
-    // @todo move to asset groups to a configuration file
-    foreach ($view['assetic']->stylesheets(
-            array('bundles/storefront/css/popup.css',
-            ),
-            array('cssrewrite')) as $url) {
-            echo '<link rel="stylesheet" href="'.$view->escape($url).'" />';
-    }
-    foreach ($view['assetic']->javascripts(
-            array('@StorefrontBundle/Resources/public/js/*'
-            ),
-            array()) as $url) {
-            echo '<script src="'.$view->escape($url).'"></script>';
-    }
-    ?>
-  </head>
+<head>
+    {{ include('@Storefront/head.html.twig') }}
+    {% block stylesheets %}
+        {% stylesheets
+            'bundles/storefront/css/popup.css'
+            filter='?cssmin, cssrewrite'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+    {# @todo move some bits to footer #}
+    {% block javascripts %}
+        {% javascripts
+            '@StorefrontBundle/Resources/public/js/jquery.js'
+            '@StorefrontBundle/Resources/public/js/jquery.form.js'
+            '@StorefrontBundle/Resources/public/js/common.js'
+            '@StorefrontBundle/Resources/public/js/validation.js'
+            filter='?jsminplus'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts%}
+    {% endblock %}
+</head>
 
-  <body id="pb_<?php echo $view['request']->getRouteId() ?>">
-    <?php $view['slots']->output('_content'); ?>
-  </body>
+<body id="pb_{{ app.request.requestId }}">
+    {% block body %}{% endblock %}
+</body>
 </html>

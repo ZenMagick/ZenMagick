@@ -1,69 +1,79 @@
 {% extends '@Storefront/popup_layout.html.twig' %}
 {% block body %}
-<?php
-  $shoppingCart = $view->container->get('shoppingCart');
-  $shippingEstimator = new ZenMagick\StorefrontBundle\Utils\ShippingEstimator();
-  $shippingEstimator->prepare();
+    {% set shippingEstimator = bean('ZenMagick\\StorefrontBundle\\Utils\\ShippingEstimator') %}
+    {% set se = shippingEstimator.prepare %}
 
-?>
+    <h1>{{ 'Shipping Calculator'|trans }}</h1>
 
-<h1>{{ 'Shipping Calculator'|trans }}</h1>
-
-<?php if ($shippingEstimator->isCartEmpty()) { ?>
-    <h2>{{ 'Shipping not available'|trans }}</h2>
-    <p>{{ 'Whoops! Either your shopping cart is empty or your session has expired.'|trans }}</p>
-<?php } else { ?>
-    <?php $address = $shippingEstimator->getAddress(); ?>
-    <?php if (null != $address) { ?>
-        <h4>{{ 'Ship To'|trans }}</h4>
-        <div id="cadr">
-            {{ macro.formatAddress(address)|raw }}
-        </div>
-    <?php } else { ?>
-        {{ form.open('popup_shipping_estimator', '', true)|raw }}
-          <table cellspacing="0" cellpadding="0"><tbody>
-             <tr>
-                <td>{{ 'Country'|trans }}</td>
-                <td><?php echo $form->idpSelect('country_id', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $view->container->get('countryService')->getCountries()), $shippingEstimator->getCountryId()) ?></td>
-            </tr>
-            <tr>
-                <td>{{ 'State/Province'|trans }}</td>
-                <td>
-                    <?php $zones = $view->container->get('countryService')->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
-                    <?php if (0 < count($zones)) { ?>
-                        <?php echo $form->idpSelect('state', array_merge(array(new ZMIdNamePair("", _zm("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
-                    <?php } else { ?>
-                        <input type="text" name="state" value="" />
-                    <?php } ?>
-                </td>
-              </tr>
-              <tr>
-                  <td>{{ 'Post Code'|trans }}</td>
-                  <td><input type="text" id="zip_code" name="zip_code" value="<?php echo $shippingEstimator->getPostcode() ?>" /></td>
-              </tr>
-          </tbody></table>
-          <div class="btn"><input type="submit" value="{{ 'Calculate'|trans }}" /></div>
-        </form>
-    <?php } ?>
-    <?php if ($shoppingCart->getCheckoutHelper()->isFreeShipping()) { ?>
-        <p class="inst">{{ 'Shipping is free!'|trans }}</p>
-    <?php } else {?>
-        <table border="1" cellpadding="2" cellspacing ="2" id="smethods">
-            <tr>
-                <th id="smname">{{ 'Shipping Method'|trans }}</th>
-                <th id="smcost">{{ 'Charge'|trans }}</th>
-            </tr>
-            <?php $providers = $shoppingCart->getShippingProviders(); ?>
-            <?php foreach ($providers as $provider) { ?>
-                <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods($shoppingCart) as $method) { $id = 'ship_'.$method->getId();?>
-                    <?php $selected = false; /* TODO */ ?>
-                    <tr class="smethod<?php echo ($selected ? " sel" : "") ?>">
-                        <td class="smname"><strong>{{ provider.name }}</strong> {{ method.name }}</td>
-                        <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
-                    </tr>
-                <?php } ?>
-            <?php } ?>
-        </table>
-    <?php } ?>
-<?php } ?>
+    {% if shippingEstimator.cartEmpty %}
+        <h2>{{ 'Shipping not available'|trans }}</h2>
+        <p>{{ 'Whoops! Either your shopping cart is empty or your session has expired.'|trans }}</p>
+    {% else %}
+        {% set address = shippingEstimator.address %}
+        {% if null != address %}
+            <h4>{{ 'Ship To'|trans }}</h4>
+            <div id="cadr">
+                {{ macro.formatAddress(address)|raw }}
+            </div>
+        {% else %}
+            {{ form.open('popup_shipping_estimator', '', true)|raw }}
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>{{ 'Country'|trans }}</td>
+                            <td>
+                                {% set country_select = [bean('ZMIdNamePair#id=&name=' ~ 'Select Country'|trans)] %}
+                                {{ form.idpSelect('country_id', country_select|merge(countries.countries), shippingEstimator.countryId)|raw }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'State/Province'|trans }}</td>
+                            <td>
+                                {% set zones = countries.zonesForCountryId(shippingEstimator.countryId) %}
+                                {% if 0 < zones|length %}
+                                    {% set state_select = [bean('ZMIdNamePair#id=&name=' ~ 'Select State'|trans)] %}
+                                    {{ form.idpSelect('state', state_select|merge(zones), shippingEstimator.stateId)|raw }}
+                                {% else %}
+                                    <input type="text" name="state" value="" />
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'Post Code'|trans }}</td>
+                            <td>
+                                <input type="text" id="zip_code" name="zip_code" value="{{ shippingEstimator.postcode }}" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn">
+                    <input type="submit" value="{{ 'Calculate'|trans }}" />
+                </div>
+            </form>
+        {% endif %}
+        {% if cart.checkoutHelper.freeShipping %}
+            <p class="inst">{{ 'Shipping is free!'|trans }}</p>
+        {% else %}
+            <table border="1" cellpadding="2" cellspacing ="2" id="smethods">
+                <tr>
+                    <th id="smname">{{ 'Shipping Method'|trans }}</th>
+                    <th id="smcost">{{ 'Charge'|trans }}</th>
+                </tr>
+                <?php $providers = $shoppingCart->getShippingProviders(); ?>
+                {% for provider in cart.shippingProviders if not provider.hasError %}
+                    {% for method in provider.shippingMethods(cart) %}
+                        {% set id = 'ship_' ~ method.id %}
+                        {% set selected = false %} {# TODO #}
+                        <tr class="smethod {{ selected ? 'sel' }}">
+                            <td class="smname">
+                                <strong>{{ provider.name }}</strong>
+                                {{ method.name }}
+                            </td>
+                            <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
 {% endblock %}
