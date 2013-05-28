@@ -1,75 +1,85 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping'))); ?>
-<fieldset>
-    <legend>{{ 'Shipping Address'|trans }}</legend>
-    <div class="btn">
-        <a class="btn" href="{{ path('checkout_shipping_address') }}">{{ 'Change Shipping Address'|trans }}</a>
-    </div>
-    {{ macro.formatAddress(shoppingCart.shippingAddress)|raw }}
-</fieldset>
-
-{{ form.open('checkout_shipping')|raw }}
-    <?php if ($shoppingCart->getShippingProviders()) { ?>
-        <fieldset>
-            <legend>{{ 'Shipping Methods'|trans }}</legend>
-            <p class="inst">{{ 'Please select the preferred shipping method to use on this order.'|trans }}</p>
-            <table cellpadding="0" cellspacing="0" id="smethods">
-                <thead>
-                    <tr>
-                        <th id="smname"></th>
-                        <th id="smcost"></th>
-                        <th id="smbutt"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php $providers = $shoppingCart->getShippingProviders(); ?>
-                <?php foreach ($providers as $provider) { ?>
-                  <?php $methods = $shoppingCart->getMethodsForProvider($provider); ?>
-                  <?php if ($shoppingCart->getCheckoutHelper()->isFreeShipping()) { $id = 'free_free'; ?>
-                      <?php $selected = (0 == count($providers) && 0 == count($methods)); ?>
-                      <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                          <td>{{ 'Free Shipping'|trans }}</td>
-                          <td class="smcost">{{  utils.formatMoney(0) }}</td>
-                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>" {{ form.checked(true, selected)|raw }} /></td>
-                      </tr>
-                  <?php } ?>
-                  <?php $errors = $provider->getErrors(); ?>
-                  <?php if (0 < count($methods) || $provider->hasErrors()) { ?>
-                    <tr><td colspan="3">
-                      <strong>{{ provider.name }}</strong>
-                      <?php if ($provider->hasIcon()) { ?>
-                        <img src="<?php echo $provider->getIcon() ?>" alt="{{ provider.name }}" title="{{ provider.name }}">
-                      <?php } ?>
-                      {% if provider.hasErrors %}
-                          <br />
-                          {{ '(%error%)'|trans({'%error%': errors[0] }) }}
-                      {%endif %}
-                    </td></tr>
-                  <?php } ?>
-                  <?php foreach ($methods as $method) { ?>
-                      <?php $id = 'ship_'.$method->getId();?>
-                      <?php $selected = (1 == count($methods) && 1 == count($providers)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
-                      <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                          <td>{{ method.name }}</td>
-                          <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
-                          <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>" {{ form.checked(true, selected)|raw }} /></td>
-                      </tr>
-                  <?php } ?>
-                <?php } ?>
-                </tbody>
-            </table>
-        </fieldset>
-    <?php } ?>
-
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping'))); ?>
     <fieldset>
-        <legend>{{ 'Comments'|trans }}</legend>
-        <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
-        <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr></table>
+        <legend>{{ 'Shipping Address'|trans }}</legend>
+        <div class="btn">
+            <a class="btn" href="{{ path('checkout_shipping_address') }}">
+                {{ 'Change Shipping Address'|trans }}
+            </a>
+        </div>
+        {{ macro.formatAddress(shoppingCart.shippingAddress)|raw }}
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
-</form>
+    {{ form.open('checkout_shipping')|raw }}
+        {% if shoppingCart.shippingProviders %}
+            <fieldset>
+                <legend>{{ 'Shipping Methods'|trans }}</legend>
+                <p class="inst">{{ 'Please select the preferred shipping method to use on this order.'|trans }}</p>
+                <table id="smethods">
+                    <thead>
+                        <tr>
+                            <th id="smname"></th>
+                            <th id="smcost"></th>
+                            <th id="smbutt"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set providers = shoppingcart.shippingProviders %}
+                        {% for provider in providers %}
+                            {% set methods = shoppingCart.methodsForProvider(provider) %}
+                            {% if shoppingCart.checkoutHelper.freeShipping %}
+                                {% set id = 'free_free' %}
+                                {% set selected = 0 == providers|length and 0 == methods|length %}
+                                <tr class="smethod" onclick="document.getElementById('{{ id }}').checked = true;">
+                                    <td>{{ 'Free Shipping'|trans }}</td>
+                                    <td class="smcost">{{  utils.formatMoney(0) }}</td>
+                                    <td class="smbutt">
+                                        <input type="radio" id="{{ id }}" name="shipping" value="{{ id }}" {{ form.checked(true, selected)|raw }} />
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% set errors = provider.errors %}
+                            {% if 0 < methods|length or provider.hasErrors %}
+                                <tr>
+                                    <td colspan="3">
+                                        <strong>{{ provider.name }}</strong>
+                                        {% if provider.hasIcon %}
+                                            <img src="{{ provider.icon }}" alt="{{ provider.name }}" title="{{ provider.name }}" />
+                                        {% endif %}
+                                        {% if provider.hasErrors %}
+                                            <br />
+                                            {{ '(%error%)'|trans({'%error%': errors[0]|raw }) }}
+                                        {%endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% for method in methods %}
+                                {% set id = 'ship_' ~ method.id %}
+                                {% set selected = (1 == methods|length or 1 == provider|length) or method.shippingId == shoppingcart.selectedShippingMethodID %}
+                                <tr class="smethod" onclick="document.getElementById('{{ id }}').checked = true;">
+                                    <td>{{ method.name }}</td>
+                                    <td class="smcost">{{ utils.formatMoney(method.cost) }}</td>
+                                    <td class="smbutt">
+                                        <input type="radio" id="{{ id }}" name="shipping" value="{{ method.shippingId }}" {{ form.checked(true, selected)|raw }} />
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </fieldset>
+        {% endif %}
+
+        <fieldset>
+            <legend>{{ 'Comments'|trans }}</legend>
+            <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
+            {# Fix for IE bug regarding textarea... (still valid?) #}
+            <table><tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr></table>
+        </fieldset>
+
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+        </div>
+    </form>
 {% endblock %}

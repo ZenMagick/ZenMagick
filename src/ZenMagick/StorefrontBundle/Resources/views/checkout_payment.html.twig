@@ -1,98 +1,114 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Payment Method'))); ?>
+    <fieldset>
+        <legend>{{ 'Billing Address'|trans }}</legend>
+        <div class="btn">
+            <a class="btn" href="{{ path('checkout_payment_address') }}">
+                {{ 'Change Billing Address'|trans }}
+            </a>
+        </div>
+        {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
+    </fieldset>
 
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Payment Method'))); ?>
-<fieldset>
-    <legend>{{ 'Billing Address'|trans }}</legend>
-    <div class="btn">
-        <a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change Billing Address'|trans }}</a>
-    </div>
-    {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
-</fieldset>
+    <script>var submitter = 0;</script>
+    {{ shoppingcart.paymentFormValidationJS(app.request)|raw }}
 
-<script type="text/javascript">var submitter = 0;</script>
-<?php echo $shoppingCart->getPaymentFormValidationJS($app->getRequest()) ?>
+    {{ form.open('checkout_confirmation', '', true, {'id' : 'checkout_payment', 'onsubmit' : 'return check_form();'})|raw }}
+        {% if settings.get('isConditionsMessage') %}
+            <fieldset>
+                <legend>{{ 'Terms and Conditions'|trans }}</legend>
+                <p>
+                    {{ 'Please acknowledge the terms and conditions bound to this order by ticking the following box.'|trans }}</br>
+                    {{ 'The terms and conditions can be read <a href="%conditions_url%">here</a>.'|trans({'%conditions_url%' : net.staticPage('conditions')})|raw }}
+                </p>
+                <p>
+                    <input type="checkbox" id="conditions" name="conditions" value="1" />
+                    <label for="conditions">{{ 'I have read and agreed to the terms and conditions bound to this order.'|trans }}</label>
+                </p>
+            </fieldset>
+        {% endif %}
+        <fieldset>
+            <legend>{{ 'Order Totals'|trans }}</legend>
+            <table id="ot">
+                <tbody>
+                    {% for total in shoppingCart.totals %}
+                        <tr>
+                            <td class="total">{{ total.name }}</td>
+                            <td class="price {{ 'total' == total.type ? 'tot' }}">
+                                {{ total.value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
 
-{{ form.open('checkout_confirmation', '', true, {'id' : 'checkout_payment', 'onsubmit' : 'return check_form();'})|raw }}
-  <?php if (settings.get('isConditionsMessage')) { ?>
-      <fieldset>
-          <legend>{{ 'Terms and Conditions'|trans }}</legend>
-          <p>
-              {{ 'Please acknowledge the terms and conditions bound to this order by ticking the following box.'|trans }}</br>
-              <?php $href = $net->staticPage('conditions'); ?>
-              {{ 'The terms and conditions can be read <a href="%conditions_url%">here</a>.'|trans({'%conditions_url%' : href})|raw }}</p>
-          <p><input type="checkbox" id="conditions" name="conditions" value="1" /><label for="conditions">{{ 'I have read and agreed to the terms and conditions bound to this order.'|trans }}</label></p>
-      </fieldset>
-  <?php } ?>
-  <fieldset>
-      <legend>{{ 'Order Totals'|trans }}</legend>
-      <table id="ot" cellspacing="0" cellpadding="0">
-          <tbody>
-          <?php
-              $totals = $shoppingCart->getTotals();
-              foreach ($totals as $total) {
-                  $tot = '';
-                  if ('total' == $total->getType()) {
-                      $tot = ' tot';
-                  }
-                  ?><tr>
-                      <td class="total"><?php echo $total->getName() ?></td>
-                      <td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td>
-                  </tr><?php
-              }
-          ?>
-          </tbody>
-      </table>
-  </fieldset>
+        {% set creditTypes = shoppingcart.creditTypes %}
+        {% if 0 < creditTypes|length %}
+            <fieldset>
+                <legend>{{ 'Credit Options'|trans }}</legend>
+                {% for type in creditTypes %}
+                    <p class="credittype">{{ type.name }}</p>
+                    <div class="instr">{{ type.instructions }}</div>
+                    <table class="pt">
+                        <tbody>
+                            {% for field in type.fields %}
+                                <tr>
+                                    <td>
+                                        <label>{{ field.label }}</label>
+                                    </td>
+                                    <td>{{ field.HTML|raw }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </fieldset>
+        {% endif %}
 
-  <?php $creditTypes = $shoppingCart->getCreditTypes(); ?>
-  <?php if (0 < count($creditTypes)) { ?>
-      <fieldset>
-          <legend>{{ 'Credit Options'|trans }}</legend>
-          <?php foreach ($creditTypes as $type) { ?>
-              <p class="credittype"><?php echo $type->getName() ?></p>
-              <div class="instr"><?php echo $type->getInstructions() ?></div>
-              <table class="pt" cellpadding="0" cellspacing="0"><tbody>
-                  <?php foreach ($type->getFields() as $field) { ?>
-                     <tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr>
-                  <?php } ?>
-              </tbody></table>
-          <?php } ?>
-      </fieldset>
-  <?php } ?>
+        <fieldset id="paytypes">
+            <legend>{{ 'Payment Options'|trans }}</legend>
+            {% set paymentTypes = shoppingCart.paymentTypes %}
+            {% for type in paymentTypes %}
+                {% if 1 == paymentTypes|length %}
+                    <p><input type="hidden" id="pt_{{ type.id }}" name="payment" value="{{ type.id }}" />
+                {% else %}
+                    <p class="paytype" onclick="document.getElementById('pt_{{ type.id }}').checked = true;">
+                    <input type="radio" id="pt_{{ type.id }}" name="payment" value="{{ type.id }}" {{ form.checked(shoppingCart.selectedPaymentTypeId, type.id)|raw }} />
+                {% endif %}
+                <label for="pt_{{ type.id }}">{{ type.name }}</label>
+                </p>
+                {% set fields = type.fields %}
+                {% if 0 < fields|length %}
+                    <table class="pt">
+                        <tbody>
+                            {% for field in fields %}
+                                <tr>
+                                    <td>
+                                        <label>{{ field.label }}</label>
+                                    </td>
+                                    <td>{{ field.HTML|raw }}</td>
+                                </tr>
 
-  <fieldset id="paytypes">
-      <legend>{{ 'Payment Options'|trans }}</legend>
-  <?php
-      $paymentTypes = $shoppingCart->getPaymentTypes();
-      $single = 1 == count($paymentTypes);
-      foreach ($paymentTypes as $type) {
-        $sptid = 'pt_'.$type->getId();
-        if ($single) {
-          ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
-        } else {
-          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" {{ form.checked(shoppingCart.selectedPaymentTypeId, type.id)|raw }} /><?php
-        }
-        ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
-        $fields = $type->getFields();
-        if (0 < count($fields)) {
-            ?><table class="pt" cellpadding="0" cellspacing="0"><tbody><?php
-            foreach ($fields as $field) {
-              ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
-            }
-            ?></tbody></table><?php
-          }
-      }
-  ?>
-  </fieldset>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </fieldset>
 
-  <fieldset>
-      <legend>{{ 'Comments'|trans }}</legend>
-      <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
-      <?php /* Fix for IE bug regarding textarea... */ ?>
-      <table><tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr></table>
-  </fieldset>
+        <fieldset>
+            <legend>{{ 'Comments'|trans }}</legend>
+            <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
+            {# Fix for IE bug regarding textarea... (still valid?) #}
+            <table>
+                <tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr>
+            </table>
+        </fieldset>
 
-  <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
-</form>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+        </div>
+    </form>
 {% endblock %}

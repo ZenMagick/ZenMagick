@@ -1,103 +1,124 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php use ZenMagick\Base\Toolbox; ?>
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout'))->addCrumb(_zm('Summary'))); ?>
-<fieldset>
-    <legend>{{ 'Shopping Cart Contents'|trans }}</legend>
-    <table cellpadding="0" cellspacing="0" id="cart">
-        <tbody>
-        <?php foreach ($shoppingCart->getItems() as $item) { ?>
-            <tr>
-                <td class="itm">
-                    <?php echo $item->getQuantity() ?> x {{item.product.name }}
-                    <?php if ($item->hasAttributes()) { ?>
-                        <br/>
-                        <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr">{{ attribute.name }}:</span>
-                            <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
-                                <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval">{{ attributeValue.name }}</span>
-                            <?php $first = false; } ?>
-                            </p>
-                        <?php } ?>
-                    <?php } ?>
-                </td>
-                <td class="price">
-                    {{ utils.formatMoney(item.itemTotal) }}
-                    <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
-                        <br>{{ 'One time: %amount%'|trans({'%amount%' : utils.formatMoney(oneTimeCharge)}) }}
-                    <?php } ?>
-                </td>
-            </tr>
-        <?php } ?>
-          <?php
-              $totals = $shoppingCart->getTotals();
-              foreach ($totals as $total) {
-                  $tot = '';
-                  if ('total' == $total->getType()) {
-                      $tot = ' tot';
-                  }
-                  ?><tr><td class="total">{{ total.name }}</td><td class="price<?php echo $tot ?>"><?php echo $total->getValue() ?></td></tr><?php
-              }
-          ?>
-
-        </tbody>
-    </table>
-</fieldset>
-
-<fieldset>
-    <legend>{{ 'Payment Method'|trans }}</legend>
-    <div class="btn"><a class="btn" href="{{ path('checkout_payment') }}">{{ 'Change'|trans }}</a></div>
-    <?php $paymentType = $shoppingCart->getSelectedPaymentType() ?>
-    <?php if (null != $paymentType) { ?>
-      <h4><?php echo $paymentType->getName() ?></h4>
-      <?php if (!Toolbox::isEmpty($paymentType->getInfo())) { ?>
-        <p><?php echo nl2br($paymentType->getInfo()) ?></p>
-      <?php } ?>
-    <?php } ?>
-</fieldset>
-
-<?php if (!$shoppingCart->isVirtual()) { ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout'))->addCrumb(_zm('Summary'))); ?>
     <fieldset>
-        <legend>{{ 'Shipping'|trans }}</legend>
-        <div class="btn"><a class="btn" href="{{ path('checkout_shipping') }}">{{ 'Change'|trans }}</a></div>
-        <br/>
-        <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
-            {{ shippingMethod.provider.name }} : {{ shippingMethod.name }}
-            <br />
-        <?php } ?>
+        <legend>{{ 'Shopping Cart Contents'|trans }}</legend>
+        <table id="cart">
+            <tbody>
+                {% for item in shoppingCart.items %}
+                    <tr>
+                        <td class="itm">
+                            {{ item.quantity }} x {{item.product.name }}
+                            {% if item.hasAttributes %}
+                                <br />
+                                {% for attribute in item.attributes %}
+                                    <p>
+                                        <span class="attr">{{ attribute.name }}:</span>
+                                        {% for attributeValue in attribute.values %}
+                                            {% if loop.first %}, {% endif %}
+                                            <span class="atval">{{ attributeValue.name }}</span>
+                                        {% endfor %}
+                                    </p>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                        <td class="price">
+                            {{ utils.formatMoney(item.itemTotal) }}
+                            {% if 0 != item.oneTimeCharge %}
+                                <br />
+                                {{ 'One time: %amount%'|trans({'%amount%' : utils.formatMoney(item.oneTimeCharge)}) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% for totals in shoppingCart.totals %}
+                    <tr>
+                        <td class="total">{{ total.name }}</td>
+                        <td class="price {{ 'total' == total.type ? 'tot' }}">
+                            {{ total.value }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </fieldset>
-<?php } ?>
 
-<fieldset>
-    <legend>{{ 'Address Information'|trans }}</legend>
-    <?php if ($shoppingCart->hasShippingAddress()) { ?>
-        <div class="oadr">
-            <div class="btn"><a class="btn" href="{{ path('checkout_shipping_address') }}">{{ 'Change'|trans }}</a></div>
-            <h4>{{ 'Shipping Address'|trans }}</h4>
-            {{ macro.formatAddress(shoppingCart.shippingAddress)|raw }}
+    <fieldset>
+        <legend>{{ 'Payment Method'|trans }}</legend>
+        <div class="btn">
+            <a class="btn" href="{{ path('checkout_payment') }}">
+                {{ 'Change'|trans }}
+            </a>
         </div>
-    <?php } else { ?>
-        <div class="oadr">
-            <h4>{{ 'Shipping Address'|trans }}</h4>
-            {{ 'N/A'|trans }}
+        {% set paymentType = shoppingCart.selectedPaymentType %}
+        {% if null != paymentType %}
+            <h4>{{ paymentType.name }}</h4>
+            {% if paymentType.info is not empty %}
+                <p>{{ paymentType.info|nl2br }}</p>
+            {% endif %}
+        {% endif %}
+    </fieldset>
+
+    {% if not shoppingCart.virtual %}
+        <fieldset>
+            <legend>{{ 'Shipping'|trans }}</legend>
+            <div class="btn">
+                <a class="btn" href="{{ path('checkout_shipping') }}">
+                    {{ 'Change'|trans }}
+                </a>
+            </div>
+            <br />
+            {% set shippingMethod = shoppingCart.selectedShippingMethod %}
+            {% if null != shippingMethod %}
+                {{ shippingMethod.provider.name }} : {{ shippingMethod.name }}
+                <br />
+            {% endif %}
+        </fieldset>
+    {% endif %}
+
+    <fieldset>
+        <legend>{{ 'Address Information'|trans }}</legend>
+        {% if shoppingcart.hasShippingAddress %}
+            <div class="oadr">
+                <div class="btn">
+                    <a class="btn" href="{{ path('checkout_shipping_address') }}">
+                        {{ 'Change'|trans }}
+                    </a>
+                </div>
+                <h4>{{ 'Shipping Address'|trans }}</h4>
+                {{ macro.formatAddress(shoppingCart.shippingAddress)|raw }}
+            </div>
+        {% else %}
+            <div class="oadr">
+                <h4>{{ 'Shipping Address'|trans }}</h4>
+                {{ 'N/A'|trans }}
+            </div>
+        {% endif %}
+        <div class="oadr snd">
+            <div class="btn">
+                <a class="btn" href="{{ path('checkout_payment_address') }}">
+                    {{ 'Change'|trans }}
+                </a>
+            </div>
+            <h4>{{ 'Billing Address'|trans }}</h4>
+            {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
         </div>
-    <?php } ?>
-    <div class="oadr snd">
-        <div class="btn"><a class="btn" href="{{ path('checkout_payment_address') }}">{{ 'Change'|trans }}</a></div>
-        <h4>{{ 'Billing Address'|trans }}</h4>
-        {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
-    </div>
-</fieldset>
+    </fieldset>
 
-<fieldset>
-    <legend>{{ 'Special instructions or comments'|trans }}</legend>
-    <div class="btn"><a class="btn" href="{{ path('checkout_payment') }}">{{ 'Change'|trans }}</a></div>
-    <div>{{ shoppingCart.comments ? shoppingCart.comments : 'None'|trans }}</div>
-</fieldset>
+    <fieldset>
+        <legend>{{ 'Special instructions or comments'|trans }}</legend>
+        <div class="btn">
+            <a class="btn" href="{{ path('checkout_payment') }}">
+                {{ 'Change'|trans }}
+            </a>
+        </div>
+        <div>{{ shoppingCart.comments ? shoppingCart.comments : 'None'|trans }}</div>
+    </fieldset>
 
-{{ form.open(orderFormUrl, '', true)|raw }}
-    <?php echo $orderFormContent ?>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Confirm to order'|trans }}" /></div>
-</form>
+    {{ form.open(orderFormUrl, '', true)|raw }}
+        {{ orderFormContent|raw }}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Confirm to order'|trans }}" />
+        </div>
+    </form>
 {% endblock %}

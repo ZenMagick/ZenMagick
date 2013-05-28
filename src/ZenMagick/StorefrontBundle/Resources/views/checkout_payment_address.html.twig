@@ -1,31 +1,36 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Billing Address'))); ?>
-<?php $currentAddress = $shoppingCart->getBillingAddress(); ?>
-<?php if (0 < count($addressList)) { ?>
-    {{ form.open('checkout_payment_address', 'action=select', true)|raw }}
-        <h3>{{ 'Select an existing address'|trans }}</h3>
-        <fieldset>
-            <legend>{{ 'Address Book'|trans }}</legend>
-            <?php foreach ($addressList as $address) { ?>
-                <p>
-                    <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
-                    <?php if (1 == count($addressList)) { $checked = ' checked="checked"'; } ?>
-                    <input type="radio" id="address_<?php echo $address->getId() ?>" name="addressId" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
-                    <label for="address_<?php echo $address->getId() ?>">{{ address.fullName }}</label>
-                    <br/>
-                    {{ macro.formatAddress(address)|raw }}
-                    <br/>
-                </p>
-            <?php } ?>
-        </fieldset>
-        <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Billing Address'))); ?>
+    {% set currentAddress = shoppingCart.billingAddress %}
+    {% if 0 < addressList|length %}
+        {{ form.open('checkout_payment_address', 'action=select', true)|raw }}
+            <h3>{{ 'Select an existing address'|trans }}</h3>
+            <fieldset>
+                <legend>{{ 'Address Book'|trans }}</legend>
+                {% for address in addressList %}
+                    <p>
+                        {% set checked = true %}
+                        {% if null != currentAddress or 1 == addressList|length or currentAddress.id == address.id %}
+                            {% set checked = 'checked="checked"' %}
+                        {% endif %}
+                        <input type="radio" id="address_{{ address.id }}" name="addressId" value="{{ address.id }}" {{ checked }} />
+                        <label for="address_{{ address.id }}">{{ address.fullName }}</label>
+                        <br />
+                        {{ macro.formatAddress(address)|raw }}
+                        <br />
+                    </p>
+                {% endfor %}
+            </fieldset>
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+            </div>
+        </form>
+        <h3>{{ '... or create a new one'|trans }}</h3>
+    {% endif %}
+    {{ form.open('checkout_payment_address', 'action=create', true, {'id' : 'paymentAddress'})|raw }}
+        {{ include('@Storefront/address.html.twig', {'address' : billingAddress}) }}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+        </div>
     </form>
-    <h3>{{ '... or create a new one'|trans }}</h3>
-<?php } ?>
-{{ form.open('checkout_payment_address', 'action=create', true, {'id' : 'paymentAddress'})|raw }}
-    <?php echo $this->render('StorefrontBundle::address.html.php', array('address' => $billingAddress)) ?>
-    <div class="btn"><input type="submit" class="btn" value="{{ 'Continue'|trans }}" /></div>
-</form>
 {% endblock %}
