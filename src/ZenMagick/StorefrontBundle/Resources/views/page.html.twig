@@ -1,47 +1,40 @@
 {% extends '@Storefront/default_layout.html.twig' %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb($ezPage->getTitle())); ?>
-<?php $toc = $view->container->get('ezPageService')->getPagesForChapterId($view['request']->getParameter("chapter"), $view['request']->getLocaleId()); ?>
-<?php if (1 < count($toc)) { ?>
-    <div id="eztoc">
-        <h4>{{ 'Table of Contents'|trans }}</h4>
-        <ul>
-        <?php foreach ($toc as $page) { $active = $page->getId() == $ezPage->getId() ? ' class="act"' : ''; ?>
-            <li<?php echo $active ?>><a href="<?php echo $net->ezPage($page) ?>">{{ page.title }}</a></li>
-        <?php } ?>
-        </ul>
-        <?php
-            // find pref next
-            $prev = null;
-            $next = null;
-            $size = count($toc);
-            for ($ii=0; $ii < $size; $ii++) {
-                if ($toc[$ii]->getId() == $ezPage->getId()) {
-                    // got the current page
-                    if (0 == $ii) {
-                        // first
-                        $prev = $toc[$size-1];
-                        if (1 < $size) $next = $toc[1];
-                    } elseif ($size-1 == $ii) {
-                        // last
-                        if (0 < $ii) $prev = $toc[$ii-1];
-                        $next = $toc[0];
-                    } else {
-                        $prev = $toc[$ii-1];
-                        $next = $toc[$ii+1];
-                    }
-                    break;
-                }
-            }
-        ?>
-        <?php if (null != $prev && null != $next) { ?>
-        <p>
-            <a href="<?php echo $net->ezPage($prev) ?>">&lt; {{ 'Prev'|trans }}</a>
-            <a href="<?php echo $net->ezPage($next) ?>">{{ 'Next'|trans }} &gt;</a>
-        </p>
-        <?php } ?>
-    </div>
-<?php } ?>
-<h2>{{ ezPage.title }}</h2>
-<?php echo $ezPage->getHTMLText() ?>
+    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb($ezPage->getTitle())); ?>
+    {% set toc = ezpage_manager.pagesForChapterId(app.request.get('chapter'), app.session.get('languages_id')) %}
+    {% if 1 < toc|length %}
+        <div id="eztoc">
+            <h4>{{ 'Table of Contents'|trans }}</h4>
+            <ul>
+                {% set prev = null %}
+                {% set next = null %}
+                {% for page in toc %}
+                    {% set current = page.id == ezPage.id ? page.id %}
+                    {% if current and prev is null and not loop.first and loop.length > 1 %}
+                        {% set prev = toc[loop.index0 -1] %}
+                    {% endif %}
+                    {% if current and next is null and not loop.last and loop.length > 1 %}
+                        {% set next = toc[loop.index0 + 1] %}
+                    {% endif %}
+                    <li {{ current ? 'class="act"'|raw }}>
+                        <a href="{{ net.ezPage(page) }}">
+                            {{ page.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if prev or next %}
+                <p>
+                    {% if prev %}
+                        <a href="{{ net.ezPage(prev) }}">&lt; {{ 'Prev'|trans }}</a>
+                    {% endif %}
+                    {% if next %}
+                        <a href="{{ net.ezPage(next) }}">{{ 'Next'|trans }} &gt;</a>
+                    {% endif %}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+    <h2>{{ ezPage.title }}</h2>
+    {{ ezPage.content|raw }}
 {% endblock %}
