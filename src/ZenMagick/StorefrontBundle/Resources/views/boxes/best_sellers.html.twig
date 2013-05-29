@@ -6,7 +6,7 @@
             {% for product in products %}
                 <li>
                     <a href="{{ net.product(product.id) }}">
-                        {{ html.more(product.name, 30) }}
+                        {{ product.name|truncate(30)|raw }}
                     </a>
                 </li
             {% endfor %}

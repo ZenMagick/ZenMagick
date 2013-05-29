@@ -7,7 +7,7 @@
             <img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="{{ '%count% of 5 stars'|trans({'%count%' : review.rating}) }}" />
         </p>
         <h4 class="rtitle">{{ html.strip(review.title)|raw }}</h4>
-        <p class="rtext">{{ html.more(html.strip(review.text)|raw, 120)|raw }}</p>
+        <p class="rtext">{{ html.strip(review.text)|truncate(120)|raw }}</p>
         <p class="rinfo">
             {{ 'Date added: %date_added% by %author%'|trans({'%date_added%' : review.dateAdded|localizeddate('short', 'none'), '%author%': review.author}) }}
         </p>

@@ -5,7 +5,7 @@
             {{ product.name }}
         </a>
         <br />
-        {{ html.more(product.description, 120)|raw }}
+        {{ product.description|truncate(120)|raw }}
     </td>
     <td class="pprice">{{ utils.formatMoney(product.price) }}</td>
 </tr>

@@ -17,7 +17,7 @@
         </p>
         <p id="rtext">
             <a href="{{ href }}">
-                {{ html.more(review.text, 60) }}
+                {{ review.text|truncate(60)|raw }}
             </a>
         </p>
         <p>

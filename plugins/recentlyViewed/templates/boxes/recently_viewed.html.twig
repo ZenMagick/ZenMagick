@@ -5,7 +5,7 @@
             {% for product in productManager.productsForIds(recentlyViewedProducts, true, app.session.get('languages_id')) %}
                 <li>
                     <a href="{{ net.product(product.id) }}">
-                        {{ html.more(product.name, 28) }}
+                        {{ product.name|truncate(28)|raw }}
                     </a>
                 </li>
             {% endfor %}
