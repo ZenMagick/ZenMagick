@@ -1,4 +1,4 @@
-{% extends '@Storefront/default_layout.html.twig' %}
+{% extends '@Storefront/layout.html.twig' %}
 {% block body %}
     <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping Address'))); ?>
     {% set currentAddress = shoppingcart.shippingAddress %}

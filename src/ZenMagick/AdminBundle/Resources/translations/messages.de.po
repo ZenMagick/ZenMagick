@@ -440,15 +440,15 @@ msgstr ""
 msgid "You are not allowed to access the page with id: <em>%s</em>"
 msgstr ""
 
-#: templates\default_layout.php:46
+#: templates\layout.php:46
 msgid "%1s: %2s"
 msgstr ""
 
-#: templates\default_layout.php:51
+#: templates\layout.php:51
 msgid "%1s :: ZenMagick Admin"
 msgstr ""
 
-#: templates\default_layout.php:59
+#: templates\layout.php:59
 msgid "ZenMagick Admin"
 msgstr ""
 

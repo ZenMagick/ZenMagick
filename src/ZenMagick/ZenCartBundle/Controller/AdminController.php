@@ -87,7 +87,7 @@ class AdminController extends DefaultController
         $page = $request->getRequestId();
 
         //@todo refactor zc_admin template
-        $tpl['layout'] = '@Admin/default_layout.html.twig';
+        $tpl['layout'] = '@Admin/layout.html.twig';
         if (in_array($page, $hiddenLayout) || in_array('*', $hiddenLayout)) {
             $tpl['layout'] = '@Admin/empty.html.twig';
         }

@@ -1,4 +1,4 @@
-{% extends '@Storefront/default_layout.html.twig' %}
+{% extends '@Storefront/layout.html.twig' %}
 {% block body %}
     <?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
     {{ utils.staticPageContent('main_page')|raw }}

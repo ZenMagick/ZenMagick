@@ -19,7 +19,7 @@ zenmagick:
     html:
       charset: utf-8
     view:
-      defaultLayout: default_layout.html.twig
+      defaultLayout: layout.html.twig
     ## templates
     templates:
       ext: .html.twig

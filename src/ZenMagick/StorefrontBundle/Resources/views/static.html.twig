@@ -1,4 +1,4 @@
-{% extends '@Storefront/default_layout.html.twig' %}
+{% extends '@Storefront/layout.html.twig' %}
 {% block body %}
     {% set page = app.request.query.get('cat') %}
     <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(page|humanize)); ?>

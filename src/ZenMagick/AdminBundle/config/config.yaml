@@ -6,7 +6,7 @@
 zenmagick:
   http:
     view:
-      defaultLayout: default_layout.html.twig
+      defaultLayout: layout.html.twig
     templates:
       ext: .html.twig
   mvc:

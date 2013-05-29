@@ -1,4 +1,4 @@
-{% extends '@Storefront/default_layout.html.twig' %}
+{% extends '@Storefront/layout.html.twig' %}
 {% block body %}
     <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb($ezPage->getTitle())); ?>
     {% set toc = ezpage_manager.pagesForChapterId(app.request.get('chapter'), app.session.get('languages_id')) %}
