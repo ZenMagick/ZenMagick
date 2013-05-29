@@ -1,21 +1,19 @@
 <div id="footer">
     <p id="fpages">
-        <?php foreach ($view->container->get('ezPageService')->getPagesForFooter($view['request']->getLocaleId()) as $page) { ?>
-            <?php echo $html->ezpageLink($page->getId()) ?>
-        <?php } ?>
+        {% for pages in ezpage_manager.pagesForFooter(app.session.get('languages_id')) %}
+            {{ html.ezPageLink(page.id)|raw }}
+        {% endfor %}
     </p>
 
     <div id="bannerFive">{{ templateManager.fetchBlockGroup('banners.footer2')|raw }}</div>
 
-    <p id="sview">
-        <a href="{{ path('source_view', {'layout_name' : view.layout}) }}">
-            Layout: '<?php echo basename($view->getLayout()) ?>'</a>
-        <a href="{{ path('source_view', {'view_name' : app.request.requestId}) }}">
-            View: '<?php echo basename($view['request']->getRouteId()) ?>'
-        </a>
+    <p>
+        Powered by <a href="http://www.zen-cart.com">zen-cart</a> and
+        <a href="http://www.zenmagick.org">ZenMagick</a>
     </p>
-    <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
-    <p>&copy; 2006-2012  <a href="http://www.zenmagick.org">ZenMagick</a> |
-      Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by
-      <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
+    <p>
+        &copy; 2006-2013  <a href="http://www.zenmagick.org">ZenMagick</a> |
+        Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by
+        <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>
+    </p>
 </div>

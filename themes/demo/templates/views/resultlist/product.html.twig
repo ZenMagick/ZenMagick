@@ -1,11 +1,15 @@
-<?php use ZenMagick\StoreBundle\Services\Products; ?>
-
-<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <!-- need id on link to identify the product -->
-    <td><a href="{{ net.product(product.id, app.request.get('categoryId')) }}" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), Products::IMAGE_SMALL) ?></a></td>
+<tr class="{{ loop.index0 is odd ? 'odd' : 'even' }} {{ loop.first ? 'first' : 'other' }}">
+    <td>
+        <a href="{{ net.product(product.id, app.request.get('categoryId')) }}" id="product_{{ product.id }}" class="product">
+            {{ html.image(product.imageInfo, constant('ZenMagick\\StoreBundle\\Services\\Products::IMAGE_SMALL'))|raw }}
+        </a>
+    </td>
     <td class="pinfo">
-        <a href="{{ net.product(product.id) }}">{{ product.name }}</a><br/>
-        <?php echo $html->more($product->getDescription(), 120) ?>
+        <a href="{{ net.product(product.id) }}">
+            {{ product.name }}
+        </a>
+        <br />
+        {{ html.more(product.description, 120)|raw }}
     </td>
     <td class="pprice">{{ utils.formatMoney(product.price) }}</td>
 </tr>

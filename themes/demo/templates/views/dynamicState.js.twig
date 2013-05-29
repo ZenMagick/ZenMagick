@@ -1,3 +1,4 @@
+{% autoescape 'js' %}
 $(document).ready(function() {
     $('#countryId').change(updateState);
 });
@@ -7,12 +8,12 @@ function updateState() {
     var zoneId = $('#zoneId');
     var state = $('#state');
     var sz = ((0 < zoneId.size()) ? zoneId : state);
-    sz.after('<span id="state_timer"><img src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}">{{ 'Loading...'|trans }}</span>');
+    sz.after('<span id="state_timer"><img src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}" />{{ 'Loading...'|trans }}</span>');
 
     var countryId = $('#countryId').val();
     $.ajax({
         type: "GET",
-        url: "<?php echo $net->ajax('country', 'getZonesForCountryId') ?>",
+        url: "{{ net.ajax('country', 'getZonesForCountryId') }}",
         data: "countryId="+countryId,
         success: function(msg) {
             // remove timer
@@ -33,8 +34,9 @@ function updateState() {
                 sz.after(state_select).remove();
             } else {
                 // free text
-               sz.after('<input type="text" id="state" name="state" value="">').remove();
+               sz.after('<input type="text" id="state" name="state" value="" />').remove();
             }
         }
     });
 }
+{% endautoescape %}

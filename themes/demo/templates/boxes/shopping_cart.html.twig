@@ -1,6 +1,13 @@
-<?php $resourceManager->jsFile('js/interface.js', $resourceManager::FOOTER) ?>
-
+{#
+{% javascripts
+    '@StorefrontBundle/Resources/public/js/interface.js'
+    filter='?jsminplus'
+%}
+    <script src="{{ asset_url }}"></script>
+{% javascripts %}
+#}
 <script type="text/javascript">
+    {% autoescape 'js' %}
     // callback used by drop handler to update cart contents
     var updateSBCartContent = function(msg) {
         var href_template = '{{ net.product('{productId}') }}';
@@ -21,18 +28,28 @@
 
         return msg;
     };
+    {% endautoescape %}
 </script>
 
-<?php if (!$isCheckout) { ?>
-<h3><a href="{{ path('shopping_cart') }}">{{ '[More]'|trans }}</a>{{ 'Shopping Cart'|trans }}</h3>
+{% if not isCheckout %}
+    <h3>
+        <a href="{{ path('shopping_cart') }}">
+            {{ '[More]'|trans }}
+        </a>
+        {{ 'Shopping Cart'|trans }}
+    </h3>
     <div id="sb_cart" class="box">
-        <?php if ($view->container->get('shoppingCart')->isEmpty()) { ?>
+        {% if cart.empty %}
             {{ 'Cart is Empty'|trans }}
-        <?php } ?>
-        <?php foreach ($view->container->get('shoppingCart')->getItems() as $item) { ?>
-            <?php echo $item->getQuantity(); ?> x <a href="{{ net.product(item.id) }}">{{ item.product.name }}</a><br />
-        <?php } ?>
-        <hr/>
-        <p><img id="cart_progress" src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}" style="display:none;float:left;" alt="progress" />{{ utils.formatMoney(cart.total) }}</p>
+        {% endif %}
+        {% for item in cart.items %}
+            {{ item.quantity }} x <a href="{{ net.product(item.id) }}">{{ item.product.name }}</a>
+            <br />
+        {% endfor %}
+        <hr />
+        <p>
+            <img id="cart_progress" src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}" style="display:none;float:left;" alt="progress" />
+            {{ utils.formatMoney(cart.total) }}
+        </p>
     </div>
-<?php } ?>
+{% endif %}
