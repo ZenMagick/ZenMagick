@@ -36,27 +36,6 @@ function _zm($text, $domain = 'messages')
 }
 
 /**
- * Convenience version of <code>_zm</code> using the the default domain.
- *
- * <p><strong>This method will <code>echo</code> the localized text rather than return it.</strong></p>
- *
- * @param string text The text.
- * @param mixed ... Variable number of arguments to be used as arguments for
- *  <code>vsprintf(..)</code> to insert variables into the localized text.
- */
-function _vzm($text)
-{
-    // get the remaining args
-    $args = func_get_args();
-    array_shift($args);
-    if (null != ($container = \ZenMagick\Base\Runtime::getContainer())) {
-        $translated = $container->get('translator')->trans($text, array(), 'messages');
-        if ('' == $translated) $translated = $text;
-    }
-    echo null != $args ? vsprintf($translated, $args) : $translated;
-}
-
-/**
  * Helper function to parse translated strings for block replacements.
  *
  * <p>Acts like <code>sprintf</code> but also supports block replacements.</p>
