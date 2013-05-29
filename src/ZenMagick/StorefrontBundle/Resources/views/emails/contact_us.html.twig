@@ -11,7 +11,7 @@
         <p>{{ 'Email: %email%'|trans({'%email%' : contactInfo.email}) }}</p>
 
         <hr />
-        <div>{{ html.text2html(contactInfo.message)|raw }}</div>
+        <div>{{ contactInfo.message|nl2br }}</div>
         <hr />
 
         {% if isSupressDisclamer is not defined %}

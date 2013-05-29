@@ -13,7 +13,7 @@
             <p>
                 {{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
                 <br />
-                {{ html.text2html(gvReceiver.message)|raw }}
+                {{ gvReceiver.message|nl2br }}
             </p>
         {% endif %}
         <p>{{'To redeem your gift, visit <a href="%redeem_url%">%store_name%</a>.'|trans({'%redeem_url%' : url('gv_redeem', {'couponCode': currentCoupon.code}), '%store_name%' : settings.get('storeName')})|raw }}</p>

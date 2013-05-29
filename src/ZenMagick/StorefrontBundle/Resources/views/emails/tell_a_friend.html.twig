@@ -13,7 +13,7 @@
             <p>
                 {{ '%from_name% also sent a note saying:'|trans({'%from_name%' : emailMessage.fromName}) }}
                 <br />
-                {{ html.text2html(emailMessage.message) }}
+                {{mailMessage.message|nl2br }}
             </p>
         {% endif %}
 

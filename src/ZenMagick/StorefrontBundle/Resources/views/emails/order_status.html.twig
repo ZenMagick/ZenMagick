@@ -21,7 +21,7 @@
 
     {% if comment is not empty %}
         <p>{{ 'The following comment has been added to your order:'|trans }}</p>
-        <p>{{ html.text2html(comment)|raw }}</p>
+        <p>{{ comment|nl2br }}</p>
     {% endif %}
 
     <p>{{ 'Regards, %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
