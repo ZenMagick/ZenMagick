@@ -47,21 +47,6 @@ class ToolboxHtml extends ToolboxTool
     }
 
     /**
-     * Convert text based user input into HTML.
-     *
-     * @param string s The input string.
-     * @return string HTML formatted text.
-     */
-    public static function text2html($s)
-    {
-        $html = str_replace("\r\n", '<br>', $s);
-        $html = str_replace("\n", '<br>', $s);
-        $html = str_replace("\r", '', $html);
-
-        return $html;
-    }
-
-    /**
      * Truncate text.
      *
      * @param string s The text.
