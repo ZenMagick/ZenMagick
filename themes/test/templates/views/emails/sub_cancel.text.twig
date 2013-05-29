@@ -1,8 +1,0 @@
-{{ '%store_name% Order Cancel...'|trans ({'%store_name%': settings.get('storeName')}) }}
-
-{{ 'Order Details'|trans }}
-
------------------------------------------------
-{{ 'Order Number: %id%'|trans({'%id%': order.id}) }}
-
-{{ 'Order Date: %date%'|trans({'%date%': order.orderDate|localizeddate('short', 'none')}) }}

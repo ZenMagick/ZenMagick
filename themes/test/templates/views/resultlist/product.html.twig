@@ -1,8 +1,0 @@
-<tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td>{{ html.productImageLink(product, app.request.get('categoryId'))|raw }}</td>
-    <td class="pinfo">
-        <a href="{{ net.product(product.id, app.request.get('categoryId')) }}">{{ product.name }}</a><br/>
-        <?php echo $html->more($product->getDescription(), 120) ?>
-    </td>
-    <td class="pprice">{{ utils.formatMoney(product.price) }}</td>
-</tr>
