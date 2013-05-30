@@ -111,20 +111,6 @@ class ToolboxNet extends ToolboxTool
     }
 
     /**
-     * Create an absolute image path/URL for the given image.
-     *
-     * @param string src The relative image name (relative to zen-cart's image folder).
-     * @return string The image URI.
-     */
-    public function image($src)
-    {
-        // TODO: where are images coming from in the future??
-        $href = $this->getRequest()->getBasePath().'/images/'.$src;
-
-        return $href;
-    }
-
-    /**
      * Create an redirecting URL for the given action and id that is trackable.
      *
      * <p>All messages created up to this point during request handling will be saved and
