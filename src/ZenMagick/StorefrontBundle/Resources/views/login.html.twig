@@ -13,7 +13,9 @@
                 <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password')|raw }} />
             </div>
         </fieldset>
-        <div class="btn"><input type="submit" class="btn" value="{{ 'Submit'|trans }}"/></div>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Submit'|trans }}"/>
+        </div>
     </form>
 
     <p>
@@ -29,7 +31,6 @@
                 {% if settings.get('isGuestCheckoutAskAddress') %}
                     {% if guestCheckoutAddress is not defined %}
                         {% set guestCheckoutAddress = bean('ZenMagick\\StoreBundle\\Entity\\Address#setPrimary=true') %}
-                        {{ dump(guestCheckoutAddress) }}
                     {% endif %}
                     {% set guestAddressInfo = {
                         'address' : guestCheckoutAddress,
