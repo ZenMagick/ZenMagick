@@ -31,6 +31,11 @@
         <service id="session.handler.pdo" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler">
             <argument type="service" id="pdo" />
             <argument>%pdo.db_options%</argument>
+            <call method="setAttribute">
+                <argument>3</argument><!-- PDO::ATTR_ERRMODE -->
+                <argument>3</argument><!-- PDO::ERRMODE_EXCEPTION -->
+            </call>
+
         </service>
 
         <!-- @todo replace with symfony security -->
