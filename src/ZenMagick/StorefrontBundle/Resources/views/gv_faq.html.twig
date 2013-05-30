@@ -17,7 +17,7 @@
         {% for key, title in faq_topics %}
             <li>
                 <a href="{{ path('gv_faq', {'topic' : key}) }}">
-                    <?php echo $title ?>
+                    {{ title }}
                 </a>
             </li>
         {% endfor %}

@@ -1,8 +1,8 @@
 {% extends '@Storefront/layout.html.twig' %}
 {% block body %}
-<?php if (null == $currentProduct) { ?>
-    <h3>{{ 'Product not found'|trans }}</h3>
-<?php } else { ?>
-    <h3>{{ '"%product%" is currently not in stock.'|trans({'%product%' : currentProduct.name}) }}</h3>
-<?php } ?>
+    {% if not currentProduct %}
+        <h3>{{ 'Product not found'|trans }}</h3>
+    {% else %}
+        <h3>{{ '"%product%" is currently not in stock.'|trans({'%product%' : currentProduct.name}) }}</h3>
+    {% endif %}
 {% endblock %}

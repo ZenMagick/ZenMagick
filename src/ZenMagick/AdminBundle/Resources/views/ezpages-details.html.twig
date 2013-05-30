@@ -1,7 +1,6 @@
 {% extends '@Admin/layout.html.twig' %}
 {% set page_title = 'Edit Content'|trans %}
 {% block body %}
-    <?php use ZenMagick\Base\Beans; ?>
     <form action="{{ path('ezpages_process') }}" method="POST">
         <input type="hidden" name="languageId" value="{{ currentLanguage.id }}">
         <input type="hidden" name="id" value="{{ ezPage.id }}">

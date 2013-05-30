@@ -1,6 +1,5 @@
 {% set schedule = currentOrder.schedule %}
 {% if schedule is not empty %}
-<?php if (!Toolbox::isEmpty($schedule)) { ?>
     <h3>{{ 'Subscription'|trans }}</h3>
     {% set schedules = subscriptions.schedules %}
     <p>

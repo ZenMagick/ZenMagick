@@ -10,7 +10,6 @@
                 </a>
             </div>
             <div>
-                <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
                 <input type="text" id="askeyword" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="if (this.value == {{ 'Search...'|trans }}) this.value='';" />
                 <input type="checkbox" id="includeDescription" name="includeDescription" value="1" {{ searchCriteria.includeDescription ? 'checked="checked"'|raw }} />
                 <label class="checkboxLabel" for="includeDescription">

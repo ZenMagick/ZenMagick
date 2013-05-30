@@ -59,7 +59,6 @@
                     <th id="smname">{{ 'Shipping Method'|trans }}</th>
                     <th id="smcost">{{ 'Charge'|trans }}</th>
                 </tr>
-                <?php $providers = $shoppingCart->getShippingProviders(); ?>
                 {% for provider in cart.shippingProviders if not provider.hasError %}
                     {% for method in provider.shippingMethods(cart) %}
                         {% set id = 'ship_' ~ method.id %}
