@@ -37,12 +37,24 @@
             <div>
                 <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
                 <input type="text" id="email_address" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
-                {{ html.fieldMessages('email_address')|raw }}
+                {% if app.session.flashBag.hasMessages %}
+                    <ul id="email_addressInfo" class="fieldMsg">
+                        {% for messages in app.session.flashBag.messages %}
+                            <li class="{{ message.type }}">{{ message.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
             <div>
                 <label for="password">{{ 'Password'|trans }}</label>
                 <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password')|raw }} />
-                {{ html.fieldMessages('password')|raw }}
+                {% if app.session.flashBag.hasMessages %}
+                    <ul id="passwordInfo" class="fieldMsg">
+                        {% for messages in app.session.flashBag.messages %}
+                            <li class="{{ message.type }}">{{ message.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </fieldset>
         <div class="btn">
@@ -69,7 +81,13 @@
                 <div>
                     <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
                     <input type="text" id="email_address_guest" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
-                    {{ html.fieldMessages('email_address')|raw }}
+                    {% if app.session.flashBag.hasMessages %}
+                        <ul id="email_addressInfo" class="fieldMsg">
+                            {% for messages in app.session.flashBag.messages %}
+                                <li class="{{ message.type }}">{{ message.text }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                    <input type="submit" class="btn" value="{{ 'Checkout'|trans }}" />
                 </div>
             </fieldset>
