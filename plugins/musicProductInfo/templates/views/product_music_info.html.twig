@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct(currentProduct.id))|raw %}
 {% block body %}
-<?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())); ?>
     {% set manufacturer = currentProduct.manufacturer %}
     <h2>{{ manufacturer ? manufacturer.name }} {{ currentProduct.name }}</h2>
 

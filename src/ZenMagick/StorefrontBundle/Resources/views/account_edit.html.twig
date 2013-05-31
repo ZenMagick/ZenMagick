@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Edit Account'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Account'), $view['router']->generate('account'))->addCrumb(_zm('Edit Account'))); ?>
     {{ form.open('account_edit', '', true, {'id' : 'account'})|raw }}
         <fieldset>
             <legend>{{ 'My Account'|trans }}</legend>

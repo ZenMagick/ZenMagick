@@ -45,6 +45,7 @@ twig:
         cart: "@shoppingCart"
         category_manager: "@categoryService"
         countries: "@countryService"
+        crumbtrail: "@crumbtrailTool"
         currency_manager: "@currencyService"
         dashboard: "@dashboard"
         ezpage_manager: "@ezPageService"

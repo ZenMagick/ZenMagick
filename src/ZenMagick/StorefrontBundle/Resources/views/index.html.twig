@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.clear)|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->clear()); ?>
     {{ utils.staticPageContent('main_page')|raw }}
     {% set featured = product_manager.featuredProducts(null, 4, false, app.session.get('languages_id')) %}
     <h3>{{ 'Featured Products'|trans }}</h3>

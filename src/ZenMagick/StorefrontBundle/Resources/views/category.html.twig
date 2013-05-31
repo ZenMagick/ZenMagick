@@ -1,7 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct)|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()); ?>
-
     <h2>{{ currentCategory.name }}</h2>
 
     {% if currentCategory.hasChildren %}

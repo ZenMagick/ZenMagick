@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Login'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Login'))); ?>
     {{ form.open('login_check', '', true, {'id' : 'login'})|raw }}
         <fieldset>
             <legend>{{ 'Login'|trans }}</legend>

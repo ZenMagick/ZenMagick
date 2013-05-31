@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Shopping Cart'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Shopping Cart')));
     {% if cart.empty %}
         <h2>{{ 'Your Shopping Cart is empty'|trans }}</h2>
     {% else %}

@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Gift Certificate FAQ'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Gift Certificate FAQ'))); ?>
     <h2>{{ 'Gift Certificate FAQ'|trans }}</h2>
 
     {# the available FAQ entries #}

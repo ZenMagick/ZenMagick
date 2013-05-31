@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct(currentProduct.id).addCrumb('Review'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct($currentProduct->getId())->addCrumb(_zm('Review'))); ?>
     {{ form.addProduct(currentProduct.id, 1)|raw }}
         <div>
             <div id="pinfo">

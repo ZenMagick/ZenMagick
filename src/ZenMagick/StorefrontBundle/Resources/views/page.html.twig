@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb(ezPage.title))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb($ezPage->getTitle())); ?>
     {% set toc = ezpage_manager.pagesForChapterId(app.request.get('chapter'), app.session.get('languages_id')) %}
     {% if 1 < toc|length %}
         <div id="eztoc">

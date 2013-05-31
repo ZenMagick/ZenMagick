@@ -55,8 +55,8 @@
 
         <div id="content">
             {# @todo refactor buildCrumbtrail so we can pass the arguments to it. #}
-            <div id="crumbtrail"><?php echo $macro->buildCrumbtrail(null, ' &gt; ') ?></div>
-            <div id="bannerThree">{{ templateManager.fetchBlockGroup('banners.header3')|raw }}></div>
+            <div id="crumbtrail">{% block crumbtrail %}{% endblock %}</div>
+            <div id="bannerThree">{{ templateManager.fetchBlockGroup('banners.header3')|raw }}</div>
 
             {% if app.session.flashBag.hasMessages %}
                 <ul id="messages">

@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct.addCrumb('Reviews'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCategoryPath()->addManufacturer()->addProduct()->addCrumb(_zm('Reviews'))); ?>
     {% if resultList.hasResults %}
         <div class="rnblk">
             {{ include('@Storefront/resultlist/nav.html.twig') }}

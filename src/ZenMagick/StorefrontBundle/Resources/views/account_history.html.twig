@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Order History'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb("Account", $view['router']->generate('account'))->addCrumb(_zm('Order History'))); ?>
     {% if resultList.hasResults %}
         <div class="rnblk">
             {% include('@Storefront/resultlist/nav.html.twig') %}

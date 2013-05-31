@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Checkout'|trans, path('checkout_shipping')).addCrumb('Shipping'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_shipping'))->addCrumb(_zm('Shipping'))); ?>
     <fieldset>
         <legend>{{ 'Shipping Address'|trans }}</legend>
         <div class="btn">

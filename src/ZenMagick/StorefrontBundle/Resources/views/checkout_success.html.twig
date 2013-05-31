@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Order Confirmation'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Order Confirmation'))); ?>
     {{ form.open('checkout_success', 'action=update', true, {'onsubmit' : null})|raw }}
         <h2>{{ 'Thanks for shopping with us'|trans }}</h2>
         <p>{{ 'Your order number is: <strong>%id%</strong>'|trans({'%id%' : currentOrder.id})|raw }}</p>

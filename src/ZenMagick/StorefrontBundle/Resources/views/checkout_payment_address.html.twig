@@ -1,6 +1,6 @@
 {% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Checkout'|trans, path('checkout_payment')).addCrumb('Billing Address'|trans))|raw %}
 {% block body %}
-    <?php $view['slots']->set('crumbtrail', $crumbtrail->addCrumb(_zm('Checkout'), $view['router']->generate('checkout_payment'))->addCrumb(_zm('Billing Address'))); ?>
     {% set currentAddress = shoppingCart.billingAddress %}
     {% if 0 < addressList|length %}
         {{ form.open('checkout_payment_address', 'action=select', true)|raw }}
