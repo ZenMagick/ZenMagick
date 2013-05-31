@@ -8,7 +8,7 @@ routing:
   #todo fix this routing
   pattern: /music
   options:
-    'view:product_music_info': product_music_info.php
+    'view:product_music_info': product_music_info.html.twig
 
 admin,storefront:
   container:

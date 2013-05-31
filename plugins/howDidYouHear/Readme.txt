@@ -23,7 +23,7 @@ INSTALLAION
 
 TEMPALTE CHANGES
 ================
-The plugin includes a small template file to be included into the create_account.html.php template.
+The plugin includes a small template file to be included into the create_account.html.twig template.
 
 In your create_account.html.twig, after the last closing fieldset element, add the following line:
 
