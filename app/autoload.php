@@ -29,10 +29,6 @@ spl_autoload_register(function ($class) {
         }
     }
 });
-/**
- * Preload Locales class to make translation functions available.
- */
-require_once __DIR__.'/../src/ZenMagick/Base/Locales/functions.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

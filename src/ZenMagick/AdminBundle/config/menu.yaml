@@ -82,12 +82,6 @@ children:
                     installation:
                         route: installation
                         label: Installation
-            configuration-dev:
-                label: Development
-                children:
-                    l10n:
-                        route: l10n
-                        label: 'Translation Helper'
             configuration-legacy:
                 label: 'Zen-Cart Config'
             configuration-help:

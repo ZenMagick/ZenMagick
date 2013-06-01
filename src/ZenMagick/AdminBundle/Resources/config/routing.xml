@@ -116,9 +116,6 @@
     <route id="block_group_admin" pattern="/block-group-admin">
         <default key="_controller">AdminBundle:BlockGroupAdmin:process</default>
     </route>
-    <route id="l10n" pattern="/l10n">
-        <default key="_controller">AdminBundle:L10n:process</default>
-    </route>
 
     <route id="installation" pattern="/installation">
         <default key="_controller">ZenMagickBundle:Default:process</default>

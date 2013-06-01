@@ -48,7 +48,6 @@
         <service id="localeService" class="ZenMagick\Base\Locales\Locales">
             <argument>%kernel.default_locale%</argument>
         </service>
-        <service id="localeScanner" class="ZenMagick\Base\Locales\LocaleScanner" scope="prototype" />
 
         <service id="settingsService" class="ZenMagick\Base\Settings" />
 
