@@ -1,0 +1,41 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Send Gift Certificate'|trans))|raw %}
+{% block body %}
+    {{ form.open('gv_send_confirm', '', true, {'onsubmit' : null})|raw }}
+        <div>
+            <input type="hidden" name="name" value="{{ gvReceiver.name }}" />
+            <input type="hidden" name="email" value="{{ gvReceiver.email }}" />
+            <input type="hidden" name="amount" value="{{ gvReceiver.amount }}" />
+            <input type="hidden" name="message" value="{{ gvReceiver.message }}" />
+        </div>
+        <fieldset>
+            <legend>{{ 'Confirm Send Gift Certificate'|trans }}</legend>
+            <p class="note">
+                {{ 'You are about to post a Gift Certificate worth %amount% to %name% whose email address is %email%.'|trans({
+                    '%amount%' : utils.formatMoney(gvReceiver.amount, false), '%name%' : gvReceiver.name, '%email%' : gvReceiver.email}) }}
+            </p>
+
+            <fieldset>
+                <legend>{{ 'Your message'|trans }}</legend>
+                {{ gvReceiver.message }}
+            </fieldset>
+
+            <p class="note">
+                {{ 'If these details are not correct, you may edit your message by clicking the edit button.'|trans }}
+            </p>
+        </fieldset>
+
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Send Gift Certificate'|trans }}" />
+        </div>
+        <div>
+            <input type="submit" class="btn" name="edit" value="{{ 'Edit'|trans }}" />
+        </div>
+    </form>
+
+    <div class="advisory">
+        <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong>
+        <br />
+        {{ utils.staticPageContent('email_advisory')|raw }}
+    </div>
+{% endblock %}

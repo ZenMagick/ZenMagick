@@ -1,0 +1,17 @@
+{% if order.schedule is not empty %}
+    {{ '(S)'|trans }}
+    {% if order.subscription %}
+        {% if subscriptions.customerCancel %}
+            <a href="{{ path('cancel_subscription', {'orderId' : order.id}) }}">
+                {{ 'Cancel Subscription'|trans }}
+            </a>
+        {% else %}
+            <a href="{{ path('subscription_request', {'orderId' : order.id, 'type' : 'cancel'}) }}">
+                {{ 'Cancel Subscription'|trans }}
+            </a>
+        {% endif %}
+    {% endif %}
+    <a href="{{ path('subscription_request', {'orderId' : order.id, 'type' : 'enquire'}) }}">
+        {{ 'Ask about Subscriptions'|trans }}
+    </a>
+{% endif %}

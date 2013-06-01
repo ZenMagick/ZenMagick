@@ -1,0 +1,55 @@
+{#
+{% javascripts
+    '@StorefrontBundle/Resources/public/js/interface.js'
+    filter='?jsminplus'
+%}
+    <script src="{{ asset_url }}"></script>
+{% javascripts %}
+#}
+<script type="text/javascript">
+    {% autoescape 'js' %}
+    // callback used by drop handler to update cart contents
+    var updateSBCartContent = function(msg) {
+        var href_template = '{{ net.product('{productId}') }}';
+        // NOTE: using json.js here will break IE and create ugly JS erros in FF
+        var cart = eval('(' + msg + ')');
+        // clear
+        $('#sb_cart').empty();
+
+        for (var ii=0; ii < cart.items.length; ++ii) {
+            var item = cart.items[ii];
+            var href = href_template.replace(/{productId}/, item.id);
+            $('#sb_cart')
+              .append(item.qty + ' x ' + '<a href="' + href + '">' + item.name + '</a><br />');
+        }
+        // total
+        $('#sb_cart').append('<hr/>')
+          .append('<p><img id="cart_progress" src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}" style="display:none;float:left;" alt="progress" />' + cart.total + '</p>');
+
+        return msg;
+    };
+    {% endautoescape %}
+</script>
+
+{% if not isCheckout %}
+    <h3>
+        <a href="{{ path('shopping_cart') }}">
+            {{ '[More]'|trans }}
+        </a>
+        {{ 'Shopping Cart'|trans }}
+    </h3>
+    <div id="sb_cart" class="box">
+        {% if cart.empty %}
+            {{ 'Cart is Empty'|trans }}
+        {% endif %}
+        {% for item in cart.items %}
+            {{ item.quantity }} x <a href="{{ net.product(item.id) }}">{{ item.product.name }}</a>
+            <br />
+        {% endfor %}
+        <hr />
+        <p>
+            <img id="cart_progress" src="{{ asset('bundles/storefront/images/circle-ball-dark-antialiased.gif') }}" style="display:none;float:left;" alt="progress" />
+            {{ utils.formatMoney(cart.total) }}
+        </p>
+    </div>
+{% endif %}

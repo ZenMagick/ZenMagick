@@ -1,0 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="{{ language.code }}">
+<head>
+    <title>{{ 'Product Update Notification'|trans }}</title>
+</head>
+<body>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}</p>
+
+        <div>{{ htmlMessage }}</div>
+
+        {{ utils.staticPageContent('email_advisory')|raw }}
+    </div>
+</body>
+</html>

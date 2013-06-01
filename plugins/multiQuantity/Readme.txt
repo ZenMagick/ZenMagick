@@ -66,7 +66,7 @@ The second line (foreach) needs to be modified to ignore the multi qty attribute
 Make showing the regular qty input field conditional depending on whether this is a multi qty product or not:
 
       <?php if (!$isMultiQty) { ?>
-          <label for="cart_quantity"><?php _vzm("Quantity") ?><?php echo $minMsg; ?></label>
+          <label for="cart_quantity">{{ 'Quantity'|trans }}<?php echo $minMsg; ?></label>
           <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
       <?php } ?>
 

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="{{ language.code }}">
+<head>
+    <title>{{ 'A gift certificate from %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</title>
+</head>
+<body>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        {% if htmlMessage is empty %}
+            <p>{{ 'We\'re pleased to offer you a Gift Certificate'|trans }}</p>
+        {% else %}
+            <div>{{ message|raw }}</div>
+        {% endif %}
+
+        <p>{{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}</p>
+        <p>{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}</p>
+        <p>{{ 'To redeem your gift, visit < href="%redeem_url%">%store_name%</a>'|trans({'%redeem_url%':  url('gv_redeem', {'couponCode' : currentCoupon.code}), '%store_name%' : settings.get('storeName')}) }}</p>
+
+        {% if isSupressDisclaimer is not defined %}
+            {{ utils.staticPageContent('email_advisory')|raw }}
+        {% endif %}
+        {{ office_only_html|raw }}
+    </div>
+</body>
+</html>

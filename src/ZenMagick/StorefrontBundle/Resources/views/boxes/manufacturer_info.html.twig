@@ -1,0 +1,42 @@
+{% if currentProduct is defined %}
+    {% set manufacturer = currentProduct.manufacturer %}
+    {% if manufacturer != null %}
+        <h3>{{ 'Manufacturer Info'|trans }}</h3>
+        <div id="sb_manufacturer_info" class="box">
+            {% if manufacturer.hasImage %}
+                {% set url = path('manufacturer', {'manufacturers_id' : manufacturer.id}) %}
+                {% set class = '' %}
+                {% if manufacturer.url is not empty %}
+                    {% set url = net.trackLink('manufacturer', manufacturer.id) %}
+                    {% set class = ' class="new-win" ' %}
+                {% endif %}
+
+                <a href="{{ url }}" {{ class }}>
+                    {{ html.image(manufacturer.imageInfo)|raw }}
+                </a>
+                {% if manufacturer.url is not empty %}
+                    <a href="{{ path('manufacturer', {'manufacturers_id' : manufacturer.id}) }}">
+                        {{ 'Other Products'|trans }}
+                    </a>
+                {% endif %}
+            {% else %}
+                {% set url = path('manufacturer', {'manufacturers_id' : manufacturer.id}) %}
+                {% set class = '' %}
+                {% set text = 'Other Products'|trans %}
+                {% if manufacturer.url is not empty %}
+                    {% set url = net.trackLink('manufacturer', manufacturer.id) %}
+                    {% set class = ' class="new-win" ' %}
+                    {% set text = 'Manufacturer Homepage'|trans %}
+                {% endif %}
+                <a href="{{ url }}" {{ class }}>
+                    {{ text }}
+                </a>
+                {% if manufacturer.url is not empty %}
+                    <a href="{{ path('manufacturer', {'manufacturers_id' : manufacturer.id}) }}">
+                        {{ 'Other Products'|trans }}
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}

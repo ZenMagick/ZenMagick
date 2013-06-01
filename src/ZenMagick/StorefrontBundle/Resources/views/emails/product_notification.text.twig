@@ -1,0 +1,5 @@
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
+
+{{ message }}
+
+{{ utils.staticPageContent('email_advisory')|striptags }}

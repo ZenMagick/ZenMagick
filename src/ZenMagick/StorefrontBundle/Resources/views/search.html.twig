@@ -1,0 +1,42 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Search'|trans))|raw %}
+{% block body %}
+    {{ form.open('search', '', false, {'method' : 'get'})|raw }}
+        <fieldset>
+            <legend>{{ 'Search again'|trans }}</legend>
+            <div>
+                <input type="text" id="keywords" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="if (this.value== '{{ 'Search...'|trans }}') this.value='';" />
+            </div>
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Search'|trans }}" />
+            </div>
+            <a class="clear" href="{{ path('advanced_search', {'keywords' : searchCriteria.keywords}) }}">
+                {{ 'Advanced Search'|trans }}
+            </a>
+        </fieldset>
+    </form>
+
+    {% if resultList is defined %}
+        {% if resultList.hasResults %}
+            <div class="rnblk">
+                {{ include('@Storefront/resultlist/nav.html.twig') }}
+                {{ include('@Storefront/resultlist/options.html.twig') }}
+            </div>
+
+            <div class="rlist">
+                <table>
+                    <tbody>
+                        {% for product in resultList.results %}
+                            {{ include('@Storefront/resultlist/product.html.twig', {'loop' : loop}) }}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="rnblk">
+                {{ include('@Storefront/resultlist/nav.html.twig') }}
+            </div>
+        {% else %}
+            <h2>{{ 'No products found'|trans }}</h2>
+        {% endif %}
+    {% endif %}
+{% endblock %}

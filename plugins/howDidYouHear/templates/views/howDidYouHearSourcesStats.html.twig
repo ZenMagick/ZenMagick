@@ -1,0 +1,31 @@
+{% extends '@Admin/layout.html.twig' %}
+{% block body %}
+    <table class="grid" width="50%">
+        <tr>
+            <th>{{ 'Source'|trans }}</th>
+            <th>{{ 'Count'|trans }}</th>
+        </tr>
+        {% for line in resultList.results %}
+            <tr>
+                {% if line.sourceId is constant('ID_SOURCE_OTHER') %}
+                    <td>
+                        <a href="{{ path('howDidYouHearSourcesStats', {'other' : 'true'}) }}">
+                            {{ line.name }}
+                        </a>
+                    </td>
+                {% else %}
+                    <td>{{ line.name }}</td>
+                {% endif %}
+                <td>{{ line.count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if isOther %}
+    <p>
+        <a href="{{ path('howDidYouHearSourcesStats') }}" class="{{ buttonClasses }}">
+            {{ 'Back to overview'|trans }}
+        </a>
+    </p>
+    {% endif %}
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}

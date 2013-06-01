@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+    {{ include('@Storefront/head.html.twig') }}
+    {# @todo move to asset groups to a configuration file #}
+    {% block stylesheets %}
+        {% stylesheets
+            'bundles/storefront/css/site.css'
+            filter='?cssmin, cssrewrite'
+        %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+    {# @todo move some bits to footer #}
+    {% block javascripts %}
+        {% javascripts
+            '@StorefrontBundle/Resources/public/js/jquery.js'
+            '@StorefrontBundle/Resources/public/js/jquery.form.js'
+            '@StorefrontBundle/Resources/public/js/common.js'
+            '@StorefrontBundle/Resources/public/js/validation.js'
+            filter='?jsminplus'
+        %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts%}
+    {% endblock %}
+    <style type="text/css" media="screen,projection">
+        {% autoescape 'css' %}
+            {% if not templateManager.isLeftColEnabled %}
+                #content {
+                    margin-left: 10px;
+                }
+            {% endif %}
+            {% if not templateManager.isLeftColEnabled %}
+                body div#content {
+                    margin-right: 20px;
+                }
+            {% endif %}
+        {% endautoescape %}
+      </style>
+</head>
+
+<body id="b_{{ app.request.requestId }}">
+    <div id="bannerOne">{{ templateManager.fetchBlockGroup('banners.header1')|raw }}</div>
+
+    <div id="container">
+        {{ include('@Storefront/header.html.twig') }}
+        {{ include('@Storefront/menu.html.twig') }}
+        <div id="leftcol">
+            {{ templateManager.fetchBlockGroup('leftColumn')|raw }}
+        </div>
+
+        <div id="rightcol">
+            {{ templateManager.fetchBlockGroup('rightColumn')|raw }}
+        </div>
+
+        <div id="content">
+            {# @todo refactor buildCrumbtrail so we can pass the arguments to it. #}
+            <div id="crumbtrail">{% block crumbtrail %}{% endblock %}</div>
+            <div id="bannerThree">{{ templateManager.fetchBlockGroup('banners.header3')|raw }}</div>
+
+            {% if app.session.flashBag.hasMessages %}
+                <ul id="messages">
+                    {% for message in app.session.flashBag.messages %}
+                        <li class="{{ message.type }}">{{ message.text }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% block body %}{% endblock %}
+
+            <div id="bannerFour">{{ templateManager.fetchBlockGroup('banners.footer1')|raw }}</div>
+        </div>
+        {{ include('@Storefront/footer.html.twig') }}
+    </div>
+
+    <div id="bannerSix">{{ templateManager.fetchBlockGroup('banners.footer3')|raw }}</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% if currentProduct is defined and (specials != app.request.requestId) %}
+    {% set products = product_manager.specials(1, app.session.get('languages_id')) %}
+    {% if products is not empty %}
+        {% set product = products[0] %}
+        <h3>
+            <a href="{{ path('specials') }}">
+                {{ '[More]'|trans }}
+            </a>
+            {{ 'Specials'|trans }}
+        </h3>
+        <div id="sb_specials" class="box">
+            <p>{{ html.productImageLink(product)|raw }}</p>
+            <p>
+                <a href="{{ net.product(product.id) }}">
+                    {{ product.name }}
+                </a>
+            </p>
+            {% set offers = product.offers %}
+            <p class="price">{{ utils.formatMoney(offers.calculatedPrice) }}</p>
+        </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,9 @@
+{{ 'Order #:'|trans }} {{ order.id }}
+
+{% set schedules = plugin.schedules %}
+
+{{ 'Schedule:'|trans }} {{ schedules[order.schedule]['name'] }}
+
+{{ 'Next Order Date:'|trans }} {{ order.nextOrder|localizeddate('short', 'none') }}
+
+{{ 'Minimum Last Order Date:'|trans }} {{ plugin.minLastOrderDate(order.id)|localizeddate(order.id) }}

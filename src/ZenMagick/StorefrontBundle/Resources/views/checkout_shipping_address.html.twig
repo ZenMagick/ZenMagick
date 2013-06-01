@@ -1,0 +1,37 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Checkout'|trans, path('checkout_shipping')).addCrumb('Shipping Address'|trans))|raw %}
+{% block body %}
+    {% set currentAddress = shoppingcart.shippingAddress %}
+    {% if 0 < addressList|length %}
+        {{ form.open('checkout_shipping_address', 'action=select', true)|raw }}
+            <h3>{{ 'Select an existing address'|trans }}</h3>
+            <fieldset>
+                <legend>{{ 'Address Book'|trans }}</legend>
+                {% for address in addressList %}
+                    <p>
+                        {% set checked = true %}
+                        {% if null != currentAddress or 1 == addressList|length or currentAddress.id == address.id %}
+                            {% set checked = 'checked="checked"' %}
+                        {% endif %}
+                        <input type="radio" id="address_{{ address.id }}" name="addressId" value="{{ address.id }}" {{ checked }} />
+                        <label for="address_{{ address.id }}">{{ address.fullName }}</label>
+                        <br />
+                        {{ macro.formatAddress(address)|raw }}
+                        <br />
+                    </p>
+                {% endfor %}
+            </fieldset>
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+            </div>
+        </form>
+        <h3>{{ '... or create a new one'|trans }}</h3>
+    {% endif %}
+
+    {{ form.open('checkout_shipping_address', 'action=create', true, {'id' : 'shippingAddress'})|raw }}
+        {{ include('@Storefront/address.html.twig', {'address' : shippingAddress}) }}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div id="menu">
+    <ul>
+        <li class="first"><a href="{{ path('index') }}">{{ 'HOME'|trans }}</a></li>
+
+        {% if not app.user %}
+            <li><a href="{{ path('login') }}">{{ 'LOGIN'|trans }}</a></li>
+        {% endif %}
+        {% if is_granted('ROLE_REGISTERED') %}
+            <li><a href="{{ path('account') }}">{{ 'ACCOUNT'|trans }}</a></li>
+        {% endif %}
+        {% if app.user %}
+            <li><a href="{{ path('logoff') }}">{{ 'LOGOFF'|trans }}</a></li>
+        {% endif %}
+        {% if not cart.isEmpty and not isCheckout %}
+            <li><a href="{{ path('shopping_cart') }}">{{ 'SHOPPING CART'|trans }}</a></li>
+            <li><a href="{{ path('checkout_shipping') }}">{{ 'CHECKOUT'|trans }}</a></li>
+        {% endif %}
+        {% for page in ezpage_manager.pagesForHeader(1) %}
+            <li>{{  html.ezpageLink(page.id)|raw }}></li>
+        {% endfor %}
+    </ul>
+</div>

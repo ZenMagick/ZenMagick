@@ -1,0 +1,18 @@
+{{ 'Hi %to_name%,'|trans({'%to_name%' : emailMessage.toName}) }}
+
+
+{{ 'Your friend, %from_name%, thought that you would be interested in %product% from %store_name%.'|trans({'%from_name%' : emailMessage.fromName, '%product%' : currentProduct.name, '%store_name%' : settings.get('storeName')}) }}
+
+{% if emailMessage.hasMessage %}
+
+{{ '%from_name% also sent a note saying:'|trans({'%from_name%' : emailMessage.fromName}) }}
+
+{{ emailMessage.message }}
+{% endif %}
+
+{{ 'To view the product, click on the following link or copy and paste the link into your web browser: %product%'|trans({'%product%' : net.product(currentProduct.id, null)}) }}
+
+
+{{ 'Regards, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}
+
+{{ utils.staticPageContent('email_advisory')|striptags }}

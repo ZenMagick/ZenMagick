@@ -130,7 +130,7 @@ class ToolboxMacro extends ToolboxTool
      * @param string sep A separator string.
      * @return string A fully HTML formatted crumbtrail.
      */
-    public function buildCrumbtrail($crumbtrail, $sep)
+    public function buildCrumbtrail($crumbtrail, $sep = ' &gt; ')
     {
         $toolbox = $this->getToolbox();
         $html = '';

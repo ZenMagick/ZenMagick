@@ -24,43 +24,49 @@ You can also create a new product type (and template) by logging in as admin and
 Catalog -> Product Types
 
 Once you have determined the template name, it's probably easiest to copy the existing
-product template (product_info.php) to music_product_info.php and use it as basis for your new music template.
+product template (product_info.html.twig) to music_product_info.html.twig and use it as basis for your new music template.
 
 For music products, or products configured with the music_product_info view template, the following additional 
 view vars will be made available:
 * musicManager - The manager service (usually not really needed)
-* artis - Artist information
+* artist - Artist information
 * collections - The available collections
 
 The following code can be used to display music related information:
 
-  <?php if ($artist) { ?>
-    <fieldset>
-        <legend><?php _vzm("Additional Music Info") ?></legend>
-        <p><?php _vzm("Genre:") ?> <?php echo $artist->getGenre() ?></p>
-        <?php if ($artist->hasUrl()) { ?>
-            <p>
-                <?php _vzm("Homepage:") ?>
-                <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>" class="new-win"><?php echo $artist->getName() ?></a>
-            </p>
-        <?php } ?>
-    </fieldset>
-  <?php } ?>
+    {% if artist %}
+        <fieldset>
+            <legend>{{ 'Additional Music Info'|trans }}</legend>
+            <p>{{ 'Genre: %genre%'|trans('%genre%' : artist.genre}) }}</p>
+            {% if artist.hasUrl %}
+                <p>
+                    {{ 'Homepage:'|trans }}
+                    <a href="{{ net.trackLink('url', artist.url) }}" class="new-win">
+                        {{ artist.name }}
+                    </a>
+                </p>
+            {% endif %}
+        </fieldset>
+    {% endif %}
 
-  <?php if (0 < count($collections)) { ?>
-      <fieldset>
-          <legend><?php _vzm("Media Collections") ?></legend>
-          <?php foreach($collections as $collection) { ?>
-              <div class="mcol">
-                  <h4><?php echo $collection->getName() ?></h4>
-                  <ul>
-                      <?php foreach($collection->getItems() as $mediaItem) { ?>
-                      <li><a href="<?php echo $view['assets']->getUrl($musicProductInfo->mediaUrl($mediaItem->getFilename())) ?>"><?php echo $mediaItem->getFilename() ?></a> 
-                          (<?php echo $mediaItem->getType()->getName() ?>)</li>
-                      <?php } ?>
-                  </ul>
+    {% if 0 < collections|length %}
+        <fieldset>
+            <legend>{{ 'Media Collections'|trans }}</legend>
+            {% for collection in collections %}
+                <div class="mcol">
+                    <h4>{{ collection.name }}</h4>
+                    <ul>
+                        {% for mediaItem in collection.items  %}
+                            <li>
+                                <a href="{{ asset(musicProductInfo.mediaUrl(mediaItem.filename)) }}">
+                                    {{ mediaItem.filename }}
+                                </a>
+                                {{ mediaItem.type.name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
               </div>
-          <?php } ?>
-      </fieldset>
-  <?php } ?>
+            {% endfor %}
+        </fieldset>
+    {% endif %}
 

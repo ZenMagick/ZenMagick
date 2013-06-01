@@ -1,0 +1,16 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Discount Coupon'|trans))|raw %}
+{% block body %}
+    {{ utils.staticPageContent('discount_coupon')|raw }}
+
+    {{ form.open('discount_coupon', '', false, {'method' : 'get'})|raw }}
+        <fieldset>
+            <legend>{{ 'Look-up Discount Coupon ...'|trans }}</legend>
+            <label for="couponCode">{{ 'Your Code'|trans }}</label>
+            <input type="text" id="couponCode" name="couponCode" size="40" value="{{ currentCoupon }}" />
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Send'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,11 @@
+<h3>{{ 'Languages'|trans }}</h3>
+<div id="sb_languages" class="box">
+    {% for lang in languages.languages %}
+        <a href="{{ path('set_language', {'language' : lang.code}) }}">
+            <img src="{{ asset('bundles/storefront/images/lang/' ~ lang.directory ~ '/' ~ lang.image) }}" alt="{{ lang.name }}" title="{{ lang.name }}" />
+        </a>
+        {% if loop.index is divisibleby(5) %}
+            <br />
+        {% endif %}
+    {% endfor %}
+</div>

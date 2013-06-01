@@ -1,0 +1,21 @@
+{% if subscription.qualifies(zm_cart) %}
+    <fieldset>
+        <legend>{{ 'Subscriptions'|trans }}</legend>
+        <p class="inst">
+            {{ 'To make this order a scheduled subscription, please tick <em>Subscribe</em> and select the schedule.'|trans|raw }}
+        </p>
+        {% set schedule = subscription.selectedSchedule %}
+        <p>
+            <input type="checkbox" name="subscription" id="subscription" value="1" {{ form.checked((schedule is not empty))|raw }}>
+            <label for="subscription">{{ 'Subscribe'|trans }}</label>
+        </p>
+        <p>
+            <label for="schedule">{{ 'Order Interval'|trans }}</label>
+            <select name="schedule" id="schedule">
+            {% for key, schedule in subscriptions.schedules if not schedule['active'] %}
+                <option value="{{ key }}">{{ schedule['name'] }}</option>
+            {% endfor %}
+          </select>
+        </p>
+    </fieldset>
+{% endif %}

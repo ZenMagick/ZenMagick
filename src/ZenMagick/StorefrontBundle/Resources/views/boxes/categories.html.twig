@@ -1,0 +1,5 @@
+{% set tree = category_manager.categoryTree(app.session.get('languages_id')) %}
+<h3>{{ 'Categories'|trans }}</h3>
+<div id="sb_categories" class="box">
+    {{ macro.categoryTree(tree, settings.get('isShowCategoryCount'), settings.get('isUseCategoryPage'))|raw }}
+</div>

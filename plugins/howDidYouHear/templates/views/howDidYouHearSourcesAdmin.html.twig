@@ -1,0 +1,35 @@
+{% extends '@Admin/layout.html.twig' %}
+{% block body %}
+    <table class="grid" width="50%">
+        <tr>
+            <th>{{ 'Source'|trans }}</th>
+            <th>{{ 'Options'|trans }}</th>
+        </tr>
+        {% for line in resultList.results %}
+            <tr>
+                <td>{{ line.name }}</td>
+                <td>
+                    <a href="" class="{{ buttonClasses }}">{{ 'Edit'|trans }}</a>
+                    {% if constant('ID_SOURCE_OTHER') != line.sourceId %}
+                        <form class="button-form" action="{{ path('howDidYouHearSourcesAdmin') }}" method="POST" onsubmit="return ZenMagick.confirm('{{ 'Are you sure?'|trans }}', this);">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="sourceId" value="{{ line.sourceId }}">
+                            <input type="submit" class="{{ buttonClasses }}" value="{{ 'Delete'|trans }}">
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">
+                <form action="{{ path('howDidYouHearSourcesAdmin') }}" method="POST">
+                    <input type="hidden" name="action" value="create">
+                    <label for="source">{{ 'New Source'|trans }}</label>
+                    <input type="text" id="source" name="source" value="">
+                    <input type="submit" class="{{ buttonClasses }}" value="{{ 'Create'|trans }}">
+                </form>
+            </td>
+        </tr>
+    </table>
+    {{ include('@Admin/pagination.html.twig') }}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block body %}
+    {{ form.addProduct(currentProduct.id, 1)|raw }}
+        <div>
+            <div id="pinfo">
+                {{ html.productImageLink(currentProduct)|raw }}
+                {{ currentProduct.description }}
+            </div>
+            <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
+
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" />
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            {{ include('@Storefront/reviews.html.twig') }}
+        </div>
+    </form>
+{% endblock %}

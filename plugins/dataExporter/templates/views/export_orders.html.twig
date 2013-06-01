@@ -1,0 +1,52 @@
+{% extends '@Admin/layout.html.twig' %}
+{% block body %}
+    <script>
+        {% autoescape 'js' %}
+        $(function () {
+            $('.datepicker').datepicker();
+        });
+        {% endautoescape %}
+    </script>
+    <h2>{{ 'Export orders'|trans }}</h2>
+    <div>
+        <form class="export-orders-form" action="{{ path('export_orders') }}" method="GET">
+            <p>
+                <label for="dateFrom">{{ 'From:'|trans }}</label>
+                <input class="datepicker" id="fromDate" name="fromDate" date:dateFormat="{{ dateFormat }}" type="text" value="{{ fromDate }}">
+            </p>
+            <p>
+                <label for="dateTo">{{ 'To:'|trans }}</label>
+                <input class="datepicker" id="toDate" name="toDate" date:dateFormat="{{ dateFormat }}" type="text" value="{{ toDate }}">
+            </p>
+            <p>
+                <label for="exportFormat">{{ 'Format:'|trans }}</label>
+                <select id="exportFormat" name="exportFormat">
+                    <option value="display">{{ 'Display'|trans }}</option>
+                    <option value="csv">{{ 'CSV'|trans }}</option>
+                </select>
+            </p>
+            <p>
+                <input type="submit" class="{{ buttonClasses }}" value="{{ 'Find Orders'|trans }}">
+            </p>
+        </form>
+    </div>
+
+    {% if header is defined and rows is defined %}
+        <table class="grid">
+            <tr>
+                {% for column in header %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+            {% for order_rows in rows %}
+                {% for row in order_rows %}
+                    <tr>
+                        {% for column in row %}
+                            <td>{{ column }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="{{ language.code }}">
+<head>
+    <title>{{ 'A gift from %name%'|trans({'%name%' :currentAccount.fullName}) }}</title>
+</head>
+<body>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Dear %receiver%,'|trans({'%receiver%' : gvReceiver.name}) }}</p>
+
+        <p>{{ 'You have been sent a Gift Certificate worth %amount% by %user%.'|trans({'%amount%' : utils.formatMoney(gvReceiver.amount, false), '%user%': currentAccount.fullName}) }}</p>
+        <p>{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}</p>
+        {% if gvReceiver.hasMessage %}
+            <p>
+                {{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
+                <br />
+                {{ gvReceiver.message|nl2br }}
+            </p>
+        {% endif %}
+        <p>{{'To redeem your gift, visit <a href="%redeem_url%">%store_name%</a>.'|trans({'%redeem_url%' : url('gv_redeem', {'couponCode': currentCoupon.code}), '%store_name%' : settings.get('storeName')})|raw }}</p>
+
+        {% if isSupressDisclaimer is not defined %}
+            {{ utils.staticPageContent('email_advisory')|raw }}
+        {% endif %}
+        {{ office_only_html|raw }}
+    </div>
+</body>
+</html>

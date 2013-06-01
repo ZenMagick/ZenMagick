@@ -1,0 +1,40 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb(ezPage.title))|raw %}
+{% block body %}
+    {% set toc = ezpage_manager.pagesForChapterId(app.request.get('chapter'), app.session.get('languages_id')) %}
+    {% if 1 < toc|length %}
+        <div id="eztoc">
+            <h4>{{ 'Table of Contents'|trans }}</h4>
+            <ul>
+                {% set prev = null %}
+                {% set next = null %}
+                {% for page in toc %}
+                    {% set current = page.id == ezPage.id ? page.id %}
+                    {% if current and prev is null and not loop.first and loop.length > 1 %}
+                        {% set prev = toc[loop.index0 -1] %}
+                    {% endif %}
+                    {% if current and next is null and not loop.last and loop.length > 1 %}
+                        {% set next = toc[loop.index0 + 1] %}
+                    {% endif %}
+                    <li {{ current ? 'class="act"'|raw }}>
+                        <a href="{{ net.ezPage(page) }}">
+                            {{ page.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if prev or next %}
+                <p>
+                    {% if prev %}
+                        <a href="{{ net.ezPage(prev) }}">&lt; {{ 'Prev'|trans }}</a>
+                    {% endif %}
+                    {% if next %}
+                        <a href="{{ net.ezPage(next) }}">{{ 'Next'|trans }} &gt;</a>
+                    {% endif %}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+    <h2>{{ ezPage.title }}</h2>
+    {{ ezPage.content|raw }}
+{% endblock %}

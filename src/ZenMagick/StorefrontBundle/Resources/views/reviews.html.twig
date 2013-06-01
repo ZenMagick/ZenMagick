@@ -1,0 +1,25 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct.addCrumb('Reviews'|trans))|raw %}
+{% block body %}
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for review in resultList.results %}
+                        {{ include('@Storefront/resultlist/review.html.twig', {'loop' : loop}) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        <h2>{{ 'There are no reviews available at this time'|trans }}</h2>
+        <p>{{ 'New reviews might need approval before they are listed.'|trans }}</p>
+    {% endif %}
+{% endblock %}

@@ -180,6 +180,8 @@
         <service id="templateManager" class="ZenMagick\StoreBundle\Themes\TemplateManager">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="themeService" />
+            <!-- needed for the request service -->
+            <argument type="service" id="service_container" />
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 

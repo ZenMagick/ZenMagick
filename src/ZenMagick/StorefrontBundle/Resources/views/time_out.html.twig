@@ -1,0 +1,15 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block body %}
+    {% if not app.user %}
+        <h2>{{ 'Whoops! Your session has expired.'|trans }}</h2>
+    {% else %}
+        <h2>{{ 'Whoops! Sorry, but you are not allowed to perform the action requested.'|trans }}</h2>
+    {% endif %}
+
+    <p>
+        {{ 'If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.'|trans }}
+    </p>
+    <p>
+        {{ 'If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%account_url%">My Account</a> page to view your order.'|trans({'%account_url%' : path('account')})|raw }}
+    </p>
+{% endblock %}

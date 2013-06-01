@@ -1,0 +1,43 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Gift Certificate FAQ'|trans))|raw %}
+{% block body %}
+    <h2>{{ 'Gift Certificate FAQ'|trans }}</h2>
+
+    {# the available FAQ entries #}
+    {% set faq_topics = {
+        'gv_purchase' : 'Purchasing Gift Certificates'|trans,
+        'gv_send' : 'How to send Gift Certificates'|trans,
+        'gv_use' : 'Buying with Gift Certificates'|trans,
+        'gv_redeem' : 'Redeeming Gift Certificates'|trans,
+        'gv_trouble' : 'When problems occur...'|trans
+    }
+    %}
+
+    <ul>
+        {% for key, title in faq_topics %}
+            <li>
+                <a href="{{ path('gv_faq', {'topic' : key}) }}">
+                    {{ title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% set topic = app.request.query.get('topic') %}
+    {% if topic is not empty and topic in faq_topics %}
+        {{ utils.staticPageContent(topic)|raw }}
+    {% endif %}
+
+    {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
+        <fieldset>
+            <legend>{{ 'Redemption code details'|trans }}</legend>
+            <div>
+                <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
+                <input type="text" id="gvCode" name="couponCode" value="{{ gvRedeem.couponCode }}" />
+            </div>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Redeem'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

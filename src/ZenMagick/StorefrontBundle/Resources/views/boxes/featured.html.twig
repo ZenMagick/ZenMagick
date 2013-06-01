@@ -1,0 +1,20 @@
+{% set products = product_manager.featuredProducts(app.request.query.get('categoryId'), 1, false, app.session.get('languages_id')) %}
+{% if 1 == products|length %}
+    {% set product = products[0] %}
+    <h3>
+        <a href="{{ path('featured_products') }}">
+            {{ '[More]'|trans }}
+        </a>
+        {{ 'Featured'|trans }}
+    </h3>
+    <div id="sb_featured" class="box">
+        <p>{{ html.productImageLink(product)|raw }}</p>
+        <p>
+            <a href="{{ net.product(product.id) }}">
+                {{ product.name }}
+            </a>
+        </p>
+        {% set offers = product.offers %}
+        <p class="price">{{ utils.formatMoney(offers.calculatedPrice) }}</p>
+    </div>
+{% endif %}

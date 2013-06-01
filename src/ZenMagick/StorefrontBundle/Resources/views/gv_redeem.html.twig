@@ -1,0 +1,26 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Redeem Gift Certificate'|trans))|raw %}
+{% block body %}
+    <h2>{{ 'Redeem A Gift Certificate'|trans }}</h2>
+    {% if gvRedeem.redeemed %}
+        <p>
+            {{ 'Congratulations, you have redeemed a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(gvRedeem.amount)}) }}
+        </p>
+    {% else %}
+        {{ form.open('gv_redeem', '', true, {'id' : 'gv_redeem'})|raw }}
+            <fieldset>
+                <legend>{{ 'Redemption code details'|trans }}</legend>
+                <div>
+                    <label for="gvCode">{{ 'Redemption Code'|trans }}</label>
+                    <input type="text" id="gvCode" name="couponCode" value="{{ gvRedeem.couponCode }}"/>
+                </div>
+            </fieldset>
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Redeem'|trans }}" />
+            </div>
+        </form>
+    {% endif %}
+    <p>
+        {{ 'For more information regarding Gift Certificates, please see the <a href="%faq_link%">Gift Certificate FAQ</a>.'|trans({'%faq_link%' : path('gv_faq')})|raw }}
+    </p>
+{% endblock %}

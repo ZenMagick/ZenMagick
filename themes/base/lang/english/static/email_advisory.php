@@ -1,1 +1,0 @@
-<strong>IMPORTANT:</strong> For your protection and to prevent malicious use, all emails sent via this web site are logged and the contents recorded and available to the store owner. If you feel that you have received this email in error, please send an email to <?php echo $settingsService->get('storeEmail') ?>.

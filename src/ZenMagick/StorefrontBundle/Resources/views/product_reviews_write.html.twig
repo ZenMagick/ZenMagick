@@ -1,0 +1,58 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct(currentProduct.id).addCrumb('Write Review'|trans))|raw %}
+{% block body %}
+    {{ form.addProduct(currentProduct.id, 1)|raw }}
+        <div>
+            <div id="pinfo">
+                {{ html.productImageLink(currentProduct)|raw }}
+                {{ currentProduct.description|raw }}
+            </div>
+            <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
+
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" />
+            </div>
+            <p id="author">{{ 'Review by: %author%'|trans({'%author%' : app.user.fullName}) }}</p>
+        </div>
+    </form>
+
+    {{ form.open('product_reviews_write', 'productId=' ~ currentProduct.id ~ '&languageId=' ~ currentProduct.languageId, true, {'id' : 'newReview'})|raw }}
+        <fieldset>
+            <legend>{{ 'New Review'|trans }}</legend>
+            <p>{{ 'Choose a ranking for this item. 1 star is the worst and 5 stars is the best.'|trans }}</p>
+
+            <div id="stars">
+                {% for stars in range(1, 5) %}
+                <input type="radio" id="rating-{{ stars }}" name="rating" value="{{ stars }}" {{ newReview.rating == stars ? 'checked="checked"'|raw }} />
+                <label for="rating-{{ stars }}">
+                    <img src="{{ asset('bundles/storefront/images/stars_' ~ stars ~ '_small.gif') }}" alt="{{ '%stars% Star'|trans({'%stars%' : stars}) }}" title="{{ '%stars% Star'|trans({'%stars%' : stars}) }}" />
+                </label>
+                {% endfor %}
+            </div>
+
+            <div id="rtitle">
+                <label for="title">{{ 'Title'|trans }}</label>
+                <input type="text" id="title" name="title" value="" />
+            </div>
+
+            <label for="text">
+                {{ 'Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.'|trans }}
+            </label>
+            <textarea id="text" name="text" cols="60" rows="5">{{ newReview.text }}</textarea>
+
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Send'|trans }}" />
+            </div>
+            <div>
+                <strong>{{ 'NOTE:'|trans }} </strong>
+                {{ 'HTML tags are not allowed.'|trans }}
+                <br />
+                {% if settings.get('isApproveReviews') %}
+                    <strong>{{ 'NOTE:'|trans }} </strong>
+                    {{ 'Reviews require prior approval before they will be displayed.'|trans }}
+                {% endif %}
+            </div>
+        </fieldset>
+    </form>
+    <br class="clearBoth" />
+{% endblock %}

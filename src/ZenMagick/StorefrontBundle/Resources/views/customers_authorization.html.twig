@@ -1,0 +1,8 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block body %}
+    <h3>{{ 'Customer Authorization Pending ...'|trans }}</h3>
+    <p>
+        {{ 'We will contact you as soon as possible. To re-check your Authorization status ...'|trans }}
+        <a href="{{ path('account') }}">{{ 'Click here'|trans }}</a>.
+    </p>
+{% endblock %}

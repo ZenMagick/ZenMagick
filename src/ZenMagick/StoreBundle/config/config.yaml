@@ -19,10 +19,10 @@ zenmagick:
     html:
       charset: utf-8
     view:
-      defaultLayout: default_layout.html.php
+      defaultLayout: layout.html.twig
     ## templates
     templates:
-      ext: .html.php
+      ext: .html.twig
 
 storeDefaultLanguageId: 1
 

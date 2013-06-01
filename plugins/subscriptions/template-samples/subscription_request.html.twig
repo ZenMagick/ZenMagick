@@ -1,0 +1,28 @@
+<h3>{{ 'Subscription Enqiries'|trans }}</h3>
+{{ form.open('subscription_request', null, true, {'method' : 'post', 'id' : 'subscription_request'})|raw }}
+    <fieldset>
+        <legend>{{ 'Subscription Enquiries'|trans }}</legend>
+        <label for="type">{{ 'Request Type'|trans }}<span>*</span></label>
+        <select id="type" name="type">
+            {% for type, name in subscriptions.requestTypes %}
+                <option value="{{ type }}" {{ (subscriptionRequest.type == type) ? ' selected' }}>
+                    {{ name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br />
+
+        <label for="orderId">{{ 'Order Number (optional)'|trans }}</label>
+        <input type="text" id="orderId" name="orderId" size="8" value="{{ subscriptionRequest.orderId }}" />
+        <br />
+
+        <label for="message">{{ 'Message'|trans }}<span>*</span></label>
+        <textarea id="message" name="message" cols="30" rows="7">
+            {{ subscriptionRequest.message|raw }}
+        </textarea>
+        <p class="legend">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
+    </fieldset>
+    <div class="btn">
+        <input type="submit" class="btn" value="{{ 'Send'|trans }}" />
+    </div>
+</form>

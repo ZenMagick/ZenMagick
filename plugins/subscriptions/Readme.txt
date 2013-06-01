@@ -32,15 +32,15 @@ Templates
 Email templates
 ---------------
 The plugin will try to use three different email templates, depending on the configuration:
-a) subscription_request.[text|html].php
+a) subscription_request.[text|html].twig
 A notification email to the store owner (or other configured email address) about a subscription form request.
 The name may be overridden with the setting 'plugins.subscriptions.email.templates.request'.
 
-b) subscription_cancel.[text|html].php
+b) subscription_cancel.[text|html].twig
 Confirmation email for customer (and admin) about a canceled order
 The name may be overridden with the setting 'plugins.subscriptions.email.templates.cancel'.
 
-3) checkout.[text|html].php
+3) checkout.[text|html].twig
 Customer notification email about a scheduled order. The default is to use the regular 'checkout' email template.
 
 All email templates may be changed by configuring the following settings:
@@ -59,7 +59,7 @@ Payments
 ========
 This plugin is not concerned about payments. One model of handling payments would be to allow the offline CC payment
 type for subscriptions and other for regular orders.
-A simple way of doing this would be to modify the checkout_payments.php template in the following fashion:
+A simple way of doing this would be to modify the checkout_payments.html.twig template in the following fashion:
 
 
       ....

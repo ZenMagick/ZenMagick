@@ -1,0 +1,21 @@
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
+
+
+{{ 'You recently purchased a Gift Certificate from our online store at %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}
+
+
+{{ 'For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.'|trans }}
+
+
+{{ 'The Gift Certificate(s) you purchased are worth %amount%'|trans({'%amount%' : utils.formatMoney(couponQueue.getAmount, false)}) }}
+
+
+{{ 'Thank you for shopping with us!'|trans }}
+
+{{ 'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}
+
+{% if isSupressDisclaimer is not defined %}
+{{ utils.staticPageContent('email_advisory')|striptags }}
+{% endif %}
+
+{{ office_only_text }}
