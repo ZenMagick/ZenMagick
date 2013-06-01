@@ -1,0 +1,15 @@
+{% set products = product_manager.bestSellers(app.request.query.get('categoryId'), null, app.session.get('languages_id')) %}
+{% if 0 < products|length %}
+    <h3>{{ 'Best Sellers'|trans }}</h3>
+    <div id="sb_bestsellers" class="box">
+        <ol>
+            {% for product in products %}
+                <li>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ product.name|truncate(30)|raw }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endif %}

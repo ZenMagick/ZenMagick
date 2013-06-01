@@ -1,0 +1,20 @@
+{% if app.user and app.request.requestId not in ['login', 'time_out'] %}
+    <h3>{{ 'Login'|trans }}</h3>
+    <div id="sb_login" class="box">
+        {{ form.open('login', '', true, {'id' : 'login'})|raw }}
+            <div>
+                <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
+                <input type="text" id="email_address" name="email_address" {{ form.fieldLength('customers', 'customers_email_address', 20)|raw }} />
+            </div>
+            <div>
+                <label for="password">{{ 'Password'|trans }}</label>
+                <input type="submit" class="btn" value="{{ 'Login'|trans }}" />
+                <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password', 9)|raw }} />
+            </div>
+        </form>
+        <div>
+            <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a>
+            <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
+        </div>
+    </div>
+{% endif %}

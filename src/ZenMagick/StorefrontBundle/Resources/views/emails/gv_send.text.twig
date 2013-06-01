@@ -1,0 +1,19 @@
+{{ 'Dear %receiver%,'|trans({'%receiver%' : gvReceiver.name}) }}
+
+
+{{ 'You have been sent a Gift Certificate worth %amount% by %user%.'|trans({'%amount%' : utils.formatMoney(gvReceiver.amount, false), '%user%': currentAccount.fullName}) }}
+
+{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
+
+{% if gvReceiver.hasMessage %}
+{{ '%user% says:'|trans({'%user%' : currentAccount.firstName}) }}
+
+{{ gvReceiver.message }}
+{% endif %}
+
+{{ 'To redeem your gift, visit %redeem_url%'|trans({'%redeem_url%' : url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
+
+{% if isSupressDisclaimer is not defined %}
+{{ utils.staticPageContent('email_advisory')|striptags }}
+{% endif %}
+{{ office_only_text }}

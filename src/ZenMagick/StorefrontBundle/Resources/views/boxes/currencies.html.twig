@@ -1,0 +1,16 @@
+{% set currencies = currency_manager.currencies %}
+{# quick workaround for a lack of a starts_with twig extension #}
+{% set request_part = app.request.requestId|split('_', 1) %}
+{% if 0 < currencies|length and 'checkout' != request_part[0] %}
+    <h3>{{ 'Currencies'|trans }}</h3>
+    <div id="sb_currencies" class="box">
+        {{ form.open('set_currency', '', app.request.isSecure, {'method' : 'get'})|raw }}
+            <div>
+                {{ form.idpSelect('currency', currencies, app.session.get('currency'), {'onchange' : 'this.form.submit()', 'oValue' : 'getCode'})|raw }}
+                <noscript>
+                    <div><input type="submit" class="btn" value="{{ 'Go'|trans }}" /></div>
+                </noscript>
+            </div>
+        </form>
+    </div>
+{% endif %}

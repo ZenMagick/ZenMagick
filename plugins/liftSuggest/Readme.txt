@@ -34,4 +34,4 @@ Example:
 
 Include the basic lift suggest template in your product page or shopping cart:
 
-<?php echo $this->render('StorefrontBundle::lift-suggestions.html.php') ?>
+{{ include('@Storefront/lift-suggestions.html.twig') }}

@@ -1,0 +1,65 @@
+{{ '%store_name% Order Confirmation'|trans({'%store_name%': settings.get('storeName')}) }}
+
+
+{{ 'Thanks for shopping at %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}
+
+{{ 'The following is a summary of your order.'|trans }}
+
+
+{{ 'Order Details'|trans }}
+
+-----------------------------------------------
+{{ 'Order Number: #%id%:'|trans({'%id%' : order.id }) }}
+
+{{ 'Order Date: %date%'|trans({'%date%': order.orderDate|localizeddate('short', 'none')}) }}
+
+
+
+{{ 'Ordered Items'|trans }}
+
+-----------------------------------------------
+{% for orderItem in order.orderItems %}
+{{ '%3s x %26s  %7s'|format(orderItem.quantity, orderItem.name, utils.formatMoney(orderItem.calculatedPrice)) }}
+
+{% endfor %}
+
+{{ '%30s  %s'|format('', '-----------') }}
+
+{% for orderTotalLine in order.orderTotalLines %}
+{{ '%32s  %7s'|format(orderTotalLine.name, orderTotalLine.value) }}
+
+{% endfor %}
+
+
+{{ 'Address Details'|trans }}
+
+-----------------------------------------------
+
+{{ 'Shipping Address'|trans }}
+{% if order.storePickup or not order.hasShippingAddress %}
+{{ 'N/A'|trans }}
+{% else %}
+{{ macro.formatAddress(shippingAddress, false)|raw }}
+{% endif %}
+
+
+{{ 'Billing Address'|trans }}
+
+{{ macro.formatAddress(billingAddress, false)|raw }}
+
+
+{{ 'Payment Details'|trans }}
+
+-----------------------------------------------
+
+{% set paymentType = order.paymentType %}
+{% if null != order.paymentType %}
+{{ paymentType.name }}
+{% if paymentType.info is not empty %}
+
+{{ paymentType.info }}
+{% endif %}
+{% endif %}
+
+
+{{ utils.staticPageContent('email_advisory')|striptags }}

@@ -1,0 +1,18 @@
+{% if message is empty %}
+{{ 'We\'re pleased to offer you a Gift Certificate'|trans }}
+{% else %}
+{{ message }}
+{% endif %}
+
+
+{{ 'You have been sent a Gift Certificate worth %amount%.'|trans({'%amount%' : utils.formatMoney(currentCoupon.amount, false)}) }}
+
+
+{{ 'The code to redeem your Gift Certificate is: %code%.'|trans({'%code%' : currentCoupon.code}) }}
+
+
+{{ 'To redeem your gift, visit %url%'|trans({'%url%':  url('gv_redeem', {'couponCode' : currentCoupon.code})}) }}
+
+
+{{ utils.staticPageContent('email_advisory')|striptags }}
+{{ office_only_text }}

@@ -1,0 +1,30 @@
+{% if currentProduct is defined %}
+    {% set isSubscribed = false %}
+    {% if is_granted('ROLE_REGISTERED') %}
+        {% set subscribedProducts = app.user.subscribedProducts %}
+        {% set isSubscribed = currentProduct.id in subscribedProducts %}
+    {% endif %}
+    {% if not app.user or not isSubscribed %}
+        <h3>{{ 'Notifications'|trans }}</h3>
+        <div id="sb_product_notifications" class="box">
+            {{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
+                <input type="hidden" name="notify_type" value="add" />
+                <input type="hidden" name="notify[]" value="{{ currentProduct.id }}" />
+                <input type="image" src="{{ asset('bundles/storefront/images/big_tick.gif') }}" alt="{{ 'Notify me of updates to this product'|trans }}" title="{{ 'Notify me of updates to this product'|trans }}" />
+                <br />
+                {{ 'Notify me of updates to <strong>%product%</strong>'|trans({'%product%' : currentProduct.name})|raw }}
+            </form>
+        </div>
+    {% elseif not isSubscribed %}
+        <h3>{{ 'Notifications'|trans }}</h3>
+        <div id="sb_product_notifications" class="box">
+            {{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
+                <input type="hidden" name="notify_type" value="remove" />
+                <input type="hidden" name="notify[]" value="{{ currentProduct.id }}" />
+                <input type="image" src="{{ asset('bundles/storefront/images/big_remove.gif') }}" alt="{{ 'Do not notify me of updates to this product'|trans }}" title="{{ 'Do not notify me of updates to this product'|trans }}" />
+                <br />
+                {{ 'Do not notify me of updates to <strong>%product%</strong>'|trans({'%product%' : currentProduct.name})|raw }}
+            </form>
+        </div>
+    {% endif %}
+{% endif %}

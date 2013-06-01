@@ -1,0 +1,36 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Product Notifications'|trans))|raw %}
+{% block body %}
+    <p>
+        {{ 'The product notification list allows you to stay up to date on products you find of interest.'|trans }}
+    </p>
+    <p>
+        {{ 'To be up to date on all product changes, select <strong>Global Product Notifications</strong>.'|trans|raw }}
+    </p>
+    {{ form.open('account_notifications', '', true, {'onsubmit' : null})|raw }}
+        <input type="hidden" name="notify_type" value="set"/>
+        <fieldset>
+            <legend>{{ 'Global Product Notifications'|trans }}</legend>
+            <p>
+                <input type="checkbox" id="product_global" name="product_global" value="1" {{ form.checked(true, currentAccount.globalProductSubscriber, true)|raw }} />
+                <label for="product_global">{{ 'Global Product Notification'|trans }}</label>
+            </p>
+        </fieldset>
+
+        {% if currentAccount.globalProductSubscriber == false and currentAccount.hasProductSubscriptions %}
+            <fieldset>
+                <legend>{{ 'Product Notifications'|trans }}</legend>
+                {% for productId in currentAccount.subscribedProducts %}
+                    {% set product = product_manager.productForId(productId, app.session.get('languages_id')) %}
+                    <p>
+                        <input type="checkbox" id="products_{{ loop.index0 }}" name="notify[{{ loop.index0 }}]" value="{{ productId }}" checked="checked"/>
+                        <label for="products_{{ loop.index0 }}">{{ product ? product.name : '???' }}</label>
+                    </p>
+                {% endfor %}
+            </fieldset>
+        {% endif %}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Update'|trans }}"/>
+        </div>
+    </form>
+{% endblock %}

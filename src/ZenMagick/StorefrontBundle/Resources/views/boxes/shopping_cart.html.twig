@@ -1,0 +1,14 @@
+{% if cart.isEmpty == false and isCheckout == false %}
+    <h3>{{ 'Shopping Cart'|trans }}</h3>
+    <div id="sb_cart" class="box">
+        {% for item in cart.items %}
+            {{ item.quantity }} x
+            <a href="{{ net.product(item.id) }}">
+                {{ item.product.getName }}
+            </a>
+            <br />
+        {% endfor %}
+        <hr />
+        <p class="price">{{ utils.formatMoney(cart.subtotal) }}</p>
+    </div>
+{% endif %}

@@ -1,0 +1,11 @@
+<tr class="{{ loop.index0 is odd ? 'odd' : 'even' }} {{ loop.first ? 'first' : 'other' }}">
+    <td>{{ html.productImageLink(product, app.request.get('categoryId'))|raw }}</td>
+    <td class="pinfo">
+        <a href="{{ net.product(product.id, app.request.get('categoryId')) }}">
+            {{ product.name }}
+        </a>
+        <br />
+        {{ product.description|truncate(120)|raw }}
+    </td>
+    <td class="pprice">{{ utils.formatMoney(product.price) }}</td>
+</tr>

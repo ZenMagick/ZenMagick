@@ -1,0 +1,25 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Order History'|trans))|raw %}
+{% block body %}
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {% include('@Storefront/resultlist/nav.html.twig') %}
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for order in resultList.results %}
+                        {{ include('@Storefront/resultlist/order.html.twig') }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        <h2>{{ 'No orders found'|trans }}</h2>
+    {% endif %}
+{% endblock %}

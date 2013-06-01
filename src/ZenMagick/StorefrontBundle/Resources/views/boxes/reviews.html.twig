@@ -1,0 +1,29 @@
+{# get review for product (if on product page) #}
+{% set filter_arg = currentProduct is defined ? currentProduct : null %}
+{% set reviews = review_manager.randomReviews(app.session.get('languages_id'), filter_arg, 1) %}
+{% if 1 == reviews|length %}
+    {% set review = reviews[0] %}
+    {% set href = path('product_reviews_info', {'productId' : review.productId, 'reviews_id' : review.id}) %}
+    {% set rtext = '%rating% of 5 stars!'|trans({'%rating%' : review.rating}) %}
+    <h3>
+        <a href="{{ path('reviews') }}">{{ '[More]'|trans }}</a>
+        {{ 'Reviews'|trans }}
+    </h3>
+    <div id="sb_reviews" class="box">
+        <p>
+            <a href="{{ net.product(review.productId) }}">
+                {{ html.image(review.productImageInfo)|raw }}
+            </a>
+        </p>
+        <p id="rtext">
+            <a href="{{ href }}">
+                {{ review.text|truncate(60)|raw }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ href }}">
+                <img src="{{ asset('bundles/storefront/images/stars_' ~ review.rating ~ '.gif') }}" alt="{{ rtext }}" title="{{ rtext }}" />
+            </a>
+        </p>
+    </div>
+{% endif %}

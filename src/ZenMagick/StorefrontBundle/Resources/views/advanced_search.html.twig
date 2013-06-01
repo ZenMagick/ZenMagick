@@ -1,0 +1,60 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Advanced Search'|trans))|raw %}
+{% block body %}
+    {{ form.open('search', '', false, {'method' : 'get', 'id' : 'searchCriteria'})|raw }}
+        <fieldset id="term">
+            <legend>{{ 'Search For...'|trans }}</legend>
+            <div id="help">
+                <a href="javascript:popupWindow('{{ path('popup_search_help') }}')">
+                    {{ 'Search Help [?]'|trans }}
+                </a>
+            </div>
+            <div>
+                <input type="text" id="askeyword" name="keywords" value="{{ searchCriteria.keywords('Search...'|trans) }}" onfocus="if (this.value == {{ 'Search...'|trans }}) this.value='';" />
+                <input type="checkbox" id="includeDescription" name="includeDescription" value="1" {{ searchCriteria.includeDescription ? 'checked="checked"'|raw }} />
+                <label class="checkboxLabel" for="includeDescription">
+                    {{ 'Search in product descriptions'|trans }}
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset id="asfilter">
+            <legend>{{ 'Restrict Search By...'|trans }}</legend>
+            <fieldset>
+                <legend>{{ 'Category'|trans }}</legend>
+                {% set categories = category_manager.categories(app.session.get('languages_id')) %}
+                {% set categories_select = [bean('ZMIdNamePair#id=&name=' ~ 'All Categories'|trans)] %}
+                {{ form.idpSelect('categoryId', categories_select|merge(categories), searchCriteria.categoryId)|raw }}
+                <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" {{ searchCriteria.includeSubcategories ? 'checked="checked"'|raw }} />
+                <label for="includeSubcategories">
+                    {{ 'Include Subcategories'|trans }}
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>{{ 'Manufacturer'|trans }}</legend>
+                {% set manufacturers = manufacturer_manager.manufacturers(app.session.get('languages_id')) %}
+                {% set manufacturer_select = [bean('ZMIdNamePair#id=&name=' ~ 'All Manufacturers'|trans)] %}
+                {{ form.idpSelect('manufacturerId', manufacturer_select|merge(manufacturers), searchCriteria.manufacturerId)|raw }}
+            </fieldset>
+
+            <fieldset>
+                <legend>{{ 'Price Range'|trans }}</legend>
+                <input type="text" id="priceFrom" name="priceFrom" value="{{ searchCriteria.priceFrom }}"/>
+                <input type="text" id="priceTo" name="priceTo" value="{{ searchCriteria.priceTo }}"/>
+            </fieldset>
+
+            <fieldset>
+                <legend>{{ 'Date'|trans }}</legend>
+                {% set default_date_value = locale.format('date', 'short-ui-format') %}
+                {% set onfocus = "if(this.value=='" ~ default_date_value ~ "') this.value='';" %}
+                <input type="text" id="dateFrom" name="dateFrom" value="{{ searchCriteria.dateFrom(default_date_value) }}" onfocus="{{ onfocus|raw }}" />
+                <input type="text" id="dateTo" name="dateTo" value="{{ searchCriteria.dateTo(default_date_value) }}" onfocus="{{ onfocus|raw }}" />
+            </fieldset>
+        </fieldset>
+
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Search'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

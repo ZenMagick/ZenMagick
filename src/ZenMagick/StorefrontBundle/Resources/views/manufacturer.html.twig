@@ -1,0 +1,25 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addManufacturer.addProduct)|raw %}
+{% block body %}
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+            {{ include('@Storefront/resultlist/options.html.twig') }}
+        </div>
+
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for product in resultList.results %}
+                        {{ include('@Storefront/resultlist/product.html.twig', {'loop' : loop}) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        <h2>{{ 'There are no products for this manufacturer'|trans }}</h2>
+    {% endif %}
+{% endblock %}

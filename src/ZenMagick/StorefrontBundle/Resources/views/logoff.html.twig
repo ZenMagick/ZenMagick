@@ -1,0 +1,11 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Logoff'|trans))|raw %}
+{% block body %}
+    <p>
+        {{ 'You have been logged off your account. It is now safe to leave the computer.'|trans }}
+    </p>
+    <p>
+        {{ 'Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.'|trans }}
+    </p>
+    {{ html.backLink('Continue'|trans)|raw }}
+{% endblock %}

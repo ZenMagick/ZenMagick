@@ -1,0 +1,40 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct)|raw %}
+{% block body %}
+    {% if resultList.hasResults %}
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+            {{ include('@Storefront/resultlist/options.html.twig') }}
+        </div>
+
+        <div class="rlist">
+            <table>
+                <tbody>
+                    {% for product in resultList.results %}
+                        {{ include('@Storefront/resultlist/product.html.twig', {'loop' : loop}) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rnblk">
+            {{ include('@Storefront/resultlist/nav.html.twig') }}
+        </div>
+    {% else %}
+        {% if currentCategory.hasChildren %}
+            <div class="subcats">
+                <h3>{{ 'Available Sub-categories'|trans }}</h3>
+                {% for category in currentCategory.children %}
+                    <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}">
+                        {% if category.imageInfo %}
+                            <img src="{{ category.imageInfo.defaultImage }}" alt="{{ category.name }}" title="{{ category.name }}" />
+                        {% else %}
+                            {{ category.name }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2>{{ 'There are no products in this category'|trans }}</h2>
+        {% endif %}
+    {% endif %}
+{% endblock %}

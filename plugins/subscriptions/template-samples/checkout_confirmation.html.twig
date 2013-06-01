@@ -1,0 +1,25 @@
+
+<fieldset>
+    <legend>{{ 'Subscription'|trans }}</legend>
+    <div class="btn">
+        <a class="btn" href="{{ path('checkout_shipping') }}">
+            {{ 'Change'|trans }}
+        </a>
+    </div>
+    <div>
+        {% set schedule = subscriptions.selectedSchedule %}
+        <p>
+            {% if schedule %}
+                {{ 'This order is a subscription'|trans }}
+            {% else %}
+                {{ 'This order is *NOT* a subscription'|trans }}
+            {% endif %}
+        </p>
+        {% if schedule %}
+            {% set schedules = subscriptions.schedules %}
+            <p>
+                {{ 'Order schedule: "%schedule%."'|trans({'%schedule%' : schedules[schedule]['name']}) }}
+            </p>
+        {% endif %}
+    </div>
+</fieldset>

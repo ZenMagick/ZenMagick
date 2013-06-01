@@ -1,0 +1,33 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct(currentProduct.id).addCrumb('Review'|trans))|raw %}
+{% block body %}
+    {{ form.addProduct(currentProduct.id, 1)|raw }}
+        <div>
+            <div id="pinfo">
+                <a href="{{ net.product(currentProduct.id) }}">
+                    {{ html.productImageLink(currentProduct)|raw }}
+                </a>
+                {{ currentProduct.description|raw }}
+            </div>
+            <strong>{{ utils.formatMoney(currentProduct.price) }}</strong>
+
+            <div class="btn">
+                <input type="submit" class="btn" value="{{ 'Add to cart'|trans }}" />
+            </div>
+
+            <p id="author">
+                {{ 'Review by: %author%'|trans({'%author%' : currentReview.author}) }}
+                {% set rating_text = '%count% of 5 stars'|trans({'%count%' : currentReview.rating}) %}
+                <span id="stars">
+                    <img src="{{ asset('bundles/storefront/images/stars_' ~ currentReview.rating ~ '.gif') }}" alt="{{ rating_text }}" />
+                    {{ rating_text }}
+                </span>
+            </p>
+
+            <div id="rlongtext">
+                <h3 class="rtitle">{{ html.strip(currentReview.title)|raw }}</h3>
+                {{ currentReview.text }}
+            </div>
+        </div>
+    </form>
+{% endblock %}

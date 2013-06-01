@@ -1,0 +1,113 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Order History'|trans, path('account_history')).addCrumb('Order %id%'|trans({'%id%' : app.request.get('order_id')})))|raw %}
+{% block body %}
+<h3>{{ 'Item Details'|trans }}</h3>
+<table>
+    <tbody>
+        {% for orderItem in currentOrder.orderItems %}
+            <tr>
+                <td class="qty">{{ orderItem.quantity }} x</td>
+                <td class="itm">
+                    {{ orderItem.name }}
+                    {% if orderItem.hasAttributes %}
+                        <br/>
+                        {% for attribute in orderItem.attributes %}
+                            <p>
+                                <span class="attr">{{ attribute.name }}:</span>
+                                {% for attributeValue in attribute.values %}
+                                    {% if not loop.first %},{% endif %}
+                                    <span class="atval">{{ attributeValue.name }}</span>
+                                {% endfor %}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td class="price">{{ utils.formatMoney(orderItem.calculatedPrice) }}</td>
+            </tr>
+        {% endfor %}
+        {% for orderTotalLine in currentOrder.orderTotalLines %}
+            <tr>
+                <td colspan="2" class="total">{{ orderTotalLine.name }}</td>
+                <td class="price">{{ orderTotalLine.value }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>{{ 'Payment Details'|trans }}</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            {% set paymentType = currentOrder.paymentType %}
+            {% if paymentType is not empty %}
+                <p>{{ paymentType.name }}</p>
+                {% if paymentType.info is not empty %}
+                    <p>{{ paymentType.info|nl2br }}</p>
+                {% endif %}
+            {% else %}
+                <p>{{ 'N/A'|trans }}</p>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>{{ 'Order History'|trans }}</h3>
+<table>
+    <tbody>
+    {% for orderStatus in currentOrder.orderStatusHistory(app.session.get('languages_id')) %}
+        <tr>
+            <td>{{ orderStatus.dateAdded|localizeddate('short', 'none') }}</td>
+            <td>{{ orderStatus.name }}</td>
+            <td class="cmt">{{ orderStatus.comment }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% set downloads = currentOrder.downloads %}
+{% if downloads is not empty %}
+    <h3>{{ 'Downloads'|trans }}</h3>
+    <p>{{ 'To download your files click the download button and choose "Save to Disk" from the popup menu.'|trans }}</p>
+    <table class="grid">
+        <tr>
+            <th>{{ 'Item'|trans }}</th>
+            <th>{{ 'Filename'|trans }}</th>
+            <th>{{ 'Size'|trans }}</th>
+            <th>{{ 'Remaining'|trans }}</th>
+            <th></th>
+        </tr>
+        {% for download in downloads %}
+            {% set downloadProduct = product_manager.productForId(download.productId, app.session.get('languages_id')) %}
+            <tr>
+                <th>{{ downloadProduct.name }}</th>
+                <th>{{ download.filename }}</th>
+                <th>{{ download.fileSize }} bytes</th>
+                <th>{{ download.downloadCount }}</th>
+                <th>
+                    <a href="{{ path('download', {'order' : currentOrder.id, 'id' : download.id}) }}">
+                        {{ 'Download'|trans }}
+                    </a>
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<h3>{{ 'Address Details'|trans }}</h3>
+<div id="addr">
+    <div id="daddr">
+        <h4>{{ 'Shipping Address'|trans }}</h4>
+        {% if currentOrder.hasShippingAddress %}
+            {{ macro.formatAddress(currentOrder.shippingAddress)|raw }}
+        {% else %}
+            {{ 'N/A'|trans }}
+        {% endif %}
+    </div>
+    <div id="baddr">
+        <h4>{{ 'Billing Address'|trans }}</h4>
+        {{ macro.formatAddress(currentOrder.billingAddress)|raw }}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Checkout'|trans, path('checkout_payment')).addCrumb('Payment Method'|trans))|raw %}
+{% block body %}
+    <fieldset>
+        <legend>{{ 'Billing Address'|trans }}</legend>
+        <div class="btn">
+            <a class="btn" href="{{ path('checkout_payment_address') }}">
+                {{ 'Change Billing Address'|trans }}
+            </a>
+        </div>
+        {{ macro.formatAddress(shoppingCart.billingAddress)|raw }}
+    </fieldset>
+
+    <script>var submitter = 0;</script>
+    {{ shoppingcart.paymentFormValidationJS(app.request)|raw }}
+
+    {{ form.open('checkout_confirmation', '', true, {'id' : 'checkout_payment', 'onsubmit' : 'return check_form();'})|raw }}
+        {% if settings.get('isConditionsMessage') %}
+            <fieldset>
+                <legend>{{ 'Terms and Conditions'|trans }}</legend>
+                <p>
+                    {{ 'Please acknowledge the terms and conditions bound to this order by ticking the following box.'|trans }}</br>
+                    {{ 'The terms and conditions can be read <a href="%conditions_url%">here</a>.'|trans({'%conditions_url%' : net.staticPage('conditions')})|raw }}
+                </p>
+                <p>
+                    <input type="checkbox" id="conditions" name="conditions" value="1" />
+                    <label for="conditions">{{ 'I have read and agreed to the terms and conditions bound to this order.'|trans }}</label>
+                </p>
+            </fieldset>
+        {% endif %}
+        <fieldset>
+            <legend>{{ 'Order Totals'|trans }}</legend>
+            <table id="ot">
+                <tbody>
+                    {% for total in shoppingCart.totals %}
+                        <tr>
+                            <td class="total">{{ total.name }}</td>
+                            <td class="price {{ 'total' == total.type ? 'tot' }}">
+                                {{ total.value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+
+        {% set creditTypes = shoppingcart.creditTypes %}
+        {% if 0 < creditTypes|length %}
+            <fieldset>
+                <legend>{{ 'Credit Options'|trans }}</legend>
+                {% for type in creditTypes %}
+                    <p class="credittype">{{ type.name }}</p>
+                    <div class="instr">{{ type.instructions }}</div>
+                    <table class="pt">
+                        <tbody>
+                            {% for field in type.fields %}
+                                <tr>
+                                    <td>
+                                        <label>{{ field.label }}</label>
+                                    </td>
+                                    <td>{{ field.HTML|raw }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            </fieldset>
+        {% endif %}
+
+        <fieldset id="paytypes">
+            <legend>{{ 'Payment Options'|trans }}</legend>
+            {% set paymentTypes = shoppingCart.paymentTypes %}
+            {% for type in paymentTypes %}
+                {% if 1 == paymentTypes|length %}
+                    <p><input type="hidden" id="pt_{{ type.id }}" name="payment" value="{{ type.id }}" />
+                {% else %}
+                    <p class="paytype" onclick="document.getElementById('pt_{{ type.id }}').checked = true;">
+                    <input type="radio" id="pt_{{ type.id }}" name="payment" value="{{ type.id }}" {{ form.checked(shoppingCart.selectedPaymentTypeId, type.id)|raw }} />
+                {% endif %}
+                <label for="pt_{{ type.id }}">{{ type.name }}</label>
+                </p>
+                {% set fields = type.fields %}
+                {% if 0 < fields|length %}
+                    <table class="pt">
+                        <tbody>
+                            {% for field in fields %}
+                                <tr>
+                                    <td>
+                                        <label>{{ field.label }}</label>
+                                    </td>
+                                    <td>{{ field.HTML|raw }}</td>
+                                </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>{{ 'Comments'|trans }}</legend>
+            <p class="inst">{{ 'Special instructions or comments about your order.'|trans }}</p>
+            {# Fix for IE bug regarding textarea... (still valid?) #}
+            <table>
+                <tr><td><textarea name="comments" rows="3" cols="45">{{ shoppingCart.comments }}</textarea></td></tr>
+            </table>
+        </fieldset>
+
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Continue'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

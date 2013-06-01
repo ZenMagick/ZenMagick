@@ -1,0 +1,21 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.clear)|raw %}
+{% block body %}
+    {{ utils.staticPageContent('main_page')|raw }}
+    {% set featured = product_manager.featuredProducts(null, 4, false, app.session.get('languages_id')) %}
+    <h3>{{ 'Featured Products'|trans }}</h3>
+    <div id="featured">
+        {% for product in featured %}
+            <div>
+                <p>{{ html.productImageLink(product)|raw }}</p>
+
+                <p>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ product.name }}
+                    </a>
+                </p>
+                <p>{{ utils.formatMoney(product.offers.calculatedPrice) }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% if 1 < resultList.numberOfPages %}
+    <div class="rnav">
+        <span class="pno">
+            {{ 'Page %page%/%total%'|trans({'%page%' : resultList.pageNumber, '%total%' : resultList.numberOfPages}) }}
+        </span>
+        {% if resultList.hasPreviousPage %}
+            <a href="{{ net.resultListBack(resultList) }}">
+                {{ 'Previous'|trans }}
+            </a>
+            &nbsp;
+        {% else %}
+            <span class="nin">{{ 'Previous'|trans }}</span>&nbsp;
+        {% endif %}
+        {% if resultList.hasNextPage %}
+            <a href="{{ net.resultListNext(resultList) }}">
+                {{ 'Next'|trans }}
+            </a>
+        {% else %}
+            <span class="nin">{{ 'Next'|trans }}</span>
+        {% endif %}
+    </div>
+{% endif %}

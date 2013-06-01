@@ -1,0 +1,34 @@
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
+
+
+{{ 'We wish to welcome you to %store_name%.'|trans({'%store_name%' : settings.get('storeName')}) }}
+
+
+{{ utils.staticPageContent('email_welcome')|striptags }}
+{% if newAccountDiscountCoupon %}
+--------------------
+{{ 'Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!'|trans }}
+
+{{ 'The coupon is valid between %start_date% and %end_date%'|trans({'%start_date%' : newAccountDiscountCoupon.startDate|localizeddate('short', 'none'), '%end_date%' : newAccountDiscountCoupon.expiryDate|localizeddate('short', 'none')}) }}
+
+
+{{ 'To use the Discount Coupon, enter the Redemption Code code during checkout: %code%'|trans({'%code%' : newAccountDiscountCoupon.code}) }}
+
+{% endif %}
+
+{% if newAccountGVAmountCoupon %}
+--------------------
+{{ 'Just for stopping by today, we have sent you a Gift Certificate for %amount%!\n The Gift Certificate Redemption Code is: %code%'|trans({'%amount%' : utils.formatMoney(newAccountGVAmountCoupon.amount), '%code%' : newAccountGVAmountCoupon.code}) }}
+
+
+{{ 'You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: %redeem_url%'|trans({'%redeem_url%' : url('gv_redeem', {'gv_no' : newAccountGVAmountCoupon.code})}) }}
+
+
+{{ 'Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!'|trans }}
+{% endif %}
+
+{{'Sincerely, %store_owner%'|trans({'%store_owner%' : settings.get('storeOwner')}) }}
+
+
+{{ utils.staticPageContent('email_advisory')|striptags }}
+{{ office_only_text }}

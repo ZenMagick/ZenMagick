@@ -1,0 +1,18 @@
+{{ 'Store Enquiry %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}
+
+
+{{ 'From: %name%'|trans({'%name%': contactInfo.name}) }}
+
+{{ 'Email: %email%'|trans({'%email%' : contactInfo.email}) }}
+
+
+-------------------------------------------
+{{ contactInfo.message }}
+
+-------------------------------------------
+
+{% if isSupressDisclaimer is not defined %}
+    {{ utils.staticPageContent('email_advisory')|striptags }}
+{% endif %}
+
+{{ office_only_text }}

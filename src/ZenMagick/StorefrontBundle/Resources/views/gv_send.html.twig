@@ -1,0 +1,39 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account').addCrumb('Send Gift Certificate'|trans)))|raw %}
+{% block body %}
+    <p>
+        {{ 'Current available balance: <strong>%amount%</strong>'|trans({'%amount%' : utils.formatMoney(app.user.voucherBalance)}) }}
+    </p>
+    {{ form.open('gv_send', '', true, {'id' : 'gvreceiverObject'})|raw }}
+        <fieldset>
+            <legend>{{ 'EMail Gift Certificate'|trans }}</legend>
+            <label for="name">{{ 'Receiver Name'|trans }}</label>
+            <br />
+            <input type="text" id="name" name="name" size="40" value="{{ gvReceiver.name }}" />
+            <br />
+            <label for="email">{{ 'Receiver EMail Address'|trans }}<span>*</span></label>
+            <br />
+            <input type="text" id="email" name="email" size="40" value="{{ gvReceiver.email }}" />
+            <br />
+            <label for="amount">{{ 'Gift Certificate Amount'|trans }}<span>*</span></label>
+            <br />
+            {# Do not convert the amount - either it is 0 or entered by the user; in either case it is fine as  is #}
+            <input type="text" id="amount" name="amount" value="{{ utils.formatMoney(gvReceiver.amount, false) }}" />
+            <br />
+            <label for="message">{{ 'Message Text'|trans }}</label>
+            <br />
+            <textarea id="message" name="message" cols="50" rows="8">{{ gvReceiver.message }}</textarea>
+            <br />
+            <p class="man">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Send Gift Certificate'|trans }}" />
+        </div>
+    </form>
+
+    <p class="rclear">
+        <strong>{{ 'The following message is included with all emails sent from this site:'|trans }}</strong>
+        <br />
+        {{ utils.staticPageContent('email_advisory')|raw }}
+    </p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% if howDidYouHearForm is defined %}
+    <fieldset>
+        <legend>{{ 'How did you hear about us'|trans }}</legend>
+        <p>
+            <label for="sourceId">{{ 'Please select a source:'|trans }}</label>
+            {{ form.idpSelect('sourceId', howDidYouHearSources, howDidYouHearForm.sourceId)|raw }}
+        </p>
+
+        {% if howDidYouHear.isDisplayOther %}
+            <p>
+                <label for="sourceOther">{{ '(if "Other" please specify):'|trans }}</label>
+                <input type="text" name="sourceOther" id="sourceOther" value="{{ howDidYouHearForm.sourceOther }}">
+            </p>
+        {% endif %}
+    </fieldset>
+{% endif %}

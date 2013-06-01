@@ -1,0 +1,37 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCategoryPath.addManufacturer.addProduct)|raw %}
+{% block body %}
+    <h2>{{ currentCategory.name }}</h2>
+
+    {% if currentCategory.hasChildren %}
+        <div class="subcats">
+            <h3>{{ 'Available Sub-categories'|trans }}</h3>
+            {% for category in category.children %}
+                <a href="{{ path('category', {'cPath' : category.path|join('_')}) }}">
+                    {% if category.imageInfo %}
+                        <img src="{{ category.imageInfo.defaultImage }}" alt="{{ category.name }}" title="{{ category.name }}" />
+                    {% else %}
+                        {{ category.name }}
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% set featured = product_manager.featuredProducts(currentCategory.id, 4, true, app.session.get('languages_id')) %}
+
+    {% if 0 < featured|length %}
+        <h3>Featured Products</h3>
+        <div id="featured">
+            {% for product in featured %}
+                <div>
+                    <p>{{ html.productImageLink(product)|raw }}</p>
+                    <p>
+                        <a href="{{ net.product(product.id) }}">{{ product.name }}</a>
+                    </p>
+                    <p>{{ utils.formatMoney(product.offers.calculatedPrice) }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

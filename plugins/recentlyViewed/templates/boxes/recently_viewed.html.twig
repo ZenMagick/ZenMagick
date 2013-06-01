@@ -1,0 +1,14 @@
+{% if recentlyViewedProducts is defined and recentlyViewedProducts is not empty %}
+    <h3>{{ 'Recently Viewed'|trans }}</h3>
+    <div id="sb_recently_viewed" class="box">
+        <ol>
+            {% for product in productManager.productsForIds(recentlyViewedProducts, true, app.session.get('languages_id')) %}
+                <li>
+                    <a href="{{ net.product(product.id) }}">
+                        {{ product.name|truncate(28)|raw }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endif %}

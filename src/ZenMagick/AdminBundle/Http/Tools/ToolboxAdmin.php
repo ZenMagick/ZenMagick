@@ -84,31 +84,4 @@ class ToolboxAdmin extends ToolboxTool
         return $this->container->get('router')->generate($catalogRequestId, $ps);
     }
 
-    /**
-     * Set the page title and create the side nav.
-     *
-     * <p><strong>NOTE: This method will return the derived page title to be used in a <em>h1</em>.</strong></p>
-     *
-     * @param string title Optional fixed (sub-)title; default is <code>null</code> for none.
-     */
-    public function title($title=null)
-    {
-        // @todo don't use getBreadCrumbsArray directly here
-        $menu = $this->container->get('admin.menu.main');
-        $crumbs = $menu ? $menu->getBreadcrumbsArray() : array();
-        $pref = isset($crumbs[1]['item']) ? $crumbs[1]['item']->getLabel() : null;
-        if (null == $title) {
-            $title = $pref;
-        } elseif (null != $pref) {
-            $title = sprintf(_zm("%1s: %2s"), $pref, $title);
-        }
-        ?><h1><?php echo $title ?></h1><?php
-        echo $this->getView()->fetch('AdminBundle::sub-menu.html.twig');
-        echo '<div id="view-container">';
-        $title = sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title);
-        $this->container->get('templating.helper.slots')->set('title', $title);
-
-        return $title;
-    }
-
 }

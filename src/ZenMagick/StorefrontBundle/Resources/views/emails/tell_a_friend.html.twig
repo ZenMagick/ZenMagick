@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="{{ language.code }}">
+<head>
+    <title>{{ 'Product recommendation from %email_from% at %store_name%'|trans({'%email_from%': emailMessage.fromName, '%store_name%' : settings.get('storeName')}) }}</title>
+</head>
+<body>
+    <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
+        <p>{{ 'Hi %to_name%,'|trans({'%to_name%' : emailMessage.toName}) }}</p>
+
+        <p>{{ 'Your friend, %from_name%, thought that you would be interested in %product% from %store_name%.'|trans({'%from_name%' : emailMessage.fromName, '%product%' : currentProduct.name, '%store_name%' : settings.get('storeName')}) }}</p>
+
+        {% if emailMessage.hasMessage %}
+            <p>
+                {{ '%from_name% also sent a note saying:'|trans({'%from_name%' : emailMessage.fromName}) }}
+                <br />
+                {{mailMessage.message|nl2br }}
+            </p>
+        {% endif %}
+
+        <p>{{ 'To view the product, click on the following link or copy and paste the link into your web browser: <a href="%product_url%">%product%</a>'|trans({'%product_url%': net.product(currentProduct.id)|raw, '%product%' : currentProduct.name}) }}</p>
+
+        <p>{{ 'Regards, %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}</p>
+
+        {{ utils.staticPageContent('email_advisory')|raw }}
+    </div>
+</body>
+</html>

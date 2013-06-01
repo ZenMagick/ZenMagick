@@ -1,0 +1,7 @@
+{% if whoIsOnline is defined %}
+    {% set stats = whoIsOnline.stats %}
+    <h3>{{ 'Who\'s Online'|trans }}</h3>
+    <div id="sb_whos_online" class="box">
+        {{ 'There are currently %guests% guests and %registered% registered users online.'|trans({'%guests%' : stats['anonymous'], '%registered%': stats['registered']}) }}
+    </div>
+{% endif %}

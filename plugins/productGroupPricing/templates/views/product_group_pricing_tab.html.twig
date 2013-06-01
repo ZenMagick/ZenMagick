@@ -1,0 +1,78 @@
+<form action="{{ admin.catalog }}" method="GET">
+    <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
+    <h2>Group Pricing
+        ({{ form.idpSelect('groupId', priceGroups, groupId, { 'size' : 1, 'onchange' : 'this.form.submit()'})|raw }})
+    </h2>
+</form>
+
+<form action="{{ admin.catalog }}" method="POST">
+    <fieldset>
+        <legend>{{ 'Price/Discount'|trans }}</legend>
+        <div>
+            <input type="hidden" name="groupId" value="{{ groupId }}">
+            <input type="hidden" name="groupPricingId" value="{{ productGroupPricing.id }}">
+        </div>
+        <p>
+            <label for="discount">{{ 'Discount'|trans }}</label>
+            <input type="text" id="discount" name="discount" value="{{ productGroupPricing.discount }}">
+
+            {% set type = productGroupPricing.type %}
+            <label for="type">{{ 'Type'|trans }}</label>
+            <select id="type" name="type">
+                <option value="#" {{ '#' == type ? ' selected' }}>{{ 'Fixed Price'|trans }}</option>
+                <option value="%" {{ '%' == type ? ' selected' }}>{{ 'Percent'|trans }}</option>
+                <option value="$" {{ '$' == type ? ' selected' }}>{{ 'Amount'|trans }}</option>
+            </select>
+        </p>
+        <p>
+            <input type="checkbox" id="allowSaleSpecial" name="allowSaleSpecial" value="true" {{ form.checked(productGroupPricing.isAllowSaleSpecial)|raw }} />
+            <label for="allowSaleSpecial">{{ 'Allow discount on sale/special'|trans }}</label>
+        </p>
+
+        <p>
+            <label for="startDate">{{ 'Start Date'|trans }}</label>
+            <input type="text" class="datepicker" id="startDate" name="startDate" value="{{ productGroupPricing.startDate()|localizeddate('short', 'none') }}">
+            <label for="endDate">{{ 'End Date'|trans }}</label>
+            <input type="text" class="datepicker" id="endDate" name="endDate" value="{{ productGroupPricing.endDate|localizeddate('short', 'none') }}">
+            {{ 'Format: %format% (e.g: %example%)'|trans({'%format%': locale.format('date', 'short-ui-format'), '%example%': locale.format('date', 'short-ui-example')}) }}
+        </p>
+    </fieldset>
+    <p>
+        {% set pricing_id = app.request.get('groupPricingId') %}
+        <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
+
+        {% if pricing_id %}
+            <input type="submit" name="update" value="{{ 'Update'|trans }}">
+            <a href="{{ admin.catalog(null, {'groupPricingId' : pricing_id, 'delete' : 'true'}) }}">
+                {{ 'Delete'|trans }}
+            </a>
+        {% else %}
+            <input type="submit" name="create" value="{{ 'Create'|trans }}">
+        {% endif %}
+    </p>
+</form>
+<script>{% autoescape 'js' %}ZenMagick.datepicker();{% endautoescape %}</script>
+
+{% if 0 < productGroupPricings|length %}
+
+    {%  set type_map = {'#' : 'Fixed Price'|trans, '$' : 'Amount'|trans, '%' : 'Percent'|trans} %}
+    <fieldset>
+        <legend>{{ 'Current Discounts/Prices'|trans }}</legend>
+        <table>
+            {% for productGroupPricing in productGroupPricings %}
+                <tr>
+                    <td>{{ type_map[productGroupPricing.type] }}</td>
+                    <td>{{ productGroupPricing.discount }}</td>
+                    <td>{{ productGroupPricing.allowSpecialSale ? 'Y' : 'N' }}</td>
+                    <td>{{ productGroupPricing.startDate|localizeddate('short', 'none') }}</td>
+                    <td>{{ productGroupPricing.endDate|localizeddate('short', 'none') }}</td
+                    <td>
+                        <a href="{{ admin.catalog(null, {'groupPricingId' : productGroupPricing.id}) }}">
+                            {{ 'Change'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </fieldset>
+{% endif %}

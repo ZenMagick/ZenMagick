@@ -1,0 +1,30 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Contact Us'|trans))|raw %}
+{% block body %}
+    <h3>{{ 'Store Contact Details'|trans }}</h3>
+    <p>
+        <address>{{ settings.get('storeNameAddress')|nl2br }}</address>
+    </p>
+    <br/>
+
+    {{ utils.staticPageContent('contact_us')|raw }}
+
+    {{ form.open('contact_us', 'action=send', false, {'id' : 'contactUs'})|raw }}
+        <fieldset>
+            <legend>{{ 'Contact us'|trans }}</legend>
+            <label for="name">{{ 'Full Name'|trans }}<span>*</span></label>
+            <input type="text" id="name" name="name" size="40" value="{{ contactUs.name }}" />
+            <br/>
+
+            <label for="email">{{ 'Email Address'|trans }}<span>*</span></label>
+            <input type="text" id="email" name="email" size="40" value="{{ contactUs.email }}" />
+            <br/>
+
+            <label for="message">{{ 'Message'|trans }}<span>*</span></label>
+            <textarea id="message" name="message" cols="30" rows="7">{{ contactUs.message }}</textarea>
+
+            <p class="legend">{{ '<span>*</span> Mandatory fields'|trans|raw }}</p>
+        </fieldset>
+    <div class="btn"><input type="submit" class="btn" value="{{ 'Send'|trans }}"/></div>
+    </form>
+{% endblock %}

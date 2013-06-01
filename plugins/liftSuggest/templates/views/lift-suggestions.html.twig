@@ -1,0 +1,44 @@
+{% if liftSuggest is defined %}
+    {# TODO: review and move into plugin somewhere #}
+    {% set recoProds = app.session.get('reco_prods', {}) %}
+    {% if 'product_info' == app.request.requestId and currentProduct is defined %}
+        {% set productId = currentProduct.id %}
+        {% if productId in recoProds %}
+            {% set ls_rev_css = "liftsuggest {act: 'prodview', sku: '"~ productId ~ "', reco : 'R'" %}
+        {% else %}
+            {% set ls_rev_css = "liftsuggest {act: 'prodview', sku: '"~ productId ~ "', reco : 'N'" %}
+        {% endif %}
+    {% elseif 'shopping_cart' == app.request.requestId %}
+        {% set productIdList = {} %}
+        {% for item in cart.items %}
+            {% set productIdList = productIdList|merge({(loop.index0) : item.productId}) %}
+        }
+        {% endfor %}
+        {% set ls_rev_css = '' %}
+        {% for item in cart.items %}
+            {% if item.productId in recoProds %}
+                {% set ls_rev_css = "liftsuggest {act:'prodview', sku:'" ~ productId ~ "', reco:'R'}" %}
+            {% else %}
+                {% set ls_rev_css = '' %}
+            {% endif %}
+        {% endfor %}
+        {% set productId = productIdList|join(',') %}
+    {% endif %}
+
+    {# added lifsuggest class to enable measure of recommendations performance by SP_TATVIC:20111009 #}
+    {% set recommendations = liftSuggest.productRecommendations(productId) %}
+    {% if recommendations %}
+        <div class="lift-recommend {{ ls_rev_css|e('html_attr') }}">
+            <h2>{{ '%percent%% of the customers who bought above product(s) also bought these:'|trans({'%percent%' : recommendations.popularity}) }}</h2>
+            {% for productDetails in recommendations.productDetails %}
+                {% set product = productDetails['product'] %}
+                    <div class="lift-product lsrecommendations {act:'prodview', sku:'{{ product.id }}', reco:'R'}">
+                        <p>{{ html.productImageLink(product)|raw }}</p>
+                        <p><a href="{{ net.product(product.id) }}">{{ product.name }}</a></p>
+                        {% set offers = product.offers %}
+                        <p class="price">{{ utils.formatMoney(offers.calculatedPrice) }}</p>
+                    </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}

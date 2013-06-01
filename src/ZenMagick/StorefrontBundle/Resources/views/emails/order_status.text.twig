@@ -1,0 +1,26 @@
+{{ 'Dear %first_name% %last_name%,'|trans({ '%first_name%' : currentAccount.firstName, '%last_name%' : currentAccount.lastName}) }}
+
+
+{{ 'This is to inform you that your order #%id% has been updated.'|trans({'%id%': currentOrder.id}) }}
+
+
+{% if constant('ZenMagick\\StoreBundle\\Entity\\Account::REGISTERED') == currentAccount.type %}
+{{ 'More details can be found at the following URL: %account_history_url%'|trans({'%account_history_url%' : url('account_history_info', {'order_id' : currentOrder.id})}) }}
+{% else %}
+{{ 'You can check the status of your order at: %guest_history_url%'|trans({'%guest_history_url%' : url('guest_history')}) }}
+{% endif %}
+
+{% if newOrderStatus != currentOrder.statusName %}
+{{ 'The new order status is: %status%.'|trans({'%status%' : newOrderStatus}) }}
+{% endif %}
+
+{% if comment is not empty %}
+{{ 'The following comment has been added to your order:'|trans }}
+
+{{ comment }}
+{% endif %}
+
+
+{{ 'Regards, %store_name%'|trans({'%store_name%' : settings.get('storeName')}) }}
+
+{{ utils.staticPageContent('email_advisory')|striptags }}

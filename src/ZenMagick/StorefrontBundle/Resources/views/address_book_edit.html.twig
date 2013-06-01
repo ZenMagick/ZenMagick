@@ -1,0 +1,10 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Addresses'|trans, path('address_book')).addCrumb('Edit'|trans))|raw %}
+{% block body %}
+    {{ form.open('address_book_edit', '', true)|raw }}
+        {{ include('@Storefront/address.html.twig') }}
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Update'|trans }}" />
+        </div>
+    </form>
+{% endblock %}

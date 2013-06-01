@@ -1,0 +1,7 @@
+{% set banner = templateManager.fetchBlockGroup('banners.box1') %}
+{% if banner is not empty %}
+    <h3>{{ 'Sponsors'|trans }}</h3>
+    <div id="sb_banner_box" class="box">
+        {{ banner|raw }}
+    </div>
+{% endif %}

@@ -1,0 +1,8 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block body %}
+    <h3>{{ 'Page Not Found'|trans }}</h3>
+
+    {{ utils.staticPageContent('page_not_found')|raw }}
+
+    {{ include('@Storefront/site_map_common.html.twig') }}
+{% endblock %}

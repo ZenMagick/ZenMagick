@@ -1,0 +1,95 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Login'|trans))|raw %}
+{% block body %}
+    <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
+
+    <script>
+        {% autoescape 'js' %}
+        var msgboxElem = document.getElementById('msgbox');
+
+        function ajax_login(id) {
+            var queryString = $('#'+id).formSerialize();
+
+            msgboxElem.innerHTML = "Logging in... ";
+
+            $.ajax({
+                type: "POST",
+                url: "{{ path('login') }}",
+                data: queryString,
+                success: function(msg) {
+                    var info =JSON.parse(msg);
+                    msgboxElem.innerHTML += "got response ... ";
+                    msgboxElem.innerHTML += ('success' == info) ? 'success' : 'failed';
+                    msgboxElem.innerHTML += " - done!";
+                },
+                error: function(msg) {
+                    msgboxElem.innerHTML += "failed!";
+                }
+            });
+        }
+        {% endautoescape %}
+    </script>
+
+    {{ form.open('login', '', true, {'id' : 'login', 'method' : 'post', 'onsubmit' : 'return zmFormValidation.validate(this);'})|raw }}
+        <fieldset>
+            <legend>{{ 'Login'|trans }}</legend>
+            <div>
+                <label for="email_address">{{ 'E-Mail Address'|trans }}</label>
+                <input type="text" id="email_address" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
+                {% if app.session.flashBag.hasMessages %}
+                    <ul id="email_addressInfo" class="fieldMsg">
+                        {% for messages in app.session.flashBag.messages %}
+                            <li class="{{ message.type }}">{{ message.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div>
+                <label for="password">{{ 'Password'|trans }}</label>
+                <input type="password" id="password" name="password" {{ form.fieldLength('customers', 'customers_password')|raw }} />
+                {% if app.session.flashBag.hasMessages %}
+                    <ul id="passwordInfo" class="fieldMsg">
+                        {% for messages in app.session.flashBag.messages %}
+                            <li class="{{ message.type }}">{{ message.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="btn">
+            <input type="submit" class="btn" value="{{ 'Submit'|trans }}" />
+        </div>
+        <div class="btn">
+            <a href="#" onclick="ajax_login('login'); return false;">
+                {{ 'Login via Ajax'|trans }}
+            </a>
+        </div>
+    </form>
+
+    <p>
+        <a href="{{ path('password_forgotten') }}">{{ 'Lost your password?'|trans }}</a>
+        <br />
+        <a href="{{ path('create_account') }}">{{ 'Not registered yet?'|trans }}</a>
+    </p>
+
+    {% if settings.get('isGuestCheckout') and not cart.empty %}
+        <h3>{{ 'Don\'t need an account?'|trans }}</h3>
+        {{ form.open('checkout_guest', '', true, {'id' : 'checkout_guest', 'method' : 'post', 'onsubmit' : 'return zmFormValidation.validate(this);'})|raw }}
+            <fieldset>
+                <legend>{{ 'Checkout without registering'|trans }}</legend>
+                <div>
+                    <label for="email_address_guest">{{ 'E-Mail Address'|trans }}</label>
+                    <input type="text" id="email_address_guest" name="email_address" {{ form.fieldLength('customers', 'customers_email_address')|raw }} />
+                    {% if app.session.flashBag.hasMessages %}
+                        <ul id="email_addressInfo" class="fieldMsg">
+                            {% for messages in app.session.flashBag.messages %}
+                                <li class="{{ message.type }}">{{ message.text }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                   <input type="submit" class="btn" value="{{ 'Checkout'|trans }}" />
+                </div>
+            </fieldset>
+        </form>
+    {% endif %}
+{% endblock %}

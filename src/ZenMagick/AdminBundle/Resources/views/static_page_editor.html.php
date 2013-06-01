@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $view->extend('AdminBundle::default_layout.html.twig'); ?>
+<?php $view->extend('AdminBundle::layout.html.twig'); ?>
 <?php
 use ZenMagick\Base\Toolbox;
 

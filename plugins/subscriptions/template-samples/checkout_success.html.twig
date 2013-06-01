@@ -1,0 +1,8 @@
+{% set schedule = currentOrder.schedule %}
+{% if schedule is not empty %}
+    <h3>{{ 'Subscription'|trans }}</h3>
+    {% set schedules = subscription.schedules %}
+    <p>
+        {{ 'Order schedule: "%schedule%".'|trans({'%schedule%' : schedules[schedule]['name']}) }}
+    </p>
+{% endif %}

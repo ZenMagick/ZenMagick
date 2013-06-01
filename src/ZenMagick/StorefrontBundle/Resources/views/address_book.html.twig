@@ -1,0 +1,28 @@
+{% extends '@Storefront/layout.html.twig' %}
+{% block crumbtrail macro.buildCrumbTrail(crumbtrail.addCrumb('Account'|trans, path('account')).addCrumb('Addresses'|trans))|raw %}
+{% block body %}
+    {% for address in addressList %}
+        <fieldset>
+            <legend>
+                {{ address.firstName }} {{ address.lastName }}
+                {{ address.isPrimary ? '(primary)'|trans }}
+            </legend>
+            <div class="btn">
+                {% if not address.primary %}
+                    <a class="btn" href="{{ path('address_book_delete', {'id' : address.id}) }}">
+                        {{ 'Delete'|trans }}
+                    </a>
+                {% endif %}
+                <a class="btn" href="{{ path('address_book_edit', {'id' : address.id}) }}">
+                    {{ 'Edit'|trans }}
+                </a>
+            </div>
+            {{ macro.formatAddress(address)|raw }}
+        </fieldset>
+    {% endfor %}
+    <div class="btn">
+        <a href="{{ path('address_book_add') }}" class="btn">
+            {{ 'Add Address'|trans }}
+        </a>
+    </div>
+{% endblock %}

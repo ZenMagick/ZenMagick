@@ -1,0 +1,113 @@
+<script type="text/javascript">
+    {% autoescape 'js' %}
+    var all_zones = new Array();
+    {% for country in countries.countries %}
+        {% set zones = countries.zonesForCountryId(country.id) %}
+        {% if zones %}
+            all_zones[{{ country.id }}] = new Array();
+            {% for zone in zones %}
+                all_zones[{{ country.id }}][{{ zone.id }}] = '{{ zone.name }}';
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    {% endautoescape %}
+</script>
+<script>{{ include('@Storefront/dynamicState.js.twig') }}</script>
+
+{% set country_id = address.countryId ?: settings.get('storeCountry') %}
+<fieldset>
+    <legend>{{ 'Address'|trans }}</legend>
+    <table id="newaddress">
+        <thead>
+            <tr>
+               <th id="label"></th>
+               <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if customFields is defined %}
+                {% for fieldInfo in customFields %}
+                    <tr>
+                        <td>{{ fieldInfo['label']|raw }}</td>
+                        <td>{{ fieldInfo['field']|raw }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            {% if settings.get('isAccountGender') %}
+                <tr>
+                    <td>{{ 'Title'|trans }}<span>*</span></td>
+                    <td>
+                        <input type="radio" id="male" name="gender" value="m" {{ form.checked('m', address.gender)|raw }} />
+                        <label for="male">{{ 'Mr.'|trans }}</label>
+                        <input type="radio" id="female" name="gender" value="f" {{ form.checked('f', address.gender)|raw }} />
+                        <label for="female">{{ 'Ms.'|trans }}</label>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>{{ 'First Name'|trans }}<span>*</span></td>
+                <td><input type="text" id="firstName" name="firstName" value="{{ address.firstName }}" /></td>
+            </tr>
+            <tr>
+                <td>{{ 'Last Name'|trans }}<span>*</span></td>
+                <td><input type="text" id="lastName" name="lastName" value="{{ address.lastName }}" /></td>
+            </tr>
+            {% if settings.get('isAccountCompany') %}
+                <tr>
+                    <td>{{ 'Company Name'|trans }}</td>
+                    <td><input type="text" id="companyName" name="companyName" value="{{ address.companyName }}" /></td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>{{ 'Street Address'|trans }}<span>*</span></td>
+                <td><input type="text" id="addressLine1" name="addressLine1" value="{{ address.addressLine1 }}" {{ form.fieldLength('address_book', 'entry_street_address')|raw }} /></td>
+            </tr>
+            <tr>
+                <td>{{ 'Suburb'|trans }}</td>
+                <td><input type="text" id="suburb" name="suburb" value="{{ address.suburb }}" {{ form.fieldLength('address_book', 'entry_suburb')|raw }} /></td>
+            </tr>
+            <tr>
+                <td>{{ 'City'|trans }}<span>*</span></td>
+                <td><input type="text" id="city" name="city" value="{{ address.city }}" {{ form.fieldLength('address_book', 'entry_city')|raw }} /></td>
+            </tr>
+            <tr>
+                <td>{{ 'Post Code'|trans }}<span>*</span></td>
+                <td><input type="text" id="postcode" name="postcode" value="{{ address.postCode }}" {{ form.fieldLength('address_book', 'entry_postcode')|raw }} /></td>
+            </tr>
+             <tr>
+                <td>{{ 'Country'|trans }}<span>*</span></td>
+                {% set country_select = [bean('ZMIdNamePair#id=&name=' ~ 'Select Country'|trans)] %}
+                <td>{{ form.idpSelect('countryId', country_select|merge(countries.countries), country_id)|raw }}</td>
+            </tr>
+            {% if settings.get('isAccountState') %}
+                <tr>
+                    <td>{{ 'State/Province'|trans }}<span>*</span></td>
+                    <td>
+                        {% set zones = countries.zonesForCountryId(country_id) %}
+                        {% if zones %}
+                            {{ form.idpSelect('zoneId', zones, address.zoneId)|raw }}
+                        {% else %}
+                            <input type="text" id="state" name="state" value="{{ address.state }}" />
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if address.isPrimary %}
+                 <tr>
+                    <td></td>
+                    <td>
+                        <input type="hidden" name="_primary" value="{{ address.isPrimary }}" />
+                        <input type="checkbox" id="primary" name="primary" value="on" {{ form.checked(address.isPrimary)|raw }} />
+                        <label for="primary">{{ 'Use as primary address'|trans }}</label>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr class="legend">
+                <td colspan="2">
+                    <input type="hidden" name="id" value="{{ address.id }}" />
+                    {{ '<span>*</span> Mandatory fields'|trans|raw }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>

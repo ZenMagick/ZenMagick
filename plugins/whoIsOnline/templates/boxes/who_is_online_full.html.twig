@@ -1,0 +1,33 @@
+{% if whoIsOnline is defined %}
+    {% set stats = whoIsOnline.status %}
+    {# @todo refactor for translation pluralization #}
+    {% if 0 < stats['total']|length %}
+        <h3>{{ 'Who\'s Online'|trans }}</h3>
+        <div id="sb_whos_online" class="box">
+            {% if 1 == stats['total'] %}
+                {{ 'There is currently'|trans }}
+                {% if 1 == stats['anonymous'] %}
+                    {{ ' one guest online.'|trans }}
+                {% else %}
+                    {{ ' one registered user online.'|trans }}
+                {% endif %}
+            {% else %}
+                {{ 'There are currently'|trans }}
+                {% if 1 == stats['anonymous'] %}
+                    {{ ' one guest'|trans }}
+                {% elseif 1 < stats['anonymous'] %}
+                    {{ '%guests% guests'|trans({'%guests%': stats['anonymous']}) }}
+                {% endif %}
+                {% if 0 < stats['anonymous'] and 0 < stats['registered'] %}
+                    {{ ' and'|trans }}
+                {% endif %}
+                {% if 1 == stats['registered'] %}
+                    {{ ' one registered user'|trans }}
+                {% elseif 1 < stats['registered'] %}
+                    {{ '%registered% users'|trans({'%registered%' : stats['registered']}) }}
+                {% endif %}
+                {{ ' online'|trans }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endif %}

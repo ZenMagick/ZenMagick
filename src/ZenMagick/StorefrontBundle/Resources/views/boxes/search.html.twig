@@ -1,0 +1,14 @@
+{% if app.request.requestId not in ['search', 'advanced_search', 'advanced_search_result'] %}
+    <h3>{{ 'Quick Search'|trans }}</h3>
+    <div id="sb_search" class="box">
+        {{ form.open('search', '', app.request.secure, {'method' : 'get'})|raw }}
+            <div>
+                <input type="submit" class="btn" value="{{ 'Go'|trans }}" />
+                <input type="text" id="keywords" name="keywords" value="{{ app.request.get('keywords', 'Search...'|trans) }}" onfocus="if (this.value == '{{ 'Search...'|trans }}') this.value=''" />
+            </div>
+        </form>
+        <a class="clear" href="{{ path('advanced_search') }}">
+            {{ 'Advanced Search'|trans }}
+        </a>
+    </div>
+{% endif %}

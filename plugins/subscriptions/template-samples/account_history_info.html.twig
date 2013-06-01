@@ -1,0 +1,14 @@
+{% set schedule = currentOrder.schedule %}
+{% if schedule is not empty %}
+    <h3>{{ 'Subscription'|trans }}</h3>
+    {% set schedules = subscriptions.schedules %}
+    <p>
+        {{ 'Order schedule: "%s%".'|trans({'%s%' : schedules[schedule]['name']}) }}
+    </p>
+
+    {% if currentOrder.subscription %}
+        <a href="{{ path('cancel_subscription', {'orderId' : currentOrder.id}) }}">
+            {{ 'Cancel Subscription'|trans }}
+        </a>
+    {% endif %}
+{% endif %}

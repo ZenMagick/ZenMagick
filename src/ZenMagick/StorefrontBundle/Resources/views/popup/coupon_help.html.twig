@@ -1,0 +1,58 @@
+{% extends '@Storefront/popup_layout.html.twig' %}
+{% block body %}
+    {% set restrictions = coupon.restrictions %}
+
+    {% if constant(coupon, 'ZenMagick\\StoreBundle\\Entity\\Coupon::TYPPE_FIXED') == coupon.type%}
+        {% set discount = 'This coupon entitles you to a %amount% discount against your order'|trans({'%amount%': utils.formatMoney(coupon.amount)}) %}
+    {% elseif constant(coupon, 'ZenMagick\\StoreBundle\\Entity\\Coupon::TYPPE_PRECENT') == coupon.type %}
+        {% set discount = 'This coupon entitles you to a %percent%%% discount against your order'|trans({'%amount%': coupon.amount|number_format(settings.get('discountDecimals'))}) %}
+    {% else %}
+        {% set discount = 'This coupon gives you free shipping on your order'|trans %}
+    {% endif %}
+    <h2>{{ 'Congratulations, you have redeemed a Discount Coupon.'|trans }}</h2>
+    <p>
+        {{ 'Coupon Name: %name%'|trans({'%name%' : coupon.name}) }}<br/>
+        {{ 'Coupon Description: %description%'|trans({'%description%' : coupon.description}) }}<br/>
+        {{ discount }}
+    </p>
+
+    <p>
+        {{ 'The discount is valid between %start_date% and %end_date%.'|trans({'%start_date%' : coupon.startDate|localizeddate('short', 'none'), '%end_date%' : coupon.expiryDate|localizeddate('short', 'none')}) }}
+    </p>
+
+    {% if restrictions.hasCategories %}
+        <h4>{{ 'Category Restrictions'|trans }}</h4>
+        <ul>
+            {% for restriction in restrictions.categories %}
+                {% set category = restriction.category(app.session.get('languages_id')) %}
+                <li>
+                    {{ category.name }} - {{ restriction.allowed() ? 'included'|trans : 'excluded'|trans }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if restrictions.hasProducts %}
+        <h4>{{ 'Product Restrictions'|trans }}</h4>
+        <ul>
+            {% for restriction in restrictions.products %}
+                {% set product = restriction.product(app.session.get('languages_id')) %}
+                <li>
+                    {{ product.name }} - {{ restriction.allowed() ? 'included'|trans : 'excluded'|trans }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if restrictions.hasRestrictions %}
+        <h4>{{ 'The coupon is valid for all categories and products.'|trans }}</h4>
+    {% endif %}
+
+    <p>{{ 'Discount Coupons may not be applied towards the purchase of Gift Certificates.'|trans }}</p>
+
+    <div id="close">
+        <a href="#" onclick="javascript:window.close()">
+            {{ 'Close Window [x]'|trans }}
+        </a>
+    </div>
+{% endblock %}

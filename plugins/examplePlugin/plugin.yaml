@@ -24,7 +24,7 @@ routing:
     pattern: /admin/examplePluginAdmin
     defaults: { _controller: ZenMagick\plugins\examplePlugin\Controller\ExamplePluginAdminController::process }
     options:
-      'view': examplePluginAdmin.php
+      'view': examplePluginAdmin.html.twig
 
 admin:
   menu:
