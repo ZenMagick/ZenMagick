@@ -64,7 +64,7 @@ class SubscriptionsPlugin extends Plugin
     public function onContainerReady($event)
     {
         $sacsManager = $this->container->get('sacsManager');
-
+        $translator = $this->container->get('translator');
         // set mappings and permissions of custom pages
         $sacsManager->setMapping('cancel_subscription', Account::REGISTERED);
         $sacsManager->setMapping('subscription_request', Account::REGISTERED);
@@ -72,7 +72,7 @@ class SubscriptionsPlugin extends Plugin
         // set up request form validation
         $this->container->get('zmvalidator')->addRules('subscription_request', array(
             array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
-            array('ZMRequiredRule', 'message', _zm("Please enter a message")),
+            array('ZMRequiredRule', 'message', $translator->trans('Please enter a message')),
         ));
 
         $request = $event->getArgument('request');
@@ -130,10 +130,11 @@ class SubscriptionsPlugin extends Plugin
      */
     public function getRequestTypes()
     {
+        $translator = $this->container->get('translator');
         $defaults = array(
-                'cancel' => _zm("Cancel Subscription"),
-                'enquire' => _zm("Enquire order status"),
-                'other' => _zm("Other"),
+                'cancel' => $translator->trans('Cancel Subscription'),
+                'enquire' => $translator->trans('Enquire order status'),
+                'other' => $translator->trans('Other'),
         );
 
         return $this->container->get('settingsService')->get('plugins.zm_subscriptions.request.types', $defaults);
@@ -167,7 +168,7 @@ class SubscriptionsPlugin extends Plugin
             // do not process orders created by our cron job
             return;
         }
-
+        $translator = $this->container->get('translator');
         $request = $event->getArgument('request');
         $orderId = $event->getArgument('orderId');
         if (null != ($schedule = $this->getSelectedSchedule())) {
@@ -185,7 +186,8 @@ class SubscriptionsPlugin extends Plugin
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
                     $schedules = $this->getSchedules();
-                    $status->setComment(sprintf(_zm('Subscription: %s'), $schedules[$schedule]['name']));
+                    $comment = $translator->trans('Subscription: %name%', array('%name%' => $schedules[$schedule]['name']));
+                    $status->setComment($comment);
                     $this->container->get('orderService')->createOrderStatusHistory($status);
                 }
             }

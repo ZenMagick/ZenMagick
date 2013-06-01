@@ -33,7 +33,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Order Stats'));
+        parent::__construct('Order Stats');
     }
 
     /**
@@ -42,8 +42,9 @@ class OrderStatsDashboardWidget extends DashboardWidget
     public function getContents($request)
     {
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         $contents = '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
+        $contents .= '<tr><th>'.$translator->trans('Status').'</th><th>'.$translator->trans('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
         $sql = "SELECT count(*) AS count FROM %table.orders%
                 WHERE orders_status = :orderStatusId";
@@ -51,7 +52,7 @@ class OrderStatsDashboardWidget extends DashboardWidget
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = \ZMRuntime::getDatabase()->querySingle($sql, $args, 'orders');
             $contents .= '<tr>';
-            $contents .= '<td><a href="'.$router->generate('zc_admin_orders', array('orderStatusId' => $status->getId())).'">'._zm($status->getName()).'</a></td>';
+            $contents .= '<td><a href="'.$router->generate('zc_admin_orders', array('orderStatusId' => $status->getId())).'">'.$status->getName().'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';
             $contents .= '</tr>';
         }

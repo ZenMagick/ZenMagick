@@ -37,8 +37,9 @@ class CancelSubscriptionController extends DefaultController
      */
     public function processGet($request)
     {
+        $translator = $this->get('translator');
         if (!Toolbox::asBoolean($this->getPlugin()->get('customerCancel'))) {
-            $this->get('session.flash_bag')->error(_zm("Insufficient permission"));
+            $this->get('session.flash_bag')->error($translator->trans('Insufficient permission'));
 
             return $this->findView();
         }
@@ -48,7 +49,7 @@ class CancelSubscriptionController extends DefaultController
 
         // make sure this is an allowed order
         if ($order->getAccountId() != $order->getAccountId()) {
-            $this->get('session.flash_bag')->error(_zm("Invalid order selected"));
+            $this->get('session.flash_bag')->error($translator->trans('Invalid order selected'));
 
             return $this->findView();
         }
@@ -61,7 +62,8 @@ class CancelSubscriptionController extends DefaultController
         $results = \ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), 'orders', Connection::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
-            $this->get('session.flash_bag')->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
+            $message = $translator->trans('This subscription can only be canceled after a minimum of %count% orders', array('%count%' => $plugin->get('minOrders')));
+            $this->get('session.flash_bag')->error($message);
 
             return $this->findView();
         }
@@ -75,7 +77,8 @@ class CancelSubscriptionController extends DefaultController
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
             $result = \ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), 'orders', Connection::MODEL_RAW);
             if (null == $result) {
-                $this->get('session.flash_bag')->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
+                $message = $translator->trans("Can't cancel less than %count% days before next subscription", array('%count%' => $cancelDeadline));
+                $this->get('session.flash_bag')->error($message);
 
                 return $this->findView();
             }
@@ -85,7 +88,7 @@ class CancelSubscriptionController extends DefaultController
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
         \ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), 'orders');
-        $this->get('session.flash_bag')->success(_zm("Subscription canceled!"));
+        $this->get('session.flash_bag')->success($translator->trans('Subscription canceled!'));
 
         $settingsService = $this->container->get('settingsService');
         $emailTemplate = $settingsService->get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
@@ -116,7 +119,8 @@ class CancelSubscriptionController extends DefaultController
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
         $settingsService = $this->container->get('settingsService');
 
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), $settingsService->get('storeName')))->setTo($email)->setFrom($settingsService->get('storeEmail'));
+        $subject = $this->get('translator')->trans('%store_name%: Order Subscription Canceled', array('%store_name%' => $settingsService->get('storeName')));
+        $message->setSubject($subject)->setTo($email)->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

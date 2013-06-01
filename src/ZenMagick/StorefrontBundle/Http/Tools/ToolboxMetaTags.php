@@ -72,7 +72,6 @@ class ToolboxMetaTags extends ToolboxTool
         $title = str_replace('_', ' ', $title);
         // capitalise words
         $title = ucwords($title);
-        $title = _zm($title);
 
         return $title;
     }
@@ -94,10 +93,7 @@ class ToolboxMetaTags extends ToolboxTool
 
         // lookup localized page title
         $requestId = $this->getRequest()->getRequestId();
-        $pageTitleKey = Runtime::getSettings()->get('metaTitlePrefix').$requestId;
-        if ($pageTitleKey != _zm($pageTitleKey)) {
-            $title = _zm($pageTitleKey);
-        }
+        $title = Runtime::getSettings()->get('metaTitlePrefix').$requestId;
 
         // special handling for categories, manufacturers
         if ('index' == $requestId) {

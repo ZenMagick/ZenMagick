@@ -68,7 +68,7 @@ class SubscriptionRequestController extends DefaultController
         $emailTemplate = $this->container->get('settingsService')->get('plugins.subscriptions.email.templates.request', 'subscription_request');
         $this->sendNotificationEmail($request->request->all(), $emailTemplate, $plugin->get('adminEmail'));
 
-        $this->get('session.flash_bag')->success(_zm("Request submitted!"));
+        $this->get('session.flash_bag')->success($this->get('translator')->trans('Request submitted!'));
 
         return $this->findView('success', $data);
     }
@@ -87,7 +87,8 @@ class SubscriptionRequestController extends DefaultController
         }
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("Subscription request notification"), $settingsService->get('storeName')))->setTo($email)->setFrom($settingsService->get('storeEmail'));
+        $subject = $this->get('translator')->trans('Subscription request notification');
+        $message->setSubject($subject)->setTo($email)->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

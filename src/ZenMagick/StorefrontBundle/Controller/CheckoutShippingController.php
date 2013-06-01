@@ -76,6 +76,7 @@ class CheckoutShippingController extends DefaultController
     {
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
+        $translator = $this->get('translator');
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
@@ -106,7 +107,7 @@ class CheckoutShippingController extends DefaultController
         }
 
         if (null == $shippingProvider || null == $shippingMethod) {
-            $this->get('session.flash_bag')->error(_zm('Please select a shipping method.'));
+            $this->get('session.flash_bag')->error($translator->trans('Please select a shipping method.'));
 
             return $this->findView();
         }

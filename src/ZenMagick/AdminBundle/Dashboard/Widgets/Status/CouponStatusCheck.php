@@ -39,8 +39,9 @@ class CouponStatusCheck extends ZMObject implements StatusCheck
     {
         $messages = array();
 
-        $languageId = Runtime::getSettings()->get('storeDefaultLanguageId');
+        $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
         $configService = $this->container->get('configService');
+        $translator = $this->container->get('translator');
 
         if (null != ($value = $configService->getConfigValue('NEW_SIGNUP_DISCOUNT_COUPON'))) {
             $value = $value->getValue();
@@ -50,15 +51,17 @@ class CouponStatusCheck extends ZMObject implements StatusCheck
                   $diff = $expiryDate->diff(new \DateTime(), true);
                   $interval = (int) $diff->format('%r%a');
                   if ($interval > 0 && $interval < self::NEW_SIGNUP_GV_EXPIRY_THRESHOLD) {
-                      $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Welcome Email Discount Coupon expires in %s days.'), $interval));
+                      $message = $translation->trans('Welcome Email Discount Coupon expires in %count% days.', array('%count%' => $interval));
+                      $messages[] = array(StatusCheck::STATUS_NOTICE, $message);
                   }
               }
             }
         }
 
         if (null != ($results = \ZMRuntime::getDatabase()->fetchAll('SELECT * FROM %table.coupon_gv_queue% where release_flag = "N"')) && 0 < count($results)) {
-            $url = '<a href="'.$this->container->get('router')->generate('gv_queue').'">'._zm('gift queue').'</a>';
-            $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
+            $url = '<a href="'.$this->container->get('router')->generate('gv_queue').'">'.$translator->trans('gift queue').'</a>';
+            $message = $translator->trans('%count% item(s) in %queue_url% waiting for approval.', array('%count%' => count($results), '%queue_url%' => $url));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, $message);
         }
 
         return $messages;

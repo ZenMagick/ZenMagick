@@ -37,7 +37,7 @@ class QuickEditTabController extends CatalogContentController
      */
     public function __construct()
     {
-        parent::__construct('quick_edit_tab', _zm('Quick Edit'), self::ACTIVE_CATEGORY);
+        parent::__construct('quick_edit_tab', $this->get('translator')->trans('Quick Edit'), self::ACTIVE_CATEGORY);
     }
 
     /**

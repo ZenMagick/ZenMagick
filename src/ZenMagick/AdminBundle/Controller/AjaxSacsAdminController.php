@@ -43,12 +43,13 @@ class AjaxSacsAdminController extends RpcController
             $newId = null;
         }
 
+        $translator = $this->get('translator');
         if (null != $newId) {
             $rpcResponse->setStatus(true);
-            $rpcResponse->addMessage(_zm('Role added'), 'success');
+            $rpcResponse->addMessage($translator->trans('Role added'), 'success');
         } else {
             $rpcResponse->setStatus(false);
-            $rpcResponse->addMessage(_zm('Could not add role \''.$roleName.'\''), 'error');
+            $rpcResponse->addMessage($translator->trans('Could not add role %role%', array('%role%' => $roleName)), 'error');
         }
 
         return $rpcResponse;
@@ -63,6 +64,7 @@ class AjaxSacsAdminController extends RpcController
 
         $rpcResponse = $rpcRequest->createResponse();
 
+        $translator = $this->get('translator');
         $failed = array();
         // figure out difference
         $currentRoles = $this->container->get('adminUserRoleService')->getAllRoles();
@@ -81,10 +83,11 @@ class AjaxSacsAdminController extends RpcController
 
         if (0 == count($failed)) {
             $rpcResponse->setStatus(true);
-            $rpcResponse->addMessage(_zm('Roles removed'), 'success');
+            $rpcResponse->addMessage($translator->trans('Roles removed'), 'success');
         } else {
             $rpcResponse->setStatus(false);
-            $rpcResponse->addMessage(_zm('Could not remove role(s) \''.implode(', ', $failed).'\''), 'error');
+            $message = $translator->trans('Could not remove role(s) %roles%', array('%roles%' => implode(', ', $failed)));
+            $rpcResponse->addMessage($message, 'error');
         }
 
         return $rpcResponse;

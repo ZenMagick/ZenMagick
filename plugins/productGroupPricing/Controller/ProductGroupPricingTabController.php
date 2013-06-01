@@ -36,7 +36,7 @@ class ProductGroupPricingTabController extends CatalogContentController
      */
     public function __construct()
     {
-        parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), self::ACTIVE_PRODUCT);
+        parent::__construct('product_group_pricing_tab', $this->get('translator')->trans('Group Pricing'), self::ACTIVE_PRODUCT);
     }
 
     /**

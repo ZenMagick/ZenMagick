@@ -19,6 +19,7 @@
  */
 
 use ZenMagick\Base\Beans;
+use ZenMagick\Base\Runtime;
 
 /**
  * Price range filter for products.
@@ -36,7 +37,7 @@ class ZMPriceRangeFilter extends ZMResultListFilter
      */
     public function __construct()
     {
-        parent::__construct('prfilter', _zm('Price Range'));
+        parent::__construct('prfilter', Runtime::getContainer()->get('translator')->trans('Price Range'));
 
         $this->ranges = array();
         if (!empty($this->filterValues) && is_array($this->filterValues)) {

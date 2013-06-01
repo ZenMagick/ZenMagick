@@ -53,7 +53,7 @@ class GvSendController extends DefaultController
         $data['currentAccount'] = $this->getUser();
         // to fake the email content display
         $coupon = new Coupon();
-        $coupon->setCode( _zm('THE_COUPON_CODE'));
+        $coupon->setCode($this->get('translator')->trans('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
 
         return $this->findView('success', $data);

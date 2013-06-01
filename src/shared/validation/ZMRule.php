@@ -149,7 +149,7 @@ abstract class ZMRule extends ZMObject
      */
     public function getErrorMsg()
     {
-        return null != $this->msg ? _zm($this->msg) : sprintf(_zm($this->defaultMsg), ucwords(str_replace('_', ' ', $this->name)));
+        return null != $this->msg ? $this->msg : sprintf($this->defaultMsg, ucwords(str_replace('_', ' ', $this->name)));
     }
 
 }

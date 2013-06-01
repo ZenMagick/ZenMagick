@@ -37,7 +37,7 @@ class GvSendConfirmController extends DefaultController
         $data = array();
         $data['currentAccount'] = $this->getUser();
         $coupon = new Coupon();
-        $coupon->setCode(_zm('THE_COUPON_CODE'));
+        $coupon->setCode($this->get('translator')->trans('THE_COUPON_CODE'));
         $data['currentCoupon'] = $coupon;
 
         return $this->findView(null, $data);
@@ -65,6 +65,8 @@ class GvSendConfirmController extends DefaultController
         if (null != $request->request->get('edit')) {
             return $this->findView('edit');
         }
+
+        $translator = $this->get('translator');
 
         // the form data
         $gvReceiver = $this->getFormData($request);
@@ -99,7 +101,8 @@ class GvSendConfirmController extends DefaultController
         $context = array('currentAccount' => $account, 'gvReceiver' => $gvReceiver, 'currentCoupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
 
         $message = $this->container->get('messageBuilder')->createMessage('gv_send', true, $request, $context);
-        $message->setSubject(sprintf(_zm("A gift from %s"), $account->getFullName()))->setTo($gvReceiver->getEmail())->setFrom($settingsService->get('storeEmail'));
+        $message->setSubject($translator->trans('A gift from %name%', array('%name%' => $account->getFullName())))
+                ->setTo($gvReceiver->getEmail())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         if ($settingsService->get('isEmailAdminGvSend')) {
@@ -111,14 +114,15 @@ class GvSendConfirmController extends DefaultController
             $context['currentCoupon'] = $coupon;
 
             $message = $this->container->get('messageBuilder')->createMessage('gv_send', false, $request, $context);
-            $message->setSubject(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()))->setFrom($settingsService->get('storeEmail'));
+            $message->setSubject($translator->trans('[GIFT CERTIFICATE] A gift from %name%', array('%name%' => $account->getFullName())))
+                    ->setFrom($settingsService->get('storeEmail'));
             foreach ($settingsService->get('emailAdminGvSend') as $email => $name) {
                 $message->addTo($email, $name);
             }
             $this->container->get('mailer')->send($message);
         }
 
-        $this->get('session.flash_bag')->success(_zm("Gift Certificate successfully send!"));
+        $this->get('session.flash_bag')->success($translator->trans("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

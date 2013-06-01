@@ -37,10 +37,11 @@ class PasswordForgottenController extends DefaultController
      */
     public function processPost($request)
     {
+        $translator = $this->get('translator');
         $emailAddress = $request->request->get('email_address');
         $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account || Account::REGISTERED != $account->getType()) {
-            $this->get('session.flash_bag')->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
+            $this->get('session.flash_bag')->error($translator->trans("Sorry, there is no account with the email address '%email%'.", array('%email%' => $emailAddress)));
 
             return $this->findView();
         }
@@ -56,13 +57,14 @@ class PasswordForgottenController extends DefaultController
         // send email (clear text)
         $settingsService = $this->container->get('settingsService');
         $message = $this->container->get('messageBuilder')->createMessage('password_forgotten', true, $request, array('password' => $newPassword));
-        $message->setSubject(sprintf(_zm("Forgotten Password - %s"), $settingsService->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom($settingsService->get('storeEmail'));
+        $message->setSubject($translator->trans('Forgotten Password - %store_name%', array('%store_name%' => $settingsService->get('storeName'))))
+                ->setTo($emailAddress, $account->getFullName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         $this->container->get('event_dispatcher')->dispatch('password_changed', new GenericEvent($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
-        $this->get('session.flash_bag')->success(_zm('A new password has been sent to your email address.'));
+        $this->get('session.flash_bag')->success($translator->trans('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

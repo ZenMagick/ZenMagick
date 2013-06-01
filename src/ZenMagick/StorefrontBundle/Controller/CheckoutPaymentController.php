@@ -79,7 +79,7 @@ class CheckoutPaymentController extends DefaultController
     {
         $shoppingCart = $this->get('shoppingCart');
         $checkoutHelper = $shoppingCart->getCheckoutHelper();
-
+        $translator = $this->get('translator');
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
         }
@@ -96,7 +96,7 @@ class CheckoutPaymentController extends DefaultController
         }
 
         if ($this->container->get('settingsService')->get('isConditionsMessage') && !Toolbox::asBoolean($request->request->get('conditions'))) {
-            $this->get('session.flash_bag')->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+            $this->get('session.flash_bag')->error($translator->trans('Please confirm the terms and conditions bound to this order by ticking the box below.'));
 
             return $this->findView();
         }
@@ -104,13 +104,13 @@ class CheckoutPaymentController extends DefaultController
         // TODO: check if credit/gv covers total (currently in order_total::pre_confirmation_check)
 
         if (null == ($paymentTypeId = $request->request->get('payment'))) {
-            $this->get('session.flash_bag')->error(_zm('Please select a payment type.'));
+            $this->get('session.flash_bag')->error($translator->trans('Please select a payment type.'));
 
             return $this->findView();
         }
 
         if (null == ($paymentType = $this->container->get('paymentTypeService')->getPaymentTypeForId($paymentTypeId))) {
-            $this->get('session.flash_bag')->error(_zm('Please select a valid payment type.'));
+            $this->get('session.flash_bag')->error($translator->trans('Please select a valid payment type.'));
 
             return $this->findView();
         }

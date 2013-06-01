@@ -35,7 +35,7 @@ class BasicStatsDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Basic Stats'));
+        parent::__construct('Basic Stats');
     }
 
     /**
@@ -46,40 +46,41 @@ class BasicStatsDashboardWidget extends DashboardWidget
         $data = array();
         $database = \ZMRuntime::getDatabase();
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         // customers
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.customers%");
-        $data[_zm('Customers')] = $result['count'];
+        $data[$translator->trans('Customers')] = $result['count'];
 
         // products
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.products% WHERE products_status = '1'");
-        $data[_zm('Products')] = $result['count'];
+        $data[$translator->trans('Products')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.products% WHERE products_status = '0'");
-        $data[_zm('Inactive Products')] = $result['count'];
+        $data[$translator->trans('Inactive Products')] = $result['count'];
 
         // reviews
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews%");
-        $data[_zm('Reviews')] = $result['count'];
+        $data[$translator->trans('Reviews')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
-        $data['<a href="'.$router->generate('reviews', array('status' => 1)).'">'._zm('Reviews pending approval').'</a>'] = $result['count'];
+        $data['<a href="'.$router->generate('reviews', array('status' => 1)).'">'.$translator->trans('Reviews pending approval').'</a>'] = $result['count'];
 
         // separator
         $data[] = null;
 
         // promotions
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.specials% WHERE status= '0'");
-        $data[_zm('Specials Expired')] = $result['count'];
+        $data[$translator->trans('Specials Expired')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.specials% WHERE status= '1'");
-        $data[_zm('Specials Active')] = $result['count'];
+        $data[$translator->trans('Specials Active')] = $result['count'];
 
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.featured% WHERE status= '0'");
-        $data[_zm('Featured Products Expired')] = $result['count'];
+        $data[$translator->trans('Featured Products Expired')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.featured% WHERE status= '1'");
-        $data[_zm('Featured Products Active')] = $result['count'];
+        $data[$translator->trans('Featured Products Active')] = $result['count'];
 
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.salemaker_sales% WHERE sale_status= '0'");
-        $data[_zm('Sales Expired')] = $result['count'];
+        $data[$translator->trans('Sales Expired')] = $result['count'];
         $result = $database->querySingle("SELECT count(*) AS count FROM %table.salemaker_sales% WHERE sale_status= '1'");
-        $data[_zm('Sales Active')] = $result['count'];
+        $data[$translator->trans('Sales Active')] = $result['count'];
 
         $event = new GenericEvent($this, array('data' => $data));
         $this->container->get('event_dispatcher')->dispatch('build_basic_stats', $event);
@@ -92,8 +93,9 @@ class BasicStatsDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
+        $translator = $this->container->get('translator');
         $contents = '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Type').'</th><th>'._zm('Stat').'</th></tr>';
+        $contents .= '<tr><th>'.$translator->trans('Type').'</th><th>'.$translator->trans('Stat').'</th></tr>';
         $language = $request->getSelectedLanguage();
         foreach ($this->getData($request) as $k => $v) {
             if (null === $v) {

@@ -37,10 +37,11 @@ class AdminListener extends ZMObject
     public function onInsufficientCredentials($event)
     {
         $request = $event->getArgument('request');
-
+        $translator = $this->container->get('translator');
+        
         if (!is_object($this->container->get('security.context')->getToken()->getUser())) {
             // only if we still have a valid session
-            $request->getSession()->getFlashBag()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
+            $request->getSession()->getFlashBag()->warn($translator->trans('You are not allowed to access the page with id: <em>%request_id%</em>', array('%request_id%' => $request->getRequestId())));
         }
     }
 

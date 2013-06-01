@@ -44,7 +44,7 @@ use ZenMagick\Base\Toolbox;
       // save
       $editContents = stripslashes($editContents);
       if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {
-          $messageService->error(sprintf(_zm('Could not save %s'), $selectedFile));
+          $messageService->error(sprintf('Could not save %s', $selectedFile));
       }
       $editContents = null;
   } elseif (null != $selectedFile) {
@@ -66,7 +66,6 @@ use ZenMagick\Base\Toolbox;
 ?>
 
 <?php echo $this->render('AdminBundle::messages.html.twig'); ?>
-<?php $admin->title(_zm('Edit Define Pages')) ?></h1>
 <form action="<?php echo $view['router']->generate('static_page_editor') ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (

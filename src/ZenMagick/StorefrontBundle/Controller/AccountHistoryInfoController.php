@@ -36,7 +36,7 @@ class AccountHistoryInfoController extends DefaultController
         $order = $this->container->get('orderService')->getOrderForId($request->attributes->getInt('order_id'), $request->getSession()->getLanguageId());
         $account = $this->getUser();
         if ($account->getId() != $order->getAccountId()) {
-            $this->get('session.flash_bag')->error(_zm('Order not found'));
+            $this->get('session.flash_bag')->error($this->get('translator')->trans('Order not found'));
 
             return $this->findView('error');
         }

@@ -53,6 +53,7 @@ class BlockGroupsController extends DefaultController
     {
         $blockService = $this->container->get('blockService');
         $action = $request->request->get('action');
+        $translator = $this->get('translator');
         switch ($action) {
         case 'addGroup':
             $groupName = $request->request->get('groupName');
@@ -60,14 +61,14 @@ class BlockGroupsController extends DefaultController
                 $blockGroup = new BlockGroup();
                 $blockGroup->setName($groupName);
                 $blockService->createBlockGroup($blockGroup);
-                $this->get('session.flash_bag')->success(sprintf(_zm('Block group %s added.'), $groupName));
+                $this->get('session.flash_bag')->success($translator->trans('Block group %group% added.', array('%group%' => $groupName)));
             }
             break;
         case 'removeGroup':
             $groupName = $request->request->get('groupName');
             if (!empty($groupName)) {
                 $blockService->deleteGroupForName($groupName);
-                $this->get('session.flash_bag')->success(sprintf(_zm('Block group %s removed.'), $groupName));
+                $this->get('session.flash_bag')->success($translator->trans('Block group %group% removed.', array('%group%' => $groupName)));
             }
             break;
         }

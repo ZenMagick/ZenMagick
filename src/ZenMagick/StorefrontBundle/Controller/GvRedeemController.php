@@ -37,6 +37,7 @@ class GvRedeemController extends DefaultController
     {
         $gvRedeem = $this->getFormData($request);
 
+        $translator = $this->get('translator');
         //XXX: fix for gv_mail generated URLs
         if (Toolbox::isEmpty($gvRedeem->getCouponCode())) {
           if (null != ($gvNo = $request->getParameter('gv_no'))) {
@@ -56,7 +57,7 @@ class GvRedeemController extends DefaultController
                 $couponService->redeemCoupon($coupon->getId(), $this->getUser()->getId());
             } else {
                 // not redeemable
-                $this->get('session.flash_bag')->error(_zm('The provided gift voucher code seems to be invalid!'));
+                $this->get('session.flash_bag')->error($translator->trans('The provided gift voucher code seems to be invalid!'));
             }
         }
 

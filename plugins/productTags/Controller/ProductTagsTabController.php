@@ -33,7 +33,7 @@ class ProductTagsTabController extends CatalogContentController
      */
     public function __construct()
     {
-        parent::__construct('product_tags_tab', _zm('Tags'), self::ACTIVE_PRODUCT);
+        parent::__construct('product_tags_tab', $this->get('translator')->trans('Tags'), self::ACTIVE_PRODUCT);
     }
 
     /**
@@ -67,7 +67,7 @@ class ProductTagsTabController extends CatalogContentController
                 }
             }
             $this->container->get('tagService')->setTagsForProductId($productId, $languageId, $tags);
-            $this->get('session.flash_bag')->success(_zm('Tags updated'));
+            $this->get('session.flash_bag')->success($this->get('translator')->trans('Tags updated'));
         }
 
         return $this->findView('catalog-redirect');

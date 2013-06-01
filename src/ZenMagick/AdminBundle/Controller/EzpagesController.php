@@ -71,7 +71,7 @@ class EzpagesController extends DefaultController
             $ezPageId = $routeParams['id'];
             $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
             if (null == $ezPage) {
-                return $this->findView('error', array('message' => _zm('Invalid page id')));
+                return $this->findView('error', array('message' => $this->get('translator')->trans('Invalid page id')));
             }
         }
 

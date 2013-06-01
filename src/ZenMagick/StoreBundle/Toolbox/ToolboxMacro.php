@@ -60,7 +60,7 @@ class ToolboxMacro extends ToolboxTool
     public function formatAddress($address, $html=true)
     {
         if (null == $address) {
-            $out = _zm("N/A");
+            $out = $this->container->get('translator')->trans('N/A');
         } else {
             if (!Toolbox::isEmpty($address->getLastName())) {
                 $firstname = $address->getFirstName();
@@ -140,9 +140,9 @@ class ToolboxMacro extends ToolboxTool
             if (!$first) $html .= $sep;
             $first = false;
             if (null != $crumb->getURL()) {
-                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode(_zm($crumb->getName())).'</a>';
+                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode($crumb->getName()).'</a>';
             } else {
-                $html .= $toolbox->html->encode(_zm($crumb->getName()));
+                $html .= $toolbox->html->encode($crumb->getName());
             }
         }
 
@@ -229,6 +229,7 @@ class ToolboxMacro extends ToolboxTool
     {
         $context = array();
 
+        $translator = $this->container->get('translator');
         $session = $this->getRequest()->getSession();
         $ipAddress = $this->getRequest()->getClientIp();
         $hostAddress = '';
@@ -237,11 +238,11 @@ class ToolboxMacro extends ToolboxTool
         }
         $officeOnly = array(
             "\n",
-            _zm('Office Use Only:'),
-            sprintf(_zm('From: %s'), $name),
-            sprintf(_zm('Email: %s'), $email),
-            sprintf(_zm('Remote: %s - %s'), $hostAddress, $ipAddress),
-            sprintf(_zm('Date: %s'), date("D M j Y G:i:s T")),
+            $translator->trans('Office Use Only:'),
+            $translator->trans('From: %from_name%', array('%from_name%' => $name)),
+            $translator->trans('Email: %email%', array('%email%' => $email)),
+            $translator->trans('Remote: %host% - %ip%', array('%host%' => $hostAddress, '%ip%' => $ipAddress)),
+            $translator->trans('Date: %date%', array('%date%' => date('D M j Y G:i:s T'))),
             "\n\n"
         );
         $context['office_only_html'] = nl2br(implode("\n", $officeOnly));
@@ -476,6 +477,7 @@ class ToolboxMacro extends ToolboxTool
     {
         $toolbox = $this->getToolbox();
         $settingsService = $this->container->get('settingsService');
+        $translator = $this->container->get('translator');
         $label = '';
         if ($value->hasImage() && $enableImage) {
             // TODO: where are images coming from in the future??
@@ -484,12 +486,12 @@ class ToolboxMacro extends ToolboxTool
                 $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'" />';
             }
         }
-        $label .= _zm($value->getName());
+        $label .= $value->getName();
 
         if ($value->isFree() && $product->isFree()) {
-            $label .= sprintf(_zm(' [FREE! (was: %s%s)]'), $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice()));
+            $label .= $translator->trans(' [FREE! (was: %prefix%%amount%)]', array('%prefix%' => $value->getPricePrefix(), '%amount%' => $toolbox->utils->formatMoney($value->getPrice())));
         } elseif (0 != $value->getPrice()) {
-            $label .= sprintf(_zm(' (%s%s)'), $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
+            $label .= sprintf(' (%s%s)', $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
         }
         //TODO: onetime and weight
         return $label;
@@ -506,10 +508,10 @@ class ToolboxMacro extends ToolboxTool
     {
         $toolbox = $this->getToolbox();
         $offers = $product->getOffers();
-
+        $translator = $this->container->get('translator');
         $html = '<span class="price">';
         if ($offers->isAttributePrice()) {
-            $html .= _zm("Starting at: ");
+            $html .= $translator->trans('Starting at: ');
         }
         if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
             // special/sale
@@ -557,7 +559,7 @@ class ToolboxMacro extends ToolboxTool
                     $high = $low;
                 }
                 if ($low != $high) {
-                    $qty = sprintf(_zm("%s-%s"), $low, $high);
+                    $qty = sprintf('%s-%s', $low, $high);
                 } else {
                     $qty = $low;
                 }
@@ -566,12 +568,12 @@ class ToolboxMacro extends ToolboxTool
             }
 
             if ($ii == ($n - 1)) {
-                $qty = sprintf(_zm("%s+"), $discounts[$ii]->getQuantity());
+                $qty = sprintf('%s+', $discounts[$ii]->getQuantity());
             } else {
                 if ($discounts[$ii]->getQuantity() == ($discounts[$ii+1]->getQuantity() - 1)) {
                     $qty = $discounts[$ii]->getQuantity();
                 } else {
-                    $qty = sprintf(_zm("%s-%s"), $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
+                    $qty = sprintf('%s-%s', $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
                 }
             }
             $details[] = array('qty' => $qty, 'price' => $discounts[$ii]->getPrice());

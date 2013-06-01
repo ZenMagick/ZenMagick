@@ -57,14 +57,14 @@ class CheckoutSuccessController extends DefaultController
     public function processPost($request)
     {
         $notifyProducts = $request->request->get('notify', array());
-
+        $translator = $this->get('translator');
         if (!empty($notifyProducts)) {
             $account = $this->getUser();
             $subscribedProducts = array_unique(array_merge($account->getSubscribedProducts(), $notifyProducts));
             if (!empty($subscribedProducts)) {
                 $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
             }
-            $this->get('session.flash_bag')->success(_zm('Your product subscriptions have been updated.'));
+            $this->get('session.flash_bag')->success($translator->trans('Your product subscriptions have been updated.'));
         }
 
         return $this->processGet($request);

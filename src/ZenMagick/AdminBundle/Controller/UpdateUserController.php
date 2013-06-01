@@ -39,14 +39,15 @@ class UpdateUserController extends DefaultController
         $user = $this->getUser();
         $widgets = array();
 
+        $translator = $this->get('translator');
         // WYSIWYG
         $currentEditor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor');
-        $widgets[] = Beans::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
+        $widgets[] = Beans::getBean('EditorSelectFormWidget#title='.$translator->trans('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale  (@todo fold into widget)
         $currentLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale');
         $locales = Locale::getDisplayLocales($currentLocale);
-        $uiLocaleWidget = Beans::getBean('selectFormWidget#name=uiLocale&title='._zm('Admin Locale').'&value='.$currentLocale);
+        $uiLocaleWidget = Beans::getBean('selectFormWidget#name=uiLocale&title='.$translator->trans('Admin Locale').'&value='.$currentLocale);
         foreach ($locales as $locale => $name) { // @todo decide whether to show the localized names here at all.
             $uiLocaleWidget->addOption('('.$locale.') '.$name, $locale);
         }
@@ -102,9 +103,10 @@ class UpdateUserController extends DefaultController
 
         $encoder = $this->get('security.encoder_factory')->getEncoder($user);
 
+        $translator = $this->get('translator');
         // validate password
         if (!$encoder->isPasswordValid($user->getPassword(), $updateUser->getCurrentPassword())) {
-            $this->get('session.flash_bag')->error(_zm('Sorry, the entered password is not valid.'));
+            $this->get('session.flash_bag')->error($translator->trans('Sorry, the entered password is not valid.'));
 
             return $this->findView();
         }
@@ -121,7 +123,7 @@ class UpdateUserController extends DefaultController
         }
 
         // report success
-        $this->get('session.flash_bag')->success(_zm('Details updated.'));
+        $this->get('session.flash_bag')->success($translator->trans('Details updated.'));
 
         return $this->findView('success');
     }

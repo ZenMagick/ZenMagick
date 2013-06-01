@@ -77,7 +77,7 @@ class SubscriptionAdminController extends PluginAdminController
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
             \ZMRuntime::getDatabase()->updateObj($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), 'orders');
-            $this->get('session.flash_bag')->success(_zm("Subscription canceled!"));
+            $this->get('session.flash_bag')->success($this->get('translator')->trans("Subscription canceled!"));
         }
 
         $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
@@ -105,7 +105,8 @@ class SubscriptionAdminController extends PluginAdminController
         $settingsService = $this->container->get('settingsService');
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), $settingsService->get('storeName')))->setTo($email)->setFrom($settingsService->get('storeEmail'));
+        $subject = $this->get('translator')->trans('%store_name%: Order Subscription Canceled', array('%store_name%' => $settingsService->get('storeName')));
+        $message->setSubject($subject)->setTo($email)->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

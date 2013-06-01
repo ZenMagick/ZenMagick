@@ -156,7 +156,7 @@ class TaxService extends ZMObject
         $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
         foreach (\ZMRuntime::getDatabase()->fetchAll($sql, $args, array('tax_rates', 'zones_to_geo_zones', 'geo_zones')) as $result) {
-            if (null !== $description) { $description .= _zm($this->container->get('settingsService')->get('tax.delim', ' + ')); }
+            if (null !== $description) { $description .= $this->container->get('settingsService')->get('tax.delim', ' + '); }
             $description .= $result['description'];
         }
 
@@ -173,7 +173,7 @@ class TaxService extends ZMObject
     {
         $rate = 0.00;
         $settingsService = $this->container->get('settingsService');
-        $descriptions = explode(_zm($settingsService->get('tax.delim', ' + ')), $description);
+        $descriptions = explode($settingsService->get('tax.delim', ' + '), $description);
         foreach ($descriptions as $description) {
             $sql = "SELECT tax_rate
                     FROM %table.tax_rates%

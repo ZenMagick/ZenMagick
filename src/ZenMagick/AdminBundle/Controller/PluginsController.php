@@ -215,13 +215,14 @@ class PluginsController extends DefaultController
 
         $viewId = null;
         $loggingService = $this->container->get('logger');
-
+        $translator = $this->get('translator');
         foreach ($multiPluginId as $pluginId) {
             if ('install' == $action) {
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && !$plugin->isInstalled()) {
                     $loggingService->debug('install plugin: '.$plugin->getId());
                     $this->install($plugin);
-                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
+                    $message = $translator->trans('Plugin %name% installed successfully', array('%name%' => $plugin->getName()));
+                    $this->get('session.flash_bag')->success($message);
                     $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-install';
                 }
@@ -230,7 +231,8 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'));
                     $this->remove($plugin, $keepSettings);
-                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
+                    $message = $translator->trans('Plugin %name% un-installed successfully', array('%name%' => $plugin->getName()));
+                    $this->get('session.flash_bag')->success($message);
                     $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-uninstall';
                 }
@@ -238,7 +240,8 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('upgrade plugin: '.$plugin->getId());
                     $this->upgrade($plugin);
-                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
+                    $message = $translator->trans('Plugin %name% upgraded successfully', array('%name%' => $plugin->getName()));
+                    $this->get('session.flash_bag')->success($message);
                     $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-upgrade';
                 }
@@ -260,7 +263,8 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('enable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, true);
-                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
+                    $message = $translator->trans('Plugin %name% enabled successfully', array('%name%' => $plugin->getName()));
+                    $this->get('session.flash_bag')->success($message);
                     $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-enable';
                 }
@@ -268,7 +272,8 @@ class PluginsController extends DefaultController
                 if (null != ($plugin = $pluginService->getPluginForId($pluginId)) && $plugin->isInstalled()) {
                     $loggingService->debug('disable plugin: '.$plugin->getId());
                     $this->setStatus($plugin, false);
-                    $this->get('session.flash_bag')->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
+                    $message = $translator->trans('Plugin %name% disabled successfully', array('%name%' => $plugin->getName()));
+                    $this->get('session.flash_bag')->success($message);
                     $this->get('session.flash_bag')->addAll($plugin->getMessages());
                     $viewId = 'success-disable';
                 }

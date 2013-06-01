@@ -47,6 +47,7 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
         $scheduledOrders = self::findScheduledOrders();
         $scheduleEmailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.schedule', 'checkout');
         $orderService = $this->container->get('orderService');
+        $translator = $this->container->get('translator');
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
@@ -83,7 +84,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
                 $status->setOrderId($order->getId());
                 $status->setOrderStatusId($order->getOrderStatusId());
                 $status->setCustomerNotified(!Toolbox::isEmpty($scheduleEmailTemplate));
-                $status->setComment(sprintf(_zm('Scheduled order for subscription #%s'), $scheduledOrderId));
+                $comment = $translator->trans('Scheduled order for subscription #%s', array('%id%' => $scheduledOrderId));
+                $status->setComment($comment);
                 $orderService->createOrderStatusHistory($status);
             }
 
@@ -115,7 +117,8 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
         $shippingAddress = $order->getShippingAddress();
         $billingAddress = $order->getBillingAddress();
         $paymentType = $order->getPaymentType();
-
+        $translator = $this->container->get('translator');
+        $settingsService = $this->container->get('settingsService');
         $context = array();
         $context['order'] = $order;
         $context['shippingAddress'] = $shippingAddress;
@@ -126,8 +129,9 @@ class UpdateSubscriptionsCronJob implements CronJobInterface
 
         $account = $order->getAccount();
 
+        $subject = $translator->trans('%store_name%: Order Subscription Notification', array('%store_name%' => $settingsService->get('storeName')));
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), Runtime::getSettings()->get('storeName')))->setTo($account->getEmail())->setFrom(Runtime::getSettings()->get('storeEmail'));
+        $message->setSubject($subject)->setTo($account->getEmail())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

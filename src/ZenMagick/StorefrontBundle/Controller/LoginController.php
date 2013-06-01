@@ -40,7 +40,7 @@ class LoginController extends DefaultController
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirect($this->generateUrl('account'));
         }
-
+        $translator = $this->get('translator');
         $session = $request->getSession();
         // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -51,11 +51,11 @@ class LoginController extends DefaultController
         }
 
         if ($error instanceof LockedException) {
-            $this->get('session.flash_bag')->error(_zm('Access denied.'));
+            $this->get('session.flash_bag')->error($translator->trans('Access denied.'));
         }
 
         if ($error instanceof BadCredentialsException) {
-            $this->get('session.flash_bag')->error(_zm('Sorry, there is no match for that email address and/or password.'));
+            $this->get('session.flash_bag')->error($translator->trans('Sorry, there is no match for that email address and/or password.'));
         }
 
         $tpl = array(

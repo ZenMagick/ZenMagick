@@ -43,11 +43,12 @@ class AddressBookDeleteController extends DefaultController
      */
     public function processPost($request)
     {
+        $translator = $this->get('translator');
         $account = $this->getUser();
         $addressId = $request->request->get('id', 0);
         if (0 < $addressId) {
             $this->container->get('addressService')->deleteAddressForId($addressId);
-            $this->get('session.flash_bag')->success(_zm('The selected address has been successfully removed from your address book.'));
+            $this->get('session.flash_bag')->success($translator->trans('The selected address has been successfully removed from your address book.'));
         }
 
         return $this->findView('success');

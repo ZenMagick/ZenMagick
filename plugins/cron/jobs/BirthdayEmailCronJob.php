@@ -60,7 +60,8 @@ class BirthdayEmailCronJob implements CronJobInterface
             $context = array('account' => $account);
 
             $message = $container->get('messageBuilder')->createMessage($template, true, $request, $context);
-            $message->setSubject(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()))->setTo($account->getEmail(), $account->getFullName())->setFrom($settingsService->get('storeEmail'));
+            $subject = $container->get('translator')->trans("It's your birthday %name%", array('%name%' => $account->getFirstName()));
+            $message->setSubject($subject)->setTo($account->getEmail(), $account->getFullName())->setFrom($settingsService->get('storeEmail'));
             $container->get('mailer')->send($message);
         }
 

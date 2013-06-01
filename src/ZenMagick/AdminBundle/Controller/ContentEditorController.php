@@ -62,7 +62,7 @@ class ContentEditorController extends DefaultController
                 $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
             }
             if (null == $ezPage) {
-                return $this->findView('error', array('message' => _zm('Invalid id')));
+                return $this->findView('error', array('message' => $this->get('translator')->trans('Invalid id')));
             }
 
             return $this->findView(null, array('ezPage' => $ezPage));

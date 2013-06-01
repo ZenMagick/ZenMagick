@@ -93,12 +93,13 @@ class HowDidYouHearPlugin extends Plugin
     public function onViewStart($event)
     {
         $request = $event->getArgument('request');
+        $translator = $this->container->get('translator');
         if ($this->handleRequest($request->getRequestId())) {
             // create sources list
             $howDidYouHearSources = array();
             $source = new ZMObject();
             $source->setId('');
-            $source->setName(_zm('Please select a source'));
+            $source->setName($translator->trans('Please select a source'));
             $howDidYouHearSources[] = $source;
 
             $sql = "SELECT sources_id, sources_name
@@ -113,7 +114,7 @@ class HowDidYouHearPlugin extends Plugin
             if ($this->isDisplayOther()) {
                 $source = new ZMObject();
                 $source->setId(ID_SOURCE_OTHER);
-                $source->setName(_zm('Other - (please specifiy)'));
+                $source->setName($translator->trans('Other - (please specify)'));
                 $howDidYouHearSources[] = $source;
             }
 

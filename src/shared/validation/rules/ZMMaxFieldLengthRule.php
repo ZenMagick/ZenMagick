@@ -79,7 +79,7 @@ class ZMMaxFieldLengthRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getMaxFieldLength());
+        return sprintf((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getMaxFieldLength());
     }
 
     /**

@@ -105,7 +105,7 @@ class ZMMinMaxRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min, $this->max);
+        return sprintf((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min, $this->max);
     }
 
     /**

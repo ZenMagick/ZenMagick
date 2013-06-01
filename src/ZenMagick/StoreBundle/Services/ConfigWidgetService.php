@@ -40,6 +40,7 @@ class ConfigWidgetService extends ConfigService
     protected function buildObjects($configValues)
     {
         $values = array();
+        $translator = $this->container->get('translator');
         foreach ($configValues as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
@@ -109,7 +110,7 @@ class ConfigWidgetService extends ConfigService
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
                     $widget = $this->container->get('countrySelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
+                    $widget->setOptions(array('' => $translator->trans('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
                     $widget = $this->container->get('textFormWidget');
@@ -118,11 +119,11 @@ class ConfigWidgetService extends ConfigService
                     break;
                 case 'zen_cfg_pull_down_zone_list';
                     $widget = $this->container->get('zoneSelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
+                    $widget->setOptions(array('' => $translator->trans('None')));
                     break;
                 case 'zen_cfg_select_coupon_id';
                     $widget = $this->container->get('couponSelectFormWidget');
-                    $widget->setOptions(array('' => _zm('None')));
+                    $widget->setOptions(array('' => $translator->trans('None')));
                     break;
 
                 default:

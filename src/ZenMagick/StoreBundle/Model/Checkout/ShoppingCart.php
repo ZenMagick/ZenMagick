@@ -502,9 +502,9 @@ class ShoppingCart extends ZMObject
      *
      * <p>An example for the actual order form might look similar to this:</p>
      * <pre>
-     *   &lt;?php echo $form->open($zm_cart-&gt;getOrderFormURL(), '', true) ?&gt;
-     *     &lt;?php $shoppingCart-&gt;getOrderFormContent() ?&gt;
-     *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="&lt;?php echo _zm("Confirm to order") ?&gt;" /&gt;&lt;/div&gt;
+     *   {{ form.open(cart/getOrderFormURL, '', true)|raw }}
+     *     {{ cart.getOrderFormContent()|raw }}
+     *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="{{ 'Confirm to order'|trans }}" /&gt;&lt;/div&gt;
      *   &lt;/form&gt;
      * </pre>
      *

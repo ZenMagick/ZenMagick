@@ -37,7 +37,7 @@ class GuestHistoryController extends DefaultController
         if (!$this->validate($request, 'guest_history')) {
             return $this->findView();
         }
-
+        $translator = $this->get('translator');
         $orderId = $request->request->getInt('orderId', 0);
         $email = $request->getParameter('email', 0);
 
@@ -56,7 +56,7 @@ class GuestHistoryController extends DefaultController
         if (null != $account && null != $order && Account::GUEST == $account->getType() && $account->getEmail() == $email) {
             return $this->findView('success', array('currentOrder' => $order));
         } else {
-            $this->get('session.flash_bag')->warn(_zm('No order information found'));
+            $this->get('session.flash_bag')->warn($translator->trans('No order information found'));
 
             return $this->findView();
         }

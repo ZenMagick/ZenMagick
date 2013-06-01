@@ -113,6 +113,7 @@ class ShoppingCartController extends DefaultController
     public function addProductAction(Request $request)
     {
         $shoppingCart = $this->get('shoppingCart');
+        $translator = $this->get('translator');
         $productId = $request->request->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
         $flashBag = $request->getSession()->getFlashBag();
@@ -121,9 +122,9 @@ class ShoppingCartController extends DefaultController
             $shoppingCart->getCheckoutHelper()->saveHash($request);
             $this->container->get('event_dispatcher')->dispatch('cart_add', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
             $product = $this->container->get('productService')->getProductForId($productId);
-            $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+            $flashBag->success($translator->trans("Product '%product%' added to cart", array('%product%' => $product->getName())));
         } else {
-            $flashBag->error(_zm('Add to cart failed'));
+            $flashBag->error($translator->trans('Add to cart failed'));
         }
 
         // TODO: add support for redirect back to origin
@@ -136,6 +137,7 @@ class ShoppingCartController extends DefaultController
     public function buyNowAction(Request $request)
     {
         $shoppingCart = $this->get('shoppingCart');
+        $translator = $this->get('translator');
         $productId = $request->query->get('products_id');
         $productId = is_array($productId) ? $productId[0] : $productId;
         $flashBag = $request->getSession()->getFlashBag();
@@ -167,10 +169,10 @@ class ShoppingCartController extends DefaultController
                         $shoppingCart->addProduct($productId, $buyNowQty);
                         $shoppingCart->getCheckoutHelper()->saveHash($request);
                         $this->container->get('event_dispatcher')->dispatch('cart_add', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-                        $flashBag->success(sprintf(_zm("Product '%s' added to cart"), $product->getName()));
+                        $flashBag->success($translator->trans("Product '%product%' added to cart", array('%product%' => $product->getName())));
                     }
                 } else {
-                    $flashBag->error(_zm('Add to cart failed'));
+                    $flashBag->error($translator->trans('Add to cart failed'));
                 }
             }
         }
@@ -191,7 +193,7 @@ class ShoppingCartController extends DefaultController
         $shoppingCart->removeProduct($productId);
         $shoppingCart->getCheckoutHelper()->saveHash($request);
         $this->container->get('event_dispatcher')->dispatch('cart_remove', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productId' => $productId)));
-        $flashBag->success(_zm('Product removed from cart'));
+        $flashBag->success($this->get('translator')->trans('Product removed from cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));
@@ -211,7 +213,7 @@ class ShoppingCartController extends DefaultController
             $shoppingCart->updateProduct($productId, $quantities[$ii]);
         }
         $this->container->get('event_dispatcher')->dispatch('cart_update', new GenericEvent($this, array('request' => $request, 'shoppingCart' => $shoppingCart, 'productIds' => $productIds)));
-        $flashBag->success(_zm('Product(s) added to cart'));
+        $flashBag->success($this->get('translator')->trans('Product(s) added to cart'));
 
         // TODO: add support for redirect back to origin
         return new ModelAndView('success', array('shoppingCart' => $shoppingCart));

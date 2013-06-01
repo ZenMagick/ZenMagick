@@ -80,7 +80,8 @@ class ToolboxNet extends ToolboxTool
     public function ezPage($page, $absolute = false)
     {
         if (null === $page) {
-            $href = _zm('ezpage not found');
+            $translator = $this->container->get('translator');
+            $href = $translator->trans('ezpage not found');
 
             return $href;
         }

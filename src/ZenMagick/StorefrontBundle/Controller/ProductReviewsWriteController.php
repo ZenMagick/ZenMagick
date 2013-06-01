@@ -62,6 +62,7 @@ class ProductReviewsWriteController extends DefaultController
         }
 
         $settingsService = $this->container->get('settingsService');
+        $translator = $this->get('translator');
         $review = $this->getFormData($request);
         $account = $this->getUser();
         $this->container->get('reviewService')->createReview($review, $account, $review->getLanguageId());
@@ -70,7 +71,7 @@ class ProductReviewsWriteController extends DefaultController
 
         // account email
         if ($settingsService->get('isApproveReviews') && $settingsService->get('isEmailAdminReview')) {
-            $subject = sprintf(_zm("Product Review Pending Approval: %s"), $product->getName());
+            $subject = $translator->trans('Product Review Pending Approval: %product%', array('%product%' => $product->getName()));
             $context = $this->get('macroTool')->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $request->getSession());
             $context['currentAccount'] = $account;
             $context['currentReview'] = $review;
@@ -87,7 +88,7 @@ class ProductReviewsWriteController extends DefaultController
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'review' => $review, 'product' => $product);
         $this->container->get('event_dispatcher')->dispatch('review_submitted', new GenericEvent($this, $args));
 
-        $this->get('session.flash_bag')->success(_zm("Thank you for your submission"));
+        $this->get('session.flash_bag')->success($translator->trans('Thank you for your submission'));
 
         return $this->findView('success', array(), array('parameter' => 'productId='.$product->getId()));
     }

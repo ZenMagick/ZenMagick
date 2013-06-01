@@ -193,7 +193,7 @@ class SelectFormWidget extends FormWidget
         $index = 0;
         foreach ($this->getOptions($request) as $oval => $name) {
             echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->getClass().'" name="'.$this->getName().'" value="'.$html->encode($oval).'"'.($oval==$value ? ' checked="checked"' : '').' />';
-            echo ' <label for="'.$idBase.'-'.$index.'">'.$html->encode(_zm($name)).'</label>';
+            echo ' <label for="'.$idBase.'-'.$index.'">'.$html->encode($name).'</label>';
             ++$index;
         }
 

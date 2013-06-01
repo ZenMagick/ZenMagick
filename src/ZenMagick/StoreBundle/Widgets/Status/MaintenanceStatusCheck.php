@@ -40,15 +40,16 @@ class MaintenanceStatusCheck extends ZMObject implements StatusCheck
         $settingsService = $this->container->get('settingsService');
         $warnBeforeMaintenance = $settingsService->get('apps.store.warnBeforeMaintenance');
         $downForMaintenance = $settingsService->get('apps.store.downForMaintenance');
+        $translator = $this->container->get('translator');
 
         if ($warnBeforeMaintenance && !$downForMaintenance) {
             $configService = $this->container->get('configService');
             $downForMaintenanceDateTime = $configService->getConfigValue('PERIOD_BEFORE_DOWN_FOR_MAINTENANCE');
-            $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('This website is scheduled to be "<em>Down For Maintenance</em>" on: %s.'), $downForMaintenanceDateTime->getValue()));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, $translator->trans('This website is scheduled to be "<em>Down For Maintenance</em>" on: %s.', array('%time_date%' => $downForMaintenanceDateTime->getValue())));
         }
 
         if ($downForMaintenance && !Runtime::isContextMatch('storefront')) {
-            $messages[] = array(StatusCheck::STATUS_WARN, _zm('The website is currently "<em>Down For Maintenance</em>" to the public.'));
+            $messages[] = array(StatusCheck::STATUS_WARN, $translator->trans('The website is currently "<em>Down For Maintenance</em>" to the public.'));
         }
 
         return $messages;

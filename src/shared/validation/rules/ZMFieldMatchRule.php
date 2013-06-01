@@ -82,7 +82,7 @@ class ZMFieldMatchRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->other);
+        return sprintf((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->other);
     }
 
     /**

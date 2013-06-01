@@ -32,7 +32,7 @@ class ZMAlphaFilter extends ZMResultListFilter
      */
     public function __construct()
     {
-        parent::__construct('afilter', _zm('First character of Name'));
+        parent::__construct('afilter', Runtime::getContainer()->get('translator')->trans('First character of Name'));
     }
 
     /**

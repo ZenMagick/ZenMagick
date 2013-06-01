@@ -36,7 +36,7 @@ class ZMManufacturerFilter extends ZMResultListFilter implements SqlAware
      */
     public function __construct()
     {
-        parent::__construct('mfilter', _zm('Manufacturer'), Runtime::getContainer()->get('request')->query->get('mfilter'));
+        parent::__construct('mfilter', Runtime::getContainer()->get('translator')->trans('Manufacturer'), Runtime::getContainer()->get('request')->query->get('mfilter'));
     }
 
     /**

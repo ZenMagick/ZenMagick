@@ -34,7 +34,7 @@ class StoreStatusDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Store Status'));
+        parent::__construct('Store Status');
     }
 
     /**
@@ -42,7 +42,8 @@ class StoreStatusDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $contents = _zm('Nothing to report.');
+        $translator = $this->container->get('translator');
+        $contents = $translator->trans('Nothing to report.');
 
         // query all status checker
         $messages = array();

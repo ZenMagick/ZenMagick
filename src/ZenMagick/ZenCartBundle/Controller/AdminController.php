@@ -109,7 +109,7 @@ class AdminController extends DefaultController
     public function processPost($request)
     {
         if (!$this->validateSecurityToken($request)) {
-            $this->get('session.flash_bag')->error(_zm('Security token validation failed'));
+            $this->get('session.flash_bag')->error($this->get('translator')->trans('Security token validation failed'));
 
             return new RedirectResponse($request->server->get('HTTP_REFERER'));
         }

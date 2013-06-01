@@ -36,9 +36,11 @@ class InstallationStatusCheck extends ZMObject implements StatusCheck
     {
         $messages = array();
         $zcPath = $this->container->getParameter('zencart.root_dir');
+        $translator = $this->container->get('translator');
         $installDir = $zcPath.'/zc_install';
         if (is_dir($installDir)) {
-            $messages[] = array(StatusCheck::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir));
+            $message = $translator->trans('Installation directory exists at: %install_dir%. Please remove this directory for security reasons.', array('%install_dir%' => $installDir));
+            $messages[] = array(StatusCheck::STATUS_NOTICE, $message);
         }
 
         return $messages;

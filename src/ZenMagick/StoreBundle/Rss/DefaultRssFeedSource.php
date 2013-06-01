@@ -78,13 +78,14 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         $items = array();
         $html = $this->container->get('htmlTool');
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         $lastPubDate = null;
         foreach ($reviews as $review) {
             if (null == $key) {
                 $product = $this->container->get('productService')->getProductForId($review->getProductId());
             }
             $item = new RssItem();
-            $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
+            $item->setTitle($translator->trans('Review: %product%', array('%product%' => $product->getName())));
 
             $params = array('productId' => $review->getProductId(), 'reviews_id' => $review->getId());
             $item->setLink($router->generate('product_reviews_info', $params, true));
@@ -99,12 +100,13 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
 
         $settingsService = $this->container->get('settingsService');
         $channel = new RssChannel();
-        $channel->setTitle(_zm("Product Reviews"));
+        $channel->setTitle($translator->trans('Product Reviews'));
         $channel->setLink($router->generate('reviews', array(), true));
         if (null != $key) {
-            $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), $settingsService->get('storeName')));
+            $description = $translator->trans('Product Reviews for %product% at %store_name%', array('%product%' => $product->getName(), '%store_name%' => $settingsService->get('storeName')));
+            $channel->setDescription($description);
         } else {
-            $channel->setDescription(sprintf(_zm("Product Reviews at %s"), $settingsService->get('storeName')));
+            $channel->setDescription($translator->trans('Product Reviews at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         }
         $channel->setLastBuildDate($lastPubDate);
 
@@ -127,6 +129,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         $items = array();
         $toc = $this->container->get('ezPageService')->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         $net = $this->container->get('netTool');
         foreach ($toc as $page) {
             $item = new RssItem();
@@ -137,9 +140,9 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         }
 
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
+        $channel->setTitle($translator->trans('Chapter %number%', array('%number%' => $key)));
         $channel->setLink($router->generate('page', array('chapter' => $key), true));
-        $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
+        $channel->setDescription($translator->trans('All pages of Chapter %number%', array('%number%' => $key)));
         $channel->setLastBuildDate(new \DateTime());
 
         $feed = new RssFeed();
@@ -163,6 +166,7 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         }
 
         $toolbox = $this->container->get('toolbox');
+        $translator = $this->container->get('translator');
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse($this->container->get('productService')->getNewProducts()), 0, 20);
@@ -183,9 +187,9 @@ class DefaultRssFeedSource extends ZMObject implements RssSource
         $settingsService = $this->container->get('settingsService');
         $router = $this->container->get('router');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("New Products at %s"), $settingsService->get('storeName')));
+        $channel->setTitle($translator->trans('New Products at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLink($router->generate('index', array(), true));
-        $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), $settingsService->get('storeName')));
+        $channel->setDescription($translator->trans("The latest updates to %store_name%'s product list", array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = new RssFeed();

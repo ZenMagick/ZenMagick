@@ -33,7 +33,7 @@ class CatalogDefaultTabController extends CatalogContentController
      */
     public function __construct()
     {
-        parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
+        parent::__construct('catalog_default_tab', $this->get('translator')->trans('Catalog Manager'));
     }
 
     /**

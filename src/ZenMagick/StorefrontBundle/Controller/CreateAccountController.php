@@ -68,7 +68,7 @@ class CreateAccountController extends DefaultController
         $registration = $this->getFormData($request);
 
         $settingsService = $this->container->get('settingsService');
-
+        $translator = $this->get('translator');
         $clearPassword = $registration->getPassword();
         $account = $registration->getAccount();
         $encoder = $this->get('security.encoder_factory')->getEncoder($account);
@@ -129,9 +129,12 @@ class CreateAccountController extends DefaultController
             'newAccountDiscountCoupon' => $discountCoupon,
             'newAccountGVAmountCoupon' => $newAccountGVAmountCoupon
         );
-
+        $translator = $this->container->get('translator');
         $message = $this->container->get('messageBuilder')->createMessage('welcome', $account->isHtmlEmail(), $request, $context);
-        $message->setSubject(sprintf(_zm("Welcome to %s"), $settingsService->get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom($settingsService->get('storeEmail'));
+        $message->setSubject($translator->trans('Welcome to %store_name%', array('%store_name%' => $settingsService->get('storeName'))))
+                 ->setTo($account->getEmail(), $account->getFullName())
+                 ->setFrom($settingsService->get('storeEmail'));
+
         $this->container->get('mailer')->send($message);
 
         if ($settingsService->get('isEmailAdminCreateAccount')) {
@@ -140,14 +143,15 @@ class CreateAccountController extends DefaultController
             $context['currentAccount'] = $account;
 
             $message = $this->container->get('messageBuilder')->createMessage('welcome', $settingsService->get('isEmailAdminExtraHtml', false), $request, $context);
-            $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), $settingsService->get('storeName')))->setFrom($settingsService->get('storeEmail'));
+            $message->setSubject($translator->trans('[CREATE ACCOUNT] Welcome to %store_name%', array('%store_name%' => $settingsService->get('storeName')))
+                    ->setFrom($settingsService->get('storeEmail')));
             foreach ($settingsService->get('emailAdminCreateAccount') as $email => $name) {
                 $message->addTo($email, $name);
             }
             $this->container->get('mailer')->send($message);
         }
 
-        $this->get('session.flash_bag')->success(_zm("Thank you for signing up"));
+        $this->get('session.flash_bag')->success($translator->trans('Thank you for signing up'));
 
         $stickyUrl = $request->getFollowUpUrl();
 

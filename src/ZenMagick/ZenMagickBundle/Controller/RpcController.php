@@ -90,13 +90,14 @@ class RpcController extends DefaultController
     {
         $request = $rpcRequest->getRequest();
         $rpcResponse = $rpcRequest->createResponse();
+        $translator = $this->get('translator');
         if (null === $this->getUser()) {
             $rpcResponse->setStatus(false, \ZMRpcResponse::RC_NO_CREDENTIALS);
-            $rpcResponse->addMessage(_zm('No credentials'), 'error');
+            $rpcResponse->addMessage($translator->trans('No credentials'), 'error');
             $rpcResponse->setData(array('location' => $this->generateUrl($this->container->get('settingsService')->get('zenmagick.http.request.login', 'login'))));
         } else {
             $rpcResponse->setStatus(false, \ZMRpcResponse::RC_INVALID_CREDENTIALS);
-            $rpcResponse->addMessage(_zm('Invalid credentials'), 'error');
+            $rpcResponse->addMessage($translator->trans('Invalid credentials'), 'error');
         }
 
         return $rpcResponse;

@@ -61,8 +61,8 @@ class AccountNotificationsController extends DefaultController
             // therefore, they would all be removed if updated!
             $account = $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
         }
-
-        $this->get('session.flash_bag')->success(_zm('Your product subscriptions have been updated.'));
+        $message = $this->get('translator')->trans('Your product subscriptions have been updated.');
+        $this->get('session.flash_bag')->success($message);
 
         switch ($notifyType) {
             case 'add':

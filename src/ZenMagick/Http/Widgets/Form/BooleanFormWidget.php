@@ -101,7 +101,7 @@ class BooleanFormWidget extends FormWidget
         echo '<input type="hidden" name="'.$this->getCheckboxHiddenValueName($name).'" value="'.($value ? 'true' : 'false').'" />';
         echo '<input type="checkbox" id="'.$idBase.'" name="'.$name.'" value="true"'.($value ? ' checked="checked"' : '').' />';
         if (!empty($label)) {
-            echo ' <label for="'.$idBase.'">'.$html->encode(_zm($label)).'</label>';
+            echo ' <label for="'.$idBase.'">'.$html->encode($label).'</label>';
         }
 
         return ob_get_clean();
@@ -126,9 +126,9 @@ class BooleanFormWidget extends FormWidget
 
         ob_start();
         echo '<input type="radio" id="'.$idBase.'_true" name="'.$name.'" value="true"'.($value ? ' checked="checked"' : '').' />';
-        echo ' <label for="'.$idBase.'_true">'.$html->encode(_zm($this->get('label_true'))).'</label>';
+        echo ' <label for="'.$idBase.'_true">'.$html->encode($this->get('label_true')).'</label>';
         echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? ' checked="checked"' : '').' />';
-        echo ' <label for="'.$idBase.'_false">'.$html->encode(_zm($this->get('label_false'))).'</label>';
+        echo ' <label for="'.$idBase.'_false">'.$html->encode($this->get('label_false')).'</label>';
 
         return ob_get_clean();
     }
@@ -148,8 +148,8 @@ class BooleanFormWidget extends FormWidget
 
         ob_start();
         echo '<select '.(!empty($id) ? ' id="'.$id.'"' : '').' name="'.$name.'">';
-        echo '  <option value="true"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode(_zm($this->get('label_true'))).'</option>';
-        echo '  <option value="false"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode(_zm($this->get('label_false'))).'</option>';
+        echo '  <option value="true"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode($this->get('label_true')).'</option>';
+        echo '  <option value="false"'.(!$value ? ' selected="selected"' : '').'>'.$html->encode($this->get('label_false')).'</option>';
         echo '</select>';
 
         return ob_get_clean();

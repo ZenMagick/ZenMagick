@@ -130,7 +130,7 @@ function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
             }
         }
         foreach ($unfulfilled as $dId) {
-            ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $dId) ?></p><?php
+            ?><p class="error"><?php echo sprintf("Depends on: '%s'", $dId) ?></p><?php
         }
         if (!$patch->isReady() && $patch->isOpen()) {
           ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php

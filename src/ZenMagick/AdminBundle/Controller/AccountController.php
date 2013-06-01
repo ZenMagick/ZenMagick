@@ -35,7 +35,7 @@ class AccountController extends DefaultController
     {
         $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
 
-        return array('priceGroups' => array_merge(array(new \ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
+        return array('priceGroups' => array_merge(array(new \ZMIdNamePair(0, $this->get('translator')->trans('-- none --'))), $priceGroups));
     }
 
     /**
@@ -45,7 +45,8 @@ class AccountController extends DefaultController
     {
         $accountId = $request->query->get('accountId');
         if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
-            $this->get('session.flash_bag')->error(sprintf(_zm('Account for account id %s not found'), $accountId));
+            $message = $this->get('translator')->trans('Account for account id %id% not found', array('%id%' => $accountId));
+            $this->get('session.flash_bag')->error($message);
 
             return $this->findView(null, array('accountId' => $accountId));
         }

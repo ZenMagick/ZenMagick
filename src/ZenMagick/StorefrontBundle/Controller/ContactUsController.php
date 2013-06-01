@@ -51,14 +51,15 @@ class ContactUsController extends DefaultController
     public function processPost($request)
     {
         $contactInfo = $this->getFormData($request);
-
+        $translator = $this->get('translator');
         $settingsService = $this->container->get('settingsService');
         // send email
         $message = $this->container->get('messageBuilder')->createMessage('contact_us', true, $request, array('contactInfo' => $contactInfo));
-        $message->setSubject(sprintf(_zm("Message from %s"), $settingsService->get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom($settingsService->get('storeEmail'));
+        $subject = $translator->trans('Message from %store_name%', array('%store_name%' => $settingsService->get('storeName')));
+        $message->setSubject($subject)->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom($settingsService->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        $this->get('session.flash_bag')->success(_zm('Your message has been successfully sent.'));
+        $this->get('session.flash_bag')->success($translator->trans('Your message has been successfully sent.'));
         // clear message before displaying form again
         $contactInfo->setMessage('');
 

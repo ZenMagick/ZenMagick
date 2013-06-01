@@ -33,13 +33,14 @@ class DiscountCouponController extends DefaultController
      */
     public function processGet($request)
     {
+        $translator = $this->get('translator');
         $data = array();
         $viewName = null;
         $code = $request->query->get('couponCode');
         if (null != $code) {
             $coupon = $this->container->get('couponService')->getCouponForCode($code, $request->getSession()->getLanguageId());
             if (null == $coupon) {
-                $this->get('session.flash_bag')->error(sprintf(_zm("'%s' does not appear to be a valid Coupon Redemption Code."), $code));
+                $this->get('session.flash_bag')->error($translator->trans("'%code%' does not appear to be a valid Coupon Redemption Code.", array('%code%' => $code)));
                 $data['currentCouponCode'] = $code;
             } else {
                 $data['currentCoupon'] = $coupon;

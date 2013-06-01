@@ -70,7 +70,7 @@ class ZMDateRule extends ZMRule
      */
     public function getErrorMsg()
     {
-        return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
+        return sprintf($this->getMsg() ?: $this->getDefaultMsg(), $this->getName(), $this->getFormat());
     }
 
     /**

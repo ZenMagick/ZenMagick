@@ -33,7 +33,7 @@ class ExamplePluginPlugin extends Plugin
      */
     public function onNotifyHeaderStartIndex($event)
     {
-        echo sprintf(_zm("Start of Zen Cart's index page event callback in %s ...<br>"), $this->getName());
+        echo $this->container->get('translator')->trans("Start of Zen Cart's index page event callback in %name% ...", array('%name%' => $this->getName()));
     }
 
     /**
@@ -45,7 +45,8 @@ class ExamplePluginPlugin extends Plugin
         $request = $event->getArgument('request');
 
         if ('login' == $request->getRequestId()) {
-            $content = preg_replace('/<h1>(.*)<\/h1>/', '<h1>\\1 '.sprintf(_zm('(modified by %s)'), $this->getName()).'</h1>', $content, 1);
+            $message = $this->container->get('translator')->trans('modified by %name%', array('%name%' => $this->getName()));
+            $content = preg_replace('/<h1>(.*)<\/h1>/', '<h1>\\1 '.$message.'</h1>', $content, 1);
             $event->setArgument('content', $content);
         }
     }

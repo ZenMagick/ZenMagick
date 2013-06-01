@@ -118,14 +118,17 @@ class PaymentTypes extends ZMObject
     public function getPaymentFormValidationJS($request)
     {
         $shoppingCart = $this->container->get('shoppingCart');
+        $translator = $this->container->get('translator');
         $paymentTypes = $shoppingCart->getPaymentTypes();
+        $errorMsg = $translator->trans('Errors have occurred during the processing of your form.');
+        $correctionsMsg = $translator->trans('Please make the following corrections');
         $js = '';
         if (0 < count($paymentTypes)) {
             // translatable text accepts a lf/cr as first parameter
             $js = '<script type="text/javascript">' . "\n" .
             'function check_form() {' . "\n" .
             '  var error = 0;' . "\n" .
-            '  var error_message = "' . sprintf(_zm('Errors have occurred during the processing of your form.%1$s%1$sPlease make the following corrections:%1$s%1$s'), '\n') . '";' . "\n" .
+            '  var error_message = "' . sprintf($errorMsg.'%1$s%1$s'.$correctionsMsg.':%1$s%1$s', '\n') . '";' . "\n" .
             '  var payment_value = null;' . "\n" .
             '  if (document.checkout_payment.payment) {' . "\n" .
             '    if (document.checkout_payment.payment.length) {' . "\n" .
@@ -146,7 +149,7 @@ class PaymentTypes extends ZMObject
             }
 
             $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" .
-            '    error_message = error_message + "' . _zm('* Please select a payment method for your order.') . '";' . "\n" .
+            '    error_message = error_message + "' . $translator->trans('* Please select a payment method for your order.') . '";' . "\n" .
             '    error = 1;' . "\n" .
             '  }' . "\n\n" .
             '  if (error == 1 && submitter != 1) {' . "\n" .

@@ -65,7 +65,8 @@ class LegacyConfigController extends DefaultController
             }
         }
         if (0 < count($updated)) {
-            $this->get('session.flash_bag')->success(sprintf(_zm('Sucessfully updated: %s.'), "'".implode("', '", $updated)."'"));
+            $message = $this->get('translator')->trans('Sucessfully updated: %config_values%.', array('%config_values%' => implode(', ', $updated)));
+            $this->get('session.flash_bag')->success($message);
         }
 
         // 'parameter' is a property on the view class...

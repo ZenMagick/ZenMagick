@@ -34,7 +34,7 @@ class LatestAccountsDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Latest Accounts'));
+        parent::__construct('Latest Accounts');
     }
 
     /**
@@ -43,12 +43,13 @@ class LatestAccountsDashboardWidget extends DashboardWidget
     public function getContents($request)
     {
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
+        $contents .= '<tr><th>'.$translator->trans('Name').'</th><th>'.$translator->trans('Registered').'</th></tr>';
         foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
-            $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : _zm('** Guest **');
+            $name = $account->getType() == Account::REGISTERED ? $account->getFullName() : $translator->trans('** Guest **');
             $contents .= '<td><a href="'.$router->generate('account_show', array('accountId' => $account->getId())).'">'.$name.'</a></td>';
             $contents .= '<td>'.$this->container->get('localeService')->shortDate($account->getAccountCreateDate()).'</td>';
             $contents .= '</tr>';

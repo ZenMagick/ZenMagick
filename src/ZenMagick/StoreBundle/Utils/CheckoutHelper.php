@@ -368,7 +368,8 @@ class CheckoutHelper extends ZMObject
 
         if (!$this->readyForCheckout()) {
             if ($showMessages) {
-                $session->getFlashBag()->error(_zm('Please update your order ...'));
+                $translator = $this->container->get('translator');
+                $session->getFlashBag()->error($translator->trans('Please update your order ...'));
             }
 
             return "cart_not_ready";
@@ -420,7 +421,8 @@ class CheckoutHelper extends ZMObject
                 // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
             } else {
                 if ($showMessages) {
-                    $session->getFlashBag()->error(_zm('Please provide a shipping address'));
+                    $translator = $this->container->get('translator');
+                    $session->getFlashBag()->error($translator->trans('Please provide a shipping address'));
                 }
 
                 return "require_shipping_address";
@@ -431,7 +433,8 @@ class CheckoutHelper extends ZMObject
                 $this->shoppingCart->setBillingAddressId($account->getDefaultAddressId());
             } else {
                 if ($showMessages) {
-                    $session->getFlashBag()->error(_zm('Please provide a billing address'));
+                    $translator = $this->container->get('translator');
+                    $session->getFlashBag()->error($translator->trans('Please provide a billing address'));
                 }
 
                 return "require_billing_address";

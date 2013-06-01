@@ -42,15 +42,15 @@ class AjaxPluginAdminController extends RpcController
         $rpcResponse = $rpcRequest->createResponse();
 
         $pluginService = $this->container->get('pluginService');
-
+        $translator = $this->get('translator');
         if (null == ($plugin = $pluginService->getPluginForId($pluginId, true))) {
             $rpcResponse->setStatus(false);
-            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
+            $rpcResponse->addMessage($translator->trans('Invalid plugin id'), 'error');
         } else {
             $configPrefix = PluginsController::prefix($plugin);
             $configService = $this->container->get('configService');
             $this->container->get('configService')->updateConfigValue($configPrefix.PluginOptionsLoader::KEY_ENABLED, $status);
-            $rpcResponse->addMessage(_zm('Status updated'), 'success');
+            $rpcResponse->addMessage($translator->trans('Status updated'), 'success');
         }
 
         $this->container->get('pluginStatusMapBuilder')->getStatusMap(true);

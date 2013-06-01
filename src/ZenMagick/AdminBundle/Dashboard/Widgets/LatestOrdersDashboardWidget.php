@@ -34,7 +34,7 @@ class LatestOrdersDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Latest Orders'));
+        parent::__construct('Latest Orders');
     }
 
     /**
@@ -43,18 +43,19 @@ class LatestOrdersDashboardWidget extends DashboardWidget
     public function getContents($request)
     {
         $router = $this->container->get('router');
+        $translation = $this->container->get('translator');
         $utils = $this->container->get('toolbox')->utils;
         $language = $request->getSelectedLanguage();
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Order').'</th><th>'._zm('Account').'</th><th>'._zm('Placed').'</th><th>'._zm('Total').'</th></tr>';
+        $contents .= '<tr><th>'.$translator->trans('Order').'</th><th>'.$translator->trans('Account').'</th><th>'.$translator->trans('Placed').'</th><th>'.$translator->trans('Total').'</th></tr>';
         $accountService = $this->container->get('accountService');
         foreach ($this->container->get('orderService')->getAllOrders($language->getId(), 5) as $order) {
             $contents .= '<tr>';
             $actualAccount =$accountService->getAccountForId($order->getAccountId());
             $name = '???';
             if (null != ($actualAccount = $accountService->getAccountForId($order->getAccountId()))) {
-                $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
+                $name = $actualAccount->getType() == Account::REGISTERED ? $order->getAccount()->getFullName() : $translator->trans('** Guest **');
             }
             $contents .= '    <td><a href="'.$router->generate('zc_admin_orders', array('action' => 'edit', 'oID' => $order->getId())).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$router->generate('zc_admin_customers', array('action' => 'edit', 'cID' => $order->getAccountId())).'">'.$name.'</a></td>';

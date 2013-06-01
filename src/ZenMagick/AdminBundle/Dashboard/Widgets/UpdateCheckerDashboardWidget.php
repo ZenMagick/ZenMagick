@@ -33,7 +33,7 @@ class UpdateCheckerDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Update Checker'));
+        parent::__construct('Update Checker');
     }
 
     /**
@@ -41,8 +41,9 @@ class UpdateCheckerDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
+        $translator = $this->container->get('translator');
         $current = \AppKernel::APP_VERSION;
-        $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
+        $contents = '<p id="update-checker">'.$translator->trans('Checking...').'</p>';
         $contents .= <<<EOT
 <script>
 // convert into function that takes id and function

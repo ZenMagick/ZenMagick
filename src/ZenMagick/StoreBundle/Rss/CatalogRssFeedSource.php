@@ -125,11 +125,12 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
         $settingsService = $this->container->get('settingsService');
         $router = $this->container->get('router');
         $net = $this->container->get('netTool');
+        $translator = $this->container->get('translator');
 
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("Products at %s"), $settingsService->get('storeName')));
+        $channel->setTitle($translator->trans('Products at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLink($router->generate('index', array(), true));
-        $channel->setDescription(sprintf(_zm("All products at %s"), $settingsService->get('storeName')));
+        $channel->setDescription($translator->trans('All products at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLastBuildDate(new \DateTime());
 
         $feed = new RssFeed();
@@ -162,11 +163,12 @@ class CatalogRssFeedSource extends ZMObject implements RssSource
     protected function getCategoriesFeed($request, $full)
     {
         $settingsService = $this->container->get('settingsService');
+        $translator = $this->container->get('translator');
         $router = $this->container->get('router');
         $channel = new RssChannel();
-        $channel->setTitle(sprintf(_zm("Categories at %s"), $settingsService->get('storeName')));
+        $channel->setTitle($translator->trans('Categories at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLink($router->generate('index', array(), true));
-        $channel->setDescription(sprintf(_zm("All categories at %s"), $settingsService->get('storeName')));
+        $channel->setDescription($translator->trans('All categories at %store_name%', array('%store_name%' => $settingsService->get('storeName'))));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = new RssFeed();

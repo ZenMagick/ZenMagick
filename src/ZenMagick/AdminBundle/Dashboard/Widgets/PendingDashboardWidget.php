@@ -33,7 +33,7 @@ class PendingDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Pending'));
+        parent::__construct('Pending');
     }
 
     /**
@@ -43,20 +43,21 @@ class PendingDashboardWidget extends DashboardWidget
     {
         // TODO: convert into ajax pull
         $router = $this->container->get('router');
+        $translator = $this->container->get('translator');
         $contents = '';
         $gvApprovalQueue = $this->container->get('couponService')->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {
-            $a = '<a href="'.$router->generate('gv_queue').'">'._zm('approval').'</a>';
-            $contents .= sprintf(_zm('There are %s gift cards waiting for %s.'), count($gvApprovalQueue), $a);
+            $a = '<a href="'.$router->generate('gv_queue').'">'.$translator->trans('approval').'</a>';
+            $contents .= $translator->trans('There are %count% gift cards waiting for %approval_url%.', array('%count%' => count($gvApprovalQueue), '%approval_url%' => $a));
         }
 
         $result = \ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM %table.reviews% WHERE status='0'");
         if (0 < $result['count']) {
-            $contents .= ' <a href="'.$router->generate('reviews', array('status' => 1)).'">'.sprintf(_zm('There are %s reviews pending approval.'), $result['count']).'</a>';
+            $contents .= ' <a href="'.$router->generate('reviews', array('status' => 1)).'">'.$translator->trans('There are %count% reviews pending approval.', array('%count%' => $result['count'])).'</a>';
         }
 
         if (0 == strlen($contents)) {
-            $contents = _zm('No pending tasks found.');
+            $contents = $translator->trans('No pending tasks found.');
         } else {
             $this->setStatus(self::STATUS_NOTICE);
         }

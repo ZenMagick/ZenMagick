@@ -37,8 +37,10 @@ class ResetPasswordController extends DefaultController
         $email = $request->request->get('email');
         $adminUserService = $this->container->get('adminUserService');
         $user = $adminUserService->getUserForEmail($email);
+        $translator = $this->get('translator');
         if (null === $user) {
-            $this->get('session.flash_bag')->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
+            $message = $translator->trans("Sorry, there is no account with that email address '%s'.", array('%email%' => $email));
+            $this->get('session.flash_bag')->error($message);
 
             return $this->findView();
         }
@@ -51,11 +53,11 @@ class ResetPasswordController extends DefaultController
         $adminUserService->updateUser($user);
 
         $message = $this->container->get('messageBuilder')->createMessage('reset_password', false, $request, array('newPassword' => $newPassword));
-        $message->setSubject(_zm('New password request'))->setTo($email)->setFrom($this->container->get('settingsService')->get('storeEmail'));
+        $message->setSubject($translator->trans('New password request'))->setTo($email)->setFrom($this->container->get('settingsService')->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         // report success
-        $this->get('session.flash_bag')->success(_zm('A new password has been sent to your email address.'));
+        $this->get('session.flash_bag')->success($translator->trans('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

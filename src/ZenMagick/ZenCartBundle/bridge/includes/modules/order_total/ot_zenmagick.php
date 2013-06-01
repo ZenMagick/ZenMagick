@@ -53,7 +53,7 @@ class ot_zenmagick {
      * Create proxy instance.
      */
     function __construct() {
-        $this->title = _zm('ZenMagick Order Totals');
+        $this->title = Runtime::getContainer()->get('translator')->trans('ZenMagick Order Totals');
         $this->code = 'ot_zenmagick';
         $this->sort_order = defined('MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER') ? MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER : 0;
         // to start with

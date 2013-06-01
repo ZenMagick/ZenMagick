@@ -51,12 +51,13 @@ class LoginController extends DefaultController
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
+        $translator = $this->get('translator');
         if ($error instanceof LockedException) {
-            $this->get('session.flash_bag')->error(_zm('Sorry, there was a security error when trying to login.'));
+            $this->get('session.flash_bag')->error($translator->trans('Sorry, there was a security error when trying to login.'));
         }
 
         if ($error instanceof BadCredentialsException) {
-            $this->get('session.flash_bag')->error(_zm('Sorry, there is no match for that email address and/or password.'));
+            $this->get('session.flash_bag')->error($translator->trans('Sorry, there is no match for that email address and/or password.'));
         }
 
         $tpl = array(

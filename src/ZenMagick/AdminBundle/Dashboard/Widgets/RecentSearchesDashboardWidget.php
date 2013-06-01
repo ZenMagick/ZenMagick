@@ -33,7 +33,7 @@ class RecentSearchesDashboardWidget extends DashboardWidget
      */
     public function __construct()
     {
-        parent::__construct(_zm('Recent Searches'));
+        parent::__construct('Recent Searches');
     }
 
     /**
@@ -41,7 +41,8 @@ class RecentSearchesDashboardWidget extends DashboardWidget
      */
     public function getContents($request)
     {
-        $contents = '<p>'._zm('No Data').'</p>';
+        $translator = $this->container->get('translator');
+        $contents = '<p>'.$translator->trans('No Data').'</p>';
 
         return $contents;
     }

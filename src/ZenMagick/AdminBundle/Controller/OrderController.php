@@ -36,7 +36,8 @@ class OrderController extends DefaultController
         $orderId = $request->query->getInt('orderId');
         // TODO: language
         if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {
-            $this->get('session.flash_bag')->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));
+            $message = $this->get('translator')->trans('Order for order id %id% not found', array('%id%' => $orderId));
+            $this->get('session.flash_bag')->error($message);
 
             return $this->findView(null, array('orderId' => $orderId));
         }
