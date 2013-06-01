@@ -10,6 +10,10 @@
             <argument>mysql:dbname=%database_name%</argument>
             <argument>%database_user%</argument>
             <argument>%database_password%</argument>
+            <call method="setAttribute">
+                    <argument>3</argument><!-- PDO::ATTR_ERRMODE -->
+                    <argument>2</argument><!-- PDO::ERRMODE_EXCEPTION -->
+            </call>
         </service>
 
         <service id="containerTagService" class="ZenMagick\Base\DependencyInjection\Tags\ContainerTagService" />
