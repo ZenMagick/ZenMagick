@@ -7,3 +7,4 @@ php:
 before_script:
   - composer --dev --prefer-source --no-interaction install --no-scripts
   - etc/travis.sh
+  - composer run-script post-install-cmd
