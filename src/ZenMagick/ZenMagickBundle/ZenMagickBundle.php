@@ -92,7 +92,7 @@ class ZenMagickBundle extends Bundle
             sprintf('ZenMagick\%sBundle\EventListener\%sListener', ucfirst($context), ucfirst($context)),
         );
 
-        if ($this->container->has('pluginService')) {
+        if ($this->container->has('pluginService') && $pluginsEnabled) {
             $plugins = $this->container->get('pluginService')->getPluginsForContext($context, true);
             foreach ($plugins as $plugin) {
                 // @todo the plugin list will continue disabled plugins on the requests that build the cache.
