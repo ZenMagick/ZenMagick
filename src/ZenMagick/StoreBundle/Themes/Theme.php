@@ -269,41 +269,6 @@ class Theme extends ZMObject
     }
 
     /**
-     * Write the content of a static (define) page.
-     *
-     * @param string page The page name.
-     * @param string contents The contents.
-     * @param int languageId Language id.
-     * @return boolean The status.
-     */
-    public function saveStaticPageContent($page, $contents, $languageId)
-    {
-        $language = $this->container->get('languageService')->getLanguageForId($languageId);
-        $languageDir = $language->getDirectory();
-        $settingsService = $this->container->get('settingsService');
-        $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
-        if (!file_exists($path)) {
-            $mode = $settingsService->get('zenmagick.core.fs.permissions.defaults.folder', '0755');
-            $this->container->get('filesystem')->mkdir($path, 0755);
-        }
-        $filename = $path.$page.'.php';
-
-        if (file_exists($filename)) {
-            if (file_exists($filename.'.bak')) {
-                @unlink($filename.'.bak');
-            }
-            @rename($filename, $filename.'.bak');
-        }
-        $handle = fopen($filename, 'w');
-        fwrite($handle, $contents, strlen($contents));
-        fclose($handle);
-        $mode = $settingsService->get('zenmagick.core.fs.permissions.defaults.file', '0644');
-        $this->container->get('filesystem')->chmod($filename, $mode);
-
-        return file_exists($filename);
-    }
-
-    /**
      * Get the content of a static (define) page.
      *
      * @param string page The page name.
