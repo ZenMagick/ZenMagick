@@ -41,7 +41,6 @@ twig:
     globals:
         # @todo these services are temporarily here until obsoleted
         # or turned into a proper twig extension
-        admin: "@adminTool"
         cart: "@shoppingCart"
         category_manager: "@categoryService"
         countries: "@countryService"

@@ -1,11 +1,11 @@
-<form action="{{ admin.catalog }}" method="GET">
+<form action="{{ net.catalog }}" method="GET">
     <input type="hidden" name="catalogRequestId" value="product_group_pricing_tab">
     <h2>Group Pricing
         ({{ form.idpSelect('groupId', priceGroups, groupId, { 'size' : 1, 'onchange' : 'this.form.submit()'})|raw }})
     </h2>
 </form>
 
-<form action="{{ admin.catalog }}" method="POST">
+<form action="{{ net.catalog }}" method="POST">
     <fieldset>
         <legend>{{ 'Price/Discount'|trans }}</legend>
         <div>
@@ -43,7 +43,7 @@
 
         {% if pricing_id %}
             <input type="submit" name="update" value="{{ 'Update'|trans }}">
-            <a href="{{ admin.catalog(null, {'groupPricingId' : pricing_id, 'delete' : 'true'}) }}">
+            <a href="{{ net.catalog(null, {'groupPricingId' : pricing_id, 'delete' : 'true'}) }}">
                 {{ 'Delete'|trans }}
             </a>
         {% else %}
@@ -67,7 +67,7 @@
                     <td>{{ productGroupPricing.startDate|localizeddate('short', 'none') }}</td>
                     <td>{{ productGroupPricing.endDate|localizeddate('short', 'none') }}</td
                     <td>
-                        <a href="{{ admin.catalog(null, {'groupPricingId' : productGroupPricing.id}) }}">
+                        <a href="{{ net.catalog(null, {'groupPricingId' : productGroupPricing.id}) }}">
                             {{ 'Change'|trans }}
                         </a>
                     </td>

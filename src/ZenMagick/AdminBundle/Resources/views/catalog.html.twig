@@ -8,7 +8,7 @@
                     {% set tabIndex = loop.index0 %}
                     {% set url = '#' ~ catalogRequestId %}
                 {% else %}
-                    {% set url = admin.catalogTab(controller) %}
+                    {% set url = net.catalogTab(controller) %}
                 {% endif %}
                 <li><a href="{{ url }}">{{ controller.name }}</a></li>
             {% endfor %}
