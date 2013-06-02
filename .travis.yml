@@ -7,4 +7,6 @@ php:
 before_script:
   - composer --dev --prefer-source --no-interaction install --no-scripts
   - etc/travis.sh
-  - composer run-script post-install-cmd
+  # todo: use run-script instead of running install again once composer is updated
+  #- composer run-script post-install-cmd
+  - composer --dev --prefer-source --no-interaction install
