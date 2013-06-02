@@ -19,18 +19,66 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-body {background:#f0f0f0;}
-h1 {margin:4px 0;}
-h1, #close {text-align:center;}
-img {margin:4px;}
-div {margin-top:8px;}
-p {text-align:left;}
-span.example {font-weight:bold;background-color:#578bb8;color:#fff;padding:2px 3px;}
-#pb_popup_search_help p {line-height:1.3em;}
-h4 {margin:3px 0 0;}
-#cadr {margin:0 5px 8px;}
-table#smethods {width:100%;}
-td {padding:2px 1px;}
-td.smcost {text-align:right;}
-td.smname {padding-left:1em;}
-tr.sel td {color:#f0f0f0;background-color:black;}
+body {
+    background: #f0f0f0;
+}
+
+h1 {
+    margin: 4px 0;
+}
+
+h1, #close {
+    text-align: center;
+}
+
+img {
+    margin: 4px;
+}
+
+div {
+    margin-top: 8px;
+}
+
+p {
+    text-align: left;
+}
+
+span.example {
+    font-weight: bold;
+    background-color: #578bb8;
+    color: #fff;
+    padding: 2px 3px;
+}
+
+#pb_popup_search_help p {
+    line-height: 1.3em;
+}
+
+h4 {
+    margin: 3px 0 0;
+}
+
+#cadr {
+    margin: 0 5px 8px;
+}
+
+table#smethods {
+    width: 100%;
+}
+
+td {
+    padding: 2px 1px;
+}
+
+td.smcost {
+    text-align: right;
+}
+
+td.smname {
+    padding-left: 1em;
+}
+
+tr.sel td {
+    color: #f0f0f0;
+    background-color: black;
+}

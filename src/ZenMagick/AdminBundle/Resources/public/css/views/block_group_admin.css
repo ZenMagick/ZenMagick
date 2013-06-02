@@ -1,11 +1,49 @@
-.ui-sortable {list-style-type:none;margin:0;padding:0;}
-.ui-sortable li {font-size:1.2em;height:18px;margin:0 3px 3px;padding:.2em .2em .2em .5em;border:1px solid #ccc;background-color:#e7e7e7;}
+.ui-sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
-div.col3 {float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;}
-ul#groupBlockList {min-height:25em;min-width:25em;border:1px solid gray;padding:3px 0;}
-#groupBlockList li {clear:right;}
-#groupBlockList div.icons {float:right;}
-#groupBlockList div.icons .ui-icon {display:inline-block;}
+.ui-sortable li {
+    font-size: 1.2em;
+    height: 18px;
+    margin: 0 3px 3px;
+    padding: .2em .2em .2em .5em;
+    border: 1px solid #ccc;
+    background-color: #e7e7e7;
+}
 
-#blockList li:hover, #groupBlockList li:hover {cursor:move;}
-#groupBlockList li div:hover {cursor:pointer;}
+div.col3 {
+    float: left;
+    width: 32%;
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 1px;
+}
+
+ul#groupBlockList {
+    min-height: 25em;
+    min-width: 25em;
+    border: 1px solid gray;
+    padding: 3px 0;
+}
+
+#groupBlockList li {
+    clear: right;
+}
+
+#groupBlockList div.icons {
+    float: right;
+}
+
+#groupBlockList div.icons .ui-icon {
+    display: inline-block;
+}
+
+#blockList li:hover, #groupBlockList li:hover {
+    cursor: move;
+}
+
+#groupBlockList li div:hover {
+    cursor: pointer;
+}
