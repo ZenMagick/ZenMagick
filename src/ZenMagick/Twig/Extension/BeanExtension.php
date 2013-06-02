@@ -37,7 +37,7 @@ class BeanExtension extends \Twig_Extension
      * Get a Bean object from a bean definition
      *
      * @see Beans::getBean
-     * @param string $def A Bean definition
+     * @param  string $def A Bean definition
      * @return mixed
      */
     public function getBean($def)

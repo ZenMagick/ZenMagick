@@ -210,6 +210,7 @@ class ToolboxForm extends ToolboxTool
         if ($setting === $value || ($default && !isset($setting))) {
             return ' checked="checked"';
         }
+
         return '';
     }
 

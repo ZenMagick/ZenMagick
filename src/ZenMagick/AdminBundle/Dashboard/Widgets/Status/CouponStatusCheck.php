@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\AdminBundle\Dashboard\Widgets\Status;
 
-use ZenMagick\Base\Runtime;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\StoreBundle\Widgets\StatusCheck;
 

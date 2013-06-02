@@ -103,7 +103,7 @@ class DownloadController extends DefaultController
             $link = @symlink($filePath, $target);
             if ($link) {
                 $url = $this->getRequest()->getUriForPath($target);
-                return new RedirectRedirect($url, 303);
+                return new RedirectResponse($url, 303);
             }
         }
         // Streaming downloads.

@@ -165,7 +165,6 @@ class TableMapper extends ZMObject
         return $mappings;
     }
 
-
     /**
      * Handle mixed mapping values.
      *

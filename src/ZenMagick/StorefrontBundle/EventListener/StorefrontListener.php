@@ -19,7 +19,6 @@
  */
 namespace ZenMagick\StorefrontBundle\EventListener;
 
-use ZenMagick\Base\Beans;
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\View\TemplateView;
 use ZenMagick\Http\Session\FlashBag;

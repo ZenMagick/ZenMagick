@@ -158,7 +158,6 @@ class AppKernel extends Kernel
         $parameters['kernel.context'] = $this->getContext();
         $parameters['zenmagick.root_dir'] = dirname($this->getRootDir()); // @todo remove this
         // @todo temporary helper parameter until context is gone.
-
         return $parameters;
     }
 
@@ -178,6 +177,7 @@ class AppKernel extends Kernel
                 $_SERVER[self::EXTERNAL_HOST_DIR_KEY],
                 $this->environment);
         }
+
         return parent::getCacheDir();
     }
 
@@ -196,6 +196,7 @@ class AppKernel extends Kernel
                 $_SERVER[self::EXTERNAL_USER_DIR_KEY],
                 $_SERVER[self::EXTERNAL_HOST_DIR_KEY]);
         }
+
         return parent::getLogDir();
     }
 }

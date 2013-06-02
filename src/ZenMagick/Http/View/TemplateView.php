@@ -21,7 +21,6 @@ namespace ZenMagick\Http\View;
 
 use ZenMagick\Base\ZMObject;
 use ZenMagick\Http\Request;
-use ZenMagick\Http\Toolbox\Toolbox;
 
 /**
  * A template view.

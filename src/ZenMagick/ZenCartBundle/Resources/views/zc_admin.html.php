@@ -85,7 +85,8 @@ $content = preg_replace('|<select([^>]*)name="reset_editor"(.*?)>(.*?)</select>|
 //echo $content;return;
 ?>
 <script type="text/javascript">
-function check_form() {
+function check_form()
+{
   return true;
 }
 </script>
@@ -95,4 +96,4 @@ function check_form() {
     <div id="hoverJS"></div>
     <script type="text/javascript"> function cssjsmenu(foo) {}; init(); </script>
 <?php } ?>
-<?php $autoLoader->restoreErrorLevel(); ?>
+<?php $autoLoader->restoreErrorLevel();

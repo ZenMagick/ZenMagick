@@ -21,9 +21,6 @@
 <?php $view->extend('AdminBundle::layout.html.twig'); ?>
 <?php
 use ZenMagick\Base\Beans;
-use ZenMagick\Base\Runtime;
-
-use Symfony\Component\HttpFoundation\ResponseRedirect;
 
     $installer = new ZenMagick\AdminBundle\Installation\InstallationPatcher();
     $needRefresh = false;
@@ -113,7 +110,8 @@ if (null != $view['request']->getParameter('optimizeDb')) {
 /**
  * Show patch group.
  */
-function _zm_patch_group($groupId, $buttonClasses, $checkall=true) {
+function _zm_patch_group($groupId, $buttonClasses, $checkall=true)
+{
     $installer = new ZenMagick\AdminBundle\Installation\InstallationPatcher();
     foreach ($installer->getPatches($groupId) as $id => $patch) {
         // check dependencies

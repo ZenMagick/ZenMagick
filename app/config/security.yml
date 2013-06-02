@@ -68,7 +68,7 @@ security:
 # These rules match the defaults in zenmagick for SSL link enforcement.
 # that were previously provided by the SACS library.
 #
-# @todo enable by default? 
+# @todo enable by default?
 #
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/account/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
@@ -79,6 +79,3 @@ security:
         - { path: ^/checkout, roles: ROLE_GUEST, requires_channel: https }
         - { path: ^/guest-history, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/gift-voucher, roles: ROLE_GUEST, requires_channel: https }
-
-
-

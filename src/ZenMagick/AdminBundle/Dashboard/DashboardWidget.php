@@ -212,7 +212,7 @@ abstract class DashboardWidget extends Widget
         $contents = $this->getContents($request);
         $lines = array(
             '<div class="portlet'.($this->hasOptions() ? ' gear' : '').'" id="portlet-'.$this->getId().'">',
-            '  <div class="portlet-header'.($this->isOpen() ? ' open' : ' closed').' '.(string)$this->getStatus().'">'.$this->getTitle().'</div>',
+            '  <div class="portlet-header'.($this->isOpen() ? ' open' : ' closed').' '.(string) $this->getStatus().'">'.$this->getTitle().'</div>',
             '  <div class="portlet-content"'.($this->isOpen() ? '' : ' style="display:none;"').'>',
             '    '.$contents,
             '  </div>',

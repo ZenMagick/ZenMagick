@@ -66,7 +66,6 @@ class ToolboxUtils extends ToolboxTool
             $languageId = $this->container->get('languageService')->getLanguageForCode($code)->getLanguageId();
         }
         if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($pageName, $languageId))) {
-
             return $ezPage->getContent();
         }
 

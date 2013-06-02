@@ -28,7 +28,6 @@ class StrReplaceExtension extends \Twig_Extension
         );
     }
 
-
     /**
      * {@inheritdoc}
      */

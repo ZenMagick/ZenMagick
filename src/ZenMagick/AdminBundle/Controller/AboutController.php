@@ -31,6 +31,7 @@ class AboutController extends DefaultController
     {
         $tpl = array();
         $tpl['phpinfo'] = $this->parsePhpInfo();
+
         return $this->findView(null, $tpl);
     }
 

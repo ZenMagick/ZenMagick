@@ -92,7 +92,6 @@ class TemplateManager
     public function setLeftColBoxes($boxes)
     {
         if (is_array($boxes)) $this->leftColBoxes = $boxes;
-
         return $this;
     }
 
@@ -104,7 +103,6 @@ class TemplateManager
     public function setRightColBoxes($boxes)
     {
         if (is_array($boxes)) $this->rightColBoxes = $boxes;
-
         return $this;
     }
 
@@ -160,6 +158,7 @@ class TemplateManager
         if (null != $this->leftColBoxes) {
             return $this->leftColBoxes;
         }
+
         return $this->getActiveBoxNames(0);
     }
 
