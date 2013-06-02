@@ -62,14 +62,12 @@ class ToolboxUtils extends ToolboxTool
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         if (empty($languageId)) {
             // XXX: when called in admin
-            $languageId = $this->container->get('languageService')->getLanguageForCode($this->container->get('settingsService')->get('defaultLanguageCode'))->getLanguageId();
+            $code = $this->container->get('settingsService')->get('defaultLanguageCode');
+            $languageId = $this->container->get('languageService')->getLanguageForCode($code)->getLanguageId();
         }
-        // most specific first
-        $themeChain = array_reverse($this->container->get('themeService')->getThemeChain($languageId));
-        foreach ($themeChain as $theme) {
-            if (null != ($content = $theme->staticPageContent($pageName, $languageId))) {
-                return $content;
-            }
+        if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($pageName, $languageId))) {
+
+            return $ezPage->getContent();
         }
 
         return null;

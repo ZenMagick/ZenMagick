@@ -21,7 +21,6 @@ apps:
     # sanitize attributes when handling product submissions (add to cart, etc)
     isSanitizeAttributes: true
 
-    staticContent: true
     # verify category path
     verifyCategoryPath: false
     newAccountDiscountCouponId: null

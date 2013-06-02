@@ -61,10 +61,6 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
 
     // import static pages
     if (null != $view['request']->getParameter('importSp')) {
-        // disable
-        $settingsService = Runtime::getSettings();
-        $tmp = $view['settings']->get('apps.store.staticContent', false);
-        $settingsService->set('apps.store.staticContent', false);
 
         $ezPageService = $view->container->get('ezPageService');
         $languageService = $view->container->get('languageService');
@@ -98,7 +94,6 @@ use Symfony\Component\HttpFoundation\ResponseRedirect;
         }
 
         // cleanup
-    $settingsService->set('apps.store.staticContent', $tmp);
     $messageService->success("Import successful!");
     $needRefresh = true;
 }

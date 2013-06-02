@@ -277,13 +277,7 @@ class Theme extends ZMObject
      */
     public function staticPageContent($page, $languageId)
     {
-        if (Runtime::getSettings()->get('apps.store.staticContent', false)) {
-            if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
-                return $ezPage->getContent();
-            }
 
-            return null;
-        }
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
@@ -293,8 +287,6 @@ class Theme extends ZMObject
             return null;
         }
 
-        $request = $this->container->get('request');
-        $settings = $this->container->get('settingsService');
         $contents = @file_get_contents($filename);
         // allow PHP
         ob_start();
