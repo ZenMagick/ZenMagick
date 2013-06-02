@@ -49,13 +49,7 @@ class StorefrontListener extends ZMObject
                     $resultList->setPagination(0);
                 }
             }
-            if ('login' == $requestId && $this->container->get('settingsService')->get('isGuestCheckoutAskAddress')) {
-                if (null == $view->getVariable('guestCheckoutAddress')) {
-                    $address = Beans::getBean('ZenMagick\StoreBundle\Entity\Address');
-                    $address->setPrimary(true);
-                    $view->setVariable('guestCheckoutAddress', $address);
-                }
-            }
+
             // @todo where should this really live?
             $view->setVariable('isCheckout', !(false === strpos($requestId, 'checkout_')));
 
