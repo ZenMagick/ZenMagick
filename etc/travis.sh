@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#php app/console --env=install doctrine:database:drop  --force
+php app/console --env=install doctrine:database:drop  --force
 php app/console --env=install doctrine:database:create
 php app/console --env=install doctrine:schema:create
 php app/console --env=install doctrine:fixtures:load --no-interaction
