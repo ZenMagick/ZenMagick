@@ -15,6 +15,6 @@ $debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('-
 $kernel = new AppKernel($env, $debug, 'admin');
 $application = new Application($kernel);
 // uncomment to see any exception being thrown before the container is compiled
-//$application->setCatchExceptions(false);
+$application->setCatchExceptions(false);
 $application->run($input);
 
