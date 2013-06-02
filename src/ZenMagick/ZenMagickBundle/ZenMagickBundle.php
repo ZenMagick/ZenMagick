@@ -64,6 +64,10 @@ class ZenMagickBundle extends Bundle
         // @todo never do this
         \Zenmagick\Base\Runtime::setContainer($this->container);
 
+        if ('install' == $parameterBag->get('kernel.environment')) {
+            return;
+        }
+
         // @todo don't just exit if no plugins
         $pluginsEnabled = $parameterBag->get('zenmagick.plugins.enabled');
         if (!$this->container->has('pluginService') && $pluginsEnabled) return;
