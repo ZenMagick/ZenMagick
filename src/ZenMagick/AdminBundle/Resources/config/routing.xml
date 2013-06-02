@@ -101,10 +101,6 @@
         <option key="view:success">redirect://legacy_config</option>
     </route>
 
-    <route id="static_page_editor" pattern="/static-page-editor">
-        <default key="_controller">ZenMagickBundle:Default:process</default>
-    </route>
-
     <route id="themes" pattern="/themes">
         <default key="_controller">AdminBundle:Themes:process</default>
     </route>
