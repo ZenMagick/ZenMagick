@@ -67,10 +67,23 @@ use ZenMagick\Base\Beans;
             foreach ($themeChain as $theme) {
                 foreach ($languageService->getLanguages() as $subLang) {
                     $subLangId = $subLang->getId();
-                    $staticPages = $theme->getStaticPageList(false, $subLangId);
+                    $languageDir = $subLang->getDirectory();
+                    $staticPages = array();
+                    $path = $theme->getBasePath() . '/lang/'.$languageDir.'/static/';
+                    if (is_dir($path)) {
+                        foreach ((array) glob($path.'*.php') as $file) {
+                            $page = basename(str_replace('.php', '', $file));
+                            $staticPages[$page] = $page;
+                        }
+                     }
                     foreach ($staticPages as $staticPage) {
-//echo $subLangId.'/'.$theme->getName().'/'.$staticPage.'<br>';
-                        $contents = $theme->staticPageContent($staticPage, $subLangId);
+                        $filename = $path.$staticPage.'.php';
+                        if (!file_exists($filename)) continue;
+                        $contents = @file_get_contents($filename);
+                        // allow PHP
+                        ob_start();
+                        eval('?>'.$contents);
+                        $contents = ob_get_clean();
                         $contents = utf8_encode($contents);
                         // check if already exists
                         if (null != ($ezPage = $ezPageService->getPageForName($staticPage, $subLangId))) {

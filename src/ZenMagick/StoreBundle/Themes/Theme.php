@@ -232,69 +232,6 @@ class Theme extends ZMObject
     }
 
     /**
-     * Get a list of available static pages.
-     *
-     * @param boolean includeDefaults If set to <code>true</code>, default pages will be included; default is <code>false</code>.
-     * @param int languageId Language id.
-     * @return array List of available static page names.
-     */
-    public function getStaticPageList($includeDefaults=false, $languageId)
-    {
-        $language = $this->container->get('languageService')->getLanguageForId($languageId);
-        $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang/'.$languageDir."/".'static/';
-
-        $pages = array();
-        if (is_dir($path)) {
-            foreach ((array) glob($path.'*.php') as $file) {
-                $page = basename(str_replace('.php', '', $file));
-                $pages[$page] = $page;
-            }
-        }
-
-        if ($includeDefaults) {
-            // TODO: deprecated
-            $themeService = $this->container->get('themeService');
-            $path = $themeService->getThemesDir().'/'.$themeService->getDefaultThemeId().'/lang/'.$languageDir.'/static/';
-            if (is_dir($path)) {
-                foreach ((array) glob($path.'*.php') as $file) {
-                    $page = basename(str_replace('.php', '', $file));
-                    $pages[$page] = $page;
-                }
-            }
-        }
-
-        return $pages;
-    }
-
-    /**
-     * Get the content of a static (define) page.
-     *
-     * @param string page The page name.
-     * @param int languageId Language id.
-     * @return string The content or <code>null</code>.
-     */
-    public function staticPageContent($page, $languageId)
-    {
-
-        $language = $this->container->get('languageService')->getLanguageForId($languageId);
-        $languageDir = $language->getDirectory();
-        $path = $this->getBasePath() . '/lang/'.$languageDir.'/static/';
-
-        $filename = $path.$page.'.php';
-        if (!file_exists($filename)) {
-            return null;
-        }
-
-        $contents = @file_get_contents($filename);
-        // allow PHP
-        ob_start();
-        eval('?>'.$contents);
-
-        return ob_get_clean();
-    }
-
-    /**
      * Load Translations (l10n/i18n).
      *
      * @param Language language The language.
