@@ -38,6 +38,10 @@ class ZenCartThemeStatusMapBuilder extends ThemeStatusMapBuilder
         $pathIdMap = parent::getPathIdMap();
 
         foreach ($this->getBasePath() as $basePath) {
+            if (!file_exists($basePath) || !is_dir($basePath)) {
+                continue;
+            }
+
             foreach (new \DirectoryIterator($basePath) as $templateInfo) {
                 if ($templateInfo->isDir() && !$templateInfo->isDot()) {
                     $id = $templateInfo->getFilename();

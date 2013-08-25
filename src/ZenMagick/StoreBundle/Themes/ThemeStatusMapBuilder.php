@@ -108,6 +108,10 @@ class ThemeStatusMapBuilder extends ZMObject
     {
         $folder = array();
         foreach ($this->basePath as $basePath) {
+            if (!file_exists($basePath) || !is_dir($basePath)) {
+                continue;
+            }
+
             foreach (new \DirectoryIterator($basePath) as $fileInfo) {
                 if ($fileInfo->isDir() && !$fileInfo->isDot()) {
                     $path = $fileInfo->getPathname();
